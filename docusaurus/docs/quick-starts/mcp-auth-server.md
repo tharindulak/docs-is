@@ -53,11 +53,11 @@ yarn init -y
 ```
 
 </TabItem>
-<TabItem value="tab-2" label="nnpm">
+<TabItem value="tab-2" label="pnpm">
 
 
 ```bash
-nnpm init -y
+pnpm init -y
 ```
 
 </TabItem>
@@ -98,12 +98,12 @@ yarn add -D typescript tsx @types/express @types/node @types/cors
 ``` 
 
 </TabItem>
-<TabItem value="tab-2" label="nnpm">
+<TabItem value="tab-2" label="pnpm">
 
 
 ```bash
-nnpm install express cors dotenv zod @modelcontextprotocol/sdk
-nnpm install -D typescript tsx @types/express @types/node @types/cors
+pnpm install express cors dotenv zod @modelcontextprotocol/sdk
+pnpm install -D typescript tsx @types/express @types/node @types/cors
 ```
 
 </TabItem>
@@ -128,11 +128,11 @@ yarn tsc --init
 ```
 
 </TabItem>
-<TabItem value="tab-2" label="nnpm">
+<TabItem value="tab-2" label="pnpm">
 
 
 ```
-nnpm tsc --init
+pnpm tsc --init
 ```   
 
 </TabItem>
@@ -287,10 +287,10 @@ yarn add @asgardeo/mcp-express
 ```
 
 </TabItem>
-<TabItem value="tab-2" label="nnpm">
+<TabItem value="tab-2" label="pnpm">
 
 ```bash
-nnpm install @asgardeo/mcp-express
+pnpm install @asgardeo/mcp-express
 ```
 
 </TabItem>
@@ -382,7 +382,7 @@ npm start
 ```
 
 </TabItem>
-<TabItem value="tab-2" label="nnpm">
+<TabItem value="tab-2" label="pnpm">
 
 
 ```bash

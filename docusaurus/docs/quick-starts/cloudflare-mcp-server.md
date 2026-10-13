@@ -72,11 +72,11 @@ yarn create cloudflare@latest -- asgardeo-mcp-quickstart --template=cloudflare/a
 ```
 
 </TabItem>
-<TabItem value="tab-2" label="nnpm">
+<TabItem value="tab-2" label="pnpm">
 
 
 ```bash
-nnpm create cloudflare@latest -- asgardeo-mcp-quickstart --template=cloudflare/ai/demos/remote-mcp-github-oauth
+pnpm create cloudflare@latest -- asgardeo-mcp-quickstart --template=cloudflare/ai/demos/remote-mcp-github-oauth
 ```
 
 </TabItem>
@@ -201,7 +201,7 @@ yarn start
 ```
 
 </TabItem>
-<TabItem value="tab-2" label="nnpm">
+<TabItem value="tab-2" label="pnpm">
 
 
 ```bash
