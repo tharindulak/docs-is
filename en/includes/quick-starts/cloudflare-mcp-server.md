@@ -40,10 +40,10 @@ Create a Cloudflare MCP server project by running the following command.
     yarn create cloudflare@latest -- asgardeo-mcp-quickstart --template=cloudflare/ai/demos/remote-mcp-github-oauth
     ```
 
-=== "nnpm"
+=== "pnpm"
 
     ``` bash
-    nnpm create cloudflare@latest -- asgardeo-mcp-quickstart --template=cloudflare/ai/demos/remote-mcp-github-oauth
+    pnpm create cloudflare@latest -- asgardeo-mcp-quickstart --template=cloudflare/ai/demos/remote-mcp-github-oauth
     ```
 
 Move into the project directory, and delete the `github-handler.ts`, `workers-oauth-utils.ts` and `utils.ts` files available in the `src` directory.
@@ -160,7 +160,7 @@ Start the development server locally by running the following command.
 
     ```
 
-=== "nnpm"
+=== "pnpm"
 
     ``` bash
 

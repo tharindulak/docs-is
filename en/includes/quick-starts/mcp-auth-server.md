@@ -24,10 +24,10 @@ Then initialize a Node.js project using the following command.
     ``` bash
     yarn init -y
     ```
-=== "nnpm"
+=== "pnpm"
 
     ``` bash
-    nnpm init -y
+    pnpm init -y
     ```
 
 Now open the `package.json` file and replace the existing content with the following given content.
@@ -60,11 +60,11 @@ Install the following dependencies.
     yarn add -D typescript tsx @types/express @types/node @types/cors
     ``` 
 
-=== "nnpm"
+=== "pnpm"
 
     ``` bash
-    nnpm install express cors dotenv zod @modelcontextprotocol/sdk
-    nnpm install -D typescript tsx @types/express @types/node @types/cors
+    pnpm install express cors dotenv zod @modelcontextprotocol/sdk
+    pnpm install -D typescript tsx @types/express @types/node @types/cors
     ```
 
 Initialize the TypeScript configuration by running the following command.
@@ -81,10 +81,10 @@ Initialize the TypeScript configuration by running the following command.
     yarn tsc --init
     ```
 
-=== "nnpm"
+=== "pnpm"
 
     ```
-    nnpm tsc --init
+    pnpm tsc --init
     ```   
 
 Update the `tsconfig.json` file with the following settings.
@@ -222,9 +222,9 @@ Stop the dev server and install the WSO2 Identity Platform MCP Auth SDK.
     yarn add @asgardeo/mcp-express
     ```
 
-=== "nnpm"
+=== "pnpm"
     ```bash
-    nnpm install @asgardeo/mcp-express
+    pnpm install @asgardeo/mcp-express
     ```
 
 Create '.env' file and add the base URL of your {{product_name}} organization as given below.
@@ -300,7 +300,7 @@ Run the dev server by running the following command again.
     npm start
     ```
 
-=== "nnpm"
+=== "pnpm"
 
     ``` bash
     npm start
