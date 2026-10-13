@@ -1,0 +1,79 @@
+---
+title: Client-request token binding
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/7.0.0/docs/references/token-binding/client-request.md
+---
+
+# Client-request token binding
+
+Back-channel grant types such as **token exchange** or **password**, cannot associate the user sessions with specific devices or instances. To address this issue, WSO2 Identity Server introduced client request binding. The client-request binding type works with a parameter called `tokenBindingId`. This parameter allows developers to explicitly associate user sessions with specific devices or instances.
+
+Let's look into it in detail.
+
+:::note
+
+Learn more about token binding and other token binding types supported by WSO2 Identity Server in the [Token Binding](index.md) documentation.
+
+:::
+
+In client-request token binding, the `tokenBindingId` parameter reflects the user session in a particular device or instance. The behavior of the client-request binding type depends on the type of [access token](../app-settings/oidc-settings-for-app.md#access-token) (JWT or Opaque) and the [grant type](../grant-types.md) that you configure for the application.
+
+For each type of access token, client-request token binding behaves as follows.
+
+- **JWT**
+
+    - If the request does not contain a `tokenBindingId`, WSO2 Identity Server issues a new access token for every new token request with the same application, user and scope combination and revokes the previous tokens.
+
+    - If the request contains a `tokenBindingId`, WSO2 Identity Server issues a new access token for each unique `tokenBindingId` value. Issuing a new token does not revoke tokens issued for other `tokenBindingId` values.
+
+- **Opaque**
+
+    - If the request does not contain a `tokenBindingId`, WSO2 Identity Server issues the same access token for every new token request until the token expires.
+
+    - If the request contains a `tokenBindingId`, WSO2 Identity Server issues a new access token for each unique `tokenBindingId` value. Issuing a new token does not revoke tokens issued for other `tokenBindingId` values.
+
+### Try it out
+
+You can test the client-request token binding type in WSO2 Identity Server by following the steps below.
+
+1. Create a standard-based application.
+
+    1. On the WSO2 Identity Server Console, [create a standard-based application](../../guides/applications/register-standard-based-app.md) by selecting **OAuth2.0** as the protocol.
+
+    2. Go to its **Protocol** tab and under **Allowed grant types**, select **Password**.
+
+    3. In **Protocol** > **Access Token**,
+         - select either **JWT** or **Opaque** as the **Token type**.
+         - select **client-request** as the **Token binding type**.
+
+    4. Click **Update** to save your changes.
+
+2. Use a tool such as cURL or Postman to perform the password grant flow as follows. Provide any value for the `tokenBindingId`.
+
+    ```curl
+    curl -X POST
+    -u \"<client_id>:<client_secret>\"
+    -H \"Content-Type: application/x-www-form-urlencoded\"
+    -d \"grant_type=password
+    &username=<user_name>
+    &password=<user_password>
+    &tokenBindingId=uniqueId\"
+    https://localhost:9443/oauth2/token
+    ```
+
+3. Capture the access token from the response.
+
+4. Perform an introspection and ensure the validity of the access token.
+
+    ```curl
+    curl -X POST
+    -u \"client_id:client_secret\"
+    -H \"Content-Type: application/x-www-form-urlencoded\"
+    -d \"token=<your_access_token>\"
+    https://localhost:9443/oauth2/introspect
+    ```
+
+5. Repeat the steps for different `tokenBindingId` values and different token types and verify that the client-request behavior conforms to the patterns mentioned above.
+
+Even though the client-request token binding type is tailored towards back-channel grant types, its versatility extends to support any other grants in WSO2 Identity Server. This flexibility allows developers to incorporate this feature into various use-cases, providing a more robust and secure solution for identity and access management.

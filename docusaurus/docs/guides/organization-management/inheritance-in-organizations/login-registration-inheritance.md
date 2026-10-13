@@ -1,0 +1,33 @@
+---
+title: Login and registration settings inheritance
+deployment_options:
+  - WSO2 Cloud
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/asgardeo/docs/guides/organization-management/inheritance-in-organizations/login-registration-inheritance.md
+---
+
+# Login and registration settings inheritance
+
+In WSO2 Identity Platform, child organizations inherit configurations related to login and registration from the organizational hierarchy. Child organizations can make their own customizations to these inherited settings.
+
+Organization administrators can access login and registration settings in the WSO2 Identity Platform Console under **Login & Registration**.
+
+## How it works
+
+Inheritance for login and registration configurations works as follows:
+
+- Child organizations inherit settings from the nearest ancestor with a custom configuration. If no ancestor has customized settings, the default value applies.
+
+- Organizations can customize their own settings, overriding the inherited values. These overridden settings then pass down to the organization’s descendants.
+
+- Organizations can also revert their customizations, restoring the inherited values.
+
+:::note[Important]
+
+Child organizations can't override `Idle Session Timeout` and `Remember Me Period` configurations related to session management.
+
+:::
+
+## Configure login and registration settings
+
+To learn how to configure login and registration settings for an organization, see the [Account configurations](../../account-configurations/index.md) guides.

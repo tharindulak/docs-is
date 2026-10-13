@@ -1,0 +1,32 @@
+---
+title: WSO2 Identity Platform outbound IP addresses
+deployment_options:
+  - WSO2 Cloud
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/asgardeo/docs/references/identity-platform-outbound-ip-addresses.md
+---
+
+# WSO2 Identity Platform outbound IP addresses
+
+WSO2 Identity Platform uses the following outbound IP addresses for its production environments. If your network security settings require allowlisting specific IPs, refer to the corresponding IPs for your region.
+
+:::warning[Note]
+
+
+These IP addresses may change over time. To ensure uninterrupted access, regularly check this page for the latest updates.
+
+:::
+
+## European (EU) region
+
+<table><tbody><tr><th>{"Primary region"}</th><th>{"Disaster Recovery (DR) region"}</th></tr><tr><td>{"20.105.55.120/30"}<br /><br />{" 20.54.29.224/30"}</td><td>{"20.13.49.72/30"}<br /><br />{" 20.13.49.64/30"}</td></tr></tbody></table>
+
+
+## United States (US) region
+
+<table><tbody><tr><th>{"Primary region"}</th><th>{"Disaster Recovery (DR) region"}</th></tr><tr></tr><tr><td>{"20.75.101.160/30"}<br /><br />{" 20.22.127.196/30"}<br /><br />{" 20.75.70.112/30"}</td><td>{"20.84.237.36/30"}<br /><br />{" 20.112.208.212/30"}</td></tr></tbody></table>
+
+- These IP addresses facilitate outbound communication from WSO2 Identity Platform's infrastructure.
+
+- If you have firewalls or network security policies in place, ensure these IPs are allowlisted to maintain seamless connectivity.
+
+- Disaster Recovery regions are only activated in the event of a failure in the primary region.

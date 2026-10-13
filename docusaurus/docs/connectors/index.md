@@ -1,0 +1,12 @@
+---
+mkdocs_template: connectors
+deployment_options:
+  - Self-hosted
+custom_edit_url: >-
+  https://github.com/wso2/docs-is/edit/master/en/identity-server/7.3.0/docs/connectors/index.md
+title: Connectors
+---
+
+- [Sift](sift/overview.md)
+- [Onfido](onfido/overview.md)
+- [Password Reset Enforcer](password-reset-enforcer/overview.md)

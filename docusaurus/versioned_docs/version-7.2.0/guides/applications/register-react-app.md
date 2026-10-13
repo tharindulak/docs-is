@@ -1,0 +1,47 @@
+---
+title: Register a React Application
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/7.2.0/docs/guides/applications/register-react-app.md
+---
+
+# Register a React Application
+
+WSO2 Identity Server provides an application template with default configurations to register a React application with minimal effort.
+
+To register a React application,  
+
+1. On the WSO2 Identity Server Console, go to **Applications**.
+
+2. Click **New Application** and select **React**.
+
+    ![Select React application template](../../../../assets/img/guides/applications/select-technology-app-template.png)
+
+3. In the wizard that appears, enter the following details:
+
+    ![Create a React application](../../../../assets/img/guides/applications/create-technology-application.png)
+
+    <table>
+    <thead>
+        <tr>
+        <th>Parameter</th>
+        <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Name</td>
+            <td>A unique name to identify your application.</td>
+        </tr>
+        <tr>
+            <td>Authorized redirect URL</td>
+            <td>The URL to which the authorization code is sent upon user authentication and where the user is redirected upon logout.</td>
+        </tr>
+    </tbody>
+    </table>
+
+4. Click **Create** to complete the registration.
+
+## What's next?
+
+- Try the [WSO2 Identity Server React quickstart guide](../../quick-starts/react.md).

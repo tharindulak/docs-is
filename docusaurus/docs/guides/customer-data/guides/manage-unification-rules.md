@@ -1,0 +1,65 @@
+---
+title: Manage unification rules
+deployment_options:
+  - WSO2 Cloud
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/asgardeo/docs/guides/customer-data/guides/manage-unification-rules.md
+---
+
+# Manage unification rules
+
+Unification rules tell the Customer Data Service when two profiles should be recognized as the same person and merged. Manage them from the **Customer Data** page in the console, under **Unification Rules**.
+
+For a conceptual overview see [Unification rules](../concepts/unification-rules.md).
+
+---
+
+## View unification rules
+
+1. From the console, go to **Customer Data** and select **Unification Rules**.
+2. The list shows every rule defined for your organization, ordered by priority. The lowest priority number is evaluated first.
+
+![Unification rules list](../../../../assets/img/guides/customer-data/unification-rules-list.png)
+
+---
+
+## Create a rule
+
+1. Click **Add Unification Rule**.
+2. Fill in:
+    - **Rule name** — human-readable name.
+    - **Attribute** — the profile attribute to match on. Select the scope (e.g. `Identity Attributes`) and the attribute (e.g. `emailaddress`).
+    - **Priority** — lower numbers are evaluated first.
+    - **Enable this rule immediately** — select this option to apply the rule when you create it.
+3. Click **Create Rule**.
+
+![Unification Rules](../../../../assets/img/guides/customer-data/unification-rules.png)
+
+---
+
+## Reorder a rule
+
+Use the up and down arrows in the **Priority** column to change the order in which rules are evaluated.
+
+Reordering a rule does **not** retroactively merge or un-merge existing profiles — it only affects future unification runs.
+
+---
+
+## Disable a rule
+
+Turn off the toggle of the rule in the list and confirm. The rule is skipped during evaluation but stays in the list and keeps its priority.
+
+---
+
+## Delete a rule
+
+1. Click the delete icon of the rule in the list.
+2. Confirm the deletion.
+
+Existing merges already recorded under this rule are not reversed.
+
+---
+
+## Related
+
+- [Unification rules](../concepts/unification-rules.md) — concepts and field reference.
+- [Profile attributes](../concepts/profile-attributes.md) — the attribute set rules can match on.

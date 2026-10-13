@@ -1,0 +1,12 @@
+---
+title: Manage Active Sessions
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/6.0.0/docs/guides/my-account/manage-active-sessions.md
+---
+
+# Manage Active Sessions
+
+The **Active user sessions** section in **My Account** enables users to view details related to the sessions of the different applications that are accessed via WSO2 IS. When the **show more** button aligning with a specific session is clicked, it will display a detailed view of the session including the operating system, ip address, applications list, login time, and the last accessed time.
+
+Depending on the user’s preference, **My Account** allows the users either to terminate all the sessions at once or terminate sessions one by one. By clicking the **terminate all** button at the top right corner, users can terminate all the active sessions with a single button click. If they wish to terminate a specific session, they can click on **terminate session** in the **detailed view** section.

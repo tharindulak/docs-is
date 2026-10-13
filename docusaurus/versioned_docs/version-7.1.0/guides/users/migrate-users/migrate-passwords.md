@@ -1,0 +1,201 @@
+---
+title: Migrate passwords to WSO2 Identity Server
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/7.1.0/docs/guides/users/migrate-users/migrate-passwords.md
+---
+
+# Migrate passwords to WSO2 Identity Server
+
+You may use one of the following two ways to migrate user passwords to WSO2 Identity Server.
+
+## Migrate with password reset
+
+This method involves the least administrative effort but causes the most friction for users. With a password reset, users will receive an email prompting them to set a password for their new WSO2 Identity Server accounts. Until they set a password, their user accounts will remain locked to prevent unauthorized access. Additionally, this method allows you to immediately terminate operations on your previous IdP once the user accounts are successfully migrated to WSO2 Identity Server.
+
+
+
+## Migrate with on-demand silent migration
+
+Compared to the password reset method above, on-demand silent password migration involves more effort to set up but provides the user with a seamless password migration experience. The following are the high level steps involved with this method.
+
+1. The user attempts to log in to the application.
+
+2. The application redirects the user to the WSO2 Identity Server login screen.
+
+3. The user enters the usual credentials for the legacy IdP.
+
+4. If user's password is already migrated, the user is logged in. If not, WSO2 Identity Server makes an authentication request to the legacy IdP with the user provided credentials.
+
+5. WSO2 Identity Server redirects the user to a waiting page until the legacy IdP completes the authentication.
+
+6. Once the process is complete, the user is redirected back to the application and WSO2 Identity Server silently migrates the password for the user.
+
+7. The user is successfully logged in and may now continue using the usual credentials to log in to the application with WSO2 Identity Server.
+
+:::note
+
+
+If you wish to migrate users with this method, it is crucial to note the following:
+
+ - The legacy IdP should run for a set period to facilitate user migration.
+ - Have a contingency plan to migrate any accounts that were not migrated while the legacy IdP is active.
+ - Users who were not migrated must contact the administrators to initiate a password reset process, facilitating a smooth and complete transition.
+
+:::
+
+The following guides go into detail on implementing on-demand silent password migration.
+
+### How it works
+
+The following diagram provides a general idea on the components involved with the on-demand silent password migration.
+
+![On-demand silent user password migration](../../../../../assets/_versions/7.1.0/img/guides/users/migrate-users/silent-user-migration.png)
+
+Let's look at the diagram in detail:
+
+1. The user starts the authentication by entering the credentials used for the legacy IdP.
+2. If WSO2 Identity Server has not already migrated the user account,
+
+    - User's login fails.
+    - WSO2 Identity Server attempts to find a user corresponding to the provided login identifier.
+    - If found, WSO2 Identity Server then checks for the user's migration status value which is stored in a user attribute.
+
+3. If user's migration status is not set to true,
+    
+    - WSO2 Identity Server starts authentication with the legacy IdP by invoking the **start authentication API**.
+    - This API responds with a unique ID for the process called the `contextID`.
+    - The user is redirected to a waiting page until external authentication completes.
+
+
+
+    :::note
+
+
+    This API is part of an authentication service that should be deployed in an external system such as [WSO2 Developer Platform](https://wso2.com/engineering-platform/developer-platform/), WSO2's integration platform. The service is designed to facilitate authentication against the legacy IdP.
+
+    :::
+
+
+
+4. The authentication service will then interact with the legacy IdP and attempt to authenticate the user. A result will be returned once authentication is complete.
+5. In the meantime, **the polling API**, another API of the authentication service, keeps polling to check if the authentication process is complete. This API uses the `contextID` returned in 3 to track the specific process.
+6. Once 4 completes, the polling API in 5 stops and the user is redirected back to the login page.
+7. WSO2 Identity Server then calls the **authentication status endpoint**, the third API of the authentication service, to retrieve the authentication result.
+8. If the result is a success, this means the user was successfully authenticated against the external IdP. Hence, WSO2 Identity Server will
+
+    - migrate the user's password to WSO2 Identity Server.
+    - set the migration status attribute of the user to true.
+    - authenticate the user to the application.
+
+9. The user is seamlessly logged into the application without being prompted to enter the credentials again.
+
+### Prerequisites
+
+Before you begin, ensure the following are fulfilled.
+
+- [Migrate user accounts to WSO2 Identity Server](migrate-users.md).
+- Ensure your legacy IdP provides means to perform basic user authentication (i.e. username and password authentication). For example, a SCIM2/Me REST API endpoint that could be authenticated with username and password.
+
+
+
+
+
+### Step 1: Develop and deploy the external authentication service
+
+On-demand silent password migration requires an external authentication service that communicates with the legacy IdP to authenticate users. This service can be developed using any programming language and can be deployed in an external system such as [WSO2 Developer Platform](https://wso2.com/engineering-platform/developer-platform/), WSO2's integration platform.
+
+Your service should expose the following REST API endpoints.
+
+:::tip
+
+
+External authentication may require additional processing time depending on the legacy IdP and network delays. Therefore it is recommended to perform the external authentication asynchronously without holding an active connection until the external authentication completes.
+
+:::
+
+- **Start authentication endpoint** - to initiate the authentication process with the legacy system. This endpoint should accept the request, return a response with a unique random identifier (preferably a UUID) and then start the external authentication process.
+
+- **Authentication status endpoint** - to retrieve and return the completed authentication result.
+
+- **Polling endpoint** - to return the completion status of the external authentication task. This should be an open endpoint that doesn’t require any authentication.
+
+:::warning[Adding logs]
+
+
+We highly recommend adding sufficient logging when developing the external authentication service. However, ensure no sensitive information or Personally Identifiable Information (PII) are included in the logs.
+
+:::
+
+:::note
+
+Learn how to [configure the external authentication service in WSO2 Developer Platform](../../../references/tutorials/configure-choreo-for-password-migration.md).
+
+:::
+
+
+
+
+
+### Step 2: Configure an attribute in WSO2 Identity Server to hold the migration status
+
+
+
+WSO2 Identity Server should have means to check whether a user's password is migrated or not. This can be achieved by creating a user attribute in WSO2 Identity Server to hold the migration status. To do so,
+
+1. On the WSO2 Identity Server Console, go to **User Attributes & Stores** > **Attributes** and click on **Attributes**.
+
+2. Click **New Attribute** and enter the following details: 
+
+    <table>
+        <tr>
+            <td><b>Attribute name</b></td>
+            <td>is_migrated</td>
+        </tr>
+        <tr>
+            <td><b>Attribute Display Name</b></td>
+            <td>Password migration status</td>
+        </tr>
+    </table>
+
+3. Click **Finish** to create the attribute.
+
+
+
+### Step 3: Configure the login flow of the WSO2 Identity Server application
+
+
+
+You are now ready to configure your application for on-demand silent password migration. To do so,
+
+1. On the WSO2 Identity Server Console, click **Applications**.
+
+2. Select the application and go to its **Login Flow** tab.
+
+
+
+    1. Go to **Predefined Flows** > **Basic Login Flows** and select **Username & Password** under **Add Basic Login**.
+
+    2. Turn on Conditional Authentication by switching on the toggle.
+
+        ![Configure with visual editor](../../../../../assets/_versions/7.1.0/img/guides/users/migrate-users/migrate-users-visual.png)
+
+    4. Replace any existing code with this [conditional authentication script](../../authentication/conditional-auth/on-demand-silent-password-migration-template.md).
+
+
+
+4. Click **Update** to save the changes.
+
+### Try it out
+
+Follow the steps below to try out on-demand silent password migration for a migrated user account.
+
+1. Access the application URL.
+
+2. Log in to WSO2 Identity Server with the user credentials used for the legacy IdP.
+
+3. If the user's password is not yet migrated, you'll be redirected to a waiting page as follows.
+
+    ![Wait page](../../../../../assets/_versions/7.1.0/img/guides/users/migrate-users/wait-page.png)
+
+4. WSO2 Identity Server will migrate the password and log the user in once the external authentication is successful.

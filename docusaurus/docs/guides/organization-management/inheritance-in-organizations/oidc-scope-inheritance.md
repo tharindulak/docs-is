@@ -1,0 +1,25 @@
+---
+title: OpenID Connect scopes inheritance
+deployment_options:
+  - WSO2 Cloud
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/asgardeo/docs/guides/organization-management/inheritance-in-organizations/oidc-scope-inheritance.md
+---
+
+# OpenID Connect scopes inheritance
+
+In WSO2 Identity Platform, child organizations inherit OpenID Connect scopes from the root organization, ensuring consistency across the organization hierarchy.
+
+## How it works
+
+Inheritance for OIDC scopes works as follows.
+
+- Child organizations inherit both the system-defined and custom OIDC scopes from the root organization.
+
+- Only the root organization can create or modify custom OIDC scopes.
+
+Organization administrators can view inherited OIDC scopes from the WSO2 Identity Platform Console by going to **User Attributes & Stores** > **User Attributes** > **OpenID Connect** and selecting **Scopes**.
+
+## Configure OIDC scopes at the root organization
+
+Administrators can create and modify OIDC scopes at the root organization. Follow the [Manage OIDC Scopes](../../users/attributes/manage-scopes.md) guide to learn more.

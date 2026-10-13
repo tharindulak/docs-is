@@ -1,0 +1,34 @@
+---
+title: Register application portal
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/6.1.0/docs/includes/register-application-portal.md
+---
+
+## Register an application
+
+(TODO: dev-portal-fragment)
+
+1.	Log in to the [Developer Portal](insertlink) using admin/admin credentials. 
+
+2.	Select **Applications** from the left panel. 
+
+3.	Click **New Application**. 
+
+4.	Select **OIDC web application**. 
+
+5.	Enter a name for the **Name**. 	
+
+6.	Click **Next**. 
+
+7.	Enter the **Callback URL** and click the add icon besides the field. 
+
+8.	Click **Next**. 
+
+9.	Check the configurations and click **Finish**. 
+
+10.	Navigate to the **Access** tab. 
+
+11.	Select all the options given under **Allowed grant type**.
+
+12. Navigate to the **Sign-on Method** tab.

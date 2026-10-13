@@ -1,0 +1,245 @@
+---
+title: Add HYPR login
+deployment_options:
+  - WSO2 Cloud
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/asgardeo/docs/guides/authentication/passwordless-login/add-passwordless-login-with-hypr.md
+---
+
+# Add HYPR login
+
+[HYPR](https://www.hypr.com/) is a passwordless authentication method that allows users to log in to applications using biometrics on their devices. As a FIDO-certified platform, HYPR eliminates risks prevalent in password-based authentication such as phishing, and password reuse.
+
+This guide explains how you can use  HYPR to add passwordless login to applications registered in your WSO2 Identity Platform organization.
+
+## Prerequisites
+
+- To get started, you need to [register an application with WSO2 Identity Platform](../../applications/index.md). You can register your own application or use one of the [sample applications](../../../get-started/try-samples/index.md) provided.
+
+- You need to have a user account in WSO2 Identity Platform. If you don't already have one, [create a user account](../../users/manage-users.md#onboard-a-user) in WSO2 Identity Platform.
+
+    :::note
+
+    You cannot use an administrator account to log in to an application.
+
+    :::
+
+- You need to configure the HYPR environment and have access to the HYPR control center. Learn how to do it in the [HYPR documentation](https://docs.hypr.com/hyprcloud/docs/cc-std).
+
+## Register application in HYPR
+
+Follow the steps below to register your application in the HYPR control center.
+
+:::note
+
+You can follow the [HYPR documentation](https://docs.hypr.com/hyprcloud/docs/cc-adv-application-new) for detailed instructions.
+
+:::
+
+1. Go to the HYPR control center and click **Add Application**.
+    
+
+2. Select **Web** as the channel and click **Next**.
+    
+
+3. Select **Custom Solution** as the IdP provider and click **Next**.
+    
+
+4. Enable push notifications and click **Next**.
+    
+
+5. Add your Firebase configurations and click **Next**.
+
+    :::note
+
+    To enable push notifications, you need to configure Firebase and obtain a project ID and an API key. To learn how to do this, follow the [guide in HYPR](https://docs.hypr.com/hyprcloud/docs/cc-adv-configuring-push-notifications-firebase).
+
+    :::
+
+    
+
+6. Complete the app details form and click **Done** to create the application.
+
+7. Select your application from the **Choose an App** menu and note down the App ID.
+
+## Create an API token in HYPR
+
+When you register HYPR as a connection in WSO2 Identity Platform, you need to provide an API token, which WSO2 Identity Platform can use to access HYPR APIs.
+
+Follow the steps below to obtain an API token.
+
+1. Go to the HYPR control center and select your application.
+
+2. Under **Advanced Config**, click **Access Tokens**.
+    
+3. Click **Create Token**, provide a unique name for your token, select **API Token** as the token type, and click **Next**.
+    
+
+4. Select **User Management** and **Authentication** as the permission types and click **Next**.
+    
+
+5. Take a note of the API token that you have created.
+    
+    :::warning
+
+    The token is only shown once.
+
+    :::
+
+## Register HYPR in WSO2 Identity Platform
+
+Follow the steps below to register HYPR as a connection in WSO2 Identity Platform.
+
+1. On the WSO2 Identity Platform Console, go to **Connections**.
+
+2. Click **Create Connection** and select **HYPR**.
+
+3. Enter the following details and click **Finish**:
+    
+
+    <table>
+      <tr>
+        <th>Parameter</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>A unique name to identify the connection.</td>
+      </tr>
+      <tr>
+          <td>Relying Party App ID</td>
+          <td>The App ID you receive when you [register your app in HYPR](#register-application-in-hypr).</td>
+      </tr>
+      <tr>
+          <td>Base URL</td>
+          <td>The base URL of your HYPR server deployment.</td>
+      </tr>
+      <tr>
+          <td>API Token</td>
+          <td>The token you receive when you [create an API token in HYPR](#create-an-api-token-in-hypr).</td>
+      </tr>
+    </table>
+
+## Enable HYPR login
+
+:::note[Before you begin]
+
+You need to [register an application with WSO2 Identity Platform](../../applications/index.md). You can register your own application or use one of the [sample applications](../../../get-started/try-samples/index.md) provided.
+
+:::
+
+1. On the WSO2 Identity Platform Console, go to **Applications**.
+
+2. Go to the **Login Flow** tab of the application and add HYPR login from your preferred editor:
+
+    ---
+    <Tabs>
+    <TabItem value="tab-0" label="Classic Editor">
+
+    1. If you haven't already defined a sign-in flow, click **Start with Default configuration** to get started.
+
+    2. Click **Add Authentication** on the same step and select your HYPR connection.
+
+        ![Add HYPR to the login flow](../../../../assets/img/guides/passwordless/hypr/hypr-enable-login.png)
+
+    3. Enable **Conditional Authentication** and add the following script.
+
+        ```js
+        var onLoginRequest = function onLoginRequest(context) {
+
+        var fedUser;
+        executeStep(1,
+            {
+                onSuccess: function (context) {
+                    var idpName = context.steps[1].idp;
+
+                    if (idpName === "HYPR") {
+                        fedUser = context.currentKnownSubject;
+
+                        var associatedUser = getAssociatedLocalUser(fedUser);
+                        if (associatedUser == null) {
+                            var claimMap = {};
+                            claimMap["http://wso2.org/claims/username"] = fedUser.username;
+                            var storedLocalUser = getUniqueUserWithClaimValues(claimMap, context);
+                            if (storedLocalUser !== null) {
+                                doAssociationWithLocalUser(fedUser, storedLocalUser.username, 
+                                    storedLocalUser.tenantDomain, storedLocalUser.userStoreDomain);
+                            }
+                        }
+                    }
+                }
+            });
+        };
+        ```
+
+    </TabItem>
+    <TabItem value="tab-1" label="Visual Editor">
+
+    To add passwordless login with HYPR using the Visual Editor:
+
+    1. Switch to the **Visual Editor** tab, by default the `Username & Password` login flow will be added onto the Visual Editor's workspace.
+
+    2. Click on `+ Add Sign In Option` to add a new authenticator to the same step and select your HYPR connection.
+        
+        ![Add HYPR to the login flow using the visual editor](../../../../assets/img/guides/passwordless/hypr/add-hypr-login-with-visual-editor.png)
+
+    3. Expand the **Script Editor** and add the following script.
+
+        ```js
+        var onLoginRequest = function onLoginRequest(context) {
+
+            var fedUser;
+            executeStep(1,
+                {
+                    onSuccess: function (context) {
+                        var idpName = context.steps[1].idp;
+
+                        if (idpName === "HYPR") {
+                            fedUser = context.currentKnownSubject;
+
+                            var associatedUser = getAssociatedLocalUser(fedUser);
+                            if (associatedUser == null) {
+                                var claimMap = {};
+                                claimMap["http://wso2.org/claims/username"] = fedUser.username;
+                                var storedLocalUser = getUniqueUserWithClaimValues(claimMap, context);
+                                if (storedLocalUser !== null) {
+                                    doAssociationWithLocalUser(fedUser, storedLocalUser.username, 
+                                        storedLocalUser.tenantDomain, storedLocalUser.userStoreDomain);
+                                }
+                            }
+                        }
+                    }
+                });
+        };
+        ```
+
+    </TabItem>
+    </Tabs>
+
+    ---
+
+3. Click **Update** to save the sign-in flow.
+
+## Try it out
+
+:::note[Before you begin]
+
+- Make sure you have a user account in the application registered in the HYPR control center.
+- Download the HYPR app to your mobile device and pair the device to your user account in HYPR.
+<br />
+See [HYPR documentation](https://docs.hypr.com/hyprcloud/docs/mobile-app-overview) for more details.
+
+:::
+
+Follow the steps given below:
+
+1. Access the application URL.
+
+2. Click **Login** to open the WSO2 Identity Platform login page.
+
+3. On the WSO2 Identity Platform login page, click **Sign In With HYPR**.
+
+    ![Sign in with HYPR](../../../../assets/img/guides/passwordless/hypr/hypr-sign-in-with-hypr.png)
+
+4. Enter the username of an existing HYPR user.
+
+5. Use the HYPR mobile application to complete the log in.

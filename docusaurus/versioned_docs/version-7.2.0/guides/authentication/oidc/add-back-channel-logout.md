@@ -1,0 +1,82 @@
+---
+title: Implement back-channel logout
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/7.2.0/docs/guides/authentication/oidc/add-back-channel-logout.md
+---
+
+# Implement back-channel logout
+
+
+
+Back-channel logout, defined in the OpenID Connect (OIDC) specification, allows logging out of client applications without user interaction. Unlike front-channel logout that relies on the user's browser to notify each client application, back-channel logout happens entirely through server-to-server communication between the authorization server and the client applications.
+
+For protocol details, see the OpenID specification: [OpenID Connect Back-Channel Logout 1.0](https://openid.net/specs/openid-connect-backchannel-1_0.html).
+
+## How it works
+
+![oidc-backchannel-logout-scenario](../../../../../assets/img/guides/oidc-logout/oidc-backchannel-logout-scenario.png)
+
+The underlying message flow of OIDC back-channel logout happens as follows:
+
+1. The client application initiates a user logout.
+2. WSO2 Identity Server identifies all the client applications associated with the user's session.
+3. WSO2 Identity Server generates a logout token, a special  JWT (JSON Web Token) containing specific claims and sends it with a logout request to the logout endpoints of all the client applications.
+4. Upon receiving the logout token, each client application validates the token and proceeds to invalidate the corresponding user session.
+
+## Configure back-channel logout URL
+
+Follow the steps below to register the back-channel endpoint of your application with WSO2 Identity Server.
+
+:::note[Before you begin]
+
+
+[Register your OIDC application](../../applications/index.md) in WSO2 Identity Server.
+
+:::
+
+1. On the WSO2 Identity Server Console, go to **Applications** and select your OIDC application.
+
+2. Go to the **Protocol** tab, and under **Logout URLs**, enter the **Back channel logout URL**.
+
+    ![Configure backchannel logout URL](../../../../../assets/img/guides/oidc-logout/oidc-backchannel-logout-configuration.png)
+
+3. Click **Update** to save your configurations.
+
+## Set up your client application
+
+To complete the back-channel logout flow, you must set up the client application so that it can perform the following required actions.
+
+1. **Receive back-channel logout requests** - The client application must expose an endpoint that accepts POST requests from the authorization server to handle logout requests. You need to [register this endpoint with WSO2 Identity Server](#configure-back-channel-logout-url).
+
+2. **Validate the logout token** - The following is an example of the logout token sent by the WSO2 Identity Server to a client application:
+
+    ```json
+    {
+    "iss": "https://localhost:9443/oauth2/token",
+    "sub": "aa21e449-****-****-****-****a6a3961f",
+    "aud": "w_Hwp05dF****_****9SNwpflAa",
+    "iat": 1609911868,
+    "exp": 1609911988,
+    "jti": "16159e3e-****-****-****-b0782ab33d58",
+    "sid": "15043ffc-****-****-****-9b107f7da38c",
+    "events": {
+       "http://schemas.openid.net/event/backchannel-logout": {}
+       }
+    }
+    ```
+
+    Your client application must perform JWT token validation as defined in the [OIDC back-channel logout specification](https://openid.net/specs/openid-connect-backchannel-1_0.html#Validation). A summary of the validations is below.
+
+    - `iss`: Must match your trusted issuer.
+
+    - `aud`: Must match your application's client ID.
+
+    - `iat` and `exp`: Must be within a valid timeframe.
+
+    - `events`: Must contain the http://schemas.openid.net/event/backchannel-logout claim.
+
+    - `sid`: Must be present to identify the session.
+
+
+3. **Terminate the user session** - Once the client validates the token and determines it to be valid, the client should use the `sid` claim to locate and terminate the user's session.

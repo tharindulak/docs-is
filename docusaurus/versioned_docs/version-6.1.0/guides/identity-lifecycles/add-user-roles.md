@@ -1,0 +1,94 @@
+---
+title: Add a User Role
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/6.1.0/docs/guides/identity-lifecycles/add-user-roles.md
+---
+
+# Add a User Role
+
+This section guides you through the ways of adding a user role to WSO2 Identity Server.
+
+---
+
+## Use the Management Console
+
+
+1.  Navigate **Main** > **Identity** and click **Users and Roles > Add**.
+
+2.  Click **Add New Role**.
+
+3.  In the **Domain** list, select the user store in which you want to create this role and enter the **Role Name** (e.g., "Manager").
+
+    :::info[Important]
+
+    The **PRIMARY** domain represents the primary user store of your server and (if available) any secondary user stores configured for your server will also be listed as domains.
+    Learn more about [user stores](../../../deploy/configure-user-stores).
+
+    Note that the user roles stored in primary and secondary user stores are always considered as user groups and they cannot be mapped to [roles in federated identity providers](../../../guides/identity-federation/roles-idp). Therefore, if you have a requirement to map local user roles to roles in your federated identity providers, be sure to define those local roles under the **INTERNAL** domain.
+
+    :::
+
+4. Click **Finish** or you can click **Next** to specify permissions for the role.
+
+
+---
+
+## Use SCIM 2.0 REST API
+
+In SCIM 2.0, creating a role is the same as creating a **group**.
+
+:::note
+
+To create a group with users, the relevant users should already exist in the user store.
+
+:::
+    
+
+Use the following curl command to create a new user group with a new member. The attributes you have to include in the cURL command are the `userID`, `username:password`.
+
+The sample request given below adds a group named "engineer" with the user "Mark" as a member.
+
+**Request**
+
+```curl
+curl -v -k --user {IS_USERNAME}:{IS_PASSWORD} --data '{"displayName": {GROUP_NAME},"members": {MEMBERS_OF_THE_GROUP}}'}}' --header "Content-Type:application/json" https://{IS_IP}:{IS_PORT}/wso2/scim2/Groups
+```
+
+:::note
+
+**Sample Request**
+```
+curl -v -k --user admin:admin --data '{"displayName": "engineer","members": [{"value":"008bba85-451d-414b-87de-c03b5a1f4217","Mark": "Mark"}]}' --header "Content-Type:application/json" https://localhost:9443/wso2/scim2/Groups
+```
+---
+**Sample Response**
+```
+{
+    "id":"7bac6a86-1f21-4937-9fb1-5be4a93ef469",
+    "schemas":["urn:ietf:params:scim:schemas:core:2.0:Group"],
+    "displayName":"PRIMARY/engineer",
+    "members":[
+        {"value":"008bba85-451d-414b-87de-c03b5a1f4217","display":"Mark"}
+    ],
+    "meta":{
+        "lastModified":"2020-04-26T18:31:57",
+        "created":"2020-04-26T18:31:57",
+        "location":"https://localhost:9443/scim2/Groups/7bac6a86-1f21-4937-9fb1-5be4a93ef469"
+    }
+}
+```
+
+:::
+
+You receive a response with the payload as indicated above and a
+response status `           201 CREATED          `.
+
+
+:::info[Related topics]
+
+- [Concept: Roles and Permissions](../../references/concepts/user-management/roles-and-permissions.md)
+- [Guide: Edit/Delete Roles](edit-delete-roles.md)
+- [Guide: Role Based Permissions](role-based-permissions.md)
+
+:::

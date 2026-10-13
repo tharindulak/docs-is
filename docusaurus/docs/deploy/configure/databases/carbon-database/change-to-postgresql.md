@@ -1,0 +1,154 @@
+---
+title: Change to PostgreSQL
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/7.3.0/docs/deploy/configure/databases/carbon-database/change-to-postgresql.md
+---
+
+import DatasourceConfig from '../../../../_partials/datasource-config.mdx';
+import DbBasicConfig from '../../../../_partials/db-basic-config.mdx';
+import DbConfigTable from '../../../../_partials/db-config-table.mdx';
+import ConnectionPoolBehavior from '../../../../_partials/connection-pool-behavior.mdx';
+import CommitPending from '../../../../_partials/commit-pending.mdx';
+import RollbackPending from '../../../../_partials/rollback-pending.mdx';
+import DriverLevelTimeouts from '../../../../_partials/driver-level-timeouts.mdx';
+
+# Change to PostgreSQL
+
+By default, WSO2 Identity Server uses the embedded H2 database as the database
+for storing user management and registry data. Given below are the steps
+you need to follow in order to use PostgreSQL for this purpose.
+
+---
+
+## Datasource configurations
+
+<DatasourceConfig />
+                       
+After setting up the PostgreSQL database, you can point the `WSO2_IDENTITY_DB` or 
+`WSO2_SHARED_DB` or both to that PostgreSQL database by following the instructions given below.
+
+---
+
+## Change the default datasource
+
+### Minimum configurations for changing the default datasource to PostgreSQL
+ 
+You can configure the datasource by editing the default configurations in `<IS_HOME>/repository/conf/deployment.toml`. Following are the basic configurations and their descriptions. 
+
+<DbBasicConfig />
+ 
+A sample configuration is given below.
+
+1. `WSO2_IDENTITY_DB` 
+
+    1. Configure the `deployment.toml` file.
+
+        ```toml
+        [database.identity_db]
+        type = "postgre"
+        hostname = "localhost"
+        name = "testdb"
+        username = "regadmin"
+        password = "regadmin"
+        port = "5432"
+        ```
+    
+    2.  Execute database scripts.
+    
+        Execute the scripts in the following files, against the database created.
+        
+        - `<IS_HOME>/dbscripts/identity/postgresql.sql`
+        - `<IS_HOME>/dbscripts/consent/postgresql.sql`
+
+        :::info
+
+        For stored procedures, use the scripts in the `<IS_HOME>/dbscripts/identity/stored-procedures/postgresql/postgre-11x` folder. The supported PostgreSQL versions (15.10, 16.6, 17.4) are compatible with the 11x stored procedures.
+
+        :::
+        
+2. `WSO2_SHARED_DB`
+    
+    1.  Configure the `deployment.toml` file.
+
+        ```toml
+        [database.shared_db]
+        type = "postgre"
+        hostname = "localhost"
+        name = "testdb"
+        username = "regadmin"
+        password = "regadmin"
+        port = "5432"
+        ```
+        
+    2.  Execute database scripts.
+    
+        Execute the scripts in the `<IS_HOME>/dbscripts/postgresql.sql` file against the database created.
+    
+3.  Download the [PostgreSQL JDBC driver](https://mvnrepository.com/artifact/org.postgresql/postgresql) and copy the JAR (postgresql-x.x.x.jar) to the `<IS_HOME>/repository/components/lib` folder.
+
+---           
+
+### Advanced database configurations
+
+Apart from the basic configurations specified above, WSO2 Identity Server supports some advanced database configurations as well.
+
+-	`WSO2_IDENTITY_DB` related configurations that should be added to the `deployment.toml` file.
+    
+	```toml
+	[database.identity_db.pool_options]
+	maxActive = "80"
+	maxWait = "60000"
+	minIdle ="5"
+	testOnBorrow = true
+	validationQuery="SELECT 1; COMMIT"
+	validationInterval="30000"
+	defaultAutoCommit=false
+	commitOnReturn=true
+	```
+   
+-	`WSO2_SHARED_DB` `deployment.toml` related configurations that should be added to the `deployment.toml` file.
+	
+	```toml
+	[database.shared_db.pool_options]
+	maxActive = "80"
+	maxWait = "60000"
+	minIdle ="5"
+	testOnBorrow = true
+	validationQuery="SELECT 1; COMMIT"
+	validationInterval="30000"
+	defaultAutoCommit=false
+	commitOnReturn=true
+	```
+
+<DbConfigTable />
+
+---
+  
+## Configure the connection pool behavior on return 
+
+<ConnectionPoolBehavior />
+
+### Configure the connection pool to commit pending transactions on connection return
+        
+<CommitPending />
+
+### Configure the connection pool to rollback pending transactions on connection return
+
+<RollbackPending />
+
+## Driver-Level Timeouts (Recommended for Production)
+
+<DriverLevelTimeouts />
+
+### Example: PostgreSQL database
+
+```toml
+[database.identity_db]
+url = "jdbc:postgresql://DB_HOST:5432/WSO2_IDENTITY_DB?connectTimeout=10&amp;socketTimeout=60&amp;tcpKeepAlive=true"
+username = "..."
+password = "..."
+driver = "org.postgresql.Driver"
+```
+
+Learn more in [PostgreSQL JDBC connection parameters](https://jdbc.postgresql.org/documentation/use/#connection-parameters).

@@ -1,0 +1,3510 @@
+{
+  "docs": [
+    {
+      "type": "category",
+      "label": "Home",
+      "items": [
+        {
+          "type": "doc",
+          "id": "index",
+          "label": "Home"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Get started",
+      "items": [
+        {
+          "type": "doc",
+          "id": "get-started/quick-start-guide",
+          "label": "Introduction"
+        },
+        {
+          "type": "doc",
+          "id": "get-started/quick-set-up",
+          "label": "Quick Setup"
+        },
+        {
+          "type": "category",
+          "label": "Connect App",
+          "items": [
+            {
+              "type": "category",
+              "label": "React",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "quick-starts/react",
+                  "label": "Quickstart"
+                },
+                {
+                  "type": "doc",
+                  "id": "complete-guides/react/introduction",
+                  "label": "Complete Guide"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "quick-starts/angular",
+              "label": "Angular Quickstart"
+            },
+            {
+              "type": "doc",
+              "id": "quick-starts/nextjs",
+              "label": "Next.js Quickstart"
+            },
+            {
+              "type": "doc",
+              "id": "quick-starts/springboot",
+              "label": "Spring Boot Quickstart"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Try for a sample app",
+          "link": {
+            "type": "doc",
+            "id": "get-started/try-samples/index"
+          },
+          "items": [
+            {
+              "type": "category",
+              "label": "Single Page apps",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "get-started/try-samples/qsg-spa-react",
+                  "label": "React"
+                },
+                {
+                  "type": "doc",
+                  "id": "get-started/try-samples/qsg-spa-javascript",
+                  "label": "JavaScript"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Web apps",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "get-started/try-samples/qsg-oidc-webapp-java-ee",
+                  "label": "OIDC Java EE"
+                },
+                {
+                  "type": "doc",
+                  "id": "get-started/try-samples/qsg-saml-webapp-java-ee",
+                  "label": "SAML Java EE"
+                },
+                {
+                  "type": "doc",
+                  "id": "get-started/try-samples/ws-federation-webapp",
+                  "label": "WS-Federation"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "doc",
+          "id": "get-started/about-this-release",
+          "label": "About this release"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Guides",
+      "link": {
+        "type": "doc",
+        "id": "guides/index"
+      },
+      "items": [
+        {
+          "type": "category",
+          "label": "Applications",
+          "link": {
+            "type": "doc",
+            "id": "guides/applications/index"
+          },
+          "items": [
+            {
+              "type": "doc",
+              "id": "guides/applications/register-single-page-app",
+              "label": "Register an SPA"
+            },
+            {
+              "type": "doc",
+              "id": "guides/applications/register-oidc-web-app",
+              "label": "Register web app with OIDC"
+            },
+            {
+              "type": "doc",
+              "id": "guides/applications/register-saml-web-app",
+              "label": "Register web app with SAML"
+            },
+            {
+              "type": "doc",
+              "id": "guides/applications/register-standard-based-app",
+              "label": "Register a standard-based app"
+            },
+            {
+              "type": "doc",
+              "id": "guides/applications/register-mobile-app",
+              "label": "Register a mobile app"
+            },
+            {
+              "type": "doc",
+              "id": "guides/applications/register-machine-to-machine-app",
+              "label": "Register a machine-to-machine (M2M) app"
+            },
+            {
+              "type": "doc",
+              "id": "guides/applications/register-a-fapi-compliant-app",
+              "label": "Register a FAPI-compliant app"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Authentication",
+          "link": {
+            "type": "doc",
+            "id": "guides/authentication/index"
+          },
+          "items": [
+            {
+              "type": "category",
+              "label": "Add login to apps",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/add-login-to-apps",
+                  "label": "Add login to apps"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/add-login-to-single-page-app",
+                  "label": "Add login to an SPA"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/add-login-to-web-app",
+                  "label": "Add login to a web app"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/add-login-to-mobile-app",
+                  "label": "Add login to a mobile app"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Add passwordless login",
+              "link": {
+                "type": "doc",
+                "id": "guides/authentication/passwordless-login/index"
+              },
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/passwordless-login/add-passwordless-login-with-magic-link",
+                  "label": "Add login with Magic link"
+                },
+                {
+                  "type": "category",
+                  "label": "Passkeys",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/passwordless-login/add-passwordless-login-with-passkey",
+                      "label": "Add login with Passkey"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/passwordless-login/fido-attestation",
+                      "label": "Validate FIDO attestations"
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/passwordless-login/add-passwordless-login-with-email-otp",
+                  "label": "Add login with Email OTP"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/passwordless-login/add-passwordless-login-with-sms-otp",
+                  "label": "Add login with SMS OTP"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Add multi-factor authentication",
+              "link": {
+                "type": "doc",
+                "id": "guides/authentication/mfa/index"
+              },
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/mfa/add-totp-login",
+                  "label": "Add TOTP"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/mfa/add-emailotp-login",
+                  "label": "Add Email OTP"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/mfa/add-passkey-login",
+                  "label": "Add Passkey"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/mfa/add-smsotp-login",
+                  "label": "Add SMS OTP"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/mfa/user-preferred-mfa-login",
+                  "label": "Add user-preferred MFA"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/mfa/add-x509-login",
+                  "label": "Add x509 login"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Add federated login",
+              "link": {
+                "type": "doc",
+                "id": "guides/authentication/federated-login/index"
+              },
+              "items": [
+                {
+                  "type": "category",
+                  "label": "Add social login",
+                  "link": {
+                    "type": "doc",
+                    "id": "guides/authentication/social-login/index"
+                  },
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/social-login/add-facebook-login",
+                      "label": "Add Facebook login"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/social-login/add-google-login",
+                      "label": "Add Google login"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/social-login/add-github-login",
+                      "label": "Add GitHub login"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/social-login/add-microsoft-login",
+                      "label": "Add Microsoft login"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/social-login/add-apple-login",
+                      "label": "Add Apple login"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/social-login/add-x-login",
+                      "label": "Add X login"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Add standard-based login",
+                  "link": {
+                    "type": "doc",
+                    "id": "guides/authentication/standard-based-login/index"
+                  },
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/standard-based-login/add-oidc-idp-login",
+                      "label": "Add login with OIDC IdP"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/standard-based-login/add-saml-idp-login",
+                      "label": "Add login with SAML IdP"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/standard-based-login/add-ws-federation",
+                      "label": "Add login with WS-Federation"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Add enterprise login",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/enterprise-login/add-iwa-login",
+                      "label": "Add IWA login"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/enterprise-login/add-microsoft-365-login",
+                      "label": "Add Microsoft 365 login"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/enterprise-login/add-ad-fs-login",
+                      "label": "Add AD FS login"
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/configure-custom-connector",
+                  "label": "Configure a custom connector"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Enable user attributes",
+              "link": {
+                "type": "doc",
+                "id": "guides/authentication/user-attributes/index"
+              },
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/user-attributes/enable-attributes-for-oidc-app",
+                  "label": "Enable attributes for OIDC apps"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/user-attributes/enable-attributes-for-saml-app",
+                  "label": "Enable attributes for SAML apps"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "guides/authentication/manage-consent-for-attributes",
+              "label": "Manage consent for user attributes"
+            },
+            {
+              "type": "doc",
+              "id": "guides/authentication/jit-user-provisioning",
+              "label": "Configure Just-in-Time user provisioning"
+            },
+            {
+              "type": "category",
+              "label": "Add conditional authentication",
+              "link": {
+                "type": "doc",
+                "id": "guides/authentication/conditional-auth/index"
+              },
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/conditional-auth/configure-conditional-auth",
+                  "label": "Set up conditional authentication"
+                },
+                {
+                  "type": "category",
+                  "label": "Add access control",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/conditional-auth/access-control",
+                      "label": "Add access control"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/conditional-auth/user-age-based-template",
+                      "label": "Age-based access"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/conditional-auth/concurrent-session-based-template",
+                      "label": "Concurrent session-based access"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Add adaptive MFA",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/conditional-auth/adaptive-mfa",
+                      "label": "Add adaptive MFA"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/conditional-auth/role-based-template",
+                      "label": "MFA based on user role"
+                    },
+                    {
+                      "type": "category",
+                      "label": "MFA based on auth context",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "guides/authentication/conditional-auth/acr-and-amr",
+                          "label": "Overview"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "guides/authentication/conditional-auth/acr-based-adaptive-auth",
+                          "label": "Configure ACR-based adaptive authentication"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/conditional-auth/user-store-based-template",
+                      "label": "MFA based on user store"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/conditional-auth/login-attempt-based-template",
+                      "label": "MFA based on login-attempts"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/conditional-auth/group-based-template",
+                      "label": "MFA based on user group"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/conditional-auth/new-device-based-template",
+                      "label": "MFA based on user device"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/conditional-auth/ip-based-template",
+                      "label": "MFA based on IP address"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/conditional-auth/elk-risk-based-template",
+                      "label": "MFA based on ELK-risk"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/conditional-auth/typingdna-based-adaptive-auth",
+                      "label": "MFA based on TypingDNA"
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/conditional-auth/passkey-progressive-enrollment-based-template",
+                  "label": "Add passkey progressive enrollment"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/conditional-auth/write-your-first-script",
+                  "label": "Write a custom authentication script"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "guides/authentication/multi-attribute-login",
+              "label": "Configure multi-attribute login"
+            },
+            {
+              "type": "category",
+              "label": "App-native authentication",
+              "link": {
+                "type": "doc",
+                "id": "guides/authentication/app-native-authentication/index"
+              },
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/app-native-authentication/add-app-native-authentication",
+                  "label": "Add app-native authentication"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/app-native-authentication/secure-app-native-authentication-flows",
+                  "label": "Secure app-native authentication flows"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/app-native-authentication/handle-advanced-login-scenarios",
+                  "label": "Handle advanced login scenarios"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Configure OIDC flows",
+              "link": {
+                "type": "doc",
+                "id": "guides/authentication/oidc/index"
+              },
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/oidc/discover-oidc-configs",
+                  "label": "Discover OIDC endpoints"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/oidc/oauth-dynamic-client-registration",
+                  "label": "Dynamic Client Registration (DCR)"
+                },
+                {
+                  "type": "category",
+                  "label": "Login flows",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/oidc/implement-auth-code",
+                      "label": "Authorization code flow"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/oidc/implement-auth-code-with-pkce",
+                      "label": "Authorization code flow and PKCE"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/oidc/implement-oidc-hybrid-flow",
+                      "label": "Hybrid flow"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/oidc/implement-device-flow",
+                      "label": "Device authorization flow"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/oidc/implement-login-with-par",
+                      "label": "Pushed Authorization Requests (PAR)"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/oidc/jarm",
+                      "label": "JWT Secured Authorization Response Mode (JARM) for OAuth 2.0"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Grant types",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/configure-jwt-bearer-grant",
+                      "label": "JWT Bearer Grant"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Client authentication methods",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/oidc/private-key-jwt-client-auth",
+                      "label": "Private key JWT"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Tokens and validation",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/oidc/token-validation-resource-server",
+                      "label": "Validate tokens at a resource server"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/oidc/validate-jwt-with-jwks",
+                      "label": "Validate JWT with JWKS"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/oidc/validate-id-tokens",
+                      "label": "Validate ID tokens"
+                    },
+                    {
+                      "type": "category",
+                      "label": "Encrypt ID tokens",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "guides/authentication/oidc/encrypt-decrypt-id-tokens",
+                          "label": "Encrypt and decrypt ID tokens"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "guides/authentication/oidc/id-token-encryption-reference",
+                          "label": "ID token encryption reference"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/oidc/request-user-info",
+                      "label": "Request user information"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/oidc/revoke-tokens",
+                      "label": "Revoke tokens"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/configure-token-exchange",
+                      "label": "Configure token exchange"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Logout",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/oidc/add-logout",
+                      "label": "Front-channel logout"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/oidc/add-back-channel-logout",
+                      "label": "Back-channel logout"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/authentication/oidc/oidc-federated-idp-initiated-logout",
+                      "label": "Federated IdP-initiated logout"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Configure SAML flows",
+              "link": {
+                "type": "doc",
+                "id": "guides/authentication/saml/index"
+              },
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/saml/discover-saml-configs",
+                  "label": "Discover SAML endpoints and settings"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/saml/saml-artifact-binding",
+                  "label": "SAML artifact binding"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/saml/saml-federated-idp-initiated-sso",
+                  "label": "Implement SAML federated IdP-initiated SSO"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/authentication/saml/saml-back-channel-logout",
+                  "label": "SAML back-channel logout"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Authorization",
+          "link": {
+            "type": "doc",
+            "id": "guides/authorization/index"
+          },
+          "items": [
+            {
+              "type": "category",
+              "label": "API authorization",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "guides/authorization/api-authorization/api-authorization",
+                  "label": "Role-based access control"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/authorization/api-authorization/attribute-based-access-control",
+                  "label": "Attribute-based access control"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Fine-grained authorization",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "guides/authorization/fine-grained-authorization/rule-based-provisioning",
+                  "label": "XACML in provisioning flows"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "guides/authorization/user-impersonation",
+              "label": "User Impersonation"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Branding",
+          "link": {
+            "type": "doc",
+            "id": "guides/branding/index"
+          },
+          "items": [
+            {
+              "type": "doc",
+              "id": "guides/branding/configure-ui-branding",
+              "label": "Configure UI branding"
+            },
+            {
+              "type": "doc",
+              "id": "guides/branding/add-custom-layouts",
+              "label": "Customize layouts"
+            },
+            {
+              "type": "doc",
+              "id": "guides/branding/customize-email-templates",
+              "label": "Customize email templates"
+            },
+            {
+              "type": "doc",
+              "id": "guides/branding/localization",
+              "label": "Localization support"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "User management",
+          "link": {
+            "type": "doc",
+            "id": "guides/users/index"
+          },
+          "items": [
+            {
+              "type": "doc",
+              "id": "guides/users/manage-administrators",
+              "label": "Manage administrators"
+            },
+            {
+              "type": "doc",
+              "id": "guides/users/manage-users",
+              "label": "Manage users"
+            },
+            {
+              "type": "doc",
+              "id": "guides/users/manage-groups",
+              "label": "Manage groups"
+            },
+            {
+              "type": "doc",
+              "id": "guides/users/manage-roles",
+              "label": "Manage roles"
+            },
+            {
+              "type": "doc",
+              "id": "guides/users/manage-sessions",
+              "label": "Manage active sessions"
+            },
+            {
+              "type": "category",
+              "label": "Provisioning",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "guides/users/inbound-provisioning/inbound-provisioning",
+                  "label": "Inbound provisioning"
+                },
+                {
+                  "type": "category",
+                  "label": "Outbound provisioning",
+                  "link": {
+                    "type": "doc",
+                    "id": "guides/users/outbound-provisioning/index"
+                  },
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "guides/users/outbound-provisioning/setup-outbound-provisioning",
+                      "label": "Set up outbound provisioning"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/users/outbound-provisioning/role-based-provisioning",
+                      "label": "Role-based provisioning"
+                    },
+                    {
+                      "type": "category",
+                      "label": "Configure an outbound connector",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "guides/users/outbound-provisioning/outbound-connectors/google",
+                          "label": "Google"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "guides/users/outbound-provisioning/outbound-connectors/salesforce",
+                          "label": "Salesforce"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "guides/users/outbound-provisioning/outbound-connectors/scim2",
+                          "label": "SCIM2"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "guides/users/outbound-provisioning/outbound-connectors/custom-outbound-connectors",
+                          "label": "Custom Outbound Connector"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/users/outbound-provisioning/provisioning-patterns",
+                      "label": "Provisioning patterns"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Sync User Accounts",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "guides/users/sync-user-accounts/sync-account-overview",
+                  "label": "Overview"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/users/sync-user-accounts/sync-with-hubspot",
+                  "label": "Hubspot"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/users/sync-user-accounts/sync-with-salesforce",
+                  "label": "Salesforce"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/users/sync-user-accounts/sync-with-pipedrive",
+                  "label": "Pipedrive CRM"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/users/sync-user-accounts/sync-with-sendgrid",
+                  "label": "Sendgrid"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/users/sync-user-accounts/sync-with-zoho",
+                  "label": "Zoho CRM"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Manage attributes and mappings",
+              "link": {
+                "type": "doc",
+                "id": "guides/users/attributes/index"
+              },
+              "items": [
+                {
+                  "type": "category",
+                  "label": "User attributes",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "guides/users/attributes/user-attributes/manage-attributes",
+                      "label": "Manage attributes"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/users/attributes/user-attributes/configure-attributes",
+                      "label": "Configure attributes"
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/users/attributes/manage-oidc-attribute-mappings",
+                  "label": "OIDC attribute mappings"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/users/attributes/manage-scopes",
+                  "label": "OIDC scopes"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/users/attributes/manage-scim2-attribute-mappings",
+                  "label": "SCIM2 attribute mappings"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/users/attributes/enable-email-as-username",
+                  "label": "Configure email address as the username"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/users/attributes/configure-unique-attributes",
+                  "label": "Configure unique attributes"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/users/attributes/user-attribute-change-verification",
+                  "label": "Configure user attribute change verification"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Manage user stores",
+              "link": {
+                "type": "doc",
+                "id": "guides/users/user-stores/index"
+              },
+              "items": [
+                {
+                  "type": "category",
+                  "label": "Configure the primary user store",
+                  "link": {
+                    "type": "doc",
+                    "id": "guides/users/user-stores/primary-user-store/index"
+                  },
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "guides/users/user-stores/primary-user-store/configure-a-jdbc-user-store",
+                      "label": "Configure a JDBC user store"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/users/user-stores/primary-user-store/configure-a-read-only-ldap-user-store",
+                      "label": "Configure a read-only LDAP user store"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/users/user-stores/primary-user-store/configure-a-read-write-active-directory-user-store",
+                      "label": "Configure a read-write Active Directory user store"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/users/user-stores/primary-user-store/configure-a-read-write-ldap-user-store",
+                      "label": "Configure a read-write LDAP user store"
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/users/user-stores/configure-secondary-user-stores",
+                  "label": "Configure secondary user stores"
+                },
+                {
+                  "type": "category",
+                  "label": "User store properties",
+                  "link": {
+                    "type": "doc",
+                    "id": "guides/users/user-stores/user-store-properties/index"
+                  },
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "guides/users/user-stores/user-store-properties/properties-jdbc-user-store",
+                      "label": "Properties used in JDBC user store manager"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/users/user-stores/user-store-properties/properties-read-only-ldap-user-store",
+                      "label": "Properties used in read-only LDAP user store manager"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/users/user-stores/user-store-properties/properties-read-write-active-directory-user-store",
+                      "label": "Properties used in read-Write Active Directory user store manager"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/users/user-stores/user-store-properties/properties-read-write-ldap-user-store",
+                      "label": "Properties used in read-write LDAP user store manager"
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/users/user-stores/configure-user-stores-for-scim2",
+                  "label": "Configure user stores for SCIM 2.0"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/users/user-stores/configure-active-directory-user-stores-for-scim2",
+                  "label": "Configure Active Directory user stores for SCIM 2.0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Account configurations",
+          "link": {
+            "type": "doc",
+            "id": "guides/account-configurations/index"
+          },
+          "items": [
+            {
+              "type": "category",
+              "label": "Login security",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "guides/account-configurations/login-security/password-validation",
+                  "label": "Password validation"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/account-configurations/login-security/login-attempts",
+                  "label": "Login attempts"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/account-configurations/login-security/bot-detection",
+                  "label": "Bot detection"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/account-configurations/login-security/session-management",
+                  "label": "Session management"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "User Onboarding",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "guides/account-configurations/user-onboarding/self-registration",
+                  "label": "Self registration"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/account-configurations/user-onboarding/invite-user-to-set-password",
+                  "label": "Invite user to set password"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Account recovery",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "guides/account-configurations/account-recovery/password-recovery",
+                  "label": "Password recovery"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/account-configurations/account-recovery/username-recovery",
+                  "label": "Username recovery"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/account-configurations/account-recovery/admin-initiated-password-reset",
+                  "label": "Admin Initiated Password Reset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "User self-service",
+          "link": {
+            "type": "doc",
+            "id": "guides/user-self-service/index"
+          },
+          "items": [
+            {
+              "type": "category",
+              "label": "My Account portal",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "guides/user-self-service/overview",
+                  "label": "Access the My Account portal"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/user-self-service/configure-self-service-portal",
+                  "label": "Configure the My Account portal"
+                },
+                {
+                  "type": "category",
+                  "label": "Explore self-service features",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "guides/user-self-service/update-profile-info",
+                      "label": "Update profile information"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/user-self-service/change-password",
+                      "label": "Change password"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/user-self-service/manage-linked-accounts",
+                      "label": "Manage linked social accounts"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/user-self-service/export-profile-information",
+                      "label": "Export profile information"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/user-self-service/manage-consents",
+                      "label": "Manage consents"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/user-self-service/manage-login-sessions",
+                      "label": "Manage login sessions"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/user-self-service/self-register",
+                      "label": "Self-register"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/user-self-service/account-confirmation-for-self-register",
+                      "label": "Account confirmation for self-register"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/user-self-service/register-passkey",
+                      "label": "Register passkeys"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/user-self-service/user-password-recovery",
+                      "label": "Password recovery"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/user-self-service/enable-totp",
+                      "label": "Enroll TOTP"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/user-self-service/manage-backup-codes",
+                      "label": "Manage backup codes"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/user-self-service/discover-applications",
+                      "label": "Discover applications"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "guides/user-self-service/build-self-service-capabilities",
+              "label": "Build self-service capabilities"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Organizations",
+          "link": {
+            "type": "doc",
+            "id": "guides/organization-management/index"
+          },
+          "items": [
+            {
+              "type": "category",
+              "label": "Getting started",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "guides/organization-management/organizations-overview",
+                  "label": "Overview"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "guides/organization-management/manage-organizations",
+              "label": "Set up organizations"
+            },
+            {
+              "type": "category",
+              "label": "Delegate administration",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "guides/organization-management/manage-b2b-administration",
+                  "label": "Set up administration portal"
+                },
+                {
+                  "type": "category",
+                  "label": "Onboard administrators",
+                  "link": {
+                    "type": "doc",
+                    "id": "guides/organization-management/onboard-org-admins/index"
+                  },
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "guides/organization-management/onboard-org-admins/sales-led-approach",
+                      "label": "Sales-led approach"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "guides/organization-management/onboard-org-admins/self-service-approach",
+                      "label": "Self-service approach"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Configure organization applications",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "guides/organization-management/share-applications",
+                  "label": "Share applications"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Authorize API resources",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "guides/organization-management/api-authorization-overview",
+                  "label": "Overview"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/organization-management/api-authorization-for-b2b",
+                  "label": "Authorize applications to API resources"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/organization-management/organization-roles",
+                  "label": "Configure roles to consume authorized APIs"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/organization-management/generate-tokens-for-organization-apps",
+                  "label": "Generate tokens for organization applications"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Manage organization users",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "guides/organization-management/onboard-users",
+                  "label": "Onboard users"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Enable organization-based login",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "guides/organization-management/organization-discovery/organization-discovery",
+                  "label": "Organization discovery"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/organization-management/organization-discovery/email-domain-based-organization-discovery",
+                  "label": "Email domain-based organization discovery"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Offboard organizations",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "guides/organization-management/disable-delete-organizations",
+                  "label": "Disable or delete an organization"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/organization-management/cleanup-organization-resources",
+                  "label": "Clean up deleted organization resources"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "guides/organization-management/try-a-b2b-use-case",
+              "label": "Try a B2B use case"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Analytics",
+          "items": [
+            {
+              "type": "category",
+              "label": "ELK Analytics",
+              "link": {
+                "type": "doc",
+                "id": "guides/analytics/elk-analytics/index"
+              },
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "guides/analytics/elk-analytics/accessing-the-analytics-dashboard",
+                  "label": "Access analytics"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/analytics/elk-analytics/analyzing-login-attempts",
+                  "label": "Analyze login attempts"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/analytics/elk-analytics/analyzing-active-sessions",
+                  "label": "Analyze active sessions"
+                },
+                {
+                  "type": "doc",
+                  "id": "guides/analytics/elk-analytics/elk-alert-types",
+                  "label": "ELK Alerts"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "guides/analytics/web-analytics-solutions",
+              "label": "Web analytic solutions"
+            },
+            {
+              "type": "doc",
+              "id": "guides/analytics/ab-testing",
+              "label": "A/B Testing"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Your WSO2 Identity Server",
+          "link": {
+            "type": "doc",
+            "id": "guides/your-is/index"
+          },
+          "items": [
+            {
+              "type": "doc",
+              "id": "guides/your-is/manage-console-access",
+              "label": "Manage Console access"
+            },
+            {
+              "type": "doc",
+              "id": "guides/your-is/is-self-service",
+              "label": "Self-service"
+            },
+            {
+              "type": "doc",
+              "id": "guides/your-is/recover-password",
+              "label": "Recover your password"
+            },
+            {
+              "type": "doc",
+              "id": "guides/your-is/recover-super-admin-account",
+              "label": "Recover super admin account"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Multitenancy",
+          "link": {
+            "type": "doc",
+            "id": "guides/multitenancy/index"
+          },
+          "items": [
+            {
+              "type": "doc",
+              "id": "guides/multitenancy/manage-tenants",
+              "label": "Manage tenants"
+            },
+            {
+              "type": "doc",
+              "id": "guides/multitenancy/configure-the-tenant-loading-policy",
+              "label": "Tenant loading policy"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Setup",
+      "items": [
+        {
+          "type": "category",
+          "label": "Install",
+          "items": [
+            {
+              "type": "doc",
+              "id": "deploy/get-started/install",
+              "label": "Install"
+            },
+            {
+              "type": "doc",
+              "id": "deploy/get-started/run-the-product",
+              "label": "Run"
+            },
+            {
+              "type": "doc",
+              "id": "deploy/get-started/get-wso2-updates",
+              "label": "Get WSO2 updates"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Configure",
+          "items": [
+            {
+              "type": "category",
+              "label": "User Stores",
+              "link": {
+                "type": "doc",
+                "id": "deploy/configure/user-stores/index"
+              },
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "deploy/configure/user-stores/configure-high-availability-ldap",
+                  "label": "Add high availability for LDAP"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/configure/user-stores/secure-userstore-using-pbkdf2",
+                  "label": "Secure a JDBC user store with PBKDF2 hashing"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/configure/user-stores/configure-authorization-manager",
+                  "label": "Configure the Authorization Manager"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/configure/user-stores/configure-system-administrator",
+                  "label": "Configure the System Administrator"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Databases",
+              "link": {
+                "type": "doc",
+                "id": "deploy/configure/databases/index"
+              },
+              "items": [
+                {
+                  "type": "category",
+                  "label": "Change the Carbon Database",
+                  "link": {
+                    "type": "doc",
+                    "id": "deploy/configure/databases/carbon-database/index"
+                  },
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "deploy/configure/databases/carbon-database/change-to-ibm-db2",
+                      "label": "Change to IBM DB2"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "deploy/configure/databases/carbon-database/change-to-mariadb",
+                      "label": "Change to MariaDB"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "deploy/configure/databases/carbon-database/change-to-mssql",
+                      "label": "Change to MSSQL"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "deploy/configure/databases/carbon-database/change-to-mysql",
+                      "label": "Change to MySQL"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "deploy/configure/databases/carbon-database/change-to-oracle",
+                      "label": "Change to Oracle"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "deploy/configure/databases/carbon-database/change-to-oracle-rac",
+                      "label": "Change to Oracle RAC"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "deploy/configure/databases/carbon-database/change-to-postgresql",
+                      "label": "Change to PostgreSQL"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "deploy/configure/databases/carbon-database/change-to-remote-h2",
+                      "label": "Change to remote H2"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "deploy/configure/databases/carbon-database/change-datasource-consent-management",
+                      "label": "Change the Default Datasource for Consent Management"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "deploy/configure/databases/carbon-database/change-datasource-session",
+                      "label": "Change the Default Datasource for Session Data"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "deploy/configure/databases/carbon-database/change-datasource-registry-data",
+                      "label": "Change the Default Datasources for the Registry Data"
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/configure/databases/data-purging",
+                  "label": "Data Purging"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/configure/databases/remove-references-to-deleted-user-identities",
+                  "label": "Remove References to Deleted User Identities"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "deploy/configure/session-persistence",
+              "label": "Session persistence"
+            },
+            {
+              "type": "doc",
+              "id": "deploy/configure/cookie-consent-banner",
+              "label": "Cookie consent banner"
+            },
+            {
+              "type": "doc",
+              "id": "deploy/configure/configure-cors",
+              "label": "Cross-Origin Resource Sharing (CORS)"
+            },
+            {
+              "type": "doc",
+              "id": "deploy/configure/email-sending-module",
+              "label": "Email sending module"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Secure",
+          "items": [
+            {
+              "type": "category",
+              "label": "Mitigate attacks",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "deploy/mitigate-attacks/mitigate-cross-site-request-forgery-attacks",
+                  "label": "Cross Site Request Forgery attacks"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/mitigate-attacks/mitigate-authorization-code-interception-attacks",
+                  "label": "Authorization Code Interception attacks"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/mitigate-attacks/mitigate-brute-force-attacks",
+                  "label": "Brute Force attacks"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/mitigate-attacks/timestamp-in-ws-security-to-mitigate-replay-attacks",
+                  "label": "Replay attacks"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/samesite-attribute-support",
+                  "label": "SameSite attribute support"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/security/prevent-browser-caching",
+                  "label": "Prevent browser caching"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Work with tokens",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "deploy/add-logs-for-tokens",
+                  "label": "Add logs for tokens"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/token-persistence",
+                  "label": "Token persistence"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/remove-unused-tokens-from-the-database",
+                  "label": "Remove unused tokens from the database"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/enable-assertions-in-access-tokens",
+                  "label": "Enable assertions in access tokens"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/generate-jwt-tokens-without-revoking-existing-tokens",
+                  "label": "Generate JWT tokens without revoking existing tokens"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "deploy/enable-hostname-verification",
+              "label": "Enable hostname verification"
+            },
+            {
+              "type": "category",
+              "label": "Transport Level Security",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "deploy/security/configure-transport-level-security",
+                  "label": "Configure TLS"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/configure-tls-termination",
+                  "label": "Configure TLS termination"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/security/configure-post-quantum-tls",
+                  "label": "Configure post-quantum TLS"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "deploy/security/maintain-logins-and-passwords",
+              "label": "Maintain logins and passwords"
+            },
+            {
+              "type": "doc",
+              "id": "deploy/security/configure-admin-advisory-banner",
+              "label": "Configure Admin Advisory Banner"
+            },
+            {
+              "type": "category",
+              "label": "Secure passwords in configuration files",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "deploy/security/encrypt-passwords-with-cipher-tool",
+                  "label": "Encrypt passwords with Cipher Tool"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/security/resolve-encrypted-passwords",
+                  "label": "Resolve encrypted passwords"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/security/customize-secure-vault",
+                  "label": "Customize secure vault"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/security/set-passwords-using-environment-variables-or-system-properties",
+                  "label": "Set passwords using environment variables/system properties"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "deploy/security/enable-hsts",
+              "label": "Enable HTTP Strict Transport Security (HSTS) headers"
+            },
+            {
+              "type": "doc",
+              "id": "deploy/security/enable-java-security-manager",
+              "label": "Enable Java Security Manager"
+            },
+            {
+              "type": "doc",
+              "id": "deploy/security/enable-mutual-ssl",
+              "label": "Enable Mutual SSL"
+            },
+            {
+              "type": "doc",
+              "id": "deploy/security/enable-fips-for-is",
+              "label": "Enable FIPS 140-2-compliant mode"
+            },
+            {
+              "type": "category",
+              "label": "Security guidelines",
+              "link": {
+                "type": "doc",
+                "id": "deploy/security/security-guidelines/index"
+              },
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "deploy/security/security-guidelines/product-level-security-guidelines",
+                  "label": "Product-level"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/security/security-guidelines/os-level-security-guidelines",
+                  "label": "OS-level"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/security/security-guidelines/network-level-security-guidelines",
+                  "label": "Network-level"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Encryption",
+              "items": [
+                {
+                  "type": "category",
+                  "label": "Symmetric encryption",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "deploy/security/symmetric-encryption/index",
+                      "label": "Symmetric encryption"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Asymmetric encryption",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "deploy/security/asymmetric-encryption/index",
+                      "label": "Asymmetric encryption"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Keystores",
+                  "link": {
+                    "type": "doc",
+                    "id": "deploy/security/keystores/index"
+                  },
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "deploy/security/keystores/create-new-keystores",
+                      "label": "Create new keystores"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "deploy/security/keystores/configure-keystores",
+                      "label": "Manage keystores"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "deploy/security/keystores/manage-ca-signed-certificates-in-a-keystore",
+                      "label": "Manage CA-Signed certificates in a keystore"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Deploy",
+          "items": [
+            {
+              "type": "category",
+              "label": "Deployment overview",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "deploy/deployment-guide",
+                  "label": "Deployment Patterns"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/deployment-checklist",
+                  "label": "Deployment Checklist"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/change-the-hostname",
+                  "label": "Change the Hostname"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/promote-configurations",
+                  "label": "Promote Configurations Across Environments"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "High Availability (HA) and clustering",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "deploy/front-with-the-nginx-load-balancer",
+                  "label": "WSO2 Clusters with Nginx"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/set-up-separate-databases-for-clustering",
+                  "label": "Databases for Clustering"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/configure-hazelcast",
+                  "label": "Configure Hazelcast"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Performance and scaling",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "deploy/performance/performance-tuning-recommendations",
+                  "label": "Performance Tuning Recommendations"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/performance/configure-cache-layers",
+                  "label": "Configure Cache Layers"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Multi-data center deployments (Disaster Recovery)",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "deploy/disaster-recovery/understanding-disaster-recovery",
+                  "label": "Understanding Disaster Recovery"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/disaster-recovery/disaster-recovery-deployment-patterns",
+                  "label": "Deployment Patterns"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/disaster-recovery/additional-reading-on-disaster-recovery",
+                  "label": "Additional Reading"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Maintenance and troubleshooting in Production",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "deploy/backup-and-recovery-recommendations",
+                  "label": "Backup and Recovery Recommendations"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/monitor/troubleshoot-in-production-environments",
+                  "label": "Troubleshoot in Production Environments"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Compliance",
+          "link": {
+            "type": "doc",
+            "id": "deploy/compliance/index"
+          },
+          "items": [
+            {
+              "type": "doc",
+              "id": "deploy/compliance/gdpr",
+              "label": "GDPR"
+            },
+            {
+              "type": "doc",
+              "id": "deploy/compliance/ccpa",
+              "label": "CCPA"
+            },
+            {
+              "type": "doc",
+              "id": "deploy/compliance/fips",
+              "label": "FIPS"
+            },
+            {
+              "type": "doc",
+              "id": "deploy/compliance/fapi",
+              "label": "FAPI"
+            },
+            {
+              "type": "doc",
+              "id": "deploy/compliance/accessibility",
+              "label": "Accessibility compliance"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Analytics",
+          "items": [
+            {
+              "type": "doc",
+              "id": "deploy/elk-analytics-installation-guide",
+              "label": "Configure ELK analytics"
+            },
+            {
+              "type": "doc",
+              "id": "deploy/elk-analytics-sso-guide",
+              "label": "Configure SSO with ELK analytics"
+            },
+            {
+              "type": "doc",
+              "id": "deploy/elk-configuring-alerts",
+              "label": "Configure ELK alerts"
+            },
+            {
+              "type": "doc",
+              "id": "deploy/elk-analytics-for-adaptive-authentication",
+              "label": "Configure ELK analytics for adaptive authentication"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Monitor",
+          "link": {
+            "type": "doc",
+            "id": "deploy/monitor/index"
+          },
+          "items": [
+            {
+              "type": "category",
+              "label": "Monitor logs",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "deploy/monitor/monitor-logs",
+                  "label": "Overview"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/monitor/http-access-logging",
+                  "label": "HTTP access logs"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/monitor/oauth-transaction-logs",
+                  "label": "OAuth transaction logs"
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/monitor/remote-log-publishing",
+                  "label": "Remote log publishing"
+                },
+                {
+                  "type": "category",
+                  "label": "Mask sensitive info",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "deploy/monitor/mask-sensitive-information-in-logs",
+                      "label": "Overview"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "deploy/monitor/elk-mask-sensitive-information-in-logs",
+                      "label": "Log masking with Filebeat"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "deploy/monitor/log4j-mask-sensitive-information-in-logs",
+                      "label": "Log masking with Log4j"
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "deploy/monitor/log-claims-in-audit-logs",
+                  "label": "Log claims in audit logs"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "deploy/monitor/monitor-server-health",
+              "label": "Monitor server health"
+            },
+            {
+              "type": "doc",
+              "id": "deploy/monitor/jmx-based-monitoring",
+              "label": "JMX-Based Monitoring"
+            },
+            {
+              "type": "doc",
+              "id": "deploy/monitor/work-with-product-observability",
+              "label": "Work with product observability"
+            }
+          ]
+        },
+        {
+          "type": "doc",
+          "id": "deploy/upgrade/upgrade-wso2-is",
+          "label": "Upgrade WSO2 Identity Server"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "SDKs",
+      "items": [
+        {
+          "type": "doc",
+          "id": "sdks/index",
+          "label": "Integrate WSO2 IS into your application"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "SDK Documentation",
+      "items": [
+        {
+          "type": "category",
+          "label": "React SDK",
+          "items": [
+            {
+              "type": "doc",
+              "id": "sdks/react/overview",
+              "label": "Overview"
+            },
+            {
+              "type": "category",
+              "label": "APIs",
+              "items": [
+                {
+                  "type": "category",
+                  "label": "Contexts",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "sdks/react/contexts/asgardeo-provider",
+                      "label": "&lt;AsgardeoProvider /&gt;"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Components",
+                  "items": [
+                    {
+                      "type": "category",
+                      "label": "Action Components",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "sdks/react/components/action-components/sign-in-button",
+                          "label": "&lt;SignInButton /&gt;"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "sdks/react/components/action-components/sign-out-button",
+                          "label": "&lt;SignOutButton /&gt;"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "sdks/react/components/action-components/sign-up-button",
+                          "label": "&lt;SignUpButton /&gt;"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "category",
+                      "label": "Control Components",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "sdks/react/components/control-components/signed-in",
+                          "label": "&lt;SignedIn /&gt;"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "sdks/react/components/control-components/signed-out",
+                          "label": "&lt;SignedOut /&gt;"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "sdks/react/components/control-components/loading",
+                          "label": "&lt;Loading /&gt;"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "category",
+                      "label": "User Self-care Components",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "sdks/react/components/user-selfcare-components/user-dropdown",
+                          "label": "&lt;UserDropdown /&gt;"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "sdks/react/components/user-selfcare-components/user-profile",
+                          "label": "&lt;UserProfile /&gt;"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "sdks/react/components/user-selfcare-components/user",
+                          "label": "&lt;User /&gt;"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "category",
+                      "label": "Organization Components (B2B)",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "sdks/react/components/organization-components/create-organization",
+                          "label": "&lt;CreateOrganization /&gt;"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "sdks/react/components/organization-components/organization-profile",
+                          "label": "&lt;OrganizationProfile /&gt;"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "sdks/react/components/organization-components/organization-switcher",
+                          "label": "&lt;OrganizationSwitcher /&gt;"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "sdks/react/components/organization-components/organization-list",
+                          "label": "&lt;OrganizationList /&gt;"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "sdks/react/components/organization-components/organization",
+                          "label": "&lt;Organization /&gt;"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "sdks/react/components/organization-components/organization-context",
+                          "label": "&lt;OrganizationContext /&gt;"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "hooks",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "sdks/react/hooks/use-asgardeo",
+                      "label": "useAsgardeo()"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Guides",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "sdks/react/guides/accessing-protected-apis",
+                  "label": "Accessing Protected APIs"
+                },
+                {
+                  "type": "doc",
+                  "id": "sdks/react/guides/protecting-routes",
+                  "label": "Protecting Routes"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Next.js SDK",
+          "items": [
+            {
+              "type": "doc",
+              "id": "sdks/nextjs/overview",
+              "label": "Overview"
+            },
+            {
+              "type": "category",
+              "label": "APIs",
+              "items": [
+                {
+                  "type": "category",
+                  "label": "Contexts",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "sdks/nextjs/contexts/asgardeo-provider",
+                      "label": "&lt;AsgardeoProvider /&gt;"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Middleware",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "sdks/nextjs/middleware/asgardeo-middleware",
+                      "label": "asgardeoMiddleware()"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Components",
+                  "items": [
+                    {
+                      "type": "category",
+                      "label": "Action Components",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "sdks/nextjs/components/action-components/sign-in-button",
+                          "label": "&lt;SignInButton /&gt;"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "sdks/nextjs/components/action-components/sign-out-button",
+                          "label": "&lt;SignOutButton /&gt;"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "sdks/nextjs/components/action-components/sign-up-button",
+                          "label": "&lt;SignUpButton /&gt;"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "category",
+                      "label": "Control Components",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "sdks/nextjs/components/control-components/signed-in",
+                          "label": "&lt;SignedIn /&gt;"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "sdks/nextjs/components/control-components/signed-out",
+                          "label": "&lt;SignedOut /&gt;"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "sdks/nextjs/components/control-components/loading",
+                          "label": "&lt;Loading /&gt;"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "category",
+                      "label": "Authentication Components",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "sdks/nextjs/components/authentication/sign-in",
+                          "label": "&lt;SignIn /&gt;"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "category",
+                      "label": "User Self-care Components",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "sdks/nextjs/components/user-selfcare-components/user-dropdown",
+                          "label": "&lt;UserDropdown /&gt;"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "sdks/nextjs/components/user-selfcare-components/user-profile",
+                          "label": "&lt;UserProfile /&gt;"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "sdks/nextjs/components/user-selfcare-components/user",
+                          "label": "&lt;User /&gt;"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "category",
+                      "label": "Organization Components (B2B)",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "sdks/nextjs/components/organization-components/create-organization",
+                          "label": "&lt;CreateOrganization /&gt;"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "sdks/nextjs/components/organization-components/organization-profile",
+                          "label": "&lt;OrganizationProfile /&gt;"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "sdks/nextjs/components/organization-components/organization-switcher",
+                          "label": "&lt;OrganizationSwitcher /&gt;"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "sdks/nextjs/components/organization-components/organization-list",
+                          "label": "&lt;OrganizationList /&gt;"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "sdks/nextjs/components/organization-components/organization",
+                          "label": "&lt;Organization /&gt;"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "hooks",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "sdks/nextjs/hooks/use-asgardeo",
+                      "label": "useAsgardeo()"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Guides",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "sdks/nextjs/guides/accessing-protected-apis",
+                  "label": "Accessing Protected APIs"
+                },
+                {
+                  "type": "doc",
+                  "id": "sdks/nextjs/guides/protecting-routes",
+                  "label": "Protecting Routes"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Connectors",
+      "link": {
+        "type": "doc",
+        "id": "connectors/index"
+      },
+      "items": [
+        {
+          "type": "category",
+          "label": "Sift",
+          "items": [
+            {
+              "type": "doc",
+              "id": "connectors/sift/overview",
+              "label": "Overview"
+            },
+            {
+              "type": "doc",
+              "id": "connectors/sift/set-up",
+              "label": "Set up"
+            },
+            {
+              "type": "doc",
+              "id": "connectors/sift/usage",
+              "label": "Usage"
+            },
+            {
+              "type": "doc",
+              "id": "connectors/sift/reference",
+              "label": "Reference"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Onfido",
+          "items": [
+            {
+              "type": "doc",
+              "id": "connectors/onfido/overview",
+              "label": "Overview"
+            },
+            {
+              "type": "doc",
+              "id": "connectors/onfido/set-up",
+              "label": "Set up"
+            },
+            {
+              "type": "doc",
+              "id": "connectors/onfido/usage",
+              "label": "Usage"
+            },
+            {
+              "type": "doc",
+              "id": "connectors/onfido/reference",
+              "label": "Reference"
+            },
+            {
+              "type": "doc",
+              "id": "connectors/onfido/try-it",
+              "label": "Try it"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "APIs",
+      "link": {
+        "type": "doc",
+        "id": "apis/index"
+      },
+      "items": [
+        {
+          "type": "category",
+          "label": "System APIs",
+          "items": [
+            {
+              "type": "doc",
+              "id": "apis/admin-advisory-management-rest-api",
+              "label": "Admin advisory management API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/tenant-management-rest-api",
+              "label": "Tenant management API"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Management APIs",
+          "items": [
+            {
+              "type": "doc",
+              "id": "apis/api-resource-management-rest-api",
+              "label": "API resource management"
+            },
+            {
+              "type": "category",
+              "label": "Application management",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "apis/application-rest-api",
+                  "label": "Application management API"
+                },
+                {
+                  "type": "category",
+                  "label": "Authorized apps",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "apis/authorized-apps-rest-api",
+                      "label": "Authorized apps API V1"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "apis/authorized-apps-v2-rest-api",
+                      "label": "Authorized apps API V2"
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "apis/oauth2-scope-management-rest-apis",
+                  "label": "OAuth 2.0 scope management API"
+                },
+                {
+                  "type": "doc",
+                  "id": "apis/oidc-scope-management-rest-apis",
+                  "label": "OpenID Connect scope management API"
+                },
+                {
+                  "type": "doc",
+                  "id": "apis/dynamic-client-registration-rest-api",
+                  "label": "OIDC Dynamic Client Registration API"
+                },
+                {
+                  "type": "doc",
+                  "id": "apis/script-library-rest-api",
+                  "label": "Script Library management API"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "apis/app-native-authentication-api",
+              "label": "App-native authentication API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/use-the-authentication-rest-apis",
+              "label": "Authentication Data API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/authenticators-rest-api",
+              "label": "Authenticators API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/branding-preference-rest-api",
+              "label": "Branding Preferences API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/claim-management-rest-api",
+              "label": "Claim management API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/entitlement-with-rest-apis",
+              "label": "Entitlement management API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/extension-mgt-rest-api",
+              "label": "Extension management API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/idp",
+              "label": "Identity provider API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/idle-accounts-identification-rest-api",
+              "label": "Idle accounts identification API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/idp-session-extender-endpoint",
+              "label": "IdP session extension API"
+            },
+            {
+              "type": "category",
+              "label": "Notification sender management",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "apis/notification-sender",
+                  "label": "Notification sender configurations"
+                },
+                {
+                  "type": "doc",
+                  "id": "apis/notification-sender-rest-api",
+                  "label": "Notification sender API"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "apis/organization-discovery-rest-api",
+              "label": "Organization discovery API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/organization-discovery-config-mgt-rest-api",
+              "label": "Organization discovery configuration management API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/organization-mgt-rest-api",
+              "label": "Organization management API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/password-expiring-users-identification-rest-api",
+              "label": "Password expiring users identification API"
+            },
+            {
+              "type": "category",
+              "label": "Role management",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "apis/roles-v2-rest-api",
+                  "label": "Roles v2 API"
+                },
+                {
+                  "type": "doc",
+                  "id": "apis/roles-v1-rest-api",
+                  "label": "Roles v1 API (deprecated)"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Server management",
+              "items": [
+                {
+                  "type": "category",
+                  "label": "Configuration management",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "apis/use-the-configuration-management-rest-apis",
+                      "label": "Configuration management API"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "apis/retrieve-tenant-resources-based-on-search-parameters",
+                      "label": "Retrieve Tenant Resources Based on Search Parameters"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Identity governance",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "apis/governance-connectors",
+                      "label": "Identity Governance API introduction"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "apis/identity-governance-rest-api",
+                      "label": "Identity governance API"
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "apis/keystore-rest-api",
+                  "label": "Keystore management API"
+                },
+                {
+                  "type": "doc",
+                  "id": "apis/user-store-rest-api",
+                  "label": "User store management API"
+                },
+                {
+                  "type": "doc",
+                  "id": "apis/cors-rest-api",
+                  "label": "CORS API"
+                },
+                {
+                  "type": "category",
+                  "label": "Consent management",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "apis/use-the-consent-management-rest-apis",
+                      "label": "Overview"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "apis/consent-management-api-definition",
+                      "label": "Consent management API"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Email templates",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "apis/email-templates-rest-api",
+                      "label": "Email templates v1 API"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "apis/email-templates-v2-rest-api",
+                      "label": "Email templates v2 API"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "apis/session-mgt-rest-api",
+              "label": "Session management API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/configs-rest-api",
+              "label": "Server configuration API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/user-functionality-mgt-rest-api",
+              "label": "User Functionality management API"
+            },
+            {
+              "type": "category",
+              "label": "User management",
+              "items": [
+                {
+                  "type": "category",
+                  "label": "SCIM 2.0 API",
+                  "link": {
+                    "type": "doc",
+                    "id": "apis/scim2/index"
+                  },
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "apis/scim2/scim2-users-rest-api",
+                      "label": "SCIM 2.0 Users API"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "apis/scim2/scim2-groups-rest-api",
+                      "label": "SCIM 2.0 Groups API"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "apis/scim2/scim2-patch-operations",
+                      "label": "SCIM 2.0 Patch operations"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "apis/scim2/scim2-bulk-rest-api",
+                      "label": "SCIM 2.0 Bulk API"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "apis/scim2/scim2-batch-operations",
+                      "label": "SCIM 2.0 Batch operations"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "apis/scim2/scim2-resource-types",
+                      "label": "SCIM 2.0 Resource types API"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "apis/scim2/scim2-sp-config-rest-api",
+                      "label": "SCIM 2.0 Service provider configuration API"
+                    },
+                    {
+                      "type": "category",
+                      "label": "Additional resources",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "apis/scim2/build-scim2-user-creation-payload",
+                          "label": "Build SCIM 2.0 user creation payload"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Account recovery APIs",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "apis/use-the-account-recovery-rest-apis",
+                      "label": "Account recovery v0.9 API"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "apis/user-account-recovery-v1-rest-api",
+                      "label": "Account recovery v1 API (deprecated)"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "apis/user-account-recovery-v2-rest-api",
+                      "label": "Account recovery v2 API"
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "apis/offline-user-onboard-mgt-rest-api",
+                  "label": "Offline user onboard management API"
+                },
+                {
+                  "type": "doc",
+                  "id": "apis/use-the-self-sign-up-rest-apis",
+                  "label": "Self Sign-Up API"
+                },
+                {
+                  "type": "doc",
+                  "id": "apis/association-rest-api",
+                  "label": "User Account Association API"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "apis/validation-rules-rest-api",
+              "label": "Validation rules API"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Organization APIs",
+          "link": {
+            "type": "doc",
+            "id": "apis/organization-apis/index"
+          },
+          "items": [
+            {
+              "type": "doc",
+              "id": "apis/organization-apis/authentication",
+              "label": "Get access for organization APIs"
+            },
+            {
+              "type": "doc",
+              "id": "apis/organization-apis/org-application-mgt",
+              "label": "Application management API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/organization-apis/org-authenticators",
+              "label": "Authenticators API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/organization-apis/org-branding-mgt",
+              "label": "Branding management API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/organization-apis/org-claim-mgt",
+              "label": "Claim management API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/organization-apis/org-idp-mgt",
+              "label": "Identity provider management API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/organization-apis/org-account-recovery",
+              "label": "Identity recovery API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/organization-apis/org-idle-accounts-identification-rest-api",
+              "label": "Idle accounts identification API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/organization-apis/organization-user-invitation",
+              "label": "Invite parent organization's users API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/organization-apis/org-offline-user-onboard-mgt-rest-api",
+              "label": "Offline user onboard management API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/organization-apis/org-organization-discovery",
+              "label": "Organization discovery API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/organization-apis/org-organization-mgt",
+              "label": "Organization management API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/organization-apis/org-role-mgt",
+              "label": "SCIM 2.0 Role management API"
+            },
+            {
+              "type": "category",
+              "label": "User management",
+              "link": {
+                "type": "doc",
+                "id": "apis/organization-apis/scim2/index"
+              },
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "apis/organization-apis/scim2/scim2-org-user-mgt",
+                  "label": "SCIM 2.0 Users API"
+                },
+                {
+                  "type": "doc",
+                  "id": "apis/organization-apis/scim2/scim2-org-group-mgt",
+                  "label": "SCIM 2.0 Groups API"
+                },
+                {
+                  "type": "doc",
+                  "id": "apis/organization-apis/scim2/scim2-org-bulk-mgt",
+                  "label": "SCIM 2.0 Bulk API"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "End User APIs",
+          "items": [
+            {
+              "type": "doc",
+              "id": "apis/fido-rest-api",
+              "label": "FIDO API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/user-organization-api",
+              "label": "Organization Me API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/session-mgt-by-user-rest-api",
+              "label": "Session management API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/scim2-me-rest-apis",
+              "label": "SCIM 2.0 Me API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/totp-rest-api",
+              "label": "TOTP API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/me-association-rest-api",
+              "label": "User account association API"
+            },
+            {
+              "type": "doc",
+              "id": "apis/user-discoverable-applications",
+              "label": "User discoverable application API"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "References",
+      "link": {
+        "type": "doc",
+        "id": "references/index"
+      },
+      "items": [
+        {
+          "type": "doc",
+          "id": "references/about-this-release",
+          "label": "About this release"
+        },
+        {
+          "type": "doc",
+          "id": "references/wso2-identity-server-feature-deprecation",
+          "label": "Feature deprecation"
+        },
+        {
+          "type": "category",
+          "label": "User management",
+          "items": [
+            {
+              "type": "doc",
+              "id": "references/user-management/user-roles",
+              "label": "User roles"
+            },
+            {
+              "type": "doc",
+              "id": "references/user-management/track-deletion",
+              "label": "Track user deletion"
+            },
+            {
+              "type": "doc",
+              "id": "references/user-management/self-registration-verification",
+              "label": "Self registration confirmation"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "App configurations",
+          "link": {
+            "type": "doc",
+            "id": "references/app-settings/index"
+          },
+          "items": [
+            {
+              "type": "doc",
+              "id": "references/app-settings/oidc-settings-for-app",
+              "label": "OIDC configurations"
+            },
+            {
+              "type": "doc",
+              "id": "references/app-settings/saml-settings-for-app",
+              "label": "SAML configurations"
+            },
+            {
+              "type": "doc",
+              "id": "references/app-settings/ws-federation-settings-for-app",
+              "label": "WS-Federation configurations"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "IdP configurations",
+          "link": {
+            "type": "doc",
+            "id": "references/idp-settings/index"
+          },
+          "items": [
+            {
+              "type": "doc",
+              "id": "references/idp-settings/oidc-settings-for-idp",
+              "label": "OIDC configurations"
+            },
+            {
+              "type": "doc",
+              "id": "references/idp-settings/saml-settings-for-idp",
+              "label": "SAML configurations"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Conditional authentication",
+          "items": [
+            {
+              "type": "doc",
+              "id": "references/conditional-auth/api-reference",
+              "label": "Conditional auth - API"
+            }
+          ]
+        },
+        {
+          "type": "doc",
+          "id": "references/authorization-policies-for-apps",
+          "label": "Authorization policies for apps"
+        },
+        {
+          "type": "doc",
+          "id": "references/email-templates",
+          "label": "Email templates"
+        },
+        {
+          "type": "doc",
+          "id": "references/architecture",
+          "label": "Architecture"
+        },
+        {
+          "type": "category",
+          "label": "IS extensions",
+          "link": {
+            "type": "doc",
+            "id": "references/extend/index"
+          },
+          "items": [
+            {
+              "type": "category",
+              "label": "Authentication",
+              "items": [
+                {
+                  "type": "category",
+                  "label": "OAuth2",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "references/extend/authentication/oauth2/write-a-custom-oauth-2.0-grant-type",
+                      "label": "Write a custom OAuth2 grant type"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "references/extend/authentication/oauth2/configure-custom-token-issuer",
+                      "label": "Configure a custom token issuer"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Conditional authentication",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "references/extend/authentication/conditional-auth/write-custom-functions-for-conditional-authentication",
+                      "label": "Write custom functions for conditional authentication"
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "references/extend/authentication/customize-the-authentication-endpoint",
+                  "label": "Customize the authentication endpoint"
+                },
+                {
+                  "type": "doc",
+                  "id": "references/extend/authentication/write-a-custom-local-authenticator",
+                  "label": "Write a custom local authenticator"
+                },
+                {
+                  "type": "doc",
+                  "id": "references/extend/authentication/write-a-post-authentication-handler",
+                  "label": "Write a post-authentication handler"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Identity Federation",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "references/extend/federation/write-a-custom-federated-authenticator",
+                  "label": "Write a custom federated authenticator"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "User Management",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "references/extend/user-mgt/write-a-custom-event-handler",
+                  "label": "Write a custom event handler"
+                },
+                {
+                  "type": "category",
+                  "label": "User provisioning",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "references/extend/user-mgt/provisioning/extend-scim2-user-schemas",
+                      "label": "Extend SCIM 2.0 user schemas"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "User Stores",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "references/extend/user-stores/write-a-custom-user-store-manager",
+                  "label": "Write a custom user store manager"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "doc",
+          "id": "references/default-ports",
+          "label": "Default ports"
+        },
+        {
+          "type": "category",
+          "label": "Troubleshoot",
+          "link": {
+            "type": "doc",
+            "id": "references/troubleshoot/index"
+          },
+          "items": [
+            {
+              "type": "doc",
+              "id": "references/troubleshoot/error-codes",
+              "label": "Error catalog"
+            },
+            {
+              "type": "doc",
+              "id": "references/troubleshoot/api-error-codes",
+              "label": "API error catalog"
+            },
+            {
+              "type": "doc",
+              "id": "references/troubleshoot/app-native-error-codes",
+              "label": "App-native error catalog"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Tutorials",
+          "items": [
+            {
+              "type": "doc",
+              "id": "references/tutorials/connect-with-ms-entra",
+              "label": "Verifiable credentials with Microsoft Entra Verified ID"
+            },
+            {
+              "type": "doc",
+              "id": "references/tutorials/connect-with-mattr",
+              "label": "Verifiable credentials with MATTR"
+            },
+            {
+              "type": "doc",
+              "id": "references/tutorials/send-notification-external-schedular",
+              "label": "Send notifications through an external scheduled task"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "IAM concepts",
+          "items": [
+            {
+              "type": "doc",
+              "id": "references/grant-types",
+              "label": "OAuth2 grant types"
+            },
+            {
+              "type": "doc",
+              "id": "references/pushed-authorization-requests",
+              "label": "OAuth2 Pushed Authorization Requests"
+            },
+            {
+              "type": "category",
+              "label": "Token binding",
+              "link": {
+                "type": "doc",
+                "id": "references/token-binding/index"
+              },
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "references/token-binding/client-request",
+                  "label": "Client-request"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Tokens",
+              "link": {
+                "type": "doc",
+                "id": "references/tokens/index"
+              },
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "references/tokens/access-tokens",
+                  "label": "Access tokens"
+                },
+                {
+                  "type": "doc",
+                  "id": "references/tokens/refresh-tokens",
+                  "label": "Refresh tokens"
+                },
+                {
+                  "type": "doc",
+                  "id": "references/tokens/id-tokens",
+                  "label": "ID tokens"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "references/financial-grade-api",
+              "label": "Financial-grade API"
+            },
+            {
+              "type": "doc",
+              "id": "references/app-native-authentication",
+              "label": "App-native authentication"
+            },
+            {
+              "type": "doc",
+              "id": "references/concepts/oidc-session-management",
+              "label": "OIDC session management"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Technology Guides",
+      "items": [
+        {
+          "type": "category",
+          "label": "React",
+          "items": [
+            {
+              "type": "doc",
+              "id": "complete-guides/react/introduction",
+              "label": "Introduction"
+            },
+            {
+              "type": "doc",
+              "id": "complete-guides/react/prerequisite",
+              "label": "Prerequisite"
+            },
+            {
+              "type": "doc",
+              "id": "complete-guides/react/register-an-application",
+              "label": "Configure an application"
+            },
+            {
+              "type": "doc",
+              "id": "complete-guides/react/create-a-react-app",
+              "label": "Create a React app"
+            },
+            {
+              "type": "doc",
+              "id": "complete-guides/react/install-asgardeo-sdk",
+              "label": "Configure Asgardeo SDK"
+            },
+            {
+              "type": "doc",
+              "id": "complete-guides/react/add-login-and-logout",
+              "label": "Add login and logout"
+            },
+            {
+              "type": "doc",
+              "id": "complete-guides/react/display-logged-in-user-details",
+              "label": "Display user details"
+            },
+            {
+              "type": "doc",
+              "id": "complete-guides/react/securing-routes-within-the-app",
+              "label": "Securing Routes"
+            },
+            {
+              "type": "doc",
+              "id": "complete-guides/react/accessing-protected-api",
+              "label": "Accessing protected API"
+            },
+            {
+              "type": "doc",
+              "id": "complete-guides/react/manage-tokens-in-React-apps",
+              "label": "Manage tokens in React"
+            },
+            {
+              "type": "doc",
+              "id": "complete-guides/react/next-steps",
+              "label": "Next Steps"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+---
+tags:
+  - organization API
+title: User Sharing API (deprecated)
+hide_table_of_contents: true
+description: This document defines the User Sharing REST API for organizations in WSO2 Identity Platform. This enables organization administrators to share users across child organizations, manage and revoke sh...
+mkdocs_template: redoc
+deployment_options:
+  - WSO2 Cloud
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/asgardeo/docs/apis/organization-apis/organization-user-share.md
+---
+
+<Applies to="WSO2 Cloud">
+
+<ApiReference spec="/identity/apis/organization-apis/restapis/organization-user-share.yaml" />
+
+</Applies>
+
+
+
+<Applies to="Self-hosted">
+
+<ApiReference spec="/identity/apis/organization-apis/restapis/organization-user-share.yaml" />
+
+</Applies>

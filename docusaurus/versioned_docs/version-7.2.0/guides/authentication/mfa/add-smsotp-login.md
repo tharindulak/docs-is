@@ -1,0 +1,110 @@
+---
+title: Add MFA with SMS OTP
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/7.2.0/docs/guides/authentication/mfa/add-smsotp-login.md
+---
+
+# Add MFA with SMS OTP
+
+SMS OTP (One-Time Password) is a security mechanism where a password is sent to the user's registered mobile number, which they must enter during the login process. This password is typically valid for a short period.
+
+During SMS OTP authentication, the user must access their mobile device to retrieve the OTP. This method ensures that only the person who has access to the registered mobile number can log in, providing an additional layer of security.
+
+Follow the instructions given below to configure Multi-Factor Authentication (MFA) using SMS OTP in WSO2 Identity Server.
+
+## Prerequisites
+
+- To get started, you need to [register an application with WSO2 Identity Server](../../applications/index.md). You can register your own application or use one of the [sample applications](../../../get-started/try-samples/index.md) provided.
+- [Update the user profile of the users](../../users/manage-users.md#update-the-profile) with a mobile number to which the user will receive the OTP.
+- [Configure the SMS provider](../../notification-channels/configure-sms-provider.md) in WSO2 Identity Server.
+
+:::note[Info]
+
+You can use SMS OTP for multi-factor authentication only if a previous authentication step is configured with **username and password** or another factor that can validate user credentials.
+
+:::
+  
+## Set up SMS OTP
+WSO2 Identity Server has some default settings for SMS OTP, which are sufficient for most cases. If required, you can change the default settings, as explained below.
+
+To update the default SMS OTP settings:
+
+1. On the WSO2 Identity Server Console, go to **Connections** and select **SMS OTP**.
+2. Update the following parameters in the **Settings** tab:
+
+    
+    ![Setup SMS OTP in WSO2 Identity Server](../../../../../assets/_versions/7.2.0/img/guides/mfa/smsotp/setup-sms-otp.png)
+    
+
+    
+    <table>
+      <tr>
+        <th>Field</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><code>SMS OTP expiry time</code></td>
+        <td>Specifies the expiry time of the OTP. The generated OTP will not be valid after this expiry time.</td>
+      </tr>
+      <tr>
+        <td><code>Use only numeric characters for OTP</code></td>
+        <td>
+            Specifies whether to use only numeric characters in the OTP. If this is selected, the generated OTP contains only digits (0-9).
+            If this option is not selected, the OTP will contain alphanumeric characters.
+        </td>
+      </tr>
+      <tr>
+        <td><code>SMS OTP length</code></td>
+        <td>Specifies the number of characters allowed in the OTP.</td>
+      </tr>
+      <tr>
+        <td><code>Allowed OTP resend attempt count</code></td>
+        <td>Specifies the number of allowed OTP resend attempts.</td>
+      </tr>
+      <tr>
+        <td><code>Resend OTP block time</code></td>
+        <td>Specifies the time duration to block OTP resend requests after reaching the maximum allowed resend attempts.</td>
+      </tr>
+      
+    </table>
+    
+
+3. Once you update the SMS OTP settings, click **Update**.
+
+## Enable SMS OTP for an app
+
+To enable SMS OTP for MFA, you need to add **SMS OTP** in the authentication flow of the application.
+
+Follow the steps given below.
+
+1. On the WSO2 Identity Server Console, go to **Applications**.
+2. Select the application to which you wish to add SMS OTP.
+3. Go to the **Login Flow** tab of the application and add the SMS OTP authenticator from your preferred editor:
+
+    
+    1. Go to **Predefined Flows** > **Add Multi-factor Login**.
+
+    2. Select **Username + Password -> SMS OTP**.
+
+    3. Click **Confirm** to add passwordless login with email OTP to the sign-in flow.
+
+          ![Configuring SMS OTP authenticator in WSO2 Identity Server using the visual editor](../../../../../assets/_versions/7.2.0/img/guides/mfa/smsotp/add-sms-otp-authenticator-using-visual-editor.png)
+
+    4. Select **Enable backup codes** if you wish to allow users to use backup codes to log in to the application. Learn more about [configuring backup codes for users](../../user-self-service/manage-backup-codes.md).
+    
+
+4. Click **Update** to save your changes.
+
+## How it works
+
+When SMS OTP is enabled in the login flow of your application, the application user will be prompted with the SMS OTP authentication step once the first authentication step is completed. Given below are the high-level steps that follow:
+
+1. WSO2 Identity Server sends the OTP to the user's mobile number.
+2. WSO2 Identity Server prompts the user to enter the OTP code.
+  
+    ![Authenticate with SMS OTP in WSO2 Identity Server](../../../../../assets/_versions/7.2.0/img/guides/mfa/smsotp/enter-sms-otp.png)
+
+3. If required, the user can request WSO2 Identity Server to resend the OTP. The new OTP invalidates the previously sent OTP.
+4. The user enters the OTP and clicks **Continue**.
+5. If the authentication is successful, the user can access the application.

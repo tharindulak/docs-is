@@ -1,0 +1,19 @@
+---
+title: Social Login
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/6.0.0/docs/guides/identity-federation/social-login.md
+---
+
+# Social Login
+
+Social login is a single sign-on (SSO) mechanism that facilitates users to use their existing social network accounts 
+to sign in to various other third party sites and applications.
+
+WSO2 Identity Server supports the following social logins.
+
+-   [Log in with Facebook](facebook.md)
+
+-   [Log in with Google](google.md)
+
+-   [Log in with Twitter](twitter.md)

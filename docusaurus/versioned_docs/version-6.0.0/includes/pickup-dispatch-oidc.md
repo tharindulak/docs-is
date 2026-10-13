@@ -1,0 +1,69 @@
+---
+title: Pickup dispatch oidc
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/6.0.0/docs/includes/pickup-dispatch-oidc.md
+---
+
+&lt;!--
+### Prerequisites
+
+- Download [Apache Tomcat 8.x](https://tomcat.apache.org/download-80.cgi) and install it. Tomcat server installation location will later be referred to as `<TOMCAT_HOME>` in this guide.
+
+- It is recommended that you use a hostname that is not `localhost` to avoid browser errors. Modify your machine's `/etc/hosts` entry to reflect this.
+
+    :::info
+
+    Note that `wso2is.local` is used in this documentation as an example, but you must modify this when configuring the authenticators or connectors with this sample application.
+
+    :::
+
+
+
+-   Download the sample from GitHub.
+
+    1. Navigate to [WSO2 Identity Server Samples](https://github.com/wso2/samples-is/releases).
+
+    2. [Download](https://github.com/wso2/samples-is/releases/download/v4.5.2/pickup-dispatch.war) the `pickup-dispatch.war` file from the latest release assets.
+
+### Deploy the sample web app
+
+Next, deploy the sample web app on a web container.
+
+1. Extract the `pickup-dispatch.war` file and open the `dispatch.properties` file located in the `<EXTRACT>/WEB-INF/classes` folder.
+
+2. Replace the `consumerKey` and `consumerSecret` values with the OAuth Client Key and Client Secret values that were generated for the newly created service provider.
+
+    ![Configurations of Pickup Dispatch application](../../../../assets/img/fragments/pickup-key-secret.png)
+
+3. Next, copy the extracted and modified `pickup-dispatch` folder to the `<TOMCAT_HOME>/webapps` folder.
+
+### Register a service provider
+
+1. Log in to the Management Console (`https://<IS_HOST>:<PORT>/carbon`) using admin/admin credentials. 
+
+2. Click **Service Providers** > **Add**. 
+
+3. Enter `pickup-dispatch` as the **Service Provider Name**.
+ 
+4. Click **Register**.
+    
+5. Expand **Inbound Authentication Configuration** and then **OAuth/OpenID Connect Configuration**. 
+
+6. Click **Configure**.   
+
+7. Select the relevant grant types that you wish to try out from the **Allowed Grant Types** list. 
+        
+8.  Enter `http://wso2is.local:8080/pickup-dispatch/oauth2client` as the **Callback Url**.
+    
+    :::tip
+
+    For more information on `Callback Url` field and other advanced configurations
+    refer, [Advanced OpenID Connect Configurations](../../../../guides/login/oauth-app-config-advanced)
+
+    :::
+        
+9.  Click **Add**. Note that the **OAuth Client Key** and **Client Secret** get generated. You will need these values later on when deploying the sample application.
+
+10.  Click the **Register** button to finish creating the service provider.
+-->

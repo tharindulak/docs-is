@@ -1,0 +1,34 @@
+---
+title: Next Steps
+mkdocs_template: complete-guide
+deployment_options:
+  - WSO2 Cloud
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/asgardeo/docs/complete-guides/react/next-steps.md
+---
+
+This guide you just have completed, covered the adding user login for React apps by integrating with an Identity Provider (IdP) and additional use cases such making calls to an OAuth2-protected API. 
+
+:::tip[Tip]
+
+
+As you are now familiar with the concepts discussed in the guide, you can use the WSO2 Identity Platform React template to bootstrap your application by running the following command.  
+
+```bash
+
+npx tmplr --dir my-vite-react-app asgardeo/asgardeo-vite-react-template
+
+```
+The WSO2 Identity Platform React template generates a ready-made React sample app with pre-configured login and logout capabilities, helping you kick-start your project in just 2 minutes. 
+
+All you need is a `client_id`, which you can obtain by registering a **Single Page Application** in WSO2 Identity Platform.
+
+:::
+
+
+Now that your React application is secured with authentication features integrated, It is time to explore the additional features WSO2 Identity Platform offers to make the login flow more diverse and secure.
+
+- [Multi factor authentication](../../guides/authentication/mfa/index.md) 
+- [Passwordless authentication](../../guides/authentication/passwordless-login/index.md) 
+- [Self registration](../../guides/user-accounts/configure-self-registration.md) 
+- [Login UI customization](../../guides/branding/index.md)

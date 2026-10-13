@@ -1,0 +1,263 @@
+---
+title: Changing to IBM DB2
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/5.10.0/docs/setup/changing-to-ibm-db2.md
+---
+
+# Changing to IBM DB2
+
+By default, WSO2 Identity Server uses the embedded H2 database as the database
+for storing user management and registry data. Given below are the steps
+you need to follow in order to use DB2 for this purpose.
+    
+
+## Datasource configurations
+
+A datasource is used to establish the connection to a database. By
+default, `WSO2_IDENTITY_DB` and `WSO2_SHARED_DB` datasources are used to connect
+to the default  H2 database. 
+
+- `WSO2_SHARED_DB` - The database which stores registry and user management
+                     data.
+- `WSO2_IDENTITY_DB` - The database specific for the identity server which stores
+                       identity related data
+                       
+After setting up DB2 database. You can point the `WSO2_IDENTITY_DB` or 
+`WSO2_SHARED_DB` or both to that DB2 database by following below instructions.
+
+## Changing the default datasource
+
+**Minimum Configurations for changing default datasource to DB2.**
+ 
+You can configure the datasource by editing the default configurations in `<IS_HOME>/repository/conf/deployment.toml`. 
+
+Following are the basic configurations and their descriptions. 
+
+<table><thead><tr className={"header"}><th>{"Element"}</th><th>{"Description"}</th></tr></thead><tbody><tr className={"even"}><td><strong>{"username"}</strong>{" and "}<strong>{"password"}</strong></td><td>{"The name and password of the database user."}</td></tr><tr className={"even"}><td><strong>{"type"}</strong></td><td>{"The type of the database."}</td></tr><tr className={"even"}><td><strong>{"hostname"}</strong></td><td>{"The hostname of the hosted database"}</td></tr><tr className={"even"}><td><strong>{"port"}</strong></td><td>{"The port of the database."}</td></tr><tr className={"even"}><td><strong>{"name"}</strong></td><td>{"The name of the database."}</td></tr></tbody></table>
+ 
+ A sample configuration is given below.
+
+   1. `WSO2_IDENTITY_DB` 
+    
+       1. Configure the `deployment.toml` file.
+
+           ```toml
+           [database.identity_db]
+           type = "db2"
+           hostname = "localhost"
+           name = "regdb"
+           username = "regadmin"
+           password = "regadmin"
+           port = "50000"
+           ```
+       
+       1. Execute database scripts.
+        
+          Navigate to `<IS_HOME>/dbscripts`. Execute the scripts in the following files, against the database created.
+          
+		  :::info
+
+
+
+		  :::
+		  	  While running the DB2 scripts via the terminal, use the following DB2 command to run the DB2 scripts with the delimeter "/" since the default delimiter script for DB2 is ";". 
+			  
+			  ```xml
+			  db2 -td/ -f db2.sql
+			  ```		
+           - `<IS_HOME>/dbscripts/identity/db2.sql`
+           - `<IS_HOME>/dbscripts/identity/uma/db2.sql`
+           - `<IS_HOME>/dbscripts/consent/db2.sql`
+         
+   2. `WSO2_SHARED_DB`
+        
+       1. Configure the `deployment.toml` file.
+
+           ```toml
+           [database.shared_db]
+           type = "db2"
+           hostname = "localhost"
+           name = "regdb"
+           username = "regadmin"
+           password = "regadmin"
+           port = "50000"
+           ```
+           
+       1. Execute database scripts.
+        
+          Navigate to `<IS_HOME>/dbscripts`. Execute the scripts in the following file, against the database created.
+                      
+           - `<IS_HOME>/dbscripts/db2.sql`
+           
+   3. If you have a requirement in using workflow feature follow, 
+       [Changing the default database of BPS database](../../setup/changing-datasource-bpsds)
+       
+   4.  Download the DB2 JDBC driver for the version you are using. Extract the downloaded file if necessary, and copy all required JAR files from the driver package to the `<IS_HOME>/repository/components/lib` folder.
+    
+    :::note
+
+    In earlier versions WSO2 Identity Server had the option to create databases automatically using the 
+    -DSetup option  **from [January 2018 onwards](https://wso2.com/products/carbon/release-matrix/) 
+    WSO2 Identity Server has deprecated the** **`              -DSetup             `** **option**
+    Note that the proper practice is for the DBA to run the DDL statements manually so that the DBA
+    can examine and optimize any DDL statement (if necessary) based on the DBA best practices that are in
+    place within the organization.  
+
+    :::
+           
+            
+
+*Advanced Database Configurations.**
+
+Apart from the basic configurations specified above, WSO2 Identity Server supports some advanced database configurations as well.
+
+-	`WSO2_IDENTITY_DB` related configurations that should be added to the `deployment.toml` file.
+
+	```toml
+	[database.identity_db.pool_options]
+	maxActive = "80"
+	maxWait = "60000"
+	minIdle ="5"
+	testOnBorrow = true
+	validationQuery = "SELECT 1 FROM SYSIBM.SYSDUMMY1"
+	validationInterval="30000"
+	defaultAutoCommit=false
+	commitOnReturn=true
+	```
+
+-	`WSO2_SHARED_DB` `deployment.toml` related configurations that should be added to the `deployment.toml` file.
+
+	```toml
+	[database.shared_db.pool_options]
+	maxActive = "80"
+	maxWait = "60000"
+	minIdle ="5"
+	testOnBorrow = true
+	validationQuery = "SELECT 1 FROM SYSIBM.SYSDUMMY1"
+	validationInterval="30000"
+	defaultAutoCommit=false
+	commitOnReturn=true
+	```
+
+The elements in the above configuration are described below:   
+
+<table><tbody><tr className={"even"}><td><strong>{"maxActive"}</strong></td><td>{"The maximum number of active connections that can be allocated at the same time from this pool. Enter any negative value to denote an unlimited number of active connections."}</td></tr><tr className={"odd"}><td><strong>{"maxWait"}</strong></td><td>{"The maximum number of milliseconds that the pool will wait (when there are no available connections) for a connection to be returned before throwing an exception. You can enter zero or a negative value to wait indefinitely."}</td></tr><tr className={"even"}><td><strong>{"minIdle"}</strong></td><td>{"The minimum number of active connections that can remain idle in the pool without extra ones being created, or enter zero to create none."}</td></tr><tr className={"odd"}><td><p><strong>{"testOnBorrow"}</strong></p></td><td>{"Indicates Whether objects will be validated before being borrowed from the pool. If the object fails to validate, it will be dropped from the pool, and another attempt will be made to borrow another."}</td></tr><tr className={"even"}><td><p><strong>{"defaultAutoCommit"}</strong></p></td><td>{"Indicates Whether to commit database changes automatically or not."}</td></tr><tr className={"odd"}><td><strong>{"validationInterval"}</strong></td><td>{"The indication to avoid excess validation, and only run validation at the most, at this frequency (time in milliseconds). If a connection is due for validation, but has been validated previously within this interval, it will not be validated again."}</td></tr><tr className={"even"}><td><strong>{"defaultAutoCommit"}</strong></td><td><div className={"content-wrapper"}><p>{"This property is "}<strong>{"not"}</strong>{" applicable to the Carbon database in WSO2 products because auto committing is usually handled at the code level, i.e., the default auto commit configuration specified for the RDBMS driver will be effective instead of this property element. Typically, auto committing is enabled for RDBMS drivers by default."}</p><p>{"When auto committing is enabled, each SQL statement will be committed to the database as an individual transaction, as opposed to committing multiple statements as a single transaction."}</p></div></td></tr></tbody></table>
+
+:::info
+
+For more information on other parameters that can be defined in
+the `<IS_HOME>/repository/conf/deployment.toml` file, 
+see [Tomcat JDBC Connection
+Pool](http://tomcat.apache.org/tomcat-9.0-doc/jdbc-pool.html#Tomcat_JDBC_Enhanced_Attributes).
+
+:::
+  
+## Configuring the connection pool behavior on return 
+
+By default, when a database connection is returned to the pool, the product rolls back the pending transactions if `defaultAutoCommit=true`. 
+
+However, if required, you can disable the latter mentioned default behavior by disabling the JDBC-Pool JDBC interceptor, `ConnectionRollbackOnReturnInterceptor`, and setting the connection pool behavior on return via the datasource configurations using one of the following options.
+
+**Configure the connection pool to commit pending transactions on connection return**
+        
+  1.  Navigate to the
+        `               <IS_HOME>/repository/conf/deployment.toml              `
+        file.
+  2.  Disable the `               defaultAutoCommit              ` property
+        by defining it as `false`.
+  3.  Add the `                commitOnReturn               `
+        property and set it to true.
+                         
+    - `WSO2_IDENTITY_DB` `deployment.toml` Configurations.
+        
+       ```toml
+       [database.identity_db.pool_options]
+        defaultAutoCommit="false"
+        commitOnReturn="true"
+       ```
+       
+    - `WSO2_SHARED_DB` `deployment.toml` Configurations.
+            
+       ```toml
+       [database.shared_db.pool_options]
+        defaultAutoCommit="false"
+        commitOnReturn="true"
+       ```    
+
+:::note
+
+The `-Dndatasource.disable.rollbackOnReturn=true` JVM option, required in earlier releases, has no effect from WSO2 Identity Server 5.10.0 onwards. The connection pool no longer rolls back pending transactions on connection return by default, so the option is no longer needed.
+
+:::
+
+**Configure the connection pool to rollback pending transactions on connection return**
+
+  1.  Navigate to the
+        `<IS_HOME>/repository/conf/deployment.toml`            `
+        file.
+  2.  Disable the
+        `                defaultAutoCommit               ` property by
+        defining it as `false`.
+
+  3.  Set the `                rollbackOnReturn               `
+        property to the datasources as true.
+
+
+    - `WSO2_IDENTITY_DB` `deployment.toml` Configurations.
+        
+       ```toml
+       [database.identity_db.pool_options]
+        defaultAutoCommit="false"
+        rollbackOnReturn="true"
+       ```
+       
+    - `WSO2_SHARED_DB` `deployment.toml` Configurations.
+            
+       ```toml
+       [database.shared_db.pool_options]
+        defaultAutoCommit="false"
+        rollbackOnReturn="true"
+       ```
+
+The elements in the above configuration are described below:
+
+ | **Element**          | **Description**                                                                                                                                                                                                                                                                                                                                                                            |
+ |----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+ | **commitOnReturn**   | If `defaultAutoCommit` =false, then you can set `commitOnReturn ` =true, so that the pool 
+ |                      | can complete the transaction by calling the commit on the connection as it is returned to the pool. However, If the  
+ |                      | `  rollbackOnReturn` =true then this attribute is ignored. The default value is false. |
+ |                      |
+ | **rollbackOnReturn** | If `                defaultAutoCommit               ` =false, then you can set `                rollbackOnReturn               ` =true so that the pool can terminate the transaction by calling rollback on the connection as it is returned to the pool. The default value is false.                                                                                                     |
+
+
+## Driver-Level Timeouts (Recommended for Production)
+
+If the database becomes unresponsive, WSO2 Identity Server threads can get stuck waiting for a JDBC connection. This happens because the Tomcat JDBC Pool can't abort connection creation by itself ([source](https://github.com/apache/tomcat/blob/9.0.82/modules/jdbc-pool/src/main/java/org/apache/tomcat/jdbc/pool/ConnectionPool.java#L693-L702)).
+
+To prevent this, configure **driver-level timeouts** in the JDBC URL:
+
+- **`connectTimeout`** → Maximum time to wait while establishing a database connection.  
+- **`socketTimeout`** (or driver-specific equivalent) → Maximum time to wait for responses on an active connection.  
+- **`tcpKeepAlive=true`** (if supported) → Helps detect unresponsive database servers.
+
+Also note the distinction:
+
+- **`maxWait`** (Tomcat pool) controls how long to wait for a free connection from the pool.  
+- **`connectTimeout` / `socketTimeout`** (driver) → how long to connect/read at the DB level.
+
+> **Note:** The `PoolExhaustedException` warning log is logged only when `maxWait` expires ([source](https://github.com/apache/tomcat/blob/9.0.82/modules/jdbc-pool/src/main/java/org/apache/tomcat/jdbc/pool/ConnectionPool.java#L739-L741)). It does **not** cover delays inside the driver’s connection or read operations. Driver-level timeouts are required to handle those cases.
+
+> **Note:** The config parser writes `deployment.toml` values into `<IS_HOME>/repository/conf/datasources/master-datasources.xml` verbatim, and a bare `&` starts an entity reference in XML. Write every `&` that separates JDBC URL parameters as `&amp;` in `deployment.toml`. A bare `&` leaves the generated XML malformed, and the server fails to initialize any datasource at startup. The escaped form is parsed back to a plain `&`, so the driver receives the parameters as intended.
+
+### Example: IBM DB2 database
+
+```toml
+[database.identity_db]
+url = "jdbc:db2://DB_HOST:50000/WSO2_IDENTITY_DB:loginTimeout=10;queryTimeout=60;"
+username = "..."
+password = "..."
+driver = "com.ibm.db2.jcc.DB2Driver"
+```
+
+Learn more in [IBM DB2 connection settings](https://www.ibm.com/docs/en/db2/11.5?topic=client-jdbc-properties).
