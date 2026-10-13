@@ -1,0 +1,16 @@
+---
+title: Inbound Provisioning
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/6.1.0/docs/guides/identity-lifecycles/inbound-provisioning.md
+---
+
+# Inbound Provisioning 
+
+Inbound provisioning involves provisioning users or groups to the WSO2 Identity Server’s userstore via an external application. For more information, see [Inbound provisioning](../../references/concepts/provisioning-framework.md#inbound-provisioning).
+
+The following documents give step by step instructions on how to configure WSO2 Identity Server for inbound provisioning. 
+
+- [Configure userstores for SCIM2-based inbound provisioning](configure-user-stores-for-scim2-based-inbound-provisioning.md)
+
+- [Configure Active Directory Userstores for SCIM 2.0 based Inbound Provisioning](configure-active-directory-user-stores-for-scim-2.0-based-inbound-provisioning.md)

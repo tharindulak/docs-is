@@ -1,0 +1,31 @@
+---
+title: Start integrating apps
+deployment_options:
+  - WSO2 Cloud
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/asgardeo/docs/get-started/start-integrating-apps/index.md
+---
+
+<Applies to="WSO2 Cloud">
+
+# Start integrating apps
+
+You can get started by integrating applications with WSO2 Identity Platform. Try one of the sample applications or integrate your app using the WSO2 Identity Platform SDKs.
+
+- [Try a Sample App](../try-samples/index.md)
+- [Try your Own App](../try-your-own-app/index.md)
+
+</Applies>
+
+
+
+<Applies to="Self-hosted">
+
+# Start integrating apps
+
+You can get started by integrating applications with WSO2 Identity Server. Try one of the sample applications or integrate your app using SDKs.
+
+- [Try a Sample App](../try-samples/index.md)
+- [Try your Own App](../try-your-own-app/index.md)
+
+</Applies>

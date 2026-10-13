@@ -1,0 +1,62 @@
+---
+title: Login Flow AI
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/7.2.0/docs/guides/authentication/login-flow-ai.md
+---
+
+# Login Flow AI
+
+
+:::warning[Beta feature]
+
+The **AI Login Flow Generation** feature is currently in **Beta**. We are actively working to enhance its capabilities and improve performance.
+
+:::
+
+
+AI-powered login flow generation simplifies the setup of authentication sequences in WSO2 Identity Server by using an AI-driven approach. This tool allows users to efficiently create tailored authentication sequences without needing in-depth knowledge of the underlying authenticators or scripting languages.
+
+
+:::note[Enable AI-powered features]
+
+
+To enable AI-powered features, WSO2 Identity Server requires a subscription key from the [WSO2 AI subscription portal](https://ai-subscriptions.wso2.com/). See the [guide](../../get-started/subscribe-to-ai-features.md) for step by step instructions.
+
+:::
+
+
+## Generate login flows with Login Flow AI
+
+To generate your login flow with LoginFlow AI:
+
+1. On the WSO2 Identity Server Console, go to **Applications**.
+
+2. Select your application and go to its **Login Flow** tab.
+
+3. Click **Try Login Flow AI**.
+
+    ![LoginFlow AI button](../../../../assets/img/guides/ai-loginflow-try.png)
+
+4. Enter the login scenario you want to configure and press enter.
+
+    :::note
+
+    If you wish to add connections to your login sequence, make sure to [set up the required connection](index.md#manage-connections). Only existing connections can be incorporated into the login flow.
+
+    :::
+
+    ![LoginFLow AI input](../../../../assets/img/guides/ai-loginflow-input.png)
+
+    The system will analyze the input and generate the appropriate authentication sequence.
+
+## Customize the generated authentication sequence
+
+The AI system processes your input and provides an authentication sequence, you can further customize the authentication sequence by:
+
+- Adding or removing authenticators as needed.
+- Modifying the suggested steps.
+
+## Apply Login Flow
+
+Once you've reviewed and customized the generated login flow, click **Update** to apply it to your application.

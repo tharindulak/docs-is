@@ -1,0 +1,129 @@
+---
+title: Implement login using Pushed Authorization Requests (PAR)
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/7.1.0/docs/guides/authentication/oidc/implement-login-with-par.md
+---
+
+# Implement login using Pushed Authorization Requests (PAR)
+
+OAuth 2.0 authorization requests, typically initiated from the front-channel (e.g., a web browser), have inherent issues. These requests can sometimes be too large for browsers to handle, and there is no guarantee that an adversary won't tamper with the request before it reaches the authorization server.
+
+The OAuth 2.0 specification introduced Pushed Authorization Requests (PAR) to mitigate these issues. Using PAR, the authorization payload will be pushed to the `/par` endpoint of the authorization server from the back-channel. In response, the server will return a `request_uri`, a one-time use identifier which acts as a reference to the payload.
+
+You can use the `request_uri` instead of the authorization payload when initiating the authorization request from the front-channel.
+
+:::note
+
+The `/par` endpoint inherits the client authentication rules that are defined for the `/token` endpoint requests, including the relevant authentication methods. Learn more about [Pushed Authorization Requests](../../../references/pushed-authorization-requests.md).
+
+:::
+
+## Prerequisites
+
+To get started, you need to have an application registered in WSO2 Identity Server. If you don't already have one, [register a web app with OIDC](../../applications/register-oidc-web-app.md) and take note of its client ID and secret.
+
+## Get a request_uri
+
+The `request_uri` functions as a reference to your authorization payload. You can receive a `request_uri` by invoking the following endpoint in WSO2 Identity Server.
+
+```
+https://localhost:9443/oauth2/par
+```
+
+The following example shows how you can initiate an authorization code flow using the `/par` endpoint.
+
+**Request format**
+
+```bash
+curl --location 'https://localhost:9443/oauth2/par'
+    --header 'Content-Type: application/x-www-form-urlencoded'
+    --header 'accept: application/json'
+    --header 'Authorization: Basic <Base64Encoded(ClientID:ClientSecret)>'
+    --data-urlencode 'client_id={CLIENT_ID}'
+    --data-urlencode 'redirect_uri={REDIRECT_URI}'
+    --data-urlencode 'response_type=code'
+    --data-urlencode 'scope=<SCOPES>'
+```
+
+**Sample request**
+
+```bash
+curl --location 'https://localhost:9443/oauth2/par'
+    --header 'Content-Type: application/x-www-form-urlencoded'
+    --header 'accept: application/json'
+    --header 'Authorization: Basic YWRtaW46YWRtaW4='
+    --data-urlencode 'client_id=DUBCMGolTZQNg6mmE9GvfQ3qfq8a'
+    --data-urlencode 'redirect_uri=http://localhost:8080/playground2'
+    --data-urlencode 'response_type=code'
+    --data-urlencode 'scope=openid email'
+```
+
+You will receive a response with the request_uri and the time of expiry.
+
+```json
+{
+"expires_in": 60,
+"request_uri": "urn:ietf:params:oauth:par:request_uri:a0cf571e-fe97-411a-8f33-3c01913c0e5f"
+}
+```
+
+:::note
+
+- WSO2 Identity Server uses the prefix, `urn:ietf:params:oauth:par:request_uri:` for the request_uri. The `/authorize` endpoint processes the request as initiated with PAR, only if the request_uri is of this format.
+
+- By default, the request_uri expires after 60 seconds. You can change the time of expiry (e.g. 90 seconds), by adding the following configuration to the `deployment.toml` file found in the `<IS_HOME>/repository/conf` directory.
+```json
+ [oauth.par]
+ expiry_time=90
+```
+
+:::
+    
+
+## Start the authorization flow
+
+You can use the `request_uri` that you received above, along with the client ID of the application to start the authorization flow using the following URL.
+
+**Request Format**
+
+```json
+https://localhost:9443/oauth2/authorize?
+client_id={CLIENT_ID}&request_uri={request_uri}
+```
+
+**Sample Request**
+
+```json
+https://localhost:9443/oauth2/authorize?
+client_id=DUBCMGolTZQNg6mmE9GvfQ3qfq8a
+&request_uri=urn:ietf:params:oauth:par:request_uri:a0cf571e-fe97-411a-8f33-3c01913c0e5f
+```
+
+
+
+## Clean up stale PAR request records
+
+Each pushed authorization request creates a record in the `IDN_OAUTH_PAR` table. When a `request_uri` is not used or expired before use, the records remain in the table. Without periodic cleanup, this table can grow over time and negatively impact server performance.
+
+To prevent this, it is recommended to clean up unclaimed and expired PAR requests periodically.
+
+:::tip
+
+Run these scripts during a low traffic time window. You can also set `backupTables` to `TRUE` in the script to back up the records before deletion, enabling a restore if needed.
+
+:::
+
+Depending on your database, select the appropriate PAR request cleanup script from the links below and run it on the database.
+
+- [DB2](https://github.com/wso2/carbon-identity-framework/blob/master/features/identity-core/org.wso2.carbon.identity.core.server.feature/resources/dbscripts/stored-procedures/db2/par-request-cleanup/)
+- [MSSQL](https://github.com/wso2/carbon-identity-framework/blob/master/features/identity-core/org.wso2.carbon.identity.core.server.feature/resources/dbscripts/stored-procedures/mssql/par-request-cleanup/)
+- [MySQL](https://github.com/wso2/carbon-identity-framework/blob/master/features/identity-core/org.wso2.carbon.identity.core.server.feature/resources/dbscripts/stored-procedures/mysql/par-request-cleanup/)
+- [Oracle](https://github.com/wso2/carbon-identity-framework/blob/master/features/identity-core/org.wso2.carbon.identity.core.server.feature/resources/dbscripts/stored-procedures/oracle/par-request-cleanup/)
+- [PostgreSQL 11.X](https://github.com/wso2/carbon-identity-framework/blob/master/features/identity-core/org.wso2.carbon.identity.core.server.feature/resources/dbscripts/stored-procedures/postgresql/postgre-11x/par-request-cleanup/)
+
+:::note
+
+Once the cleanup is complete, you can schedule a periodic cleanup task to automate future runs.
+
+:::

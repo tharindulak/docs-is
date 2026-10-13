@@ -1,0 +1,134 @@
+---
+title: Add Email OTP login
+deployment_options:
+  - WSO2 Cloud
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/asgardeo/docs/guides/authentication/passwordless-login/add-passwordless-login-with-email-otp.md
+---
+
+# Add Email OTP login
+
+Email OTP is a form of passwordless authentication. It allows users to log in by providing a one-time passcode sent to their email instead of entering a password.
+
+## Prerequisites
+- To get started, you need to [register an application with WSO2 Identity Platform](../../applications/index.md). You can register your own application or use one of the [sample applications](../../../get-started/try-samples/index.md) provided.
+
+- You need to have a user account in WSO2 Identity Platform. If you don't already have one, [create a user account](../../users/manage-users.md#onboard-a-user) in WSO2 Identity Platform.
+
+
+
+<Applies to="WSO2 Cloud">
+
+    :::note
+
+    You cannot use an administrator account to log in to an application.
+
+    :::
+
+</Applies>
+
+
+
+
+
+<Applies to="Self-hosted">
+
+- You need to [configure the email sending module](../../notification-channels/configure-email-provider.md) for the WSO2 Identity Server to send the email OTP to the users.
+
+</Applies>
+
+
+
+## Enable Email OTP login for an app
+
+Follow the steps given below to add **Email OTP** login to the login flow of your application.
+
+1. On the WSO2 Identity Platform Console, go to **Applications**.
+
+2. Select the application to which you wish to add email OTP login.
+
+3. Go to the **Login Flow** tab of the application and add email OTP login as follows:
+
+    
+
+    <Applies to="WSO2 Cloud">
+
+    <Tabs>
+    <TabItem value="tab-0" label="Visual Editor">
+
+    To add passwordless login with email OTP using the Visual Editor:
+
+    1. Switch to the **Visual Editor** tab and go to **Predefined Flows** > **Basic Flows** > **Add Passwordless login**.
+
+    2. Select **Email OTP**.
+
+    3. Click **Confirm** to add passwordless login with email OTP to the sign-in flow.
+
+        ![Configuring email OTP login in WSO2 Identity Platform using the Visual Editor](../../../../assets/img/guides/passwordless/email-otp/add-email-otp-login-step-with-visual-editor.png)
+
+    </TabItem>
+    </Tabs>
+
+
+    <Tabs>
+    <TabItem value="tab-0" label="Classic Editor">
+
+    - If you haven't already built a login flow for your application, select **Add Email OTP login** to build one.
+
+        ![Configuring email OTP login in WSO2 Identity Platform](../../../../assets/img/guides/passwordless/email-otp/add-email-otp-login.png)
+
+    - If you have an already built login flow, add the **Email OTP** authenticator as the first authentication step.
+
+        ![Customize the login flow](../../../../assets/img/guides/passwordless/email-otp/add-email-otp-login-step.png)
+
+    </TabItem>
+    </Tabs>
+
+    ---
+
+    </Applies>
+
+    
+
+    <Applies to="Self-hosted">
+
+    1. Go to **Predefined Flows** > **Basic Flows** > **Add Passwordless login**.
+
+    2. Select **Email OTP**.
+
+    3. Click **Confirm** to add passwordless login with email OTP to the sign-in flow.
+
+        ![Configuring magic link login in WSO2 Identity Server using the Visual Editor](../../../../assets/img/guides/passwordless/email-otp/add-email-otp-login-step-with-visual-editor.png)
+
+    </Applies>
+
+    
+
+4. Click **Update** to save your changes.
+
+
+
+
+
+
+
+
+## Try it out
+
+Follow the steps given below.
+
+1. Access the application URL.
+2. Click **Login** to open the WSO2 Identity Platform login page.
+3. On the WSO2 Identity Platform login page, enter your username and press **Continue**.
+
+    ![Sign In with email OTP in WSO2 Identity Platform](../../../../assets/img/guides/passwordless/email-otp/email-otp-login-page.png)
+
+    You will be redirected to the below email OTP page.
+
+    ![Email OTP submit page](../../../../assets/img/guides/passwordless/email-otp/email-otp-submit-page.png)
+
+4. Check your inbox for the email containing the one-time passcode. The email reads as follows.
+
+    ![Email OTP email](../../../../assets/img/guides/passwordless/email-otp/email-otp-email.png)
+
+5. Enter the received passcode in the email OTP page and click on **Continue**.

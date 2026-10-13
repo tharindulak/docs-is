@@ -1,0 +1,34 @@
+---
+title: Configure custom domains
+deployment_options:
+  - WSO2 Cloud
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/asgardeo/docs/guides/branding/configure-custom-domains.md
+---
+
+# Configure custom domains
+&lt;Badge text="Paid subscription required" type="warn" />
+
+:::warning
+
+You need a paid WSO2 Identity Platform subscription to use this feature. If you don’t already have one, view the available [subscription plans](https://wso2.com/identity-platform/pricing/) and contact the WSO2 Identity Platform sales team.
+
+:::
+
+By default, the WSO2 Identity Platform interfaces presented to your users (during the login, sign-up, and account recovery flows), as well as the back-end services (such as APIs), are served by WSO2 Identity Platform on the following domains:
+
+- **User interfaces**: `https://accounts.asgardeo.io/t/{org_name}`
+- **Services**: `https://api.asgardeo.io/t/{org_name}`
+
+With domain branding, you can customize the above endpoints to have hostnames specific to your organization. For example, if your organization is **Foo**, you can have the following custom domains:
+
+- **User interfaces**: `https://accounts.foo.com`
+- **Services**: `https://api.foo.com`
+
+:::note[Custom domain branding for B2B applications]
+
+If you have configured [organizations](../organization-management/manage-organizations.md), note that the custom domain you configure for your root organization also applies to your organizations.
+
+:::
+
+If you have a paid WSO2 Identity Platform subscription and wish to implement a custom domain for your organization, contact WSO2 Identity Platform support through the [WSO2 cloud support portal](https://cloud-support.wso2.com/) or send a request email to `asgardeo-help@wso2.com` and the team will get back to you with instructions.
+Note that email and support portal requests should be sent from the respective account of an administrator.

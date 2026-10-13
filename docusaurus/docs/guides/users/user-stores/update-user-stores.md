@@ -1,0 +1,98 @@
+---
+title: Manage remote user stores in WSO2 Identity Platform
+deployment_options:
+  - WSO2 Cloud
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/asgardeo/docs/guides/users/user-stores/update-user-stores.md
+---
+
+# Manage remote user stores in WSO2 Identity Platform
+This guide walks you through the process of managing your remote user stores via the WSO2 Identity Platform Console.
+
+## Update attribute mappings
+
+To update attribute mappings via the WSO2 Identity Platform Console:
+
+1. On the WSO2 Identity Platform Console, go to **User Attributes & Stores** > **User Stores**.
+2. Select your user store from the **User stores** list.
+3. Go to the **Configurations** tab and update the required information.
+
+    :::note
+
+
+    - Update **User Attributes** and **Group Attributes** as per your user store.
+    - Update **Custom Attributes** and **Local Attributes** mapped to your user store.
+    - Be sure to map WSO2 Identity Platform attributes with the corresponding on-premise user store attributes.
+
+    :::
+
+4. Click **Update** to save the configurations.
+
+## Disconnect a user store agent
+
+To disconnect a user store agent:
+
+1. On the WSO2 Identity Platform Console, go to **User Attributes & Stores** > **User Stores**.
+2. Select your user store from the **User stores** list.
+3. In the **User Store Agent Connection(s)** section, click **Disconnect** on the user store agent that you wish to disconnect.
+4. Select the checkbox to confirm your action and click **Confirm**.
+
+## Regenerate an installation token
+
+An installation token is used to run a user store agent. Once generated, an installation token is displayed only once.
+
+In case you forget or lose this installation token, you can regenerate it.
+
+:::warning
+
+- If you regenerate a token without disconnecting the user store agent, the agent will be disconnected forcefully. You will need to re-run the user store agent with the new installation token.
+
+- If the token is compromised, it is essential to regenerate an installation token.
+
+:::
+
+To regenerate an installation token:
+
+1. On the WSO2 Identity Platform Console, go to **User Attributes & Stores** > **User Stores**.
+2. Select your user store from the **User Stores** list and go to the **General** tab.
+3. In the **User Store Agent Connection(s)** section, click **Regenerate Token** on the user store agent that you wish to regenerate the token for.
+
+
+## Disable a user store
+
+:::warning
+
+If you disable a user store, its users will lose access to WSO2 Identity Platform applications and administrators can no longer view users or groups of that user store in the WSO2 Identity Platform Console.
+
+:::
+
+To disable a user store:
+
+1. On the WSO2 Identity Platform Console, go to **User Attributes & Stores** > **User Stores** and select your user store.
+2. Turn on the **Disable User Store** toggle at the bottom of the page to disable the user store.
+
+    ![Disable a user store](../../../../assets/img/guides/user-stores/disable-user-store.png)
+
+    :::note
+
+    You can re-enable a disabled user store by switching off the toggle.
+
+    :::
+
+## Delete a remote user store
+
+A user store can be deleted by an administrator. Once a user store is deleted, the action is irreversible.
+
+:::note
+
+Once you delete the remote user store the user store agents associated with this user store will be forcefully disconnected.
+
+:::
+
+To delete a user store:
+
+1. On the WSO2 Identity Platform Console, go to **User Attributes & Stores** > **User Stores** and select your user store.
+2. Click **Delete User Store** at the bottom of the page.
+
+    ![Disable a user store](../../../../assets/img/guides/user-stores/delete-user-store.png)
+
+3. On the pop-up window, type the user store name and click **Confirm** to delete the user store.

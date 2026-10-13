@@ -1,0 +1,71 @@
+---
+title: API security
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/7.1.0/docs/concepts/api-security.md
+---
+
+# API security
+
+The business APIs you deploy, whether used by your internal applications or external partners, must be properly secured and managed. Implementing robust API security is crucial for several reasons. It safeguards sensitive data transmitted via APIs, preventing unauthorized access while ensuring legitimate users have the correct level of access. Moreover, strong API security is vital for maintaining a business’s reputation and customer trust. A single data breach can significantly harm your brand name and erode customer confidence, so preventing cybersecurity incidents not only helps avoid negative media attention but also shows a commitment to protecting user data and privacy. Furthermore, API security ensures compliance with industry-specific regulations such as HIPAA and FAPI.
+
+WSO2 Identity Server can secure your APIs and make sure only authorized applications and  authorized users can access the APIs. WSO2 Identity Server can be integrated with your APIs in two approaches:
+
+- **WSO2 Identity Server as OAuth2 Token Service with Access control** - In this approach, WSO2 Identity Server handles both authentication and authorization. WSO2 Identity Server issues access tokens with enforced access control policies (for example scopes issued are based on role-based access control). Your APIs validate the token and trust the access control decisions already made by WSO2 Identity Server.
+
+  Suitable when,
+
+  - You don't use a dedicated API management platform.
+  - You want WSO2 Identity Server to enforce access policies.
+
+- **WSO2 Identity Server as OAuth2 Token Service only** - Use this approach when you integrate WSO2 Identity Server as the Identity Provider (IdP) for an API management platform (WSO2 API Manager, Choreo, etc.). WSO2 Identity Server issues tokens, but the API management platform enforces authorization for the token.
+
+  Suitable when,
+
+  - You already have an API gateway or management platform handling access policies.
+  - You want centralized identity management via WSO2 Identity Server across different applications and APIs.
+
+## Define and secure API resources  
+
+[Define your APIs](../guides/authorization/api-authorization/api-authorization.md#register-a-business-api) and associated permissions as scopes in WSO2 Identity Server using the console or API, and attach the authorization policies.
+
+:::note
+
+
+Learn more about [supported Authorization policies for APIs and apps](../references/authorization-policies-for-apps.md)
+
+:::
+
+
+
+## Authorize applications to use APIs
+
+[Authorize applications to consume API resources](../guides/authorization/api-authorization/api-authorization.md#authorize-apps-to-consume-api-resources) and define their access level by assigning a set of scopes.
+
+:::tip
+
+
+If your application needs FAPI compliance for API access, WSO2 Identity Server simplifies the process with a one-click, FAPI-compliant option. This feature ensures that all necessary security configurations for FAPI compliance are automatically applied to your app. Learn more about [FAPI-compliant apps](../guides/applications/register-a-fapi-compliant-app.md).
+
+:::
+
+Define application level roles as per your business requirements and assign selected scopes from the previous step. You can create both application-level roles and organizational-level roles. These roles can be assigned to users and user groups so that their access to the API is restricted based on roles.
+
+[Define application-level roles](../guides/authorization/api-authorization/api-authorization.md#create-roles-and-assign-users) based on your business needs, and assign relevant scopes that you selected in the previous step. You can create both application-specific roles and organization-wide roles, which can be applied to users or user groups to ensure access to APIs is restricted and managed according to roles.
+
+## Simplify token generation and verification  
+
+Use WSO2 Identity Server SDKs for your preferred web application framework to request access tokens while also managing user sign-ins. WSO2 Identity Server SDKs allow you to request specific scopes, representing different access levels within the APIs. WSO2 Identity Server applies authorization policies to each token request, ensuring that applications only receive the scopes authorized for the current user and app. The SDKs also handle token verification complexities, so you won’t need to write additional code for token processing and verification.
+Explore the full range of SDKs supported by WSO2 Identity Server.
+
+Alternatively, you can use any OAuth2/OIDC framework to create token requests and manage tokens on your own.
+
+You can use one of the following methods to verify tokens during the token verification process, typically done at the API gateway level or within the API implementation if no gateway is used:
+
+- **Signature Verification** - Verify the token's signature and validity directly. WSO2 Identity Server provides a JWKS (JSON Web Key Set) endpoint, allowing you to retrieve the public key associated with the private key used for signing. This method doesn't require additional network calls to WSO2 Identity Server, ensuring optimal performance.
+- **Token Introspection** - Verify the token's validity and gain additional token details by calling WSO2 Identity Server's introspection endpoint. While this approach involves extra network calls, it offers additional security, such as checking whether the token has been revoked.
+
+If you are using an API management solution that provides API authorization along with other management capabilities, you can easily integrate WSO2 Identity Server as an identity provider for token generation. This is a common approach when you want to leverage WSO2 Identity Server as the customer or workforce identity provider across applications and APIs.
+
+- [Integrate WSO2 Identity Server with WSO2 APK](https://apk.docs.wso2.com/en/latest/setup/identity-platform/idp/asgardeo-idp/)
+- [Choreo API Management](https://wso2.com/choreo/docs/administer/configure-an-external-idp/configure-asgardeo-as-an-external-idp/)

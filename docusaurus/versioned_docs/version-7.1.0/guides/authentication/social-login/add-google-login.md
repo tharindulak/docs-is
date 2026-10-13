@@ -1,0 +1,148 @@
+---
+title: Add Google login
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/7.1.0/docs/guides/authentication/social-login/add-google-login.md
+---
+
+# Add Google login
+
+You can add Google login to your applications using WSO2 Identity Server and enable users to log in with their Google accounts.  
+
+Follow this guide for instructions.
+
+## Register WSO2 Identity Server on Google
+You need to register WSO2 Identity Server as an OAuth2.0 application on Google.
+
+:::note
+
+For detailed instructions, you can follow the [Google documentation](https://support.google.com/googleapi/answer/6158849).
+
+:::
+
+1. Go to the [Google Developer console](https://console.developers.google.com/apis/credentials), create a new project, or select an existing project.
+
+2. If the **APIs & services** page isn't already open, do the following:
+
+    1. Open the navigation menu and click **View all products**.
+
+       ![View all products on the Google console](../../../../../assets/img/guides/idp/google-idp/view-all-products.png)
+
+    2. Under **Management**, click **APIs & Services**.
+
+       ![Select APIs & Services](../../../../../assets/img/guides/idp/google-idp/apis-and-services.png)
+
+3. Go to the **Credentials** page, click **Create Credentials**, and select **Oauth client ID**.
+
+    ![Select APIs & Services](../../../../../assets/img/guides/idp/google-idp/google-oauth-client-id.png)
+
+4. Configure your consent screen by clicking **Configure Consent Screen** and return to **Create OAuth client ID** screen once you are done.
+
+    :::note
+
+    For more information, see [User Consent](https://support.google.com/googleapi/answer/6158849#userconsent&zippy=%2Cuser-consent)
+
+    :::
+
+5. Select the **Web application** as the application type.
+6. Provide a name for your app and the following URL as the **Authorized Redirect URI** of the application:
+
+    ```bash
+    https://localhost:9443/commonauth
+    ```
+
+7. Take note of the client ID and client secret generated for the application.
+
+## Register the Google IdP
+
+Now, let's register the Google IdP in WSO2 Identity Server.
+
+1. On the WSO2 Identity Server Console, go to **Connections**.
+2. Click **New Connections** and select **Google**.
+3. Enter the following details of the Google identity provider and click **Finish**:
+
+    ![Add Google IDP in WSO2 Identity Server](../../../../../assets/_versions/7.1.0/img/guides/idp/google-idp/add-google-idp.png)
+
+    <table>
+      <tr>
+        <th>Parameter</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>A unique name for this Google identity provider.</td>
+      </tr>
+      <tr>
+          <td>Client ID</td>
+          <td>The client ID obtained from Google.</td>
+      </tr>
+      <tr>
+          <td>Client secret</td>
+          <td>The client secret obtained from Google.</td>
+      </tr>
+    </table>
+
+4. Go to the **Settings** tab and see the list of **scopes** to which Google has granted permissions.
+
+    - **email**: Allows to view the user's email address.
+    - **openid**: Allows authentication using OpenID Connect and to obtain the ID token.
+    - **profile**: Allows to view the user's basic profile data.
+
+    :::note
+
+
+    WSO2 Identity Server needs these scopes to get user information. WSO2 Identity Server checks the attribute configurations of the application and sends the relevant attributes received from Google to the app. You can read the [Google documentation](https://developers.google.com/identity/protocols/oauth2/openid-connect#scope-param) to learn more.
+
+    :::
+
+## Enable Google login
+
+:::note[Before you begin]
+
+You need to [register an application with WSO2 Identity Server](../../applications/index.md). You can register your own application or use one of the [sample applications](../../../get-started/try-samples/index.md) provided.
+
+:::
+
+1. On the WSO2 Identity Server Console, go to **Applications**.
+2. Select your application, go to the **Login Flow** tab and add Google login from your preferred editor:
+
+    
+    1. Click **Add Sign In Option** to add a new authenticator to the first step.
+
+    2. Select the Google connection.
+
+    3. Click **Confirm** to add login with Google to the sign-in flow.
+
+        ![Configuring Google login in WSO2 Identity Server using the Visual Editor](../../../../../assets/img/guides/idp/google-idp/add-google-login-with-visual-editor.png)
+    
+
+    :::note[Recommendations]
+
+
+
+    :::
+    It is recommended to add your social and enterprise connections to the first authentication step as they are used for identifying the user.
+
+3. Click **Update** to save your changes.
+
+## Try it out
+
+Follow the steps given below.
+
+1. Access the application URL.
+2. Click **Login** to open the WSO2 Identity Server login page.
+3. On the WSO2 Identity Server login page, **Sign in with Google**.
+
+    ![Login with Google](../../../../../assets/_versions/7.1.0/img/guides/idp/google-idp/sign-in-with-google.png)
+
+4. Log in to Google with an existing user account.
+
+:::note
+
+When a user successfully logs in with Google for the first time, a **user** account is created in the WSO2 Identity Server Console with the Google username. This new user account will be managed by Google.
+
+:::
+
+## Configure connection
+
+To learn more about other configurations available for the connection, refer to the [add federated login](../federated-login/index.md) documentation.

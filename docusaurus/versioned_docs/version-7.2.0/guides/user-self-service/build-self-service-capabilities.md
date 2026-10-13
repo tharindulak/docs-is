@@ -1,0 +1,133 @@
+---
+title: Build self-service capabilities for your application
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/7.2.0/docs/guides/user-self-service/build-self-service-capabilities.md
+---
+
+# Build self-service capabilities for your application
+
+Developers can use WSO2 Identity Server's REST APIs to implement self-service capabilities for the users on their business applications.
+
+Here are some capabilities you may want to enable when you implement self-service capabilities in your business app.
+
+- Allow users to update their user profiles
+- Allow users to change passwords
+- Allow users to enable MFA
+- Allow users to manage consents given to applications
+
+Once the user logs in to the business application, you can make these capabilities available to the user from the business application itself.
+
+## Self-service APIs
+You can use the following WSO2 Identity Server APIs to enable self-service capabilities in your business application.
+
+- SCIM/Me Endpoint
+
+    - [List user details](../../apis/scim2-me-rest-apis.md#tag/Me-Endpoint/paths/~1Me/get)
+    - [Update user profile](../../apis/scim2-me-rest-apis.md#tag/Me-Endpoint/operation/patchUserMe)
+    - [Update user password](../../apis/scim2-me-rest-apis.md#tag/Me-Endpoint/operation/patchUserMe)
+
+        :::note
+
+        To update the password of a user, update the `value` parameter of the API payload as follows:
+
+        ```curl
+        {
+          "schemas": [
+            "urn:ietf:params:scim:api:messages:2.0:PatchOp"
+          ],
+          "Operations": [
+            {
+              "op": "add",
+              "value": {
+                "nickName": "shaggy"
+              }
+            }
+          ]
+        }
+        ```
+
+        :::
+
+- Manage MFA settings and recovery
+  
+    - [TOTP](../../apis/totp-rest-api.md)
+    
+
+
+
+- [Manage consent of users](../../apis/consent-management-api-definition.md)
+
+## Prerequisites
+
+You need an application that [integrates login with WSO2 Identity Server](../authentication/add-login-to-apps.md) over OpenID connect standards.
+
+Learn more about registering OIDC applications on WSO2 Identity Server.
+
+- [SPA](../applications/register-single-page-app.md)
+- [Traditional Web application](../applications/register-oidc-web-app.md)
+- [Mobile appliction](../applications/register-mobile-app.md)
+
+
+## Invoke the self-service APIs
+
+To invoke the self-service APIs from your application:
+
+1. Once the user logs into your application, get an access token on behalf of the user.
+2. Use the obtained `access_token` as a bearer token to invoke the APIs.
+
+Given below is a sample API request for a client sending a `PATCH` request sent to the `/scim2/Me` endpoint to update the user password.
+
+```curl
+URL:  https://api.asgardeo.io/t/<org_name>/scim2/Me
+HTTP Method: PATCH
+Headers:
+'Content-Type: application/scim+json'
+ 'Authorization: Bearer <access_token>'
+Data:
+{
+  "schemas": [
+    "urn:ietf:params:scim:api:messages:2.0:PatchOp"
+  ],
+  "Operations": [
+    {
+      "op": "add",
+      "value": {
+        "password": "<new-password>"
+      }
+    }
+  ]
+}
+```
+
+<details>
+<summary>If you are using WSO2 Identity Server's React SDK</summary>
+
+You can use the <code>[httpRequest](https://github.com/asgardeo/asgardeo-auth-react-sdk/blob/main/API.md#httprequest)</code> method to invoke the APIs on WSO2 Identity Server's React SDK.
+
+A sample of how to use the `httpRequest` method in [WSO2 Identity Server's React SDK](../../get-started/try-your-own-app/react.md) is given below:
+
+```js
+import { useAuthContext, HttpRequestConfig } from "@asgardeo/auth-react";
+const {httpRequest } = useAuthContext();
+
+   const requestConfig: HttpRequestConfig = {
+            // Add API content here
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/scim+json"
+            },
+            attachToken: true,
+            method: "GET",
+            url: "https://api.asgardeo.io/t/<org_name>/scim2/Me"
+        };
+        httpRequest(requestConfig).then((response: any) => {
+            console.log(“request response : ”+response.data);
+        }).catch((error) => {
+            console.log("request error: " + error);
+        })
+```
+
+You can replace the body of `const requestConfig: HttpRequestConfig = {}` with the API you wish to invoke.
+
+</details>

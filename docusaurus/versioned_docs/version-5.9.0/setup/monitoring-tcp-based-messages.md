@@ -1,0 +1,21 @@
+---
+title: Monitoring TCP-Based Messages
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/5.9.0/docs/setup/monitoring-tcp-based-messages.md
+---
+
+# Monitoring TCP-Based Messages
+
+Users can view and monitor the messages passed along a TCP-based
+conversation using the TCPMon utility. Therefore, this is a convenient
+tool, particularly useful for debugging when you develop Web
+services. TCPMon is an Apache project distributed under [Apache 2.0
+License](http://www.apache.org/licenses/LICENSE-2.0.html).
+
+TCPMon is not dependent on any third party libraries. Its user interface
+is based on a swing UI and works on almost all platforms that support
+Java.
+
+-   [Message Monitoring with TCPMon](../../setup/message-monitoring-with-tcpmon)
+-   [Other Usages of TCPMon](../../setup/other-usages-of-tcpmon)

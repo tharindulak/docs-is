@@ -1,0 +1,50 @@
+---
+title: Configure Email Address as the Username
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/6.1.0/docs/guides/identity-lifecycles/enable-email-as-username.md
+---
+
+## Configure Email Address as the Username
+
+:::warning
+
+Configuring the email address as the username in an **already running
+Identity Server** is not the production recommended way. Therefore,
+**make sure to configure it before you begin working with WSO2 IS**.
+
+:::
+
+1. Log in to the Management Console and click **Claims > List > http://wso2.org/claims**.
+
+2. Click the **Edit** link corresponding to the **Username** claim and configure the `Mapped Attribute` property to `mail`.
+
+    ![email-as-username-attribute-mapping](../../../../assets/img/guides/email-as-username-attribute-mapping.png)
+
+3. Click **Update** to save the changes.
+
+4. Open the `<IS_HOME>/repository/conf/deployment.toml` file.
+
+5. Add the following configuration to enable email authentication.
+
+    ```toml
+    [tenant_mgt]
+    enable_email_domain= true
+    ```
+
+6. Configure the following set of parameters in the userstore
+    configuration, depending on the type of userstore you are connected
+    to (LDAP/Active Directory/ JDBC).
+    <table><thead><tr className={"header"}><th>{"Parameter"}</th><th>{"Description"}</th></tr></thead><tbody><tr className={"odd"}><td><p><code>{" UserNameAttribute "}</code></p><p><br /></p></td><td><div className={"content-wrapper"}><p>{"Set the mail attribute of the user. "}<strong>{"LDAP/Active Directory only"}</strong></p><div className={"code panel pdl"}><div className={"codeContent panelContent pdl"}><pre className={"html/xml"} data-syntaxhighlighter-params={"brush: html/xml; gutter: false; theme: Confluence"} data-theme={"Confluence"}><code>{"[user_store]"}<br />{"user_name_attribute = \"mail\""}</code></pre></div></div></div></td></tr><tr className={"even"}><td><code>{" UserNameSearchFilter "}</code></td><td><div className={"content-wrapper"}><p>{"Use the mail attribute of the user instead of "}<code>{" cn "}</code>{" or "}<code>{" uid "}</code>{" . "}<strong>{"LDAP/Active Directory only"}</strong>{" "}<br />{"For example:"}</p><div className={"code panel pdl"}><div className={"codeContent panelContent pdl"}><pre className={"html/xml"} data-syntaxhighlighter-params={"brush: html/xml; gutter: false; theme: Confluence"} data-theme={"Confluence"}>{" In LDAP,"}<code>{"[user_store]"}<br />{"user_name_search_filter = `\"(&(objectClass=person)(mail=?))\"`"}</code>{" "}<br />{" In Active Directory, "}<code>{"[user_store]"}<br />{"user_name_search_filter = `\"(&(objectClass=user)(mail=?))\"`"}</code></pre></div></div></div></td></tr><tr className={"odd"}><td><code>{" UserNameListFilter "}</code></td><td><div className={"content-wrapper"}><p>{"Use the mail attribute of the user if "}<strong>{"necessary. LDAP/Active Directory only"}</strong>{" "}<br />{"For example:"}</p><div className={"code panel pdl"}><div className={"codeContent panelContent pdl"}><pre className={"html/xml"} data-syntaxhighlighter-params={"brush: html/xml; gutter: false; theme: Confluence"} data-theme={"Confluence"}>{" In LDAP,"}<code>{"[user_store]"}<br />{"user_name_list_filter = `\"(&(objectClass=person)(!(sn=Service)))\"`"}</code>{" "}<br />{" In Active Directory, "}<code>{"[user_store]"}<br />{"user_name_list_filter = `\"(&(objectClass=user)(!(sn=Service)))\"`"}</code>{"\n    "}</pre></div></div></div></td></tr><tr className={"even"}><td><code>{" UsernameWithEmailJavaScriptRegEx "}</code></td><td><div className={"content-wrapper"}><p>{"Change this property that is under the relevant userstore manager tag as follows. This property validates usernames when email is used as the username and allows special characters like \"@\" in the username."}</p><div className={"code panel pdl"}><div className={"codeContent panelContent pdl"}><pre className={"html/xml"} data-syntaxhighlighter-params={"brush: html/xml; gutter: false; theme: Confluence"} data-theme={"Confluence"}><code>{"[user_store.properties]"}<br />{"UsernameWithEmailJavaScriptRegEx = '^[a-zA-Z0-9_@.+-]{5,200}$'"}</code></pre></div></div></div></td></tr><tr className={"odd"}><td><code>{" UsernameJavaRegEx "}</code></td><td><div className={"content-wrapper"}><p>{"This is a regular expression to validate usernames. By default, strings have a length of 5 to 30. Only non-empty characters are allowed. You can provide ranges of alphabets, numbers and also ranges of ASCII values in the RegEx properties."}</p><div className={"code panel pdl"}><div className={"codeContent panelContent pdl"}><pre className={"html/xml"} data-syntaxhighlighter-params={"brush: html/xml; gutter: false; theme: Confluence"} data-theme={"Confluence"}><code>{"[user_store]"}<br />{"username_java_regex = '^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,4}'"}</code></pre></div></div></div></td></tr><tr className={"even"}><td>{"Realm configurations"}</td><td><div className={"content-wrapper"}><p>{"The username must use the email attribute of the admin user."}</p><div className={"code panel pdl"}><div className={"codeContent panelContent pdl"}><pre className={"html/xml"} data-syntaxhighlighter-params={"brush: html/xml; gutter: false; theme: Confluence"} data-theme={"Confluence"}><code>{"[super_admin]"}<br />{"username = \"admin@wso2.com\""}<br />{"password = \"admin\""}</code></pre></div></div><div className={"admonition note"}><p className={"admonition-title"}>{"Note"}</p><p>{"Before this configuration, the user having the username "}<strong>{"admin"}</strong>{" and password "}<strong>{"admin"}</strong>{" was considered the super administrator. The super administrator user cannot be deleted."}</p><p>{"After this configuration, the user having the username "}<strong><code>{" admin@wso2.com "}</code></strong>{" is considered the super administrator. The user having the username admin is considered as a normal administrator."}<br />{" "}<img src={"/identity/assets/img/guides/super-admin.png"} alt={"super-admin"} width={"600"} /></p></div></div></td></tr></tbody></table>
+
+    :::info
+
+    - With these configuration users can log in to super tenant with both
+    email username (**`alex@gmail.com`**) or
+    non-email usernames (`larry`). However, for tenants, only email usernames are allowed. (**`tod@gmail.com@wso2.com`**).
+    - You can configure email username without enabling the **`enable_email_domain`** property (step 5). Then users can log in to both the super tenant and the tenant using email and non-email usernames. However, super tenant users should always use
+    ***@carbon.super*** at the end of usernames.
+
+    :::
+
+7. Restart the server.

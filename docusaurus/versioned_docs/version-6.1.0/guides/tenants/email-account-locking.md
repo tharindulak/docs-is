@@ -1,0 +1,83 @@
+---
+title: Configure Email Notifications for Account Locking
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/6.1.0/docs/guides/tenants/email-account-locking.md
+---
+
+# Configure Email Notifications for Account Locking
+
+Once you have configured WSO2 Identity Server for user account locking,
+you can also configure the WSO2 IS to email to the user's email address
+when the user account is locked. To configure this, follow the steps
+below.
+
+Enable the email sending configurations of the WSO2 Identity Server as explained below.
+
+1. Navigate to the `<IS_HOME>/repository/conf/deployment.toml` file and uncomment the `[output_adapter.email]` configuration block.
+
+    ```toml
+    [output_adapter.email]
+    from_address= "wso2iam@outlook.com"
+    username= "wso2iam@outlook.com"
+    password= "xxxx"
+    hostname= "smtp.office365.com"
+    port= 587
+    ```
+
+    :::info
+
+    - If you use a Gmail account as the email OTP sender, you must create an [App Password](https://support.google.com/accounts/answer/185833?visit_id=637943607149528455-3801902236&p=InvalidSecondFactor&rd=1). After you get an **App Password** from Google, update the `password`.
+    - If your password contains special characters (example: `<`, `>`, `&`), you will run into errors when running the server. To avoid errors, update the `password` parameter as follows:
+    ```toml
+    password= "<![CDATA[xxxx]]>"
+    ```
+
+    :::
+
+2. Update the sample values with your email adapter configurations.
+
+    :::info
+
+    Refer [configure email sending module](../../../deploy/configure-email-sending) for the complete list of email adapter configurations.
+
+    :::
+
+3. Save the configurations and restart the server.
+
+
+:::tip
+
+The email template used to send the email notification for
+account locking is the **AccountLock** template and the template
+used for account disabling is the **AccountDisable** template. You
+can edit and customize the email template. For more information on
+how to do this, see [Customize Automated
+Emails](customize-automated-mails.md).
+
+:::
+
+WSO2 Identity Server uses separate email templates for notifying, 
+
+- Account locking by administrator
+- Account unlocking by administrator 
+
+There are default email templates available for the above-mentioned emails. However, you can choose to modify them if necessary as well. 
+
+## View email templates in the management console
+
+1.  Navigate to **Main** > **Manage** > **Email Templates** > **List**. 
+
+2.  From the **Select Email Template Type** dropdown, select either  `AccountLockAdmin` or `AccountUnlockAdmin` to notify the locked and unlocked user respectively.
+
+3.  You can customize the subject, body, and footer based on your requirement. 
+
+4.  Click **Save**. 
+
+:::info[Related topics]
+
+-   [Guides: Lock and Unlock User Accounts](../identity-lifecycles/lock-account.md)
+-   [Guides: Customize Automated Emails](customize-automated-mails.md)
+-   [Deploy: Configure Email Sending Configuration](../../deploy/configure-email-sending.md)
+
+:::

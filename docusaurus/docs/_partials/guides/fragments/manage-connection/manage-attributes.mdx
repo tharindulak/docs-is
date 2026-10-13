@@ -1,0 +1,23 @@
+Configuring attributes for an Identity Provider (IdP) involves mapping the attributes available in the external IdP to local attributes. This is done so that WSO2 Identity Platform can identify the user attributes in the response sent from the external IdP.
+
+To do so,
+
+1. On the WSO2 Identity Platform Console, click **Connections**.
+
+2. Select the relevant IdP connection from the list and click **Set up**.
+
+3. Go to the **Attributes** tab and under **Identity Provider Attribute Mappings**,  click **Add Attribute Mapping**.
+
+    ![Go to attributes section in IdP](../../../../../assets/img/guides/idp/saml-enterprise-idp/go-to-user-attribute-page.png)
+
+4. Enter the external attribute, select the corresponding local attribute to which it maps and click **Add Attribute Mapping**.
+
+    ![Map IdP attributes](../../../../../assets/img/guides/idp/saml-enterprise-idp/map-saml-idp-attributes.png)
+
+5. Click **Save** to save the entries.
+
+6. Under **Subject**, select a **Subject Attribute** that will be used to uniquely identify the user.
+
+7. Under **Provisioning Attributes Selection**, select the required attributes that needs to be sent in the response to provision the user in WSO2 Identity Platform.
+
+8. Click **Update** to save the changes.

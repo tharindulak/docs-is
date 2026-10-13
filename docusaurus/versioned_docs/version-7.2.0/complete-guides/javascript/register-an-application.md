@@ -1,0 +1,43 @@
+---
+title: Register an application
+mkdocs_template: complete-guide
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/7.2.0/docs/complete-guides/javascript/register-an-application.md
+---
+
+First unless you already have done that, you need to create an organization in WSO2 Identity Server and register your application as a single page application.
+
+* Download and [setup WSO2 Identity Server](https://is.docs.wso2.com/en/latest/get-started/quick-set-up/)
+
+
+* Sign into WSO2 Identity Server console and navigate to **Applications > New Application.**
+* Select **Single Page Application.**
+
+![Select Single Page Application](../../../../assets/img/complete-guides/javascript/image5.png)  
+  
+Next, complete the wizard popup by providing a suitable name and an authorized redirect URL.
+
+:::note
+
+name: wso2-javascript
+
+Authorized redirect URL: http://localhost:5173
+
+:::
+
+![Register a new application](../../../../assets/img/complete-guides/javascript/image8.png)
+
+:::info
+
+
+The authorized redirect URL determines where WSO2 Identity Server should send users after they successfully log in. Typically, this will be the web address where your app is hosted. For this guide, we'll use [http://localhost:5173](http://localhost:5173), as the sample app will be accessible at this URL.
+
+:::
+
+    
+Note down the following values from the **Protocol** tab of the registered application. You will need them to configure  WSO2 Identity Platform JavaScript SDK.
+
+* **`client-id`** from the **Protocol** tab.
+
+In this step, we have registered our JavaScript app as an application in the WSO2 Identity Server console and generated the required metadata. Next, we will create a JavaScript app using Vite.

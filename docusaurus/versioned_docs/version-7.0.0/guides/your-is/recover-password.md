@@ -1,0 +1,36 @@
+---
+title: Recover your password
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/7.0.0/docs/guides/your-is/recover-password.md
+---
+
+# Recover your password
+
+If you are the owner or an administrator of an WSO2 Identity Server organization, the following guide explains how you can recover a forgotten password.
+
+To recover your password:
+
+1. Go to the sign-in page of the [My Account Portal](is-self-service.md#access-my-account-portal).
+
+    ![Recover your password](../../../../assets/_versions/7.0.0/img/guides/organization/self-service/customer/recover-your-password.png)
+
+2. Click **Forgot password?**.
+
+
+
+3. Enter your username and click **Send Reset Link**. An email notification will be sent to your email address.
+
+    ![Forgot your password](../../../../assets/img/guides/organization/self-service/customer/forgot-your-password.png)
+
+
+
+
+
+4. Open the email you received and click **Reset Password**
+
+    ![Reset password email](../../../../assets/_versions/7.0.0/img/guides/organization/self-service/customer/reset-password-email.png)
+
+
+
+5. Enter new password and **Proceed**.

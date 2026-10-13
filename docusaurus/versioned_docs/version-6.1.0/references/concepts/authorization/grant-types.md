@@ -1,0 +1,31 @@
+---
+title: Grant Types
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/6.1.0/docs/references/concepts/authorization/grant-types.md
+---
+
+# Grant Types
+
+In OAuth 2.0 the term **grant type** refers to the way a client gets an access token.
+The [specification](https://tools.ietf.org/html/rfc6749) defines four main grant types.
+
+- [Authorization code grant type](authorization-code-grant.md)
+
+- [Implicit grant type](implicit-grant.md)
+
+- [Resource owner grant type](resource-owner-grant.md)
+
+- [Client credential grant type](client-credential-grant.md)
+
+
+Apart from the above four grant types, WSO2 Identity Server supports a few extension grants such as:
+
+- [JWT grant type](jwt-bearer-grant-type.md)
+
+- [SAML bearer grant type](saml2-bearer-assertion-profile.md)
+
+- [Kerberos grant type](kerberos-grant.md)
+
+
+To renew the existing access token, WSO2 Identity Server supports the [Refresh token grant type](refresh-token-grant.md)

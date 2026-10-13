@@ -1,0 +1,322 @@
+---
+title: Organization login with app-native authentication
+deployment_options:
+  - WSO2 Cloud
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/asgardeo/docs/guides/organization-management/organization-login/organization-login-with-app-native-authentication.md
+---
+
+# Organization login with app-native authentication
+
+App-native authentication lets mobile and native applications handle B2B login without redirecting users to a browser. Users complete the full authentication flow from within the application, including any multi-factor authentication steps required by the organization.
+
+:::note[Before you begin]
+
+- [Set up app-native authentication](../../authentication/app-native-authentication/add-app-native-authentication.md) for your application.
+- Ensure your application uses the **enhanced organization authentication** model. To verify, go to the **Shared Access** tab of your application in the WSO2 Identity Platform Console and check that **Enhanced Organization Authentication** is enabled.
+
+:::
+
+---
+
+## Start organization login
+
+The initial request follows the same structure as a standard app-native authentication request, with `response_mode=direct`. Depending on the flow, the request may be sent directly to the organization's endpoint (Method 1) or to the root organization's endpoint (Method 2).
+
+### Method 1: Use the direct organization path
+
+Send the request directly to the organization's endpoint using the root organization handle and the accessing organization's ID.
+
+<Tabs>
+<TabItem value="tab-0" label="Sample request">
+
+
+```bash
+curl --location 'https://<HOST_NAME>/t/<root_org_handle>/o/<org_id>/oauth2/authorize' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'client_id=<client_id>' \
+--data-urlencode 'response_type=code' \
+--data-urlencode 'redirect_uri=<redirect_uri>' \
+--data-urlencode 'scope=<scopes>' \
+--data-urlencode 'response_mode=direct'
+```
+
+</TabItem>
+</Tabs>
+
+Replace `<root_org_handle>` with the handle of your root organization and `<org_id>` with the accessing organization's ID.
+
+The response includes the available authentication options for the organization.
+
+<Tabs>
+<TabItem value="tab-0" label="Sample response">
+
+
+```json
+{
+    "flowId": "<flow_id>",
+    "flowStatus": "INCOMPLETE",
+    "flowType": "AUTHENTICATION",
+    "nextStep": {
+        "stepType": "MULTI_OPTIONS_PROMPT",
+        "authenticators": [
+            {
+                "authenticatorId": "QmFzaWNBdXRoZW50aWNhdG9yOkxPQ0FM",
+                "authenticator": "Username & Password",
+                "idp": "LOCAL",
+                "metadata": {
+                    "i18nKey": "authenticator.basic",
+                    "promptType": "USER_PROMPT",
+                    "params": [
+                        {
+                            "param": "username",
+                            "type": "STRING",
+                            "order": 0,
+                            "i18nKey": "username.param",
+                            "displayName": "Username",
+                            "confidential": false
+                        },
+                        {
+                            "param": "password",
+                            "type": "STRING",
+                            "order": 1,
+                            "i18nKey": "password.param",
+                            "displayName": "Password",
+                            "confidential": true
+                        }
+                    ]
+                },
+                "requiredParams": [
+                    "username",
+                    "password"
+                ]
+            }
+        ]
+    },
+    "links": [
+        {
+            "name": "authentication",
+            "href": "https://<HOST_NAME>/t/<root_org_handle>/o/<org_id>/oauth2/authn",
+            "method": "POST"
+        }
+    ]
+}
+```
+
+</TabItem>
+</Tabs>
+
+When the user provides their credentials, send them to the organization-scoped Authentication API endpoint.
+
+<Tabs>
+<TabItem value="tab-0" label="Sample request">
+
+
+```bash
+curl --location 'https://<HOST_NAME>/t/<root_org_handle>/o/<org_id>/oauth2/authn' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data '{
+    "flowId": "<flow_id>",
+    "selectedAuthenticator": {
+        "authenticatorId": "QmFzaWNBdXRoZW50aWNhdG9yOkxPQ0FM",
+        "params": {
+            "username": "<username>",
+            "password": "<password>"
+        }
+    }
+}'
+```
+
+</TabItem>
+</Tabs>
+
+The final token request also uses the organization-scoped path:
+
+<Tabs>
+<TabItem value="tab-0" label="Sample request">
+
+
+```bash
+curl --location 'https://<HOST_NAME>/t/<root_org_handle>/o/<org_id>/oauth2/token' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'client_id=<client_id>' \
+--data-urlencode 'grant_type=authorization_code' \
+--data-urlencode 'code=<code>' \
+--data-urlencode 'redirect_uri=<redirect_uri>'
+```
+
+</TabItem>
+</Tabs>
+
+### Method 2: Use the root organization endpoint
+
+Send the request to the root organization's endpoint.
+
+<Tabs>
+<TabItem value="tab-0" label="Sample request">
+
+
+```bash
+curl --location 'https://<HOST_NAME>/t/<root_org_handle>/oauth2/authorize' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'client_id=<client_id>' \
+--data-urlencode 'response_type=code' \
+--data-urlencode 'redirect_uri=<redirect_uri>' \
+--data-urlencode 'scope=<scopes>' \
+--data-urlencode 'response_mode=direct'
+```
+
+</TabItem>
+</Tabs>
+
+The response includes the available authentication options for the root organization, along with an **SSO** option that lets the user identify their organization.
+
+<Tabs>
+<TabItem value="tab-0" label="Sample response">
+
+
+```json
+{
+    "flowId": "<flow_id>",
+    "flowStatus": "INCOMPLETE",
+    "flowType": "AUTHENTICATION",
+    "nextStep": {
+        "stepType": "MULTI_OPTIONS_PROMPT",
+        "authenticators": [
+            {
+                "authenticatorId": "QmFzaWNBdXRoZW50aWNhdG9yOkxPQ0FM",
+                "authenticator": "Username & Password",
+                "idp": "LOCAL",
+                "metadata": {
+                    "i18nKey": "authenticator.basic",
+                    "promptType": "USER_PROMPT",
+                    "params": [
+                        {
+                            "param": "username",
+                            "type": "STRING",
+                            "order": 0,
+                            "i18nKey": "username.param",
+                            "displayName": "Username",
+                            "confidential": false
+                        },
+                        {
+                            "param": "password",
+                            "type": "STRING",
+                            "order": 1,
+                            "i18nKey": "password.param",
+                            "displayName": "Password",
+                            "confidential": true
+                        }
+                    ]
+                },
+                "requiredParams": [
+                    "username",
+                    "password"
+                ]
+            },
+            {
+                "authenticatorId": "T3JnYW5pemF0aW9uSWRlbnRpZmllckhhbmRsZXI6TE9DQUw",
+                "authenticator": "SSO",
+                "idp": "LOCAL",
+                "metadata": {
+                    "i18nKey": "authenticator.organization.identifier"
+                }
+            }
+        ]
+    },
+    "links": [
+        {
+            "name": "authentication",
+            "href": "https://<HOST_NAME>/t/<root_org_handle>/oauth2/authn",
+            "method": "POST"
+        }
+    ]
+}
+```
+
+</TabItem>
+</Tabs>
+
+When the user selects the **SSO** option, send the organization selection response to the Authentication API along with a parameter that identifies the organization.
+
+<Tabs>
+<TabItem value="tab-0" label="Sample request">
+
+
+```bash
+curl --location 'https://<HOST_NAME>/t/<root_org_handle>/oauth2/authn' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data '{
+    "flowId": "<flow_id>",
+    "selectedAuthenticator": {
+        "authenticatorId": "T3JnYW5pemF0aW9uSWRlbnRpZmllckhhbmRsZXI6TE9DQUw",
+        "params": {
+            "orgId": "<org_id>"
+        }
+    }
+}'
+```
+
+</TabItem>
+</Tabs>
+
+You can identify the organization using any of the following parameters:
+
+| Parameter | Description |
+|-----------|-------------|
+| `orgId` | The organization's ID. |
+
+| `orgHandle` | The organization's handle. |
+
+| `org` | The organization's name. |
+| `login_hint` | An email address used to discover the organization by its email domain. |
+| `orgDiscoveryType` | The discovery mechanism to use (for example, `emailDomain`). |
+
+See [Organization discovery](../organization-discovery/organization-discovery.md) for more on these parameters.
+
+Once the user's organization is identified, WSO2 Identity Platform scopes the remaining authentication steps to that organization. For example, the next authentication step — such as a username and password prompt — would be sent to the organization-scoped Authentication API endpoint:
+
+<Tabs>
+<TabItem value="tab-0" label="Sample request">
+
+
+```bash
+curl --location 'https://<HOST_NAME>/t/<root_org_handle>/o/<org_id>/oauth2/authn' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data '{
+    "flowId": "<flow_id>",
+    "selectedAuthenticator": {
+        "authenticatorId": "QmFzaWNBdXRoZW50aWNhdG9yOkxPQ0FM",
+        "params": {
+            "username": "<username>",
+            "password": "<password>"
+        }
+    }
+}'
+```
+
+</TabItem>
+</Tabs>
+
+The final token request is sent to the root organization's token endpoint, matching the initial authorize call:
+
+<Tabs>
+<TabItem value="tab-0" label="Sample request">
+
+
+```bash
+curl --location 'https://<HOST_NAME>/t/<root_org_handle>/oauth2/token' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'client_id=<client_id>' \
+--data-urlencode 'grant_type=authorization_code' \
+--data-urlencode 'code=<code>' \
+--data-urlencode 'redirect_uri=<redirect_uri>'
+```
+
+</TabItem>
+</Tabs>

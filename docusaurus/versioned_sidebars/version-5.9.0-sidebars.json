@@ -1,0 +1,3586 @@
+{
+  "docs": [
+    {
+      "type": "doc",
+      "id": "index",
+      "label": "Home"
+    },
+    {
+      "type": "category",
+      "label": "Get Started",
+      "items": [
+        {
+          "type": "doc",
+          "id": "get-started/overview",
+          "label": "Introduction"
+        },
+        {
+          "type": "category",
+          "label": "Architecture",
+          "items": [
+            {
+              "type": "doc",
+              "id": "get-started/architecture",
+              "label": "Architecture"
+            },
+            {
+              "type": "doc",
+              "id": "get-started/provisioning-architecture",
+              "label": "Provisioning Architecture"
+            },
+            {
+              "type": "doc",
+              "id": "get-started/user-management-architecture",
+              "label": "User Management Architecture"
+            }
+          ]
+        },
+        {
+          "type": "doc",
+          "id": "get-started/about-this-release",
+          "label": "About this Release"
+        },
+        {
+          "type": "doc",
+          "id": "get-started/quick-start-guide",
+          "label": "Quick Start Guide"
+        },
+        {
+          "type": "category",
+          "label": "Key Concepts",
+          "items": [
+            {
+              "type": "doc",
+              "id": "get-started/single-sign-on-and-identity-federation",
+              "label": "Single Sign-On and Identity Federation"
+            },
+            {
+              "type": "doc",
+              "id": "get-started/identity-provisioning-and-its-standards",
+              "label": "Identity Provisioning and its Standards"
+            },
+            {
+              "type": "doc",
+              "id": "get-started/access-control-and-entitlement-management",
+              "label": "Access Control and Entitlement Management"
+            },
+            {
+              "type": "doc",
+              "id": "get-started/identity-anti-patterns-and-the-identity-bus",
+              "label": "Identity Anti-patterns and the Identity Bus"
+            },
+            {
+              "type": "doc",
+              "id": "get-started/cross-protocol-single-logout",
+              "label": "Cross Protocol Single Logout"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Learn",
+      "items": [
+        {
+          "type": "category",
+          "label": "Tutorials",
+          "items": [
+            {
+              "type": "doc",
+              "id": "learn/tutorials",
+              "label": "Tutorials"
+            },
+            {
+              "type": "category",
+              "label": "Basic Tutorials",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "learn/adding-users-and-roles",
+                  "label": "Users and Roles"
+                },
+                {
+                  "type": "category",
+                  "label": "User Accounts",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/managing-user-accounts",
+                      "label": "User Accounts"
+                    },
+                    {
+                      "type": "category",
+                      "label": "User Registration",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/user-registration",
+                          "label": "User Registration"
+                        },
+                        {
+                          "type": "category",
+                          "label": "Admin-Initiated",
+                          "items": [
+                            {
+                              "type": "doc",
+                              "id": "learn/user-registration-with-password-entry",
+                              "label": "With Password Entry"
+                            },
+                            {
+                              "type": "doc",
+                              "id": "learn/user-registration-with-email-verification",
+                              "label": "With Email Verification"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/self-registration",
+                          "label": "Self-Registration"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "category",
+                      "label": "Password Policies",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/configuring-password-policies",
+                          "label": "Password Policies"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/configuring-password-patterns",
+                          "label": "Password Patterns"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/validating-password-history",
+                          "label": "Password History"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "category",
+                      "label": "Password Reset",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/configuring-password-reset",
+                          "label": "Password Reset"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/configuring-password-reset-with-email",
+                          "label": "With Email"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/configuring-password-reset-with-challenge",
+                          "label": "With Challenge"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-user-name-recovery",
+                      "label": "User Name Recovery"
+                    },
+                    {
+                      "type": "category",
+                      "label": "Account Locking",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/configuring-account-locking",
+                          "label": "Account Locking"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/configuring-admin-initiated-account-locking",
+                          "label": "Admin-Initiated"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/configuring-account-locking-due-to-failed-login-attempts",
+                          "label": "Failed Login Attempts"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-account-disabling",
+                      "label": "Account Disabling"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Single Sign-On",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-single-sign-on-saml",
+                      "label": "SAML 2.0"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-single-sign-on-oidc",
+                      "label": "OpenID Connect/OAuth 2.0"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-single-sign-on-wsfed",
+                      "label": "WS-Federation (Passive STS)"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Access Delegation",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-access-delegation-with-oauth2",
+                      "label": "OAuth 2.0"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-access-delegation-with-uma",
+                      "label": "User Managed Access (UMA)"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Provisioning",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/provisioning-tutorials",
+                      "label": "Provisioning Overview"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-inbound-provisioning",
+                      "label": "Inbound Provisioning"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-outbound-provisioning",
+                      "label": "Outbound Provisioning"
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/configuring-multifactor-authentication",
+                  "label": "Multifactor Authentication"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/fine-grained-authorization-with-xacml",
+                  "label": "Access Control"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/configuring-multi-tenancy",
+                  "label": "Multi-Tenancy"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/configuring-identity-analytics",
+                  "label": "Analytics"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Single Sign-On",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "learn/single-sign-on",
+                  "label": "Single Sign-On"
+                },
+                {
+                  "type": "category",
+                  "label": "Configuring Single Sign-On",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-single-sign-on",
+                      "label": "Configuring Single Sign-On"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-recaptcha-for-single-sign-on",
+                      "label": "Configuring reCaptcha for Single Sign On"
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/single-sign-on-for-native-ios-applications-with-wso2-identity-server",
+                  "label": "Single Sign-On for Native iOS Applications with WSO2 Identity Server"
+                },
+                {
+                  "type": "category",
+                  "label": "SAML 2.0 Web SSO",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/saml-2.0-web-sso",
+                      "label": "SAML 2.0 Web SSO"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-saml2-web-single-sign-on",
+                      "label": "Configuring SAML2 Web Single-Sign-On"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/querying-saml-assertions",
+                      "label": "Querying SAML Assertions"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-saml-2.0-artifact-binding",
+                      "label": "Configuring SAML 2.0 Artifact Binding"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "WS-Trust",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/ws-trust",
+                      "label": "WS-Trust"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-ws-trust-security-token-service",
+                      "label": "Configuring WS-Trust Security Token Service"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "WS-Federation",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/ws-federation",
+                      "label": "WS-Federation"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-ws-federation-single-sign-on",
+                      "label": "Configuring WS-Federation Single Sign-On"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Integrated Windows Authentication",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/integrated-windows-authentication-overview",
+                      "label": "Integrated Windows Authentication Overview"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-iwa-single-sign-on",
+                      "label": "Configuring IWA Single-Sign-On"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "OAuth2-OpenID Connect",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/oauth2-openid-connect-overview",
+                      "label": "OAuth2-OpenID Connect Overview"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-oauth2-openid-connect-single-sign-on",
+                      "label": "Configuring OAuth2-OpenID Connect Single-Sign-On"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-openid-connect-single-logout",
+                      "label": "Configuring OpenID Connect Single Logout"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-openid-connect-back-channel-logout",
+                      "label": "Configuring OpenID Connect Back-Channel Logout\t"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Authentication",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "learn/logging-in-to-your-application-via-identity-server-using-facebook-credentials",
+                  "label": "Logging in to your application via Identity Server using Facebook Credentials"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/configuring-shibboleth-idp-as-a-trusted-identity-provider",
+                  "label": "Configuring Shibboleth IdP as a Trusted Identity Provider"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/logging-in-to-simplesamlphp-using-identity-server",
+                  "label": "Logging in to SimpleSAMLphp using Identity Server"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/enabling-sso-for-management-console-using-opensso-as-the-idp",
+                  "label": "Enabling SSO for Management Console using OpenSSO as the IDP"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/logging-in-to-salesforce-using-the-identity-server",
+                  "label": "Logging in to Salesforce using the Identity Server"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/logging-in-to-salesforce-with-facebook",
+                  "label": "Logging in to Salesforce with Facebook"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/logging-in-to-salesforce-with-integrated-windows-authentication",
+                  "label": "Logging in to Salesforce with Integrated Windows Authentication"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/logging-in-to-wso2-products-via-the-identity-server",
+                  "label": "Logging in to WSO2 Products via the Identity Server"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/logging-in-to-workday-using-the-identity-server",
+                  "label": "Logging in to Workday using the Identity Server"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/logging-in-to-microsoft-dynamics-crm-with-ws-federation",
+                  "label": "Logging in to Microsoft Dynamics CRM with WS-Federation"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/logging-in-to-microsoft-sharepoint-web-applications-using-identity-server",
+                  "label": "Logging in to Microsoft Sharepoint Web Applications using Identity Server"
+                },
+                {
+                  "type": "category",
+                  "label": "Logging in to Office365 Using WSO2 Identity Server",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/logging-in-to-office365-using-wso2-identity-server",
+                      "label": "Logging in to Office365 Using WSO2 Identity Server"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-office365-saml2-with-wso2-identity-server",
+                      "label": "Configuring Office365 SAML2 with WSO2 Identity Server"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-office365-saml2-with-wso2-identity-server-for-multiple-domains",
+                      "label": "Configuring Office365 SAML2 with WSO2 Identity Server for Multiple Domains"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-office365-ws-federation-with-wso2-is",
+                      "label": "Configuring Office365 WS-Federation with WSO2 IS"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-on-demand-provisioning-with-azure-ad",
+                      "label": "Configuring On Demand Provisioning with Azure AD"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Logging in to Office365 with WS Federation",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/logging-in-to-office365-with-ws-federation",
+                      "label": "Logging in to Office365 with WS Federation"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-azure-active-directory-to-trust-wso2-identity-server",
+                      "label": "Configuring Azure Active Directory to Trust WSO2 Identity Server"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-office-365-ws-federation-with-identity-server",
+                      "label": "Configuring Office 365 WS-Federation with Identity Server"
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/logging-in-to-office365-with-ws-trust",
+                  "label": "Logging in to Office365 with WS-Trust"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/logging-in-to-a-.net-application-using-the-identity-server",
+                  "label": "Logging in to a .NET application using the Identity Server"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/using-rest-apis-via-xacml-to-manage-entitlement",
+                  "label": "Using REST APIs via XACML to Manage Entitlement"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/logging-in-to-google-using-the-identity-server",
+                  "label": "Logging in to Google using the Identity Server"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/logging-in-to-an-application-using-google",
+                  "label": "Logging in to an Application Using Google"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/testing-oidc-encrypted-id-token-with-is",
+                  "label": "Testing OIDC Encrypted ID Token with IS"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/passing-oidc-authentication-request-parameters-in-a-request-object",
+                  "label": "Passing OIDC Authentication Request Parameters in a Request Object"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/enforcing-signature-validation-for-request-objects",
+                  "label": "Enforcing Signature Validation for Request Objects"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Multi-factor Authentication",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "learn/multi-factor-authentication",
+                  "label": "MFA in WSO2 Identity Server"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/multi-factor-authentication-using-fido",
+                  "label": "MFA using FIDO"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/configuring-sms-otp",
+                  "label": "Configuring SMS OTP"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/configuring-email-otp",
+                  "label": "Configuring Email OTP"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/configuring-totp",
+                  "label": "Configuring TOTP"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/multi-factor-authentication-for-wso2-is-management-console",
+                  "label": "MFA for Management Console"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Adaptive Authentication",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "learn/adaptive-authentication",
+                  "label": "Adaptive Authentication"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/configuring-a-service-provider-for-adaptive-authentication",
+                  "label": "Configuring a Service Provider for Adaptive Authentication"
+                },
+                {
+                  "type": "category",
+                  "label": "Scenarios",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/adaptive-authentication-scenarios",
+                      "label": "Scenarios"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-role-based-adaptive-authentication",
+                      "label": "Role-Based"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-user-age-based-adaptive-authentication",
+                      "label": "User-Age-Based"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-tenant-based-adaptive-authentication",
+                      "label": "Tenant-Based"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-user-store-based-adaptive-authentication",
+                      "label": "User Store-Based"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-ip-based-adaptive-authentication",
+                      "label": "IP-Based"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-new-device-based-adaptive-authentication",
+                      "label": "New-Device-Based"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-acr-based-adaptive-authentication",
+                      "label": "ACR-Based"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-risk-based-adaptive-authentication",
+                      "label": "Risk-Based"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/adaptive-authentication-with-function-library",
+                      "label": "With Function Library"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/limiting-active-user-sessions-based-on-criteria",
+                      "label": "Limiting Active User Sessions Based On Criteria"
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/using-wso2-stream-processor-for-adaptive-authentication",
+                  "label": "Using WSO2 Stream Processor for Adaptive Authentication"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/working-with-acr-and-amr",
+                  "label": "Working with ACR and AMR"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Identity Federation",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "learn/identity-federation",
+                  "label": "Identity Federation"
+                },
+                {
+                  "type": "category",
+                  "label": "Configuring Federated Authentication",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-federated-authentication",
+                      "label": "Configuring Federated Authentication"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-saml-2.0-web-sso",
+                      "label": "Configuring SAML 2.0 Web SSO"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-oauth2-openid-connect",
+                      "label": "Configuring OAuth2-OpenID Connect"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-ws-federation",
+                      "label": "Configuring WS-Federation"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-facebook",
+                      "label": "Configuring Facebook"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-yahoo",
+                      "label": "Configuring Yahoo"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-google",
+                      "label": "Configuring Google"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-microsoft-login",
+                      "label": "Configuring Microsoft login"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-iwa-on-linux",
+                      "label": "Configuring IWA on Linux"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-ad-fs-as-a-federated-authenticator",
+                      "label": "Configuring AD FS as a Federated Authenticator"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-twitter",
+                      "label": "Configuring Twitter"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-apple",
+                      "label": "Configuring Apple"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Identity Federation with WS-Trust",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/identity-federation-with-ws-trust",
+                      "label": "Identity Federation with WS-Trust"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-sts-for-obtaining-tokens-with-holder-of-key-subject-confirmation",
+                      "label": "Configuring STS for Obtaining Tokens with Holder-Of-Key Subject Confirmation"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/accessing-claim-aware-services-using-sts-secured-with-non-repudiation",
+                      "label": "Accessing Claim Aware Services using STS Secured with Non-repudiation"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/requesting-and-renewing-received-saml2-bearer-type-tokens",
+                      "label": "Requesting and Renewing Received SAML2 Bearer Type Tokens"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-saml2-single-sign-on-across-different-wso2-products",
+                      "label": "Configuring SAML2 Single-Sign-On Across Different WSO2 Products"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/client-side-support-for-saml-artifact-binding",
+                      "label": "Client-side Support for SAML Artifact Binding"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/eidas-saml-attribute-profile-support-via-wso2-identity-server",
+                      "label": "eIDAS SAML Attribute Profile Support via WSO2 Identity Server"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Access Control",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "learn/access-control",
+                  "label": "Access Control Overview"
+                },
+                {
+                  "type": "category",
+                  "label": "Working with Entitlement",
+                  "items": [
+                    {
+                      "type": "category",
+                      "label": "Configuring the Policy Administration Point",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/configuring-the-policy-administration-point",
+                          "label": "Configuring the Policy Administration Point"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/creating-a-xacml-policy",
+                          "label": "Creating a XACML Policy"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/editing-a-xacml-policy",
+                          "label": "Editing a XACML Policy"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/managing-the-version-of-a-xacml-policy",
+                          "label": "Managing the Version of a XACML Policy"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/publishing-a-xacml-policy",
+                          "label": "Publishing a XACML Policy"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/viewing-the-status-of-a-xacml-policy",
+                          "label": "Viewing the Status of a XACML Policy"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/writing-a-xacml-policy-using-a-policy-template",
+                          "label": "Writing a XACML Policy using a Policy Template"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "category",
+                      "label": "Configuring the Policy Decision Point",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/configuring-the-policy-decision-point",
+                          "label": "Configuring the Policy Decision Point"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/clearing-a-cache",
+                          "label": "Clearing a Cache"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/enabling-and-disabling-a-xacml-policy",
+                          "label": "Enabling and Disabling a XACML Policy"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-access-control-policy-for-a-service-provider",
+                      "label": "Configuring Access Control Policy for a Service Provider"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/validating-the-scope-of-oauth-access-tokens-using-xacml-policies",
+                      "label": "Validating the Scope of OAuth Access Tokens using XACML Policies"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/validating-oauth-access-token-scope-using-xacml-policies-during-token-issuance",
+                      "label": "Validating OAuth Access Token Scope Using XACML Policies During Token Issuance"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Working with XACML",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/working-with-xacml",
+                      "label": "Working with XACML"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/enabling-rest-notifications-for-xacml-policy-updates",
+                      "label": "Enabling REST Notifications For XACML Policy Updates"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/identity-server-as-an-xacml-engine",
+                      "label": "Identity Server as an XACML Engine"
+                    },
+                    {
+                      "type": "category",
+                      "label": "Working with XACML Multiple Decision Profile Requests",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/working-with-xacml-multiple-decision-profile-requests",
+                          "label": "Working with XACML Multiple Decision Profile Requests Overview"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/working-with-mdp-requests-by-repeating-attribute-categories",
+                          "label": "Working with MDP Requests by Repeating Attribute Categories"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/working-with-mdp-requests-to-authorize-hierarchical-resources",
+                          "label": "Working with MDP Requests to Authorize Hierarchical Resources"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/working-with-mdp-requests-in-json-format",
+                          "label": "Working with MDP Requests in JSON Format"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/fine-grained-authorization-using-xacml-requests-in-json-format",
+                      "label": "Fine-grained Authorization using XACML Requests in JSON Format"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/improving-xacml-pdp-performance-with-caching-techniques",
+                      "label": "Improving XACML PDP Performance with Caching Techniques"
+                    },
+                    {
+                      "type": "category",
+                      "label": "Writing XACML2 Policies in WSO2 Identity Server",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/writing-xacml2.0-policies-in-wso2-identity-server",
+                          "label": "Writing XACML2 Policies in WSO2 Identity Server"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/introduction-to-xacml-2.0-policies",
+                          "label": "Introduction to XACML2 Policies"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/xacml-2.0-sample-policy-1",
+                          "label": "XACML2 Sample Policy - 1"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/xacml-2.0-sample-policy-2",
+                          "label": "XACML2 Sample Policy - 2"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/xacml-2.0-sample-policy-3",
+                          "label": "XACML2 Sample Policy - 3"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/xacml-2.0-sample-policy-4",
+                          "label": "XACML2 Sample Policy - 4"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/xacml-2.0-sample-policy-5",
+                          "label": "XACML2 Sample Policy - 5"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/xacml-2.0-sample-policy-6",
+                          "label": "XACML2 Sample Policy - 6"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "category",
+                      "label": "Writing XACML3 Policies in WSO2 Identity Server",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/writing-xacml3-policies-in-wso2-identity-server",
+                          "label": "Writing XACML3 Policies in WSO2 Identity Server"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/introduction-to-xacml-3.0-policies",
+                          "label": "Introduction to XACML3 Policies"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/xacml-3.0-sample-policy-1",
+                          "label": "XACML3 Sample Policy - 1"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/xacml-3.0-sample-policy-2",
+                          "label": "XACML3 Sample Policy - 2"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/xacml-3.0-sample-policy-3",
+                          "label": "XACML3 Sample Policy - 3"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/xacml-3.0-sample-policy-4",
+                          "label": "XACML3 Sample Policy - 4"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/xacml-3.0-sample-policy-5",
+                          "label": "XACML3 Sample Policy - 5"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/xacml-3.0-sample-policy-6",
+                          "label": "XACML3 Sample Policy - 6"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/sending-notifications-to-external-pep-endpoints",
+                      "label": "Sending Notifications to External PEP Endpoints"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/writing-a-xacml-3.0-policy-using-xpath",
+                      "label": "Writing an XACML 3.0 Policy Using XPath"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "learn/deploying-the-sample-app",
+              "label": "Deploying the Samples"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Using WSO2 Identity Server",
+          "items": [
+            {
+              "type": "category",
+              "label": "Identity Administration and Provisioning",
+              "items": [
+                {
+                  "type": "category",
+                  "label": "Users, Roles and Permissions",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-users-roles-and-permissions",
+                      "label": "Configuring Users, Roles and Perimissions"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-users",
+                      "label": "Configuring Users"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-roles-and-permissions",
+                      "label": "Configuring Roles and Permissions"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/role-based-permissions",
+                      "label": "Role-based Permissions"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/changing-a-password",
+                      "label": "Changing a Password"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/using-workflows-with-user-management",
+                      "label": "Using Workflows with User Management"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Claim Management",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/claim-management",
+                      "label": "Claim Management"
+                    },
+                    {
+                      "type": "category",
+                      "label": "Configuring Claim Dialects",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/configuring-claim-dialects",
+                          "label": "Configuring Claim Dialects"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/adding-claim-dialects",
+                          "label": "Adding Claim Dialects"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/editing-claim-dialects",
+                          "label": "Editing Claim Dialects"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/deleting-claim-dialects",
+                          "label": "Deleting Claim Dialects"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "category",
+                      "label": "Configuring Claims",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/configuring-claims",
+                          "label": "Configuring Claims"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/adding-claim-mapping",
+                          "label": "Adding Claim Mapping"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/editing-claim-mapping",
+                          "label": "Editing Claim Mapping"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/deleting-claim-mapping",
+                          "label": "Deleting Claim Mapping"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Identity Provisioning",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/identity-provisioning",
+                      "label": "Identity Provisioning"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/the-evolution-of-provisioning-standards",
+                      "label": "The Evolution of Provisioning Standards"
+                    },
+                    {
+                      "type": "category",
+                      "label": "Inbound Provisioning",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/inbound-provisioning",
+                          "label": "Inbound Provisioning"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/setting-up-service-provider-for-inbound-provisioning",
+                          "label": "Setting Up Service Provider for Inbound Provisioning"
+                        },
+                        {
+                          "type": "category",
+                          "label": "Configuring User Stores for SCIM 1.1 based inbound provisioning",
+                          "items": [
+                            {
+                              "type": "doc",
+                              "id": "learn/configuring-user-stores-for-scim-1.1-based-inbound-provisioning",
+                              "label": "Configuring User Stores for SCIM 1.1 based inbound provisioning"
+                            },
+                            {
+                              "type": "doc",
+                              "id": "learn/configuring-active-directory-user-stores-for-scim-1.1-based-inbound-provisioning",
+                              "label": "Configuring Active Directory User Stores for SCIM 1.1 based inbound provisioning"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "category",
+                          "label": "Configuring User Stores for SCIM 2.0 based inbound provisioning",
+                          "items": [
+                            {
+                              "type": "doc",
+                              "id": "learn/configuring-user-stores-for-scim-2.0-based-inbound-provisioning",
+                              "label": "Configuring User Stores for SCIM 2.0 based inbound provisioning"
+                            },
+                            {
+                              "type": "doc",
+                              "id": "learn/configuring-active-directory-user-stores-for-scim-2.0-based-inbound-provisioning",
+                              "label": "Configuring Active Directory User Stores for SCIM 2.0 based inbound provisioning"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "category",
+                      "label": "Outbound Provisioning",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/outbound-provisioning",
+                          "label": "Outbound Provisioning"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/outbound-provisioning-with-scim",
+                          "label": "Outbound Provisioning with SCIM"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/outbound-provisioning-with-spml",
+                          "label": "Outbound Provisioning with SPML"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/outbound-provisioning-with-salesforce",
+                          "label": "Outbound Provisioning with Salesforce"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/outbound-provisioning-with-google",
+                          "label": "Outbound Provisioning with Google"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/role-based-provisioning",
+                      "label": "Role Based Provisioning"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/rule-based-provisioning",
+                      "label": "Rule Based Provisioning"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/provisioning-patterns",
+                      "label": "Provisioning Patterns"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Account Management Policies",
+                  "items": [
+                    {
+                      "type": "category",
+                      "label": "Account Recovery",
+                      "items": [
+                        {
+                          "type": "category",
+                          "label": "Username Recovery",
+                          "items": [
+                            {
+                              "type": "doc",
+                              "id": "learn/username-recovery",
+                              "label": "Username Recovery"
+                            },
+                            {
+                              "type": "doc",
+                              "id": "learn/configuring-recaptcha-for-username-recovery",
+                              "label": "Configuring reCaptcha for Username Recovery"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "category",
+                          "label": "Password Recovery",
+                          "items": [
+                            {
+                              "type": "doc",
+                              "id": "learn/password-recovery",
+                              "label": "Password Recovery"
+                            },
+                            {
+                              "type": "doc",
+                              "id": "learn/configuring-google-recaptcha-for-security-question-based-password-recovery",
+                              "label": "Configuring Google reCaptcha for Security-Question Based Password Recovery"
+                            },
+                            {
+                              "type": "doc",
+                              "id": "learn/configuring-recaptcha-for-password-recovery",
+                              "label": "Configuring reCaptcha for Password Recovery"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/managing-challenge-questions",
+                          "label": "Managing Challenge Questions"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "category",
+                      "label": "Self-Registration and Account Confirmation",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/self-registration-and-account-confirmation",
+                          "label": "Self-Registration and Account Confirmation"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/configuring-recaptcha-for-self-registration",
+                          "label": "Configuring reCaptcha for Self Registration"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/creating-users-using-the-ask-password-option",
+                      "label": "Creating Users Using the Ask Password Option"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/adding-email-special-characters",
+                      "label": "Emails with Special Characters"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/forced-password-reset",
+                      "label": "Forced Password Reset"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/user-account-suspension",
+                      "label": "User Account Suspension"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/resending-account-recovery-confirmation-emails",
+                      "label": "Resending Account Recovery Confirmation Emails"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Password Policies",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/password-history-validation",
+                      "label": "Password History Validation"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/password-patterns",
+                      "label": "Password Patterns"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Login Policies",
+                  "items": [
+                    {
+                      "type": "category",
+                      "label": "User Account Locking and Account Disabling",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/user-account-locking-and-account-disabling",
+                          "label": "Overview"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/account-locking-by-failed-login-attempts",
+                          "label": "Account Locking by Failed Login Attempts"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/locking-a-specific-user-account",
+                          "label": "Locking a Specific User Account"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/account-disabling",
+                          "label": "Account Disabling"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/setting-up-recaptcha",
+                      "label": "Setting Up ReCaptcha"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Workflows",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/workflow-management",
+                      "label": "Workflows"
+                    },
+                    {
+                      "type": "category",
+                      "label": "Adding a workflow Engine",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/adding-a-workflow-engine",
+                          "label": "Adding a workflow Engine"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/configuring-the-bpm-profile-of-wso2-ei-as-a-workflow-engine",
+                          "label": "Configuring the BPM Profile as a Workflow Engine"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/adding-a-new-workflow-definition",
+                      "label": "Adding a New Workflow Definition"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/engaging-a-workflow-in-an-operation",
+                      "label": "Engaging a Workflow in an Operation"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/managing-human-tasks",
+                      "label": "Managing Human Tasks"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/monitoring-workflow-requests",
+                      "label": "Monitoring Workflow Requests"
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/customizing-automated-emails",
+                  "label": "Customizing Automated Emails"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/enabling-notifications-for-user-operations",
+                  "label": "Enabling Notifications for User Operations"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/tenant-wise-email-sender-configuration",
+                  "label": "Tenant-Wise Email Sender Configurations"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/using-the-end-user-dashboard",
+                  "label": "Using the End User Dashboard"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/associating-user-accounts",
+                  "label": "Associating User Accounts"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/managing-user-attributes",
+                  "label": "Managing User Attributes"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/creating-and-managing-tenants",
+                  "label": "Creating and Managing Tenants"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/using-email-address-as-the-username",
+                  "label": "Using Email Address as the Username"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/managing-consent-purposes",
+                  "label": "Managing Consent Purposes"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Identity Bus",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "learn/identity-bus",
+                  "label": "Identity Bus"
+                },
+                {
+                  "type": "category",
+                  "label": "Adding and Configuring a Service Provider",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/adding-and-configuring-a-service-provider",
+                      "label": "Adding and Configuring a Service Provider"
+                    },
+                    {
+                      "type": "category",
+                      "label": "Configuring Claims for a Service Provider",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/configuring-claims-for-a-service-provider",
+                          "label": "Configuring Claims for a Service Provider"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/consent-management-with-single-sign-on",
+                          "label": "Consent Management with Single-Sign-On"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-roles-and-permissions-for-a-service-provider",
+                      "label": "Configuring Roles and Permissions for a Service Provider"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-inbound-authentication-for-a-service-provider",
+                      "label": "Configuring Inbound Authentication for a Service Provider"
+                    },
+                    {
+                      "type": "category",
+                      "label": "Configuring Local and Outbound Authentication for a Service Provider",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/configuring-local-and-outbound-authentication-for-a-service-provider",
+                          "label": "Configuring Local and Outbound Authentication for a Service Provider"
+                        },
+                        {
+                          "type": "category",
+                          "label": "Request Path Authentication",
+                          "items": [
+                            {
+                              "type": "doc",
+                              "id": "learn/request-path-authentication",
+                              "label": "Request Path Authentication"
+                            },
+                            {
+                              "type": "doc",
+                              "id": "learn/basic-auth-request-path-authentication",
+                              "label": "Basic Auth Request Path Authentication"
+                            },
+                            {
+                              "type": "doc",
+                              "id": "learn/oauth-request-path-authentication",
+                              "label": "OAuth Request Path Authenticator"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/identifier-first-flow-handler",
+                          "label": "Identifier-first Flow Handler"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/configuring-multi-factor-authentication-with-username-and-password",
+                          "label": "Configuring Multi-factor Authentication with Username and Password"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-inbound-provisioning-for-a-service-provider",
+                      "label": "Configuring Inbound Provisioning for a Service Provider"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-outbound-provisioning-for-a-service-provider",
+                      "label": "Configuring Outbound Provisioning for a Service Provider"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/importing-or-exporting-a-service-provider",
+                      "label": "Importing or Exporting a Service Provider"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Adding and Configuring an Identity Provider",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/adding-and-configuring-an-identity-provider",
+                      "label": "Adding and Configuring an Identity Provider"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-claims-for-an-identity-provider",
+                      "label": "Configuring Claims for an Identity Provider"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-roles-for-an-identity-provider",
+                      "label": "Configuring Roles for an Identity Provider"
+                    },
+                    {
+                      "type": "category",
+                      "label": "Configuring Just-In-Time Provisioning for an Identity Provider",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/configuring-just-in-time-provisioning-for-an-identity-provider",
+                          "label": "Configuring Just-In-Time Provisioning for an Identity Provider"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/configuring-just-in-time-provisioning-consent-purposes",
+                          "label": "Configuring Just-In-Time Provisioning Consent Purposes"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/customizing-just-in-time-provisioning-user-interfaces",
+                          "label": "Customizing Just-In-Time Provisioning User Interfaces"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-outbound-provisioning-connectors-for-an-identity-provider",
+                      "label": "Configuring Outbound Provisioning Connectors for an Identity Provider"
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/authentication-session-persistence",
+                  "label": "Authentication Session Persistence"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/configuring-session-timeout",
+                  "label": "Configuring Session Timeout"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/configuring-a-sp-and-idp-using-service-calls",
+                  "label": "Configuring a SP and IdP Using Service Calls"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Delegated Access Control",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "learn/delegated-access-control",
+                  "label": "Delegated Access Control"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/oauth-concepts",
+                  "label": "OAuth Concepts"
+                },
+                {
+                  "type": "category",
+                  "label": "Working with OAuth",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/working-with-oauth",
+                      "label": "Working with OAuth"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/oauth-2.0-clients",
+                      "label": "OAuth 2.0 Clients"
+                    },
+                    {
+                      "type": "category",
+                      "label": "OAuth 2.0 Grant Types",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/oauth-2.0-grant-types",
+                          "label": "OAuth 2.0 Grant Types"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/authorization-code-grant",
+                          "label": "Authorization Code Grant"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/implicit-grant",
+                          "label": "Implicit Grant"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/resource-owner-password-credentials-grant",
+                          "label": "Resource Owner Password Credentials Grant"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/client-credentials-grant",
+                          "label": "Client Credentials Grant"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/refresh-token-grant",
+                          "label": "Refresh Token Grant"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/kerberos-grant",
+                          "label": "Kerberos Grant"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/jwt-grant",
+                          "label": "JWT Grant"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/saml2-bearer-assertion-profile-for-oauth-2.0",
+                      "label": "SAML2 Bearer Assertion Profile for OAuth 2.0"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/setting-up-oauth-token-hashing",
+                      "label": "Setting Up OAuth Token Hashing"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/jwt-token-generation",
+                      "label": "JWT Token Generation"
+                    },
+                    {
+                      "type": "category",
+                      "label": "OAuth2 Token Validation and Introspection",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/oauth2-token-validation-and-introspection",
+                          "label": "OAuth2 Token Validation and Introspection"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/invoke-the-oauth-introspection-endpoint",
+                          "label": "Invoke the OAuth Introspection Endpoint"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/oauth-token-validation-using-soap-service",
+                          "label": "OAuth Token Validation Using SOAP Service"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/oauth-transaction-logs",
+                          "label": "OAuth Transaction Logs"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/oauth2-token-revocation",
+                      "label": "OAuth2 Token Revocation"
+                    },
+                    {
+                      "type": "category",
+                      "label": "Self-contained Access Tokens",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/self-contained-access-tokens",
+                          "label": "Self-contained Access Tokens"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/handling-custom-claims-with-the-jwt-bearer-grant-type",
+                          "label": "Handling Custom Claims with the JWT Bearer Grant Type"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/writing-a-new-oauth-client-authenticator",
+                      "label": "Writing A New OAuth Client Authenticator"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/private-key-jwt-client-authentication-for-oidc",
+                      "label": "Private Key JWT Client Authentication for OIDC"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/mutual-tls-for-oauth-clients",
+                      "label": "Mutual TLS for OAuth Clients"
+                    },
+                    {
+                      "type": "category",
+                      "label": "Microprofile JWT 1.0 support for IS",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/microprofile-jwt-1.0-support-for-is",
+                          "label": "Microprofile JWT 1.0 support for IS"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/running-the-mp-jwt-sample",
+                          "label": "Running the MP-JWT Sample"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/validating-jwt-based-on-jwks",
+                      "label": "Validating JWT based on JWKS"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/issuing-new-tokens-per-request",
+                      "label": "Issuing New Tokens Per Request"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "OpenID Connect",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/openid-connect",
+                      "label": "OpenID Connect"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/openid-connect-discovery",
+                      "label": "OpenID Connect Discovery"
+                    },
+                    {
+                      "type": "category",
+                      "label": "OpenID Connect Authentication",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/openid-connect-authentication",
+                          "label": "OpenID Connect Authentication"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/openid-connect-basic-client-profile",
+                          "label": "OpenID Connect Basic Client Profile"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/openid-connect-implicit-client-profile",
+                          "label": "OpenID Connect Implicit Client Profile"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/openid-connect-hybrid-flow",
+                          "label": "OpenID Connect Hybrid Flow"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/openid-connect-dynamic-client-registration",
+                      "label": "OpenID Connect Dynamic Client Registration"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/request-object-support",
+                      "label": "Request Object Support"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-openid-connect-authorization-server",
+                      "label": "Configuring OpenID Connect Authorization Server"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/idtoken-signature-verification",
+                      "label": "IDToken Signature Verification"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/json-web-key-set-endpoint",
+                      "label": "JSON Web Key Set Endpoint"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/openid-connect-logout-url-redirection",
+                      "label": "OpenID Connect Logout URL Redirection"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/openid-connect-scopes-and-claims",
+                      "label": "OpenID Connect Scopes and Claims"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/openid-connect-single-logout",
+                      "label": "OpenID Connect Single Logout"
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/extension-points-for-oauth",
+                  "label": "Extension Points for OAuth"
+                },
+                {
+                  "type": "category",
+                  "label": "User Managed Access",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/user-managed-access",
+                      "label": "User Managed Access"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/user-managed-access-endpoints",
+                      "label": "User Managed Access Endpoints"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/user-managed-access-with-wso2-identity-server",
+                      "label": "User Managed Access with WSO2 Identity Server"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "learn/consent-management",
+              "label": "Consent Management"
+            },
+            {
+              "type": "category",
+              "label": "Analytics",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "learn/analytics",
+                  "label": "Analytics"
+                },
+                {
+                  "type": "category",
+                  "label": "Prerequisites to Publish Statistics",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/prerequisites-to-publish-statistics",
+                      "label": "Prerequisites to Publish Statistics"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/enabling-geolocation-based-statistics",
+                      "label": "Enabling Geolocation Based Statistics"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Analyzing the Authentication Operations",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/analyzing-the-authentication-operations",
+                      "label": "Analyzing the Authentication Operations"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/accessing-the-analytics-dashboard",
+                      "label": "Accessing the Analytics Dashboard"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/analyzing-overall-login-attempts",
+                      "label": "Analyzing Overall Login Attempts"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/analyzing-the-local-login-attempts",
+                      "label": "Analyzing the Local Login Attempts"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/analyzing-the-federated-login-attempts",
+                      "label": "Analyzing the Federated Login Attempts"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/analyzing-session-statistics",
+                      "label": "Analyzing Session Statistics"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/purging-analytics-data",
+                      "label": "Purging Analytics Data"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Monitoring the Authentication Operations with Alerts",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/monitoring-the-authentication-operations-with-alerts",
+                      "label": "Monitoring the Authentication Operations with Alerts"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/alert-types",
+                      "label": "Alert Types"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/configuring-alerts",
+                      "label": "Configuring Alerts"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/viewing-alerts",
+                      "label": "Viewing Alerts"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Samples",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "learn/downloading-a-sample",
+                  "label": "Downloading a Sample"
+                },
+                {
+                  "type": "category",
+                  "label": "OAuth2",
+                  "items": [
+                    {
+                      "type": "category",
+                      "label": "Writing a Custom OAuth 2.0 Grant Type",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/writing-a-custom-oauth-2.0-grant-type",
+                          "label": "Writing a Custom OAuth 2.0 Grant Type"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/sending-custom-error-codes",
+                          "label": "Sending Custom Error Codes"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "category",
+                      "label": "OAuth 2.0 with WSO2 Playground",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "learn/oauth-2.0-with-wso2-playground",
+                          "label": "OAuth 2.0 with WSO2 Playground"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/try-authorization-code-grant",
+                          "label": "Try Authorization Code Grant"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/try-client-credentials-grant",
+                          "label": "Try Client Credentials Grant"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/try-implicit-grant",
+                          "label": "Try Implicit Grant"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/try-password-grant",
+                          "label": "Try Password Grant"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "learn/try-request-path-authentication",
+                          "label": "Try Request Path Authentication"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/setting-up-a-saml2-bearer-assertion-profile-for-oauth-2.0",
+                      "label": "Setting up a SAML2 Bearer Assertion Profile for OAuth 2.0"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "OpenIDConnect",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "learn/basic-client-profile-with-playground",
+                      "label": "Basic Client Profile with Playground"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/implicit-client-profile-with-playground",
+                      "label": "Implicit Client Profile with Playground"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/session-management-with-playground",
+                      "label": "Session Management with Playground"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/verifying-openid-connect-id-token-signatures",
+                      "label": "Verifying OpenID Connect ID Token Signatures"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "learn/decrypting-openid-connect-encrypted-id-tokens",
+                      "label": "Decrypting OpenID Connect Encrypted ID Tokens"
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/writing-a-web-service-client-for-authentication-and-user-admin-services",
+                  "label": "Writing a Web Service Client for Authentication and User Admin Services"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/consuming-scim-rest-endpoints-from-a-java-client-application",
+                  "label": "Consuming SCIM Rest Endpoints from a JAVA Client Application"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/running-the-sts-client",
+                  "label": "Running the STS Client"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/xacml-sample-for-an-online-trading-application",
+                  "label": "XACML Sample for an Online Trading Application"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/log-in-to-the-identity-server-using-another-identity-server-saml2",
+                  "label": "Log in to the Identity Server using another Identity Server - SAML2"
+                },
+                {
+                  "type": "doc",
+                  "id": "learn/login-to-identity-server-using-another-identity-server-oauth2",
+                  "label": "Login to Identity Server using another Identity Server - OAuth2"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Develop",
+      "items": [
+        {
+          "type": "category",
+          "label": "Developer Guide",
+          "items": [
+            {
+              "type": "doc",
+              "id": "develop/developer-guide",
+              "label": "Developer guide"
+            },
+            {
+              "type": "doc",
+              "id": "develop/working-with-the-source-code",
+              "label": "Working with the Source Code"
+            },
+            {
+              "type": "category",
+              "label": "Extending the Identity Server",
+              "items": [
+                {
+                  "type": "category",
+                  "label": "User Management for Developers",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "develop/writing-a-custom-password-validator",
+                      "label": "Writing a Custom Password Validator"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/writing-a-custom-claim-handler",
+                      "label": "Writing a Custom Claim Handler"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/user-store-listeners",
+                      "label": "User Store Listeners"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/writing-a-post-authentication-handler",
+                      "label": "Writing a Post-Authentication Handler"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/using-the-user-management-errors-event-listener",
+                      "label": "Using the User Management Errors Event Listener"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/carbon-remote-user-store-manager",
+                      "label": "Carbon Remote User Store Manager"
+                    },
+                    {
+                      "type": "category",
+                      "label": "Working with Errors",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "develop/customizing-authentication-error-messages",
+                          "label": "Customizing Authentication Error Messages"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "develop/customizing-error-pages",
+                          "label": "Customizing Error Pages"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "develop/error-codes-and-descriptions",
+                          "label": "Error Codes and Descriptions"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Provisioning for Developers",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "develop/extending-scim2-user-schemas",
+                      "label": "Extending SCIM 2.0 User Schemas"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/writing-an-outbound-provisioning-connector",
+                      "label": "Writing an Outbound Provisioning Connector"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/extensible-scim-user-schemas-with-wso2-identity-server",
+                      "label": "Extensible SCIM User Schemas With WSO2 Identity Server"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Identity Federation for Developers",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "develop/writing-a-custom-federated-authenticator",
+                      "label": "Writing a Custom Federated Authenticator"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/writing-a-custom-local-authenticator",
+                      "label": "Writing a Custom Local Authenticator"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Access Control for Developers",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "develop/writing-a-custom-policy-info-point",
+                      "label": "Writing a Custom Policy Info Point"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Workflow Management for Developers",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "develop/writing-a-custom-event-handler",
+                      "label": "Writing a Custom Event Handler"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/writing-a-custom-workflow-template",
+                      "label": "Writing a Custom Workflow Template"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Adaptive Authentication for Developers",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "develop/writing-custom-functions-for-adaptive-authentication",
+                      "label": "Writing Custom Functions for Adaptive Authentication"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Using APIs",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "develop/using-apis",
+                  "label": "Using APIs"
+                },
+                {
+                  "type": "category",
+                  "label": "Calling Admin Services",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "develop/calling-admin-services",
+                      "label": "Calling Admin Services"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/admin-services-for-one-way-operations",
+                      "label": "Admin Services for One Way Operations"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "REST APIs",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "develop/authenticating-and-authorizing-rest-apis",
+                      "label": "Authenticating and Authorizing"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/using-the-account-recovery-rest-apis",
+                      "label": "Account Recovery"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/approvals-rest-api",
+                      "label": "Approvals"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/association-rest-api",
+                      "label": "Associations"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/authentication-data-api",
+                      "label": "Authentication Data"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/using-the-authentication-rest-apis",
+                      "label": "Authentication"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/authorized-apps-rest-api",
+                      "label": "Authorized Apps"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/challenge-rest-api",
+                      "label": "Challenge Question"
+                    },
+                    {
+                      "type": "category",
+                      "label": "Configuration Management",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "develop/using-the-configuration-management-rest-apis",
+                          "label": "Configuration Management"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "develop/retrieving-tenant-resources-based-on-search-parameters",
+                          "label": "Retrieving Tenant Resources Based on Search Parameters"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/using-the-consent-management-rest-apis",
+                      "label": "Consent Management"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/fido-rest-api",
+                      "label": "Fido"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/using-oauth2-scopes-rest-apis",
+                      "label": "OAuth2 Scopes"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/using-the-openid-connect-dynamic-client-registration-rest-apis",
+                      "label": "OIDC Dynamic Client Registration"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/using-the-personal-information-export-rest-apis",
+                      "label": "Personal Information Export"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/scim-1.1-apis",
+                      "label": "SCIM 1.1"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/using-the-scim-2.0-rest-apis",
+                      "label": "SCIM 2.0"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/using-the-self-sign-up-rest-apis",
+                      "label": "Self Sign-Up"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/session-mgt-rest-api",
+                      "label": "Session Management"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/totp-rest-api",
+                      "label": "TOTP"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "SOAP APIs",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "develop/soap-apis",
+                      "label": "SOAP APIs"
+                    },
+                    {
+                      "type": "category",
+                      "label": "User Management",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "develop/user-management-with-apis",
+                          "label": "User Management"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "develop/managing-users-and-roles-with-apis",
+                          "label": "Managing Users and Roles"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "develop/managing-claims-with-apis",
+                          "label": "Managing Claims"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "develop/managing-permissions-with-apis",
+                          "label": "Managing Permissions"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "develop/counting-users-and-roles-using-management-console-and-admin-services",
+                          "label": "Counting Users and User Roles"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "develop/managing-user-stores-with-apis",
+                          "label": "Managing User Stores"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/user-information-recovery-service",
+                      "label": "User Information Recovery"
+                    },
+                    {
+                      "type": "category",
+                      "label": "Identity Application Management",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "develop/identity-application-management-api",
+                          "label": "Identity Application Management"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "develop/using-the-service-provider-api",
+                          "label": "Using the Service Provider"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "develop/service-provider-configurations-used-with-apis",
+                          "label": "Service Provider Configurations used with APIs"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "category",
+                      "label": "Identity Provider Management",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "develop/identity-provider-management-api",
+                          "label": "Identity Provider Management"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "develop/using-the-identity-provider-api",
+                          "label": "Using the Identity Provider"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "develop/identity-provider-configurations-used-with-apis",
+                          "label": "Identity Provider Configurations used with APIs"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "develop/managing-tenants-with-apis",
+                  "label": "Managing Tenants with APIs"
+                },
+                {
+                  "type": "category",
+                  "label": "Entitlement with APIs",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "develop/entitlement-with-apis",
+                      "label": "Entitlement with APIs"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "develop/entitlement-with-rest-apis",
+                      "label": "Entitlement with REST APIs"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Customizing User Interfaces",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "develop/customizing-identity-server-uis",
+                  "label": "Customizing WSO2 Identity Server UIs"
+                },
+                {
+                  "type": "doc",
+                  "id": "develop/customizing-login-pages-for-service-providers",
+                  "label": "Customizing Login Pages for Service Providers"
+                },
+                {
+                  "type": "doc",
+                  "id": "develop/customizing-the-sso-redirection-page",
+                  "label": "Customizing the SSO Redirection Page"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "develop/customizing-the-authentication-endpoint",
+              "label": "Customizing the Authentication Endpoint"
+            },
+            {
+              "type": "doc",
+              "id": "develop/localization-support-in-identity-server",
+              "label": "Localization Support in Identity Server"
+            },
+            {
+              "type": "doc",
+              "id": "develop/hosting-authentication-endpoint-on-a-different-server",
+              "label": "Hosting Authentication Endpoint on a Different Server"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Setup",
+      "items": [
+        {
+          "type": "category",
+          "label": "Install",
+          "items": [
+            {
+              "type": "category",
+              "label": "Installing the Product",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "setup/installing-the-product",
+                  "label": "Installing the Product"
+                },
+                {
+                  "type": "doc",
+                  "id": "setup/installation-prerequisites",
+                  "label": "Installation Prerequisites"
+                },
+                {
+                  "type": "doc",
+                  "id": "setup/installing-on-linux-or-os-x",
+                  "label": "Installing on Linux or macOS"
+                },
+                {
+                  "type": "doc",
+                  "id": "setup/installing-on-solaris",
+                  "label": "Installing on Solaris"
+                },
+                {
+                  "type": "doc",
+                  "id": "setup/installing-on-windows",
+                  "label": "Installing on Windows"
+                },
+                {
+                  "type": "doc",
+                  "id": "setup/installing-as-a-linux-service",
+                  "label": "Installing as a Linux Service"
+                },
+                {
+                  "type": "doc",
+                  "id": "setup/installing-as-a-windows-service",
+                  "label": "Installing as a Windows Service"
+                },
+                {
+                  "type": "doc",
+                  "id": "setup/uninstalling-the-product",
+                  "label": "Uninstalling the Product"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "setup/running-the-product",
+              "label": "Running the Product"
+            },
+            {
+              "type": "category",
+              "label": "Getting Started with the Management Console",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "setup/getting-started-with-the-management-console",
+                  "label": "Overview"
+                },
+                {
+                  "type": "doc",
+                  "id": "setup/customizing-the-management-console",
+                  "label": "Customizing the Management Console"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Deploy",
+          "items": [
+            {
+              "type": "doc",
+              "id": "setup/deploying-the-identity-server",
+              "label": "Overview"
+            },
+            {
+              "type": "category",
+              "label": "Deployment Guide",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "setup/deployment-guide",
+                  "label": "Deploying the Identity Server"
+                },
+                {
+                  "type": "doc",
+                  "id": "setup/fronting-with-the-nginx-load-balancer",
+                  "label": "Fronting with the Nginx load balancer"
+                },
+                {
+                  "type": "doc",
+                  "id": "setup/setting-up-separate-databases-for-clustering",
+                  "label": "Setting Up Separate Databases for Clustering"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "setup/changing-the-hostname",
+              "label": "Changing the hostname"
+            },
+            {
+              "type": "category",
+              "label": "Data Stores",
+              "items": [
+                {
+                  "type": "category",
+                  "label": "Working with Databases",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "setup/working-with-databases",
+                      "label": "Overview"
+                    },
+                    {
+                      "type": "category",
+                      "label": "Changing the Carbon Database",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "setup/changing-to-ibm-db2",
+                          "label": "Changing to IBM DB2"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "setup/changing-to-mariadb",
+                          "label": "Changing to MariaDB"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "setup/changing-to-mssql",
+                          "label": "Changing to MSSQL"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "setup/changing-to-mysql",
+                          "label": "Changing to MySQL"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "setup/changing-to-oracle",
+                          "label": "Changing to Oracle"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "setup/changing-to-oracle-rac",
+                          "label": "Changing to Oracle RAC"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "setup/changing-to-postgresql",
+                          "label": "Changing to PostgreSQL"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "setup/changing-to-remote-h2",
+                          "label": "Changing to Remote H2"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "setup/changing-datasource-bpsds",
+                          "label": "Changing default datasource of BPS"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "setup/changing-datasource-consent-management",
+                          "label": "Changing the Default Datasource for Consent Management"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "doc",
+                      "id": "setup/browsing-the-h2-database",
+                      "label": "Browsing the H2 Database"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Working with Users, Roles and Permissions",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "setup/working-with-users-roles-and-permissions",
+                      "label": "Working with Users, Roles and Permissions"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "setup/introduction-to-user-management",
+                      "label": "Introduction to User Management"
+                    },
+                    {
+                      "type": "category",
+                      "label": "Configuring the User Realm",
+                      "items": [
+                        {
+                          "type": "doc",
+                          "id": "setup/configuring-the-realm",
+                          "label": "Configuring the User Realm"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "setup/configuring-the-authorization-manager",
+                          "label": "Configuring the Authorization Manager"
+                        },
+                        {
+                          "type": "doc",
+                          "id": "setup/configuring-the-system-administrator",
+                          "label": "Configuring the System Administrator"
+                        },
+                        {
+                          "type": "category",
+                          "label": "Configuring User Stores",
+                          "items": [
+                            {
+                              "type": "doc",
+                              "id": "setup/configuring-user-stores",
+                              "label": "Configuring User Stores"
+                            },
+                            {
+                              "type": "category",
+                              "label": "Configuring the Primary User Store",
+                              "items": [
+                                {
+                                  "type": "doc",
+                                  "id": "setup/configuring-the-primary-user-store",
+                                  "label": "Configuring the Primary User Store"
+                                },
+                                {
+                                  "type": "doc",
+                                  "id": "setup/configuring-a-jdbc-user-store",
+                                  "label": "Configuring a JDBC User Store"
+                                },
+                                {
+                                  "type": "doc",
+                                  "id": "setup/configuring-a-read-only-ldap-user-store",
+                                  "label": "Configuring a Read-Only LDAP User Store"
+                                },
+                                {
+                                  "type": "doc",
+                                  "id": "setup/configuring-a-read-write-active-directory-user-store",
+                                  "label": "Configuring a Read-Write Active Directory User Store"
+                                },
+                                {
+                                  "type": "doc",
+                                  "id": "setup/configuring-a-read-write-ldap-user-store",
+                                  "label": "Configuring a Read-Write LDAP User Store"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "doc",
+                              "id": "setup/adding-high-availability-for-ldap",
+                              "label": "Adding High Availability for LDAP"
+                            },
+                            {
+                              "type": "doc",
+                              "id": "setup/configuring-secondary-user-stores",
+                              "label": "Configuring Secondary User Stores"
+                            },
+                            {
+                              "type": "doc",
+                              "id": "setup/working-with-properties-of-user-stores",
+                              "label": "Working with Properties of User Stores"
+                            },
+                            {
+                              "type": "doc",
+                              "id": "setup/writing-a-custom-user-store-manager",
+                              "label": "Writing a Custom User Store Manager"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Working with Tokens",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "setup/adding-logs-for-tokens",
+                      "label": "Adding Logs for Tokens"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "setup/token-persistence",
+                      "label": "Token Persistence"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "setup/removing-unused-tokens-from-the-database",
+                      "label": "Removing Unused Tokens from the Database"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "setup/enable-assertions-in-access-tokens",
+                      "label": "Enable Assertions In Access Tokens"
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "setup/data-purging",
+                  "label": "Data Purging"
+                },
+                {
+                  "type": "doc",
+                  "id": "setup/removing-references-to-deleted-user-identities",
+                  "label": "Removing References to Deleted User Identities"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "setup/configuring-rsync-for-deployment-synchronization",
+              "label": "Configuring rsync for Deployment Synchronization"
+            },
+            {
+              "type": "doc",
+              "id": "setup/configuring-a-sp-and-idp-using-configuration-files",
+              "label": "Configuring an SP and IdP Using Configuration Files"
+            },
+            {
+              "type": "doc",
+              "id": "setup/configuring-email-sending",
+              "label": "Configuring the Identity Server to Send Emails"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Monitor",
+          "items": [
+            {
+              "type": "category",
+              "label": "Monitoring",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "setup/monitoring-the-identity-server",
+                  "label": "Overview"
+                },
+                {
+                  "type": "category",
+                  "label": "Monitoring Logs",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "setup/monitoring-logs",
+                      "label": "Monitoring Logs"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "setup/http-access-logging",
+                      "label": "HTTP Access Logging"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "setup/masking-sensitive-information-in-logs",
+                      "label": "Masking Sensitive Information in Logs"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "setup/logging-claims-in-audit-logs",
+                      "label": "Logging Claims in Audit Logs"
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "setup/system-statistics",
+                  "label": "System Statistics"
+                },
+                {
+                  "type": "category",
+                  "label": "Monitoring TCP-Based Messages",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "setup/monitoring-tcp-based-messages",
+                      "label": "Monitoring TCP-Based Messages"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "setup/message-monitoring-with-tcpmon",
+                      "label": "Message Monitoring with TCPMon"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "setup/other-usages-of-tcpmon",
+                      "label": "Other Usages of TCPMon"
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "setup/monitoring-server-health",
+                  "label": "Monitoring Server Health"
+                },
+                {
+                  "type": "doc",
+                  "id": "setup/jmx-based-monitoring",
+                  "label": "JMX-Based Monitoring"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "setup/working-with-product-observability",
+              "label": "Working with Product Observability"
+            },
+            {
+              "type": "doc",
+              "id": "setup/troubleshooting-in-production-environments",
+              "label": "Troubleshooting in Production Environments"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Performance",
+          "items": [
+            {
+              "type": "doc",
+              "id": "setup/performance-tuning-recommendations",
+              "label": "Performance Tuning"
+            },
+            {
+              "type": "doc",
+              "id": "setup/configuring-cache-layers",
+              "label": "Configuring Cache Layers"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Security",
+          "items": [
+            {
+              "type": "doc",
+              "id": "setup/maintaining-logins-and-passwords",
+              "label": "Maintaining Logins and Passwords"
+            },
+            {
+              "type": "doc",
+              "id": "setup/recover-super-admin-account",
+              "label": "Recover Super Admin Account"
+            },
+            {
+              "type": "category",
+              "label": "Securing Passwords in Configuration Files",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "setup/encrypting-passwords-with-cipher-tool",
+                  "label": "Encrypting Passwords with Cipher Tool"
+                },
+                {
+                  "type": "doc",
+                  "id": "setup/resolving-encrypted-passwords",
+                  "label": "Resolving Encrypted Passwords"
+                },
+                {
+                  "type": "doc",
+                  "id": "setup/customizing-secure-vault",
+                  "label": "Customizing Secure Vault"
+                },
+                {
+                  "type": "doc",
+                  "id": "setup/set-passwords-using-environment-variables-or-system-properties",
+                  "label": "Set Passwords using Environment Variables/System Properties"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "setup/preventing-browser-caching",
+              "label": "Preventing browser caching"
+            },
+            {
+              "type": "doc",
+              "id": "setup/configuring-transport-level-security",
+              "label": "Configuring Transport Level Security"
+            },
+            {
+              "type": "doc",
+              "id": "setup/enabling-java-security-manager",
+              "label": "Java Security Manager"
+            }
+          ]
+        },
+        {
+          "type": "doc",
+          "id": "setup/upgrade-wso2-is",
+          "label": "Upgrade WSO2 Identity Server"
+        },
+        {
+          "type": "doc",
+          "id": "setup/environment-compatibility",
+          "label": "Environment Compatibilty"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Administer",
+      "items": [
+        {
+          "type": "doc",
+          "id": "administer/wso2-administration-guide",
+          "label": "Administer"
+        },
+        {
+          "type": "category",
+          "label": "Product Administration",
+          "items": [
+            {
+              "type": "category",
+              "label": "Configuring the Identity Server",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "administer/configuring-the-identity-server",
+                  "label": "Configuring the Identity Server"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Using Tools",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "administer/using-tools",
+                  "label": "Using Tools"
+                },
+                {
+                  "type": "doc",
+                  "id": "administer/using-the-saml2-toolkit",
+                  "label": "Using the SAML2 Toolkit"
+                },
+                {
+                  "type": "category",
+                  "label": "Using the XACML TryIt Tool",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "administer/using-the-xacml-tryit-tool",
+                      "label": "Using the XACML TryIt Tool"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "administer/evaluating-a-xacml-policy",
+                      "label": "Evaluating a XACML Policy"
+                    }
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Identity Anonymization tool",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "setup/removing-references-to-deleted-user-identities-in-wso2-products",
+                      "label": "Removing References to Deleted User Identities using the standalone tool"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "administer/extending-the-identity-anonymization-tool",
+                      "label": "Extending the Identity Anonymization Tool"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Working with Multiple Tenants",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "administer/working-with-multiple-tenants",
+                  "label": "Working with Multiple Tenants"
+                },
+                {
+                  "type": "doc",
+                  "id": "administer/introduction-to-multitenancy",
+                  "label": "Introduction to Multitenancy"
+                },
+                {
+                  "type": "doc",
+                  "id": "administer/configuring-the-tenant-loading-policy",
+                  "label": "Configuring the Tenant Loading Policy"
+                },
+                {
+                  "type": "doc",
+                  "id": "administer/adding-new-tenants",
+                  "label": "Adding New Tenants"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "administer/ldap-vs-jdbc",
+              "label": "LDAP vs JDBC"
+            },
+            {
+              "type": "category",
+              "label": "Working with the Registry",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "administer/working-with-the-registry",
+                  "label": "Working with the Registry"
+                },
+                {
+                  "type": "doc",
+                  "id": "administer/browsing-the-registry",
+                  "label": "Browsing the Registry"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Enabling Mutual SSL",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "administer/enabling-mutual-ssl",
+                  "label": "Enabling Mutual SSL"
+                },
+                {
+                  "type": "doc",
+                  "id": "administer/mutual-tls-with-client-id-and-secret-using-oidc",
+                  "label": "Mutual TLS with client id and secret using OIDC"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "administer/invoking-an-endpoint-from-a-different-domain",
+              "label": "Invoking an Endpoint from a Different Domain"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Deployment and Clustering",
+          "items": [
+            {
+              "type": "category",
+              "label": "Key Concepts",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "administer/clustering-overview",
+                  "label": "Clustering Overview"
+                },
+                {
+                  "type": "doc",
+                  "id": "administer/configuring-hazelcast",
+                  "label": "Configuring Hazelcast"
+                },
+                {
+                  "type": "doc",
+                  "id": "administer/load-balancing",
+                  "label": "Load Balancing"
+                },
+                {
+                  "type": "doc",
+                  "id": "administer/sticky-sessions-with-manager-nodes",
+                  "label": "Sticky Sessions with Manager Nodes"
+                },
+                {
+                  "type": "doc",
+                  "id": "administer/deployment-checklist",
+                  "label": "Deployment Checklist"
+                },
+                {
+                  "type": "doc",
+                  "id": "administer/backup-and-recovery-recommendations",
+                  "label": "Backup and Recovery Recommendations"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Security Guidelines",
+              "items": [
+                {
+                  "type": "doc",
+                  "id": "administer/security-guidelines-for-production-deployment",
+                  "label": "Security Guidelines"
+                },
+                {
+                  "type": "doc",
+                  "id": "administer/product-level-security-guidelines",
+                  "label": "Product-Level"
+                },
+                {
+                  "type": "doc",
+                  "id": "administer/os-level-security-guidelines",
+                  "label": "OS-Level"
+                },
+                {
+                  "type": "doc",
+                  "id": "administer/network-level-security-guidelines",
+                  "label": "Network-level"
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Encryption",
+              "items": [
+                {
+                  "type": "category",
+                  "label": "Asymmetric Encryption",
+                  "items": [
+                    {
+                      "type": "doc",
+                      "id": "administer/using-asymmetric-encryption",
+                      "label": "Asymmetric Encryption"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "administer/creating-new-keystores",
+                      "label": "Creating New Keystores"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "administer/configuring-keystores-in-wso2-products",
+                      "label": "Configuring Keystores"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "administer/renewing-a-ca-signed-certificate-in-a-keystore",
+                      "label": "Renewing a CA-Signed Certificate"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "administer/managing-keystores-with-the-ui",
+                      "label": "Managing Keystores via UI"
+                    },
+                    {
+                      "type": "doc",
+                      "id": "administer/adding-multiple-keys-to-the-primary-keystore",
+                      "label": "Adding Multiple Keys to the Primary Keystore"
+                    }
+                  ]
+                },
+                {
+                  "type": "doc",
+                  "id": "administer/using-symmetric-encryption",
+                  "label": "Symmetric Encryption"
+                }
+              ]
+            },
+            {
+              "type": "doc",
+              "id": "administer/mitigating-cross-site-request-forgery-attacks",
+              "label": "Mitigating Cross Site Request Forgery Attacks"
+            },
+            {
+              "type": "doc",
+              "id": "administer/mitigating-authorization-code-interception-attacks",
+              "label": "Mitigating Authorization Code Interception Attacks"
+            },
+            {
+              "type": "doc",
+              "id": "administer/mitigating-brute-force-attacks",
+              "label": "Mitigating Brute Force Attacks"
+            },
+            {
+              "type": "doc",
+              "id": "administer/timestamp-in-ws-security-to-mitigate-replay-attacks",
+              "label": "Timestamp in WS-Security to Mitigate Replay Attacks"
+            },
+            {
+              "type": "doc",
+              "id": "administer/enabling-hostname-verification",
+              "label": "Enabling HostName Verification"
+            },
+            {
+              "type": "doc",
+              "id": "administer/configuring-tls-termination",
+              "label": "Configuring TLS Termination"
+            }
+          ]
+        },
+        {
+          "type": "doc",
+          "id": "administer/getting-wso2-updates",
+          "label": "Getting WSO2 Updates"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Compliance",
+      "items": [
+        {
+          "type": "doc",
+          "id": "compliance/general-data-protection-regulation",
+          "label": "GDPR"
+        },
+        {
+          "type": "doc",
+          "id": "compliance/electronic-identification-authentication-and-trust-services-regulation",
+          "label": "eIDAS"
+        },
+        {
+          "type": "doc",
+          "id": "compliance/california-consumer-privacy-act",
+          "label": "CCPA"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "References",
+      "items": [
+        {
+          "type": "doc",
+          "id": "references/references-overview",
+          "label": "Overview"
+        },
+        {
+          "type": "doc",
+          "id": "references/default-ports-of-wso2-products",
+          "label": "Default Ports of WSO2 Products"
+        },
+        {
+          "type": "doc",
+          "id": "references/permissions-required-to-invoke-admin-services",
+          "label": "Permissions Required to Invoke Admin Services"
+        },
+        {
+          "type": "doc",
+          "id": "references/api-permissions",
+          "label": "API Permissions"
+        },
+        {
+          "type": "doc",
+          "id": "references/new-configuration-model",
+          "label": "New Configuration Model"
+        },
+        {
+          "type": "doc",
+          "id": "references/error-catalog",
+          "label": "Error Catalog"
+        },
+        {
+          "type": "doc",
+          "id": "references/product-startup-options",
+          "label": "Product Startup Options"
+        },
+        {
+          "type": "doc",
+          "id": "references/supported-cipher-suites",
+          "label": "Supported Cipher Suites"
+        },
+        {
+          "type": "doc",
+          "id": "references/directory-structure-of-wso2-products",
+          "label": "Directory Structure of WSO2 Products"
+        },
+        {
+          "type": "doc",
+          "id": "references/wso2-patch-application-process",
+          "label": "WSO2 Patch Application Process"
+        },
+        {
+          "type": "doc",
+          "id": "references/evolution-of-identity-federation-standards",
+          "label": "Evolution of Identity Federation Standards"
+        },
+        {
+          "type": "doc",
+          "id": "references/adaptive-authentication-js-api-reference",
+          "label": "Adaptive Authentication JS API Reference"
+        }
+      ]
+    }
+  ]
+}
