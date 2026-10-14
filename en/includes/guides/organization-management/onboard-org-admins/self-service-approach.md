@@ -210,24 +210,17 @@ To create and maintain admins in the organization:
 
     !!! note "Find admin-role-name and role-audience-value"
         Refer to the following details related to the administrator role:
-        <table>
-        <tr>
-        <td>admin-role-name</td>
-        <td>Name of the administrator role associated with your B2B application.</td>
-        <tr>
-        <td>role-audience-value</td>
-        <td>For B2B applications with an `application` audience type, provide the application id. Use the following command to get the application id:
 
-        ```bash
-        curl --location 'https://{{ host_name }}{{ root_organization_path }}/o/api/server/v1/applications?filter=name eq <B2B-application-name>'
-        --header 'Authorization: Bearer <access-token-obtained-for-the-organization>'
-        ```
+        - **admin-role-name**: Name of the administrator role associated with your B2B application.
+        - **role-audience-value**: For B2B applications with an `application` audience type, provide the application id. Use the following command to get the application id:
 
-        If the B2B application's audience is `organization`, provide the organization id.
-        Learn more about role audiences in [manage roles]({{base_path}}/guides/users/manage-roles/).
-        </td>
-        </tr>
-        </table>
+            ```bash
+            curl --location 'https://{{ host_name }}{{ root_organization_path }}/o/api/server/v1/applications?filter=name eq <B2B-application-name>'
+            --header 'Authorization: Bearer <access-token-obtained-for-the-organization>'
+            ```
+
+            If the B2B application's audience is `organization`, provide the organization id.
+            Learn more about role audiences in [manage roles]({{base_path}}/guides/users/manage-roles/).
 
 6. Assign the user created in step 4 to the administrator role of your B2B application by using the following command.
 
@@ -352,24 +345,17 @@ To create and maintain admins in the root organization:
 
     !!! note "Find admin-role-name and role-audience-value"
         Refer to the following details related to the B2B application's administrator role:
-        <table>
-        <tr>
-        <td>admin-role-name</td>
-        <td>Name of the administrator role associated with your B2B application.</td>
-        <tr>
-        <td>role-audience-value</td>
-        <td>For B2B applications with an `application` audience type, provide the application id. Use the following command to get the application id:
 
-        ```bash
-        curl --location 'https://{{ host_name }}{{ root_organization_path }}/o/api/server/v1/applications?filter=name eq <B2B-application-name>'
-        --header 'Authorization: Bearer <access-token-obtained-for-the-organization>'
-        ```
+        - **admin-role-name**: Name of the administrator role associated with your B2B application.
+        - **role-audience-value**: For B2B applications with an `application` audience type, provide the application id. Use the following command to get the application id:
 
-        If the B2B application's audience is `organization`, provide the organization id.
-        Learn more about role audiences in [manage roles]({{base_path}}/guides/users/manage-roles/).
-        </td>
-        </tr>
-        </table>
+            ```bash
+            curl --location 'https://{{ host_name }}{{ root_organization_path }}/o/api/server/v1/applications?filter=name eq <B2B-application-name>'
+            --header 'Authorization: Bearer <access-token-obtained-for-the-organization>'
+            ```
+
+            If the B2B application's audience is `organization`, provide the organization id.
+            Learn more about role audiences in [manage roles]({{base_path}}/guides/users/manage-roles/).
         
 
 7. Assign the shadow account to the administrator role of your B2B application by using the following command.

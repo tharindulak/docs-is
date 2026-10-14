@@ -54,9 +54,7 @@ encrypted values.
         }
     ```
 
-2.  We can set multiple password-based as follows: <span
-    class="underline"><span class="underline">  
-    </span></span>
+2.  We can set multiple password-based as follows:
 
     ``` java
             public class HardCodedSecretCallbackHandler extends AbstractSecretCallbackHandler {

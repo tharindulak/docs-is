@@ -114,7 +114,8 @@ Follow the steps below to configure WSO2 Identity Server to resend account recov
                     </table>
                 </td>
                 </tr>
-                </table>```
+                </table>
+                ```
         6. **Email Footer** :  --
 
 4. To create an email template for **notification-based password recovery**, enter the following values:
@@ -200,7 +201,8 @@ Follow the steps below to configure WSO2 Identity Server to resend account recov
                 </table>
             </td>
             </tr>
-            </table>```
+            </table>
+            ```
 
     6. **Email Footer** :  --
 
@@ -283,7 +285,8 @@ Follow the steps below to configure WSO2 Identity Server to resend account recov
                 </table>
             </td>
             </tr>
-            </table>```
+            </table>
+            ```
     6. **Email Footer** :  --
 
 6. To create an email template for an **admin-initiated password reset through an OTP**, enter the following values:
@@ -344,7 +347,8 @@ Follow the steps below to configure WSO2 Identity Server to resend account recov
                 </table>
             </td>
             </tr>
-            </table>```
+            </table>
+            ```
     6. **Email Footer** :  --
 
 !!! tip

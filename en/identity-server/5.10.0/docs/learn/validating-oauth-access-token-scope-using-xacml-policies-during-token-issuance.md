@@ -145,4 +145,4 @@ To try out the policy using the XACML TryIt tool:
 			</div> 
 		</p>
 	</li>
-</ul>
+</ol>
