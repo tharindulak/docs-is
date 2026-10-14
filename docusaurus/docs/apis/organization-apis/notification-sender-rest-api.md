@@ -7,6 +7,11 @@ deployment_options:
   - WSO2 Cloud
   - Self-hosted
 custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/asgardeo/docs/apis/organization-apis/notification-sender-rest-api.md
+lifecycle:
+  Self-hosted:
+    status: deprecated
+    deprecated_since: 7.2.0
+    replacement: notification-sender-v2-rest-api.md
 ---
 
 <ApiReference spec="/identity/apis/organization-apis/restapis/notification-senders.yaml" />

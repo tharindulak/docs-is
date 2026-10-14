@@ -3488,7 +3488,7 @@
                     {
                       "type": "doc",
                       "id": "apis/notification-sender-rest-api",
-                      "label": "Notification sender v1 API (deprecated)"
+                      "label": "Notification sender v1 API"
                     },
                     {
                       "type": "doc",
@@ -3531,7 +3531,7 @@
                 {
                   "type": "doc",
                   "id": "apis/role-management/roles-v1-rest-api",
-                  "label": "Roles v1 API (deprecated)"
+                  "label": "Roles v1 API"
                 }
               ]
             },
@@ -3695,7 +3695,7 @@
                     {
                       "type": "doc",
                       "id": "apis/user-account-recovery-v1-rest-api",
-                      "label": "Account recovery v1 API (deprecated)"
+                      "label": "Account recovery v1 API"
                     },
                     {
                       "type": "doc",
@@ -3865,7 +3865,7 @@
                 {
                   "type": "doc",
                   "id": "apis/organization-apis/notification-sender-rest-api",
-                  "label": "Notification sender v1 API (deprecated)"
+                  "label": "Notification sender v1 API"
                 },
                 {
                   "type": "doc",

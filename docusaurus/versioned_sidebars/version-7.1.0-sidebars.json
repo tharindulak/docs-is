@@ -3159,7 +3159,7 @@
                 {
                   "type": "doc",
                   "id": "apis/roles-v1-rest-api",
-                  "label": "Roles v1 API (deprecated)"
+                  "label": "Roles v1 API"
                 }
               ]
             },
@@ -3313,7 +3313,7 @@
                     {
                       "type": "doc",
                       "id": "apis/user-account-recovery-v1-rest-api",
-                      "label": "Account recovery v1 API (deprecated)"
+                      "label": "Account recovery v1 API"
                     },
                     {
                       "type": "doc",

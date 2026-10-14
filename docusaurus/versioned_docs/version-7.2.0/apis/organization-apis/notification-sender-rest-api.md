@@ -6,6 +6,9 @@ mkdocs_template: redoc
 deployment_options:
   - Self-hosted
 custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/7.2.0/docs/apis/organization-apis/notification-sender-rest-api.md
+status: deprecated
+deprecated_since: 7.2.0
+replacement: notification-sender-v2-rest-api.md
 ---
 
 <ApiReference spec="/identity/_versions/7.2.0/apis/organization-apis/restapis/notification-senders.yaml" />

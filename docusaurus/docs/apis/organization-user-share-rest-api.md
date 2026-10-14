@@ -9,6 +9,15 @@ deployment_options:
   - WSO2 Cloud
   - Self-hosted
 custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/asgardeo/docs/apis/organization-user-share-rest-api.md
+lifecycle:
+  WSO2 Cloud:
+    status: deprecated
+    deprecated_since: 2026-03
+    replacement: organization-user-share-v2-rest-api.md
+  Self-hosted:
+    status: deprecated
+    deprecated_since: 7.3.0
+    replacement: organization-user-share-v2-rest-api.md
 ---
 
 <Applies to="WSO2 Cloud">
