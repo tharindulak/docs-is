@@ -349,7 +349,7 @@ void logOutFunction() async {
     }
   }
 ```
-## Step 7: Try it out
+## Step 9: Try it out
 
 Let's walk through the end-to-end flow of the application we built in this tutorial.
 
