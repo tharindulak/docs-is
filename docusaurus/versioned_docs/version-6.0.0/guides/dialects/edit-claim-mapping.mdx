@@ -1,0 +1,63 @@
+---
+title: Edit Claim Mapping
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/6.0.0/docs/guides/dialects/edit-claim-mapping.md
+---
+
+# Edit Claim Mapping
+
+There are two ways to edit a claim mapping.
+
+## Use the management console
+
+Follow the steps given below to edit a claim mapping.
+
+1.  Access the Management Console (`https://<IS_HOST>:<PORT>/carbon`).
+2.  Go to **Main** > **Identity** > **Claims** and click  **List**.
+3.  Click on any available dialect.  
+    ![dialect-links](../../../../assets/img/guides/dialect-links.png)
+4.  From the **Claim Dialect** view, you can view the claims defined for
+    that particular dialect. 
+    ![claim-dialect-view](../../../../assets/img/guides/claim-dialect-view.png)
+5.  Click **Edit**, enter the new claim information in the required fields, and click **Update**.
+
+    -   If you are editing a local claim, you will see the following:
+
+        ![update-local-claim](../../../../assets/img/guides/update-local-claim.png) 
+
+    -   If you are editing an external claim, you will see the following:
+      
+        ![editing-external-claim](../../../../assets/img/guides/editing-external-claim.png)
+
+## Use the configuration file
+
+Alternatively, you can do this by editing claim mappings from the `claim-config.xml` file (located in the `<IS_HOME>/repository/conf/` folder).
+    
+:::note
+
+    The dialects configured in the `<IS_HOME>/repository/conf/claim-config.xml` file get applied only **when you start the product** for the first time or for any newly created tenants.
+    
+With the first startup, dialects and claims are loaded from the file and persisted in the database. Any consecutive updates to the file will not be picked up.
+
+:::
+
+A sample claim mapping is given below.
+
+```xml
+<Claim>
+    <ClaimURI>country</ClaimURI>
+    <DisplayName>Country</DisplayName>
+    <AttributeID>country</AttributeID>
+    <Description>Country name component</Description>
+    <MappedLocalClaim>http://wso2.org/claims/country</MappedLocalClaim>
+</Claim>
+```
+    
+:::info[Related topics]
+
+
+-   [Guides: Configure Claims](configure-claims.mdx)
+-   [Concepts: Claim Management](../../references/concepts/claim-management.mdx)
+
+:::

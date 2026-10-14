@@ -1,0 +1,116 @@
+---
+title: Single Page Application SDK
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/6.0.0/docs/developer-portal/applications/sdks/javascript-oidc.md
+---
+
+# Single Page Application SDK
+
+The WSO2 Identity Server OIDC authentication SDK supports implementing authentication in JavaScript and Typescript client applications with OpenID Connect (OIDC). It handles a lot of authentication related details such as the grant, protocol, token management and token storage. 
+
+This library currently supports [OAuth 2.0 Authorization Code Flow](https://tools.ietf.org/html/rfc6749#section-4.1) with [PKCE](https://tools.ietf.org/html/rfc7636).
+
+You can also find the source code of this library [here](https://github.com/wso2-extensions/identity-sdks-js/tree/master/identity-oidc-js).
+
+---
+
+## Getting started
+
+Run the following command to install the SDK:
+
+```
+npm i @wso2/identity-oidc-js
+```
+
+Run `yarn run build`
+
+For development (watch mode) Run `yarn run watch`.
+
+### 1. Initialize the client
+
+```js
+// Import the module
+import { IdentityAuth } from "@wso2/identity-oidc-js";
+
+/**
+ * Minimal required configuration sample to initialize the client
+ */
+const authConfig = {
+    loginCallbackURL: "https://localhost:9000/myapp/home",
+    logoutCallbackURL: "https://localhost:9000/myapp/login",
+    clientHost: "https://localhost:9000",
+    clientID: "KwrHtf9iJdr6ewr0A9IYKIErR0rt",
+    serverOrigin: "https://localhost:9443"
+};
+
+/**
+ * Initialize authClient
+ */
+const authClient = new IdentityAuth(authConfig);
+```
+
+#### Configuration Options
+
+Required options
+
+| Config              | Type    | Default | Description |
+|---                  |---      | ---     |---          |
+| `loginCallbackURL`  | string  | -       | Where to redirect upon successful authentication. (Note:- This should be configured in WSO2 Identity Server) E.g. https://mydomain.com/myapp/home |
+| `logoutCallbackURL` | string  | -       | Where to redirect after logout. (Note:- This should be configured in WSO2 Identity Server) E.g. https://mydomain.com/myapp/login |
+| `clientHost`        | string  | -       | Application origin address with tenant path if applicable . E.g. https://mydomain.com or https://mydomain.com/t/exmaple.com |
+| `clientID`          | string  | -       | OIDC Application clientID generated in WSO2 Identity Server |
+| `serverOrigin`      | string  | -       | WSO2 Identity Server address. E.g. https://is.mydomain.com |
+
+
+Optional configurations
+
+| Config              | Type    | Default               | Description |
+|---                  |---      | ---                   |---          |
+| `autherizationType` | string  | "authorization_code"  |             |
+| `clientSecret`      | string  | -                     | OIDC Application clientSecret generated in WSO2 Identity Server |
+| `consentDenied`     | boolean | false                 |             |
+| `enablePKCE`        | boolean | true                  |             |
+| `prompt`            | string  | ""                    | "none", "login", "consent" |
+| `responseMode`      | string  | "query"               | "query" or "form_post"  |
+| `scope`             | array   | [ "" ]                |             |
+| `tenant`            | string  | "carbon.super"        | Tenant name. (Note:- Leave it blank for super tenant) E.g. example.com |
+| `tenantPath`        | string  | ""                    | Tenant Path. (Note:- Leave it blank for super tenant) E.g. /t/example.com |
+
+### 2. Methods (API Reference)
+
+* [signIn](#signin%20callback%20)
+* [signOut](#signout%20callback%20)
+
+#### signIn( _callback_ )
+
+```js
+authClient.signIn(() => {
+    // Callback method trigger before signin redirection
+})
+.then((response) => {
+    // Response with basic user details upon logged in
+})
+.catch((error) => {
+    // Handle erorr
+});
+```
+
+#### signOut( _callback_ )
+
+```js
+authClient.signOut(() => {
+    // Callback method trigger before signout redirection
+})
+.catch((error) => {
+    // Handle erorr
+});
+```
+
+---
+
+
+
+## License
+
+Licenses this source under the Apache License, Version 2.0 ([LICENSE](LICENSE)), You may not use this file except in compliance with the License.

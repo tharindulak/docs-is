@@ -1,0 +1,43 @@
+---
+title: API authorization for organizations
+deployment_options:
+  - WSO2 Cloud
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/asgardeo/docs/guides/organization-management/api-authorization-overview.md
+---
+
+# API authorization for organizations
+
+WSO2 Identity Platform allows organizations to authorize user access to an application's API resources based on the API permissions, roles, and groups assigned to the users. See [API authorization](/identity/guides/api-authorization/) for more information.
+
+API resources are created and authorized for applications on the organization (root). If the application consuming the API resources is shared with the organization, all application-specific configurations of API resources are inherited by the organization.
+
+
+
+<Applies to="WSO2 Cloud">
+
+![The relationship between terms](../../../assets/img/guides/authorization/api-authorization/b2b-api-authorization.png)
+
+</Applies>
+
+
+
+<Applies to="Self-hosted">
+
+![The relationship between terms](../../../assets/img/guides/authorization/api-authorization/b2b-api-authorization.png)
+
+</Applies>
+
+
+
+<Prerequisites>
+
+## Prerequisites
+
+You need to configure your API resources on the organization (root):
+
+1. [Register an API resource](/identity/guides/api-authorization/#register-an-api-resource)
+2. [Authorize the API resource to an app](/identity/guides/api-authorization/#authorize-the-api-resources-for-an-app)
+3. [Create roles and associate to application](/identity/guides/api-authorization/#associate-roles-to-the-application)
+
+</Prerequisites>

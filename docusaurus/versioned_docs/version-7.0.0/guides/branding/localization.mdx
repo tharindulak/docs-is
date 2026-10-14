@@ -1,0 +1,240 @@
+---
+title: Localization in WSO2 Identity Server
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/7.0.0/docs/guides/branding/localization.md
+---
+
+# Localization in WSO2 Identity Server
+
+WSO2 Identity Server lets you pick the language for the following interfaces exposed to business users.
+
+- User registration, sign-up, login and the account recovery flows.
+- **My Account** (self-care portal).
+
+The **default language** on these interfaces is configured as explained in the [language settings](#configure-language-settings) section.
+
+:::note[Important]
+
+
+In the user **sign-up** and **attribute consent** screens, WSO2 Identity Server only translates the default user attributes.
+
+:::
+
+These interfaces support i18n, allowing WSO2 Identity Server to load text content from i18n resource files. This ensures that your business users can experience these use cases in their preferred language.
+
+## Supported languages
+
+WSO2 Identity Server provides i18n-supported user interfaces in the following languages.
+
+<table>
+    <tr>
+        <th>
+            Language
+        </th>
+        <th>
+            Code
+        </th>
+    </tr>
+    <tr>
+        <td>
+            English
+        </td>
+        <td>
+            <code>en_US</code>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            French
+        </td>
+        <td>
+            <code>fr_FR</code>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Spanish
+        </td>
+        <td>
+            <code>es_ES</code>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Portuguese - Portugal
+        </td>
+        <td>
+            <code>pt_PT</code>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Portuguese - Brazil
+        </td>
+        <td>
+            <code>pt_BR</code>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            German
+        </td>
+        <td>
+            <code>de_DE</code>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Chinese
+        </td>
+        <td>
+            <code>zh-CN</code>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Japanese
+        </td>
+        <td>
+            <code>ja-JP</code>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Sinhalese
+        </td>
+        <td>
+            <code>si-LK</code>
+        </td>
+    </tr>
+    
+</table>
+
+## Configure language settings
+
+You can use the following language settings to configure the WSO2 Identity Server interfaces exposed to the business user.
+
+### Language switcher
+
+Users can use the language switcher available at the footer of the i18n-supported WSO2 Identity Server interfaces to select the preferred language.
+
+:::note
+
+
+WSO2 Identity Server remembers this setting and applies it to all i18n-supported interfaces.
+
+:::
+
+### Browser-level settings
+
+WSO2 Identity Server automatically adapts to each user's browser language preference as long as it's a  supported language. Users can still manually change the language using the [language switcher](#language-switcher).
+
+### Application-level settings
+
+You can configure the application to send the `ui_locales` parameter in the sign-in or authorization request when a user signs in to the application.
+
+It works as follows,
+
+- You provide a list of strings, separated by a space, to define the locales.
+
+- WSO2 Identity Server searches through the list until it finds a supported locale.
+
+- If found, WSO2 Identity Server sets that language as the default locale. If not, it uses the [browser-level](#browser-level-settings) setting.
+
+:::note[Important]
+
+
+The `ui_locale` parameter works only with OIDC flows and not with SAML flows.
+
+:::
+
+Consider the following examples:
+
+- If the `ui_locales` set to `fr_FR`, WSO2 Identity Server sets **French**  as the default locale.
+- If the `ui_locales` set to `fr_FR en_US`, WSO2 Identity Server sets **French** as the default locale since it's the first language in the list that WSO2 Identity Server supports.
+- If the `ui_locales` set to `it_IT en_US`, WSO2 Identity Server sets **English (en_US)** as the default locale as it doesn't support `it_IT`.
+
+The following examples show how to set the `ui_locales` parameter in your application.
+
+- **Example 1:** Using the SDK.
+
+    The following sample illustrates how to set the `ui_locales` parameter in the `signIn` request using the JS/React SDK.
+  
+    :::note
+
+    Learn more about [setting the signIn request](https://github.com/asgardeo/asgardeo-auth-spa-sdk#signin) using the WSO2 Identity Server SDKs.
+
+    :::
+
+    ```Js
+        <SecureApp
+            fallback={<div>Loading</div>}
+            overrideSignIn={async () => {
+                await signIn({
+                    'ui_locales': 'fr_FR en_US'
+                });
+            }}
+        >
+            <AppContent/>
+        </SecureApp>
+    ```
+
+- **Example 2:** Directly in the authorization request.
+
+    You can append the `ui_locales` directly in the authorization request as a query parameter as shown below.
+
+    ```
+    https://localhost:9443/oauth2/userinfo?scope={scope}\
+    &response_type=code\
+    &redirect_uri={redirect_uri}\
+    &client_id={client_id}\
+    &ui_locales={ locales list }
+    ```
+
+:::note[Translation of privacy policy and terms of conditions]
+
+WSO2 Identity Server attaches the `ui_locales={ locales list }` parameter to the privacy policy and terms of condition URLs set in the [branding configurations](configure-ui-branding.mdx#advanced-preferences). This allows you to show users the translated content.
+
+:::
+
+
+## Configure localization for authentication endpoints
+
+WSO2 Identity Server provides internationalization support for its web applications (such as the authentication endpoint located in the `<IS_HOME>/repository/deployment/server/webapps/` directory). The following steps describe how you can configure this:
+
+1. Navigate to `<IS_HOME>/repository/deployment/server/webapps/authenticationendpoint/WEB-INF/classes/org/wso2/carbon/identity/application/authentication/endpoint/i18n/`
+
+2. Duplicate the `Resources.properties` file in the same location and rename it with the required locale suffix as follows:
+    - For British English: `Resources_en_GB.properties`
+    - For French (Standard): `Resources_fr.properties`
+
+    Refer to [Web browser language identification codes](https://www.localeplanet.com/icu/) for more information on locale suffixes.
+
+3. Update the values for each key as follows:
+   ```
+   login=<Value in the required locale>
+   ``` 
+
+4. Save the file.
+
+5. Navigate to `<IS_HOME>/repository/deployment/server/webapps/authenticationendpoint/WEB-INF/classes/` and open the `LanguageOptions.properties` file.
+
+6. Add information about the new language in the following format & save the file.
+   ```
+   <language switcher name>=<language code>,<language name>`
+   ```
+
+7. Go to the browser settings and add the language you configured above.
+
+8. Restart the server. To try out, do the following:
+    1. Open up a browser.
+    2. Type the My Account portal URL. (If you are running the server in your localhost, the URL is: [https://localhost:9443/myaccount/](https://localhost:9443/myaccount/)). You will see the login screen having the contents in the configured language.
+
+## Configuring Localization for Recovery Endpoints
+
+You can enable localization for `accountrecoveryendpoint` by applying the same steps 1 through 8 in the previous section, for the following location:
+
+`<IS_HOME>/repository/deployment/server/webapps/accountrecoveryendpoint/WEB-INF/classes/org/wso2/carbon/identity/mgt/recovery/endpoint/i18n/`.
+
+Update the LanguageOptions.properties file located at: `<IS_HOME>/repository/deployment/server/webapps/authenticationendpoint/WEB-INF/classes/LanguageOptions.properties` to include the new language options.

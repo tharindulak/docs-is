@@ -1,0 +1,76 @@
+---
+title: Set up
+mkdocs_template: connector
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/7.3.0/docs/connectors/password-reset-enforcer/set-up.md
+---
+
+# Set up
+
+The following guide explains how you can install and set up Password Reset Enforcer in WSO2 Identity Server.
+
+<Prerequisites>
+
+## Prerequisites
+
+- A running WSO2 Identity Server instance.
+- Access to the WSO2 Identity Server installation directory (referred to as `IS_HOME`).
+
+</Prerequisites>
+
+<Steps>
+
+## Install the Password Reset Enforcer connector {/* #step-1-install-the-password-reset-enforcer-connector */}
+
+1. From the WSO2 Identity Server [Connector Store](https://store.wso2.com/connector/identity-outbound-auth-passwordPolicy), download the Password Reset Enforcer and its artifacts.
+
+2. Copy the `jar` file into the `<IS_HOME>/repository/components/dropins` directory of your WSO2 Identity Server installation.
+
+
+
+## Configure password expiry event handling {/* #step-2-configure-password-expiry-event-handling */}
+
+Add the following configuration to the `IS_HOME/repository/conf/deployment.toml` file.
+
+```toml
+[[event_handler]]
+name = "passwordExpiry"
+subscriptions = [
+  "POST_UPDATE_CREDENTIAL",
+  "POST_UPDATE_CREDENTIAL_BY_ADMIN",
+  "POST_ADD_USER"
+]
+
+[event_handler.properties]
+passwordExpiryInDays = "30"
+enableDataPublishing = false
+priorReminderTimeInDays = "0"
+```
+
+## Enable the authenticator {/* #step-3-enable-the-authenticator */}
+
+To make the authenticator available in application step configurations, add the following configuration to the `<IS_HOME>/repository/conf/deployment.toml` file.
+
+```toml
+[authentication.authenticator.password-reset-enforcer]
+name = "password-reset-enforcer"
+enable = true
+```
+
+
+## Enable the enforcement scope configuration {/* #step-4-enable-the-enforcement-scope-configuration */}
+
+To make the **Enforce password expiry for** setting available in the Console, add the following configuration to the `<IS_HOME>/repository/conf/deployment.toml` file.
+
+```toml
+[console.ui]
+is_password_reset_enforcement_scope_enabled = true
+```
+
+
+## Restart WSO2 Identity Server {/* #step-5-restart-wso2-identity-server */}
+
+Restart WSO2 Identity Server to apply the configuration and deploy the artifacts.
+
+</Steps>

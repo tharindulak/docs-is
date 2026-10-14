@@ -1,0 +1,75 @@
+---
+title: Customize email templates
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/7.2.0/docs/guides/branding/customize-email-templates.md
+---
+
+# Customize email templates
+
+The following topics explain how you can customize email notifications that are sent to users of your WSO2 Identity Server organization.
+
+## Customize email branding
+
+Once you publish your [branding preferences](configure-ui-branding.mdx#general-preferences) on WSO2 Identity Server, the branding preferences are automatically applied to emails sent to the users of your organization.
+
+
+
+
+
+:::note[Email templates for B2B applications]
+
+
+If you have set up [organizations](../organization-management/manage-organizations.mdx), refer [email template inheritance](../organization-management/inheritance-in-organizations/email-sms-templates-inheritance.mdx) to see how email templates are inherited.
+
+:::
+
+
+
+The branding variables that affect the email templates are as follows:
+
+![Branding email templates](../../../../assets/_versions/7.2.0/img/guides/branding/email-branding.png)
+
+<table><tbody><tr><th></th><th>{"Template variable"}</th><th>{"Branding preference"}</th></tr><tr><td rowSpan={"2"}>{"1"}</td><td>{"Organization Logo"}</td><td>{"Design > Theme Preferences > Images > Logo URL"}</td></tr><tr><td>{"Logo alternative text"}</td><td>{"Design > Theme Preferences > Images > Logo Alt Text"}</td></tr><tr><td>{"2"}</td><td>{"Primary color"}</td><td>{"Design > Theme Preferences > Color Palette > Primary Color"}</td></tr><tr><td>{"3"}</td><td>{"Email background color"}</td><td>{"Design > Theme Preferences > Color Palette > Body Background > Main Background Color"}</td></tr><tr><td>{"4"}</td><td>{"Email body color"}</td><td>{"Design > Theme Preferences > Color Palette > Surface Background > Main Surface Background Color"}</td></tr><tr><td>{"5"}</td><td>{"Email font"}</td><td>{"Design > Theme Preferences > Font > Font Family"}</td></tr><tr><td>{"6"}</td><td>{"Email body font color"}</td><td>{"Design > Theme Preferences > Color Palette > Text Colors > Primary Text Color"}</td></tr><tr><td>{"7"}</td><td>{"Email button font color"}</td><td>{"Design > Theme Preferences > Buttons > Primary Button > Font Color"}</td></tr><tr><td>{"8"}</td><td>{"Copyright text"}</td><td>{"General > Copyright Text"}</td></tr><tr><td>{"9"}</td><td>{"Support email"}</td><td>{"General > Contact Email"}</td></tr></tbody></table>
+
+
+## Customize email content
+
+You can tailor the **subject**, **body**, and **footer** of email notifications to your preferences by following the steps below.
+
+:::note
+
+This feature is only available for the most frequently used email templates. You can customize [all available email templates](../../references/email-templates.mdx) using the [Email Templates API](../../apis/email-templates-rest-api.mdx).
+
+:::
+
+1. On the WSO2 Identity Server, go to **Branding** > **Email Templates**.
+2. Select the email template and the relevant locale that you wish to modify.
+
+    :::note
+
+    WSO2 Identity Server gives you the option to automatically copy a template from one locale to another so that you don't have to create email templates from scratch. To do so, select a locale with an existing email template, switch over to the new locale and click confirm when the **Replicate content?** prompt appears.
+
+    :::
+
+    ![Select email template](../../../../assets/_versions/7.2.0/img/guides/branding/select-email-template.png)
+
+3. Make your modifications in the **Content** tab and use the **Preview** tab for a real-time preview.
+
+4. Click **Save** to publish your changes.
+
+:::warning[Apply changes to user profiles]
+
+To apply these changes to each user's profile in your organization:
+
+1. Display the `local` attribute on the user's profile. Learn how to do so in [updating user attributes](/identity/7.2.0/guides/users/attributes/manage-attributes/#update-attributes).
+
+2. Update the `local` attribute value with the [required locale code](localization.mdx#supported-languages). The value should be updated by,
+
+    - the admin, if the admin onboards the user to the organization.
+
+    - the user, if the user self-registers to the organization.
+
+:::
+
+Alternatively, you can customize the content of email templates using the [Email Templates API](../../apis/email-templates-rest-api.mdx) provided by WSO2 Identity Server.

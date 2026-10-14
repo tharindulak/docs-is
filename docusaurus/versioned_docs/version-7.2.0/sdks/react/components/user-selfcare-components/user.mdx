@@ -1,0 +1,55 @@
+---
+title: '&lt;User /&gt;'
+mkdocs_template: sdk
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/7.2.0/docs/sdks/react/components/user-selfcare-components/user.md
+---
+
+The `User` component is a declarative way to access the authenticated user object from the WSO2 Identity Platform authentication context. It uses render props to expose the user data, making it easy to display user information or conditionally render UI based on authentication state.
+
+## Overview
+
+The `User` component automatically retrieves the current user from WSO2 Identity Platform and passes it to its children as a render prop. If no user is signed in, it renders the provided `fallback` content or nothing by default.
+
+## Usage
+
+Use the `User` component to access and display user information in your React application.
+
+### Basic Usage
+
+Display the user's name and email:
+
+```javascript title="User Example"
+import { User } from '@asgardeo/react'
+
+<User fallback={<p>Please sign in</p>}>
+  {(user) => (
+    <div>
+      <h1>Welcome, {user?.displayName}!</h1>
+      <p>Email: {user?.email}</p>
+    </div>
+  )}
+</User>
+```
+
+:::info[Note]
+
+
+The `user` object will be `null` if no user is signed in. Use the `fallback` prop to show alternative content.
+
+:::
+
+## Props
+
+
+| Prop       | Type                              | Required | Description                                      |
+|------------|-----------------------------------|----------|--------------------------------------------------|
+| `children` | `(user: IUser \| null) => ReactNode` | ✅       | Render prop function that receives the user object|
+| `fallback` | `ReactNode`                       | ❌       | Content to render when no user is signed in       |
+
+
+## Notes
+
+- Only supported in browser-based React applications (CSR).
+- Use this component to declaratively access the authenticated user object anywhere in your app.

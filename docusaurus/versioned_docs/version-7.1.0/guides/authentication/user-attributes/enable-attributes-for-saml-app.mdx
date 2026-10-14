@@ -1,0 +1,177 @@
+---
+title: Enable user attributes for SAML apps
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/7.1.0/docs/guides/authentication/user-attributes/enable-attributes-for-saml-app.md
+---
+
+# Enable user attributes for SAML apps
+
+WSO2 Identity Server can share user attributes with applications. The following guide shows how to share user attributes with SAML applications.
+
+## Prerequisite
+
+To get started, you need to have an application registered in WSO2 Identity Server. If you don't have an app registered, go to WSO2 Identity Server to [register a SAML application](../../applications/register-saml-web-app.mdx).
+
+## Configure user attributes to share
+
+Follow the steps below to configure the user attributes from the WSO2 Identity Server Console and share them with the application.
+
+### Select user attributes
+
+You need to first specify the user attributes required for an application. This ensures that when a user logs in, the application can only get access to the user information exposed through these attributes.
+
+To add user attributes to the app:
+
+1. On the WSO2 Identity Server, go to **Applications**.
+2. Select your application, go to the **Protocol** tab and select **Enable attribute profile**.
+3. Click **Update** and go to the **User Attributes** tab.
+3. Click **Add User Attribute** if you don't have any attributes already added.
+   
+    ![Add user attributes to a SAML app in WSO2 Identity Server](../../../../../assets/_versions/7.1.0/img/guides/applications/attributes/add-user-attributes.png)
+
+4. Select the required attributes from the list as shown below.
+   
+    ![Add user attributes in WSO2 Identity Server](../../../../../assets/img/guides/applications/attributes/select-user-attributes.png)
+
+5. Click **Save** to return to the **User Attributes** tab and then click **Update**.
+
+### Map user attributes
+
+In the user attribute configurations, you can either choose default attribute names or define application-specific user attribute names.
+
+To configure application-specific attribute names, you need to map the selected user attributes to application-specific user attributes.
+
+To perform mapping:
+
+1. Click **Enable Mapping** in the **User Attributes** section.
+2. Change the **Mapped user attribute** for the selected attribute.
+
+    ![Eable mapping](../../../../../assets/img/guides/applications/attributes/saml/enable-mapping.png)
+
+This ensures that the application receives attributes based on the name that is configured.
+
+### Define mandatory user attributes
+
+
+If your application needs certain attributes for the successful function of the application, you can make them mandatory attributes. Users logging into the application should then have the mandatory attributes either pre-filled in their profiles or provide the required information when prompted during the login flow.
+
+To make an attribute mandatory:
+
+1. On the WSO2 Identity Server console, go to **Applications**.
+
+2. Select the application and go to its **User attributes** tab.
+
+3. Expand the relevant scope and out of the selected attributes for the application, select the mandatory attributes by selecting the **Mandatory** checkbox next to them.
+
+![Add mandatory user attributes in WSO2 Identity Server](../../../../../assets/_versions/7.1.0/img/guides/applications/attributes/saml/add-mandatory-user-attributes.png)
+
+### Select the subject attribute
+
+The subject attribute is used for exchanging information about the user. The subject is represented by the **subject** attribute in the SAML assertion.
+
+By default, WSO2 Identity Server shares **User ID** as the subject. You can define any user attribute as the subject.
+
+To define a different attribute as the subject:
+
+1. [Select it as a user attribute](#select-user-attributes).
+2. Go to the **Subject** section under **User Attributes**.
+ 
+    ![Select subject attribute in WSO2 Identity Server](../../../../../assets/_versions/7.1.0/img/guides/applications/attributes/saml/select-sub-attribute.png)
+
+3. Select an attribute as the subject from the **Subject attribute** list.
+4. Click **Update**.
+
+## How it works
+
+Let's see how this flow works in WSO2 Identity Server.
+
+Once you have configured the user attributes that are required for your application, WSO2 Identity Server implements the following process when a user tries to log in to your app.
+
+![Provides consent for attributes in WSO2 Identity Server](../../../../../assets/_versions/7.1.0/img/guides/applications/attributes/saml/how-it-works.png)
+
+### WSO2 Identity Server checks for mandatory attributes
+
+WSO2 Identity Server verifies whether the user's profile has values for all the [mandatory attributes](#define-mandatory-user-attributes) that are requested by the application. If there are missing values, WSO2 Identity Server will prompt the user to enter the missing values.
+
+### Requests user consent
+
+By default, WSO2 Identity Server requests the user's consent to share the user attributes with the application.
+
+:::note
+
+  Learn more about [managing user consent](../manage-consent-for-attributes.mdx).
+
+:::
+
+### Shares attributes with the app
+
+WSO2 Identity Server will share these user attributes with an application, given the user has provided consent. User attributes, along with the **subject** attribute, are shared via SAML assertions.
+
+#### Subject attribute
+
+The subject attribute is shared via the `<saml2:Subject>` element based on the [configured subject attribute](#select-the-subject-attribute).
+
+_A sample Subject element found in a SAML assertion is given below:_
+
+```xml
+<saml2:Subject>
+   <saml2:NameID Format="urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress">alice@bifrost.com</saml2:NameID>
+   <saml2:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
+         <saml2:SubjectConfirmationData InResponseTo="immfmmacmiaomepphphhlfokfggpffkleokajfbg"
+                                 NotOnOrAfter="2021-07-13T06:09:33.594Z"
+                                 Recipient="http://localhost:8081/sample-app/home.jsp"
+                                 />
+   </saml2:SubjectConfirmation>
+
+</saml2:Subject>
+```
+
+#### Attribute statement
+
+If the user gives consent to share attributes with the application, WSO2 Identity Server returns the requested user attributes via the `<saml2:AttributeStatement>` element.
+
+_A sample attribute statement element found in a SAML assertion is given below:_
+```xml
+<saml2:AttributeStatement>
+        <saml2:Attribute Name="http://wso2.org/claims/country"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic"
+                         >
+            <saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                  xsi:type="xsd:string"
+                                  >Sri Lanka</saml2:AttributeValue>
+        </saml2:Attribute>
+        <saml2:Attribute Name="http://wso2.org/claims/emailaddress"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic"
+                         >
+            <saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                  xsi:type="xsd:string"
+                                  >alice@bifrost.com</saml2:AttributeValue>
+        </saml2:Attribute>
+</saml2:AttributeStatement> 
+```
+
+#### Attribute statement with attribute mapping
+
+If you have done any custom attribute mapping via the [Enable mapping](#map-user-attributes) setting, the attributes will contain those application-specific names in the SAML assertion.
+
+_A sample attribute statement element with custom attribute mapping is given below:_
+
+```xml
+<saml2:AttributeStatement>
+            <saml2:Attribute Name="country"
+                             NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic"
+                             >
+                <saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                      xsi:type="xsd:string"
+                                      >Sri Lanka</saml2:AttributeValue>
+            </saml2:Attribute>
+            <saml2:Attribute Name="emailaddress"
+                             NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic"
+                             >
+                <saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                      xsi:type="xsd:string"
+                                      >alice@bifrost.com</saml2:AttributeValue>
+            </saml2:Attribute>
+</saml2:AttributeStatement>
+```

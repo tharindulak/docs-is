@@ -1,0 +1,218 @@
+---
+slug: /guides/authorization/api-authorization/api-authorization/
+title: API Authorization with Role Based Access Control (RBAC)
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/7.2.0/docs/guides/authorization/api-authorization/api-authorization.md
+---
+
+# API Authorization with Role Based Access Control (RBAC)
+
+Role Based Access Control (RBAC) lets organizations grant limited access to its API resources based on the assigned roles of a user.
+
+WSO2 Identity Server uses the following terms to define various components of API authorization.
+
+<table><tbody><tr><th>{"Term"}</th><th>{"Description"}</th></tr><tr><td>{"API resources"}</td><td>{"Defines an API and its permissions(in the form of scopes). This could be a "}<a href={"#register-a-business-api"}>{"business API"}</a>{" or a "}<a href={"/identity/7.2.0/apis/"}>{"management/organization API"}</a>{" exposed by WSO2 Identity Server."}</td></tr><tr><td>{"Permissions"}</td><td>{"Also known as scopes, are the actions an application can perform on the API, on behalf of the user. Applications should request for an authorized token before performing these actions."}</td></tr><tr><td>{"Roles"}</td><td>{"Used to group permissions for API resources. In WSO2 Identity Server you can define application roles (for a specific application) and organization roles (for multiple applications). See "}<a href={"/identity/7.2.0/guides/users/manage-roles"}>{"manage roles"}</a>{" for more information."}</td></tr><tr><td>{"User Groups"}</td><td>{"A collection of users with the same privileges. See "}<a href={"/identity/7.2.0/guides/users/manage-groups"}>{"manage groups"}</a>{" for more information."}</td></tr><tr><td>{"IdP Groups"}</td><td>{"Groups of an external identity provider connected with the application. Learn how to add "}<a href={"/identity/7.2.0/guides/authentication/#add-groups-to-connections"}>{"IdP groups"}</a>{" for a connection."}</td></tr></tbody></table>
+
+The relationship between these entities is as follows:
+
+- [Management/Organization APIs](../../../apis/index.mdx) and [business APIs](#register-a-business-api) along with their permissions are defined in the form of API resources.
+- The administrator does the following to enforce RBAC to an application.
+      1. Authorize an application to consume certain API resources and permissions.
+      2. Select the role audience for the application. (This decides whether the application consumes application roles defined specifically for it or organization roles available throughout the organization.)
+
+      3. Create an application/organization role that grants permissions for selected APIs.
+      4. Collect users who should be granted this role and create a group.
+      5. Assign users individually or as a group to the role so that members of the group inherit the permissions defined in the role.
+      6. Optionally, select external groups that should be assigned to the above role when logging in with an external identity provider.
+
+- Users logging into the application can then perform actions on the selected APIs based on the role.
+
+<details>
+<summary>Learn more with a sample scenario</summary>
+
+
+The following diagram depicts a sample use case of RBAC. 
+
+![The relationship between terms](../../../../../assets/_versions/7.2.0/img/guides/authorization/api-authorization/API-resource-high-level.png)
+
+The Library application lets users log in and use its services in the form of a book API to manage books and a user API to manage users. The library application also wants to let users of an external library to log in to the application. The administrator wishes to employ RBAC to protect the application's API resources as follows,
+
+Roles: 
+1. **Reader** and **Writer** are application roles associated with the **Library** application.
+2. **Admin** is an organization role.
+
+Permissions: 
+1. The **Reader** role has **GET** permissions to both **books** API and the **users** API.
+2. The **Writer** role has **GET** and **ADD** permissions to both **books** API and the **users** API.
+
+Users: 
+1. Members of the **Librarian** group are assigned with the **Writer** permissions.
+2. Any other user logging into an application is assigned **Reader** permissions.
+3. The Librarians group in the external IdP are assigned **Writer** permissions.
+
+When logging into the **Library** application under these conditions, 
+1. **John**, a member of the **Librarians** group can **read**, **add** books and **view**, **add** users.
+2. **Bob**, a user can **read** books and **view** users.
+3. Members of the **external Librarian group** can **read**, **add** books and **view**, **add** users.
+
+</details>
+
+In WSO2 Identity Server, you can follow the steps below to enforce RBAC for users logging in to an application.
+
+## Register a business API
+
+Apart from the APIs exposed by WSO2 Identity Server, administrators can define their own API resources and their scopes as API resources.
+
+To register an API resource,
+
+1. On the WSO2 Identity Server Console, go to **Resources** > **API Resources**.
+2. Click **+ New API** to register a new API resource.
+3. Enter the following details and click **Next**:
+    <table><tbody><tr><th>{"Parameter"}</th><th>{"Description"}</th></tr><tr><td><b>{"Identifier"}</b></td><td>{"This value will be used as the "}<code>{"aud"}</code>{" attribute in the issued JWT token. Although any value is acceptable, it's recommended to use the URI of the API resource."}</td></tr><tr><td><b>{"Display Name"}</b></td><td>{"A meaningful name to identify your API resource in WSO2 Identity Server."}</td></tr></tbody></table>
+
+4. To register the scopes for your API, enter the following details and click **Add Scope** .
+    <table><tbody><tr><th>{"Parameter"}</th><th>{"Description"}</th></tr><tr><td><b>{"Scope (Permission)"}</b></td><td>{"Defines an action for your API resource. This value should match the scopes defined in your application. (Applications use this scope to request for an access token)."}</td></tr><tr><td><b>{"Display Name"}</b></td><td>{"A meaningful name for your scope (permission). This will be displayed on your application's user consent page."}</td></tr><tr><td><b>{"Description"}</b></td><td>{"A description for your scope (permission). This will be displayed on your application's user consent page."}</td></tr></tbody></table>
+
+5. Repeat step 4 for all your scopes. Once done, click **Next**.
+
+6. If your API requires authorization, enable **Requires authorization**. Disable the option to proceed with no authorization policy.
+
+7. Click **Finish** to complete the API resource registration.
+
+## Authorize apps to consume API resources
+
+Applications, by default, do not have permissions to use APIs. Administrators can selectively grant authorization for applications to use selected APIs and their scopes. Hence, users logging into the application will have access to that API resource provided they are assigned to a role that grants the necessary permissions.
+
+To authorize an application to consume an API resource:
+
+1. On the WSO2 Identity Server Console, go to **Applications**.
+
+2. Select the application and go to its **API Authorization** tab.
+
+    :::warning
+
+    You cannot authorize API resources for a SAML application.
+
+    :::
+
+3. Click **Authorize an API Resource**.
+
+4. Enter the following details:
+    <table><tbody><tr><th>{"Parameter"}</th><th>{"Description"}</th></tr><tr><td><b>{"API Resource"}</b></td><td>{"Select an API resource from the list of business APIs or management/organization APIs"}</td></tr><tr><td><b>{"Authorized Scopes"}</b></td><td>{"Select the scopes for the API."}</td></tr><tr><td><b>{"Authorization Policy"}</b></td><td>{"Management/Organization APIs of WSO2 Identity Server or business APIs with "}<code>{"Requires authorization"}</code>{" enabled will default to "}<code>{"Role-Based Access Control (RBAC)"}</code>{". Other APIs can alternatively proceed with "}<code>{"No Authorization Policy"}</code>{"."}</td></tr></tbody></table>
+
+5. Click **Finish**.
+
+    ![Successfully authorized an API resource in the app](../../../../../assets/img/guides/authorization/api-authorization/authorize-an-api-resource.png)
+
+## Set up access control rules in your application
+
+For the business APIs you register, WSO2 Identity Server issues access tokens with the appropriate scopes, if the requesting user has the correct permissions. Your application must enforce access control by evaluating these scopes when handling requests.
+
+You can implement access control for business APIs by following the steps below:
+
+1. Extract the access token issued by WSO2 Identity Server in your application or API gateway.
+
+2. Validate opaque tokens through [introspection](../../authentication/oidc/token-validation-resource-server.mdx#validate-opaque-tokens) or JWTs (JSON Web Tokens) through [JWT validation](../../authentication/oidc/token-validation-resource-server.mdx#validate-jwt-tokens).
+
+3. Extract the scopes from the token and check if the scopes match the required permissions.
+
+4. Based on this result, allow or deny access.
+
+:::note
+
+
+As WSO2 Identity Server doesn't enforce access control for business APIs, make sure to implement access control in your applications to prevent unauthorized access.
+
+:::
+
+## Set the role audience for apps
+
+In WSO2 Identity Server, applications can be configured to work with one of the following roles.
+
+- **Application roles** - Roles tailored to a specific application. Used to control access to [API resources authorized for the application](api-authorization.mdx#authorize-apps-to-consume-api-resources).
+
+- **Organization roles** - Roles that are available throughout the organization and used to control access to API resources of an organization.
+
+:::note
+
+Learn more about roles [Manage roles](../../users/manage-roles.mdx).
+
+:::
+
+To select the application audience,
+
+1. On the WSO2 Identity Server Console, go to **Applications**.
+
+2. Select the application and go to its **Roles** tab.
+
+3. Under **Roles** > **Role Audience**,
+
+    1. If the choice is set to **Application**, all application roles created for the application appear under **Assigned Roles**. Click the **X** icon if you wish to delete an application role. Click **New Role** if you wish to add more roles.
+
+    2. Selecting **Organization** allows applications to consume organization-level roles.
+
+    :::warning
+
+    If you switch the role audience to **Organization**, application roles created for the application will be permanently deleted.
+
+    :::
+    
+    :::note
+
+    In WSO2 Identity Server versions prior to update level 25, if the application's role audience is set to organization, users were required to manually assign organization-level roles to the application . This behavior has since changed. Now, all organization-level roles are automatically assigned to the application by default. If you are experiencing the previous behavior, download the updated [product pack](https://wso2.com/identity-server/) to receive the latest changes.
+
+    :::
+    
+
+## Create roles and assign users
+
+Once the application is [authorized to consume APIs](#authorize-apps-to-consume-api-resources) and its [role audience](#set-the-role-audience-for-apps) is set, administrators can create roles and enforce RBAC policies in the organization.
+
+To enforce RBAC policies,
+
+- If the application's role audience is set to **Application**, create application-specific roles and assign necessary permissions out of the APIs authorized for the application.
+
+- If the application's role audience is set to **Organization**, any organization role you create can be used to control access to the application.
+
+:::note
+
+Learn how to [manage roles](../../users/manage-roles.mdx).
+
+:::
+
+## Try it out
+
+Imagine you have an issue management application. For this you employ the **issues API** that let users perform view, create and delete operations on the issues. In order to enforce RBAC on the issues API, you create the following application roles.
+
+- **Reporters** can view, create and delete issues.
+
+- **Reviewers** can only read issues.
+
+Follow the steps below to use the WSO2 Identity Server's [React sample application](../../../get-started/try-samples/qsg-spa-react.mdx) to see this scenario in action.
+
+1. Register the issues API as an API resource with scopes for reading, creating and deleting issues.
+
+2. [Register the issue management application](../../../get-started/try-samples/qsg-spa-react.mdx#register-the-app) in WSO2 Identity Server and authorize the application to use the issues API.
+
+    ![Successfully authorized an API resource in the app](../../../../../assets/img/guides/authorization/api-authorization/authorize-an-api-resource.png)
+
+3. Set the role audience of the application to **Application** (This is the logical choice if you only have one application using the roles you create).
+
+4. Create application roles for **Reporter** and **Reviewer**. The following shows the permissions for the **Reviewer** role
+
+     ![Reporter permissions](../../../../../assets/img/guides/authorization/api-authorization/reporter-permissions.png)
+
+5. [Create users](../../users/manage-users.mdx#onboard-users) and assign them to each role. For this example, let's say **John** is a reporter and **Jane** is a reviewer.
+
+6. Copy the scopes authorized for the application, [configure the application to request scopes](../../../get-started/try-samples/qsg-spa-react.mdx#configure-the-sample) and run it.
+
+7. Access the application URL.
+
+8. Login as **John** (a reporter), you will see the following scopes in his profile.
+
+    ![Reporter permissions](../../../../../assets/img/guides/authorization/api-authorization/john-scopes.png)
+
+9. Login as **Jane** (a reviewer), you will see the following scopes in her profile.
+
+    ![Reporter permissions](../../../../../assets/img/guides/authorization/api-authorization/jane-scopes.png)

@@ -1,0 +1,35 @@
+---
+title: Exporting WSO2 Identity Server User Information to Pardot
+deployment_options:
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/identity-server/6.0.0/docs/guides/identity-lifecycles/sync-with-pardot.md
+---
+
+# Exporting WSO2 Identity Server User Information to Pardot
+
+Pardot is a software as a service (SaaS) marketing automation platform by SalesForce offering email automation,
+targeted email campaigns, and lead management for B2B sales and marketing organizations. This topic provides 
+instructions on exporting user data from WSO2 Identity Server (WSO2 IS) to the Pardot. 
+
+Let's get started!
+
+<Prerequisites title="Before you begin!">
+
+Create the `users.csv` file by following the instructions in 
+[Exporting User Data From WSO2 Identity Server](sync-account-overview.mdx).
+
+</Prerequisites>
+
+## Try it Out
+
+1. Login to [Pardot](https://pi.pardot.com/).
+2. Navigate to **Admin > Import > Prospects**.
+    
+3. Click **+ Upload File** and choose the created `users.csv` file.
+    
+4. Once the file gets uploaded successfully, Click **Next**.
+   
+5. Map the column headers to the Pardot fields. Pardot suggests some field mappings.
+   
+6. Complete the **Campaign and Add Tags** and **Action** sections according to your requirement.
+7. Confirm user import.

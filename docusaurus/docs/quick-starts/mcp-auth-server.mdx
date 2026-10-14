@@ -1,0 +1,453 @@
+---
+title: MCP-Auth Quickstart
+mkdocs_template: quick-start
+deployment_options:
+  - WSO2 Cloud
+  - Self-hosted
+custom_edit_url: https://github.com/wso2/docs-is/edit/master/en/asgardeo/docs/quick-starts/mcp-auth-server.md
+quick_start:
+  what_you_will_learn:
+    - Create a new MCP server in TypeScript
+    - Defines an MCP tool that adds two numbers
+    - Install <a href='https://www.npmjs.com/package/@asgardeo/mcp-express' target='_blank' rel='noopener noreferrer'>WSO2 Identity Platform MCP SDK</a>
+    - Set up MCP authorization with {{ product_name }}
+  prerequisites:
+    - About 15 minutes
+    - <a href='{{ base_path }}/get-started/create-identity-platform-account/'>{{ product_name }} account</a>
+    - Install Node.js on your system
+    - Make sure you have a JavaScript package manager like npm, yarn, or pnpm
+    - A favorite text editor or IDE
+  source_code: <a href='https://github.com/wso2/iam-ai-samples/tree/main/mcp-auth/typescript' target='_blank' class='github-icon'>MCP-Auth Sample</a>
+---
+
+# MCP-Auth Quickstart
+
+This quickstart shows you how to build a secure MCP (Model Context Protocol) server using [MCP TypeScript SDK](https://www.npmjs.com/package/@modelcontextprotocol/sdk) and [WSO2 MCP Auth SDK](https://www.npmjs.com/package/@asgardeo/mcp-express). After completing this guide, you will have a working MCP server that is secured with **OAuth 2.1** according to the [MCP auth specification](https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization).
+
+
+
+## Set up the dev environment
+
+Create a directory called `mcp-auth-quickstart` by running the following commands.
+
+```bash
+ mkdir mcp-auth-quickstart && cd mcp-auth-quickstart
+```
+
+Then initialize a Node.js project using the following command.
+
+<Tabs>
+<TabItem value="tab-0" label="npm">
+
+
+```bash
+ npm init -y
+```
+
+</TabItem>
+<TabItem value="tab-1" label="yarn">
+
+
+```bash
+yarn init -y
+```
+
+</TabItem>
+<TabItem value="tab-2" label="pnpm">
+
+
+```bash
+pnpm init -y
+```
+
+</TabItem>
+</Tabs>
+
+Now open the `package.json` file and replace the existing content with the following given content.
+
+```json title="package.json"
+{
+  "name": "mcp-auth-quickstart",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "server.ts",
+  "scripts": {
+    "start": "npx tsx server.ts"
+  }
+}
+```
+
+Install the following dependencies.
+
+<Tabs>
+<TabItem value="tab-0" label="npm">
+
+
+```bash
+npm install express cors dotenv zod @modelcontextprotocol/sdk
+npm install -D typescript tsx @types/express @types/node @types/cors
+```
+
+</TabItem>
+<TabItem value="tab-1" label="yarn">
+
+
+```bash
+yarn add express cors dotenv zod @modelcontextprotocol/sdk
+yarn add -D typescript tsx @types/express @types/node @types/cors
+``` 
+
+</TabItem>
+<TabItem value="tab-2" label="pnpm">
+
+
+```bash
+pnpm install express cors dotenv zod @modelcontextprotocol/sdk
+pnpm install -D typescript tsx @types/express @types/node @types/cors
+```
+
+</TabItem>
+</Tabs>
+
+Initialize the TypeScript configuration by running the following command.
+
+<Tabs>
+<TabItem value="tab-0" label="npm">
+
+
+```
+npx tsc --init
+``` 
+
+</TabItem>
+<TabItem value="tab-1" label="yarn">
+
+
+```
+yarn tsc --init
+```
+
+</TabItem>
+<TabItem value="tab-2" label="pnpm">
+
+
+```
+pnpm tsc --init
+```   
+
+</TabItem>
+</Tabs>
+
+Update the `tsconfig.json` file with the following settings.
+
+```json title="tsconfig.json"
+
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
+```
+
+## Create a simple MCP server
+
+First, create `mcp-server.ts` file in the root and add the following code. This sets up a MCP server with a MCP tool (addition):
+
+```typescript title="mcp-server.ts"
+
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { z } from "zod";
+
+// Create an MCP server
+export const server = new McpServer({
+    name: 'demo-server',
+    version: '1.0.0',
+});
+
+// Register a simple addition tool
+export function registerMCPTools() {
+    server.registerTool(
+        'add',
+        {
+            title: 'Addition Tool',
+            description: 'Add two numbers',
+            inputSchema: { a: z.number(), b: z.number() },
+        },
+        async ({ a, b }) => {
+            const result = a + b;
+            return {
+                content: [{ type: 'text', text: String(result) }],
+            };
+        }
+    );
+    console.log("✅ MCP Tools Registered");
+}
+
+```
+
+Next, create `server.ts` file and add the code below. This configures a Streamable HTTP MCP transport for the MCP server, along with CORS handling to prevent cross-origin errors when testing with browser clients.
+
+```typescript title="server.ts"
+
+import 'dotenv/config';
+import express from 'express';
+import cors from 'cors';
+import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
+import { server, registerMCPTools } from './mcp-server.js';
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(cors({ origin: '*', exposedHeaders: ['Mcp-Session-Id'] }));
+app.use(express.json());
+
+registerMCPTools();
+
+app.post('/mcp', async (req, res) => {
+    const transport = new StreamableHTTPServerTransport({
+        enableJsonResponse: true,
+    });
+
+    res.on('close', () => transport.close());
+
+    await server.connect(transport);
+    await transport.handleRequest(req, res, req.body);
+});
+
+app.listen(PORT, () => {
+    console.log(`🚀 Server running at http://localhost:${PORT}/mcp`);
+});
+```
+
+## Run and test without auth
+
+First run the dev server by running the following command.
+
+<Tabs>
+<TabItem value="tab-0" label="npm">
+
+
+```bash
+npm start
+```
+
+</TabItem>
+<TabItem value="tab-1" label="yarn">
+
+
+```bash
+yarn start
+```
+
+</TabItem>
+<TabItem value="tab-2" label="pnpm">
+
+
+```bash
+pnpm start
+```
+
+</TabItem>
+</Tabs>
+
+Use **MCP Inspector** as the client to test the MCP server.
+
+ In a new terminal window, run the following command to launch MCP Inspector against the running MCP server, ensuring you specify the transport and the URL explicitly.
+
+```bash
+npx @modelcontextprotocol/inspector --url http://localhost:3000/mcp --transport streamable-http
+
+```  
+
+Use it to list available tools and invoke the “add” tool through the Inspector UI
+
+## Add auth to the MCP server
+
+Stop the dev server and install the WSO2 Identity Platform MCP Auth SDK.
+
+<Tabs>
+<TabItem value="tab-0" label="npm">
+
+
+```bash
+npm install @asgardeo/mcp-express
+```
+
+</TabItem>
+<TabItem value="tab-1" label="yarn">
+
+
+```bash
+yarn add @asgardeo/mcp-express
+```
+
+</TabItem>
+<TabItem value="tab-2" label="pnpm">
+
+```bash
+pnpm install @asgardeo/mcp-express
+```
+
+</TabItem>
+</Tabs>
+
+Create '.env' file and add the base URL of your WSO2 Identity Platform organization as given below.
+
+
+
+<Applies to="WSO2 Cloud">
+
+```env
+BASE_URL=https://api.asgardeo.io/t/<your-org-name>
+```
+
+</Applies>
+
+
+
+<Applies to="Self-hosted">
+
+```env
+BASE_URL=https://localhost:9443/t/<your-org-name>
+```
+
+</Applies>
+
+
+
+Update `server.ts` to integrate the WSO2 Identity Platform middleware. This adds:
+
+- Initialization of `McpAuthServer`.
+- Registration of OAuth endpoints via `router()`.
+- Protection of the `/mcp` route with `protect()`.
+- Optional: Bearer token extraction for use in tools and resources (for example, to obtain user details).
+
+Here's the full updated `server.ts`:
+
+```typescript title="server.ts" {6,15,17}
+
+import 'dotenv/config';
+import express from 'express';
+import cors from 'cors';
+import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
+import { server, registerMCPTools } from './mcp-server.js';
+import { configuredAuthServer as auth } from '@asgardeo/mcp-express';
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(cors({ origin: '*', exposedHeaders: ['Mcp-Session-Id'] }));
+app.use(express.json());
+
+registerMCPTools();
+app.use(auth.router());
+
+app.post('/mcp', auth.protect(), async (req, res) => {
+    const transport = new StreamableHTTPServerTransport({
+        enableJsonResponse: true,
+    });
+
+    res.on('close', () => transport.close());
+
+    await server.connect(transport);
+    await transport.handleRequest(req, res, req.body);
+});
+
+app.listen(PORT, () => {
+    console.log(`🚀 Server running at http://localhost:${PORT}/mcp`);
+});
+```
+
+Run the dev server by running the following command again.
+
+<Tabs>
+<TabItem value="tab-0" label="npm">
+
+
+```bash
+npm start
+```
+
+</TabItem>
+<TabItem value="tab-1" label="yarn">
+
+
+```bash
+npm start
+```
+
+</TabItem>
+<TabItem value="tab-2" label="pnpm">
+
+
+```bash
+npm start
+```
+
+</TabItem>
+</Tabs>
+
+## Test the MCP server with auth
+
+:::tip
+
+In the previous step, the MCP server was secured with WSO2 Identity Platform middleware and now requires a valid access token to access it. In this step, MCP Inspector is registered as an MCP client in WSO2 Identity Platform so it can obtain an access token.
+
+:::
+
+To register MCP Inspector as a MCP client in WSO2 Identity Platform:
+
+
+- Sign in to WSO2 Identity Platform console and navigate to **Applications > New Application**.
+- Select **MCP Client Application** and complete the wizard popup by providing:
+    - A suitable **name** *(e.g., MCPInspectorApp)*
+    - The **authorized redirect URL** *(e.g., http://localhost:6274/oauth/callback/debug)*
+
+
+:::info
+
+The authorized redirect URL determines where users are sent after sign-in, typically where the client app connecting to the MCP server is running.
+For this guide, we'll use ["MCP Inspector"](https://modelcontextprotocol.io/docs/tools/inspector) to test the MCP server, so we'll use `http://localhost:6274/oauth/callback/debug`, as the authorized redirect URL.
+
+
+<Applies to="WSO2 Cloud">
+
+While we're using the **MCP Client Application** template here for optimized MCP settings, you can also use other application types (Single Page App, Traditional Web App, Mobile App, or M2M App) to access MCP servers, except Digital Wallet applications.
+
+</Applies>
+
+:::
+
+    
+
+Make a note of the **client-id** from the **Protocol** tab of the registered application. You will need it during next step.
+
+Use MCP Inspector to test (now requires auth):
+
+```bash
+npx @modelcontextprotocol/inspector --url http://localhost:3000/mcp --transport streamable-http
+
+```
+
+:::info
+
+You need to create a test user in WSO2 Identity Platform by following the instructions in the [Onboard a User guide](../guides/users/manage-users.mdx#onboard-single-user) to try out the login feature.
+
+:::
+
+1. In the MCP inspector, open the **Authentication** settings in the left side. Under *OAuth 2.0 Flow* provide the `client-id` obtained earlier in this guide.
+
+2. Click **Open Auth Settings** and then click **Quick OAuth2 Flow** to initiate the OAuth2 flow, then the inspector will prompt for authentication. Follow the OAuth flow to get a bearer token from WSO2 Identity Platform.
+
+3. Once the user authentication is complete, click the **Connect** button from the left side.  Now you should be able to view and invoke the tools exposed by the MCP server.
+
+:::warning
+
+With CORS enabled, browser-based clients should connect without errors. For production, customize CORS origins and explore SDK docs for advanced features like stateful sessions.
+
+:::

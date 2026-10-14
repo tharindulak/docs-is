@@ -12,11 +12,15 @@ The high-level steps include,
 2. Issuing verifiable credentials to the MATTR Wallet.
 3. Verifying credentials presented by the Wallet holder.
 
-## Step 1: Set up your WSO2 Identity Platform organization
+<Steps>
+
+## Set up your WSO2 Identity Platform organization {/* #step-1-set-up-your-wso2-identity-platform-organization */}
 
 The steps in this section configures your WSO2 Identity Platform organization to connect with MATTR.
 
-### Step 1.1: Register an OIDC application in WSO2 Identity Platform
+<Steps>
+
+### Register an OIDC application in WSO2 Identity Platform {/* #step-11-register-an-oidc-application-in-wso2-identity-platform */}
 
 To register your application in WSO2 Identity Platform:
 
@@ -47,7 +51,7 @@ To register your application in WSO2 Identity Platform:
 
     :::
 
-### Step 1.2: Share user attributes with the application
+### Share user attributes with the application {/* #step-12-share-user-attributes-with-the-application */}
 
 To issue verifiable credentials, your application needs access to user attributes. The following steps configure WSO2 Identity Platform to share these attributes with your application.
 
@@ -63,7 +67,7 @@ To issue verifiable credentials, your application needs access to user attribute
 
 3. Click **Update** to save the changes.
 
-### Step 1.3: Create a user account in WSO2 Identity Platform
+### Create a user account in WSO2 Identity Platform {/* #step-13-create-a-user-account-in-wso2-identity-platform */}
 
 You need a WSO2 Identity Platform user account to log in to the application. If you don't have one, create it by following the steps below:
 
@@ -75,11 +79,15 @@ You need a WSO2 Identity Platform user account to log in to the application. If 
 
 This user will log in to WSO2 Identity Platform to receive verifiable credentials from MATTR.
 
-## Step 2: Set up your MATTR environment
+</Steps>
+
+## Set up your MATTR environment {/* #step-2-set-up-your-mattr-environment */}
 
 The steps in this section configures your MATTR environment to connect with WSO2 Identity Platform.
 
-### Step 2.1: Create a MATTR account
+<Steps>
+
+### Create a MATTR account {/* #step-21-create-a-mattr-account */}
 
 To create an account,
 
@@ -93,7 +101,7 @@ To create an account,
 
     :::
 
-### Step 2.2: Get an access token for MATTR
+### Get an access token for MATTR {/* #step-22-get-an-access-token-for-mattr */}
 
 Obtain an access token for the MATTR tenant by sending the following request:
 
@@ -114,7 +122,7 @@ The sections below refer to the received access token as `<MATTR_BEARER_TOKEN>`.
 
 :::
 
-### Step 2.3: Configure MATTR authentication provider
+### Configure MATTR authentication provider {/* #step-23-configure-mattr-authentication-provider */}
 
 Set up an authentication provider in MATTR VII to connect with WSO2 Identity Platform. See the MATTR documentation on [authentication providers](https://learn.mattr.global/docs/issuance/authorization-code/authentication-provider/overview) for more details.
 
@@ -141,7 +149,7 @@ Replace the placeholders with your actual values:
 - `<PRODUCT_CLIENT_ID>`: The client ID from your WSO2 Identity Platform application.
 - `<PRODUCT_CLIENT_SECRET>`: The client secret from your WSO2 Identity Platform application.
 
-### Step 2.4: Create issuer certificates
+### Create issuer certificates {/* #step-24-create-issuer-certificates */}
 
 These certificates let MATTR securely sign verifiable credentials. Any credential issued using these certificates can be trusted by users' mobile wallets.
 
@@ -181,7 +189,7 @@ Replace `<IACA_ID>` with the actual IACA ID from the previous step.
 
 The IACA certificate can now issue mobile credentials.
 
-### Step 2.5: Create mDoc credential configuration
+### Create mDoc credential configuration {/* #step-25-create-mdoc-credential-configuration */}
 
 mDocs are ISO/IEC-compliant digital identity documents designed for secure storage, verification, and use on mobile wallets. The following command creates a mobile credential configuration that acts as a template for the mDoc credentials you want to issue.
 
@@ -237,7 +245,7 @@ The section below refers to the `id` parameter of the response as `<MOBILE_CONFI
 
 :::
 
-### Step 2.6: Generate credential offer URI
+### Generate credential offer URI {/* #step-26-generate-credential-offer-uri */}
 
 The following command generates a credential offer URI that users' mobile wallets can use to claim the credential defined in the mobile configuration.
 
@@ -264,7 +272,9 @@ Make sure to select the plain text option when generating the QR code.
 
 :::
 
-## Step 3: Update your application's callback URL in WSO2 Identity Platform
+</Steps>
+
+## Update your application's callback URL in WSO2 Identity Platform {/* #step-3-update-your-applications-callback-url-in-wso2-identity-platform */}
 
 Now that you have set up MATTR, you need to update the callback URL of your application registered in WSO2 Identity Platform to complete the integration. To do so,
 
@@ -280,18 +290,20 @@ Now that you have set up MATTR, you need to update the callback URL of your appl
 
 4. Click **Update** to save the changes.
 
-## Step 4: Claim a credential in your mobile wallet and verify It
+## Claim a credential in your mobile wallet and verify It {/* #step-4-claim-a-credential-in-your-mobile-wallet-and-verify-it */}
 
 Follow the steps given below to test the integration in action by issuing verifiable credentials to a MATTR Wallet.
 
-### Step 4.1: Download the MATTR GO Hold wallet
+<Steps>
+
+### Download the MATTR GO Hold wallet {/* #step-41-download-the-mattr-go-hold-wallet */}
 
 Download the MATTR GO Hold mobile wallet application for your device.
 
 - **Android**: [Google Play Store](https://play.google.com/store/apps/details?id=global.mattr.wallet&hl=en)
 - **iOS**: [Apple App Store](https://apps.apple.com/cr/app/mattr-go-hold/id1518660243)
 
-### Step 4.2: Claim your mobile credential
+### Claim your mobile credential {/* #step-42-claim-your-mobile-credential */}
 
 To claim the created mobile credential,
 
@@ -305,14 +317,14 @@ To claim the created mobile credential,
 
 5. Follow the authentication prompts to complete the credential claim process.
 
-### Step 4.3: Download the MATTR Go Verify app
+### Download the MATTR Go Verify app {/* #step-43-download-the-mattr-go-verify-app */}
 
 From a different device, download the MATTR GO Verify app. This app allows you to perform in-person verification of digital credentials stored in the MATTR GO Hold wallet.
 
 - **iOS devices**: [The App Store](https://apps.apple.com/us/app/mattr-go-verify/id6670461328)
 - **Android devices**: [Google Play](https://play.google.com/store/apps/details?id=global.mattr.mobile.verifier)
 
-### Step 4.4 Verify credentials
+### Verify credentials {/* #step-44-verify-credentials */}
 
 Follow the steps below to verify the mDocs credentials:
 
@@ -337,6 +349,10 @@ Follow the steps below to verify the mDocs credentials:
     3. Follow the on-screen instructions to complete the proximity verification workflow.
 
 You have now successfully issued verifiable credentials using WSO2 Identity Platform as the OIDC attribute provider and verified them with MATTR.
+
+</Steps>
+
+</Steps>
 
 ## Learn more
 
