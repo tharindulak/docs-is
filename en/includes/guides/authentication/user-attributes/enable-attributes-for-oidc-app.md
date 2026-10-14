@@ -71,7 +71,7 @@ To define a different attribute as the subject:
     This setting applies only to applications configured with an alternate subject identifier. It has no effect on other applications.
 {% endif %}
 
-!!! warning "Deprecated `sub` attribute behavior in application access tokens"
+!!! deprecated "Deprecated `sub` attribute behavior in application access tokens"
 
     Application access tokens are tokens generated to represent the application rather than an individual user. Such tokens are generated during grant types such as [client_credential]({{base_path}}/references/grant-types/#client-credentials-grant).
     

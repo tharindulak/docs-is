@@ -199,7 +199,7 @@ For a provided application token, the response looks like the following:
 }
 ```
 
-!!! warning "Deprecated behavior"
+!!! deprecated "Deprecated behavior"
 
     Previously, the introspection response for application access tokens included the   `username` attribute, which contained the username of the application owner. This attribute will no longer be included in the introspection response.
 
