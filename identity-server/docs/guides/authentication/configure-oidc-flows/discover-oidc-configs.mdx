@@ -1,0 +1,224 @@
+---
+title: Discover OpenID Connect endpoints and configurations
+description: When building OpenID Connect (OIDC) login in your application using WSO2 Identity Platform as your identity provider, your application needs the relevant…  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Discover OIDC endpoints
+sidebar_position: 2
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+When building OpenID Connect (OIDC) login in your application using {edition.productName} as your identity provider, your application needs the relevant OIDC endpoints and configurations. Your application can get these endpoints in **two main steps**:
+
+1. **Discover the issuer (Optional)**:
+
+    When the issuer URL of the OpenID Provider is not known in advance, your application can dynamically discover it using the **WebFinger** endpoint.
+
+2. **Retrieve the OpenID Connect metadata from the issuer**:
+
+    Once your application discovers the issuer URL (either via WebFinger or because it’s already configured), your application can fetch the OpenID Connect metadata. This includes all the necessary endpoints (authorization, token, introspection, revocation, logout, etc.), supported scopes, response types, claims, and client authentication methods.
+
+For clients or SDKs that cannot dynamically fetch these endpoints, you can get them manually from the {edition.productName} Console.
+
+This guide explains how to discover the OpenID Connect endpoints of {edition.productName} using both the API and the Console.
+
+## Prerequisites
+
+To get started, you need to have an application registered in {edition.productName}:
+
+- Register a [single-page app with OIDC](../../applications/register-single-page-app.mdx).
+- Register a [web app with OIDC](../../applications/register-oidc-web-app.mdx).
+
+## Use the API
+
+This section explains how your application can dynamically discover the OpenID Connect endpoints.
+
+### Step 1: Discover the issuer
+
+OpenID Provider issuer discovery, process allows a client application to automatically find the location (issuer URL) of the OpenID Provider.
+
+You can use the following endpoint to retrieve the issuer information.
+
+```bash
+{edition.productUrlFormat}/.well-known/webfinger
+```
+
+The endpoint accepts the following required parameters.
+
+ | Parameter | Description | Sample Value |
+ | --- | --- | --- |
+ | `resource` | The identifier of the user whose OpenID Provider (issuer) you want to discover. | acct:admin@localhost |
+ | `host` | Specify the domain or server that hosts the WebFinger service. | localhost:9443 |
+ | `rel` | Specify the URI that identifies the type of service you want to locate. | http://openid.net/specs/connect/1.0/issuer |
+
+#### Sample request
+
+<Tabs groupId="tabs">
+<TabItem value="curl" label="cURL">
+
+```bash
+curl --location 'https://localhost:9443/.well-known/webfinger/openid-configuration?resource=acct:admin@localhost&rel=http://openid.net/specs/connect/1.0/issuer'
+```
+
+</TabItem>
+<TabItem value="javascript-jquery" label="JavaScript - jQuery">
+
+```javascript
+var settings = {
+     "url": "{edition.productUrlSample}/.well-known/webfinger/openid-configuration",
+     "method": "GET",
+     "timeout": 0,
+     "headers": { "Accept": "application/json" },
+     "data": {
+        "resource": "acct:admin@localhost",
+        "rel": "http://openid.net/specs/connect/1.0/issuer"
+     }
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+
+</TabItem>
+<TabItem value="nodejs-axios" label="Nodejs - Axios">
+
+```javascript
+var axios = require('axios');
+
+var config = {
+     method: 'get',
+     url: '{edition.productUrlSample}/.well-known/webfinger/openid-configuration',
+     params: {
+        resource: 'acct:admin@localhost',
+        rel: 'http://openid.net/specs/connect/1.0/issuer'
+     },
+     headers: { 'Accept': 'application/json' }
+};
+
+axios(config)
+    .then(function (response) {
+        console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+```
+
+</TabItem>
+</Tabs>
+
+#### Sample response
+
+```json
+{
+   "subject": "acct:admin@localhost",
+   "links": [
+      {
+         "rel": "http://openid.net/specs/connect/1.0/issuer",
+         "href": "{edition.productUrlSample}/oauth2/token"
+      }
+   ]
+}
+```
+
+### Step 2: Discover the issuer metadata
+
+[OpenID Connect Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html) allows you to discover the metadata such as endpoints, scopes, response types, claims, and supported client authentication methods of identity providers such as {edition.productName}.
+
+Applications can dynamically discover the OpenID Connect identity provider metadata by calling the OpenID Connect discovery {/* [OpenID Connect discovery](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationRequest)*/} endpoint. The structure of the request URL is as follows: `<issuer>/.well-known/openid-configuration`.  
+
+- Issuer of {edition.productName}
+
+    ```bash
+    {edition.productUrlFormat}/oauth2/token
+    ```
+
+- Discovery endpoint of {edition.productName}
+
+    ```bash
+    {edition.productUrlFormat}/oauth2/token/.well-known/openid-configuration
+    ```
+
+#### Sample request {#sample-request_1}
+
+<Tabs groupId="tabs">
+<TabItem value="curl" label="cURL">
+
+```bash
+curl --location --request GET '{edition.productUrlSample}/oauth2/token/.well-known/openid-configuration'
+```
+
+</TabItem>
+<TabItem value="javascript-jquery" label="JavaScript - jQuery">
+
+```javascript
+var settings = {
+    "url": "{edition.productUrlSample}/oauth2/token/.well-known/openid-configuration",
+    "method": "GET",
+    "timeout": 0,
+};
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+</TabItem>
+<TabItem value="nodejs-axios" label="Nodejs - Axios">
+
+```javascript
+var axios = require('axios');
+
+var config = {
+    method: 'get',
+    url: '{edition.productUrlSample}/oauth2/token/.well-known/openid-configuration',
+    headers: {}
+};
+
+axios(config)
+    .then(function (response) {
+        console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+```
+
+</TabItem>
+</Tabs>
+
+#### Sample response {#sample-response_1}
+
+```json
+{
+   "introspection_endpoint" : "{edition.productUrlSample}/oauth2/introspect",
+   "end_session_endpoint" : "{edition.productUrlSample}/oidc/logout",
+   "registration_endpoint" : "{edition.productUrlSample}/api/identity/oauth2/dcr/v1.0/register",
+   "token_endpoint" : "{edition.productUrlSample}/oauth2/token",
+   "jwks_uri" : "{edition.productUrlSample}/oauth2/jwks",
+   "revocation_endpoint" : "{edition.productUrlSample}/oauth2/revoke",
+   "authorization_endpoint" : "{edition.productUrlSample}/oauth2/authorize",
+   "issuer" : "{edition.productUrlSample}/oauth2/token"
+}
+```
+
+## Use the Console
+
+For applications and SDKs that can't dynamically resolve OpenID Connect endpoints, you can manually copy the relevant information from the Console. To do so,
+
+1. On the {edition.productName}, go to **Applications**.
+
+2. Select your OIDC application from the list.
+
+3. Go to the **Info** tab of the application and find the server endpoints to your organization.
+
+   <Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/applications/app-endpoint-help.png").default} alt="app-help-panel-for-endpoints" width="700" style={{border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/applications/app-endpoint-help.png").default} alt="app-help-panel-for-endpoints" width="700" style={{border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+## What's next?
+
+Explore how OpenID Connect endpoints are used when you implement login to your applications:
+
+- Implement login for single-page applications [using the authorization code flow with PKCE](./oidc/implement-auth-code-with-pkce.mdx).
+- Implement login for traditional web applications [using the authorization code flow](./oidc/implement-auth-code.mdx).

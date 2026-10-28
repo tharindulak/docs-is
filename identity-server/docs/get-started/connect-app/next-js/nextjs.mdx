@@ -1,0 +1,419 @@
+---
+title: Next.JS Quickstart
+description: Welcome to the Next.js quickstart guide!  # generated from the first paragraph; a writer should improve it
+type: quick-start
+sidebar_label: Quickstart
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Variants>
+
+<Edition only="cloud">
+
+</Edition>
+
+<Edition only="self-hosted">
+
+</Edition>
+
+</Variants>
+
+Welcome to the Next.js quickstart guide! In this document, you will learn to build a Next.js app, add user login and display user profile information using {edition.productName}.
+
+[//] STEPS_START
+
+## Configure an Application in {edition.productName}
+
+- Sign into the {edition.productName} Console and navigate to **Applications > New Application.**
+- Select **Next.js** and complete the wizard by providing a suitable name and an authorized redirect URL.
+
+<Variants>
+
+<Edition only="cloud">
+
+:::note[Example]
+**Name:** `asgardeo-nextjs`
+
+**Authorized redirect URL:** `http://localhost:3000`
+:::
+
+</Edition>
+
+<Edition only="self-hosted">
+
+:::note[Example]
+**Name:** `is-nextjs`
+
+**Authorized redirect URL:** `http://localhost:3000`
+:::
+
+</Edition>
+
+</Variants>
+
+Once you finish creating the application, note down the following values from its **Guide** tab. You will need them to configure WSO2 Identity Platform Next.js SDK.
+
+- **Client ID** - The unique identifier for your application.
+- **Client Secret** - The secret key generated for your application.
+- **Base URL** - The base URL of your {edition.productName} organization. This typically follows the format `{edition.sdkBaseUrl}`
+
+:::info
+The authorized redirect URL specifies where {edition.productName} should send users after they successfully log in. This is usually the web address where your application is running. For this guide, we'll use `http://localhost:3000`, as the sample app will be accessible at this URL.
+:::
+
+## Create a Next.js app
+
+Create your new Next.js app.
+
+<Variants>
+
+<Edition only="cloud">
+
+<Tabs groupId="tabs">
+<TabItem value="npm" label="npm">
+
+```bash
+npm create next-app@latest asgardeo-nextjs -- --yes
+cd asgardeo-nextjs
+npm run dev
+```
+
+</TabItem>
+<TabItem value="yarn" label="yarn">
+
+```bash
+yarn create next-app@latest asgardeo-nextjs -- --yes
+cd asgardeo-nextjs
+yarn dev
+```
+
+</TabItem>
+<TabItem value="pnpm" label="pnpm">
+
+```bash
+pnpm create next-app@latest asgardeo-nextjs -- --yes
+cd asgardeo-nextjs
+pnpm dev
+```
+
+</TabItem>
+</Tabs>
+
+</Edition>
+
+<Edition only="self-hosted">
+
+<Tabs groupId="tabs">
+<TabItem value="npm" label="npm">
+
+```bash
+npm create next-app@latest is-nextjs -- --yes
+cd is-nextjs
+npm run dev
+```
+
+</TabItem>
+<TabItem value="yarn" label="yarn">
+
+```bash
+yarn create next-app@latest is-nextjs -- --yes
+cd is-nextjs
+yarn dev
+```
+
+</TabItem>
+<TabItem value="pnpm" label="pnpm">
+
+```bash
+pnpm create next-app@latest is-nextjs -- --yes
+cd is-nextjs
+pnpm dev
+```
+
+</TabItem>
+</Tabs>
+
+</Edition>
+
+</Variants>
+
+## Install `@asgardeo/nextjs`
+
+WSO2 Identity Platform Next.js SDK provides all the components and hooks you need to integrate {edition.productName} into your app. To get started, simply add the WSO2 Identity Platform Next.js SDK to the project. Make sure to stop the dev server started in the previous step.
+
+<Tabs groupId="tabs">
+<TabItem value="npm" label="npm">
+
+```bash
+npm install @asgardeo/nextjs
+```
+
+</TabItem>
+<TabItem value="yarn" label="yarn">
+
+```bash
+yarn add @asgardeo/nextjs
+```
+
+</TabItem>
+<TabItem value="pnpm" label="pnpm">
+
+```bash
+pnpm add @asgardeo/nextjs
+```
+
+</TabItem>
+</Tabs>
+
+## Set up environment variables
+
+Create a `.env` or an appropriate environment configuration file in the root of your Next.js project. This file will store all the configuration values required for the WSO2 Identity Platform Next.js SDK to function.
+
+```bash title=".env"
+NEXT_PUBLIC_ASGARDEO_BASE_URL="{edition.sdkBaseUrl}"
+NEXT_PUBLIC_ASGARDEO_CLIENT_ID="<your-app-client-id>"
+ASGARDEO_CLIENT_SECRET="<your-app-client-secret>"
+```
+
+<Edition only="self-hosted">
+
+:::note
+If running in a local development or testing environment using self-signed SSL certificates, application may fail to connect due to Transport Layer Security(TLS) certificate validation errors. To bypass this check add `NODE_TLS_REJECT_UNAUTHORIZED=0` to the `.env` file.
+:::
+
+</Edition>
+
+## Set up the middleware
+
+The `asgardeoMiddleware` helper integrates WSO2 Identity Platform authentication into your Next.js application and supports both the App and Pages routers.
+
+<Tabs groupId="tabs">
+<TabItem value="for-next-js-16-and-later" label="For Next.js 16 and later">
+
+Create a file called `proxy.ts` in the root of your Next.js project.
+
+```typescript title="proxy.ts"
+import {asgardeoMiddleware} from '@asgardeo/nextjs/middleware';
+
+export const proxy = asgardeoMiddleware();
+
+export const config = {
+  matcher: [
+    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    '/(api|trpc)(.*)',
+  ],
+};
+```
+
+</TabItem>
+<TabItem value="for-next-js-15-and-earlier" label="For Next.js 15 and earlier">
+
+Create a file called `middleware.ts` in the root of your Next.js project.
+
+```typescript title="middleware.ts"
+import {asgardeoMiddleware} from '@asgardeo/nextjs/middleware';
+
+export default asgardeoMiddleware();
+
+export const config = {
+  matcher: [
+    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    '/(api|trpc)(.*)',
+  ],
+};
+```
+
+</TabItem>
+</Tabs>
+
+## Add `<AsgardeoProvider />` to your app {#add-to-your-app}
+
+The `<AsgardeoProvider />` serves as a context provider for the SDK. You can integrate this provider to your app by wrapping the root component.
+
+Add the following changes to the `app/layout.tsx` file in your Next.js project.
+
+```javascript title="app/layout.tsx" {3,31}
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import {AsgardeoProvider} from '@asgardeo/nextjs/server';
+import "./globals.css";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "Create Next App",
+  description: "Generated by create next app",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <AsgardeoProvider>{children}</AsgardeoProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+## Add sign-in and sign-out to your app
+
+WSO2 Identity Platform SDK provides `SignInButton`, `SignOutButton` components to handle user sign-in and sign-out. You can use these components along side `SignedIn` and `SignedOut` components to conditionally render content based on the user's logged in state.
+
+Replace the existing content of the `app/page.tsx` file with following content.
+
+```javascript title="app/page.tsx" {1,6-11}
+import {SignInButton, SignedIn, SignOutButton, SignedOut} from '@asgardeo/nextjs';
+
+export default function Home() {
+  return (
+    <header>
+      <SignedOut>
+        <SignInButton />
+      </SignedOut>
+      <SignedIn>
+        <SignOutButton />
+      </SignedIn>
+    </header>
+  );
+}
+```
+
+## Display signed-in user's profile information
+
+The SDK provides several ways to access the signed-in user's profile information. You can use the `User`, `UserProfile`, or `UserDropdown` components to access and display user profile information in a declarative way.
+
+- `User`: The `User` component provides a render prop pattern to access user profile information:
+- `UserProfile`: The `UserProfile` component provides a declarative way to display and update user profile information.
+- `UserDropdown`: The `UserDropdown` component provides a dropdown menu with built-in user information and sign-out functionality.
+
+```javascript title="app/page.tsx" {1,8,17-24}
+'use client'
+
+import { SignedIn, SignedOut, SignInButton, SignOutButton, User, UserDropdown, UserProfile } from '@asgardeo/nextjs';
+
+export default function Home() {
+  return (
+    <>
+      <header>
+        <SignedIn>
+          <UserDropdown />
+          <SignOutButton />
+        </SignedIn>
+        <SignedOut>
+          <SignInButton />
+        </SignedOut>
+      </header>
+      <main>
+        <SignedIn>
+          <User>
+            {(user) => (
+              <div>
+                <p>Welcome back, {user.userName || user.username || user.sub}</p>
+              </div>
+            )}
+          </User>
+          <UserProfile />
+        </SignedIn>
+      </main>
+    </>
+  );
+}
+```
+
+## Choose how users will sign in
+
+Before running the app, you need to decide how you want users to sign into your application:
+
+<button data-quickstart="redirect" data-next-step="8" data-default="true"> Redirect to {edition.productName} (Default) </button> <button data-quickstart="embedded" data-next-step="8"> Show sign-in form in your app </button>
+
+When users click \`Sign In\`, your app redirects them to {edition.productName}'s sign-in page. After they sign in, it redirects them back to your app. This default behavior works without extra configurations.
+
+The sign-in form appears directly inside your application using the \`SignIn\` component. Users never leave your app during the sign-in process.
+
+## Enable `App-Native Authentication` [//] SHOW_IF="data-quickstart=embedded" {#enable-app-native-authentication-show_ifdata-quickstartembedded}
+
+The embedded sign-in functionality depends on the `App-Native Authentication` feature. This feature allows your app to authenticate users without redirecting them to the {edition.productName} sign-in page.
+
+To enable this feature, follow these steps:
+
+- Navigate to {edition.productName} Console
+- Go to **Applications > Your App > Advanced**
+- Enable **App-Native Authentication** by checking the checkbox.
+
+:::info
+Read more about [App-Native Authentication](../../../guides/authentication/app-native-authentication/index.mdx) to understand how it works.
+:::
+
+## Set up the in-app sign-in form [//] SHOW_IF="data-quickstart=embedded" {#set-up-the-in-app-sign-in-form-show_ifdata-quickstartembedded}
+
+First, create an app route for the sign-in page. Create a new file called `app/sign-in/page.tsx` and add the following code:
+
+```javascript title="app/sign-in/page.tsx"
+'use client'
+
+import { SignIn } from '@asgardeo/nextjs';
+
+export default function SignInPage() {
+  return <SignIn />;
+}
+```
+
+Then, update the `.env` file with the route for the sign-in page. Add the following line to your `.env` file:
+
+```bash title=".env"
+NEXT_PUBLIC_ASGARDEO_SIGN_IN_URL="/sign-in"
+```
+
+## Run the app [//] SHOW_IF="data-quickstart=redirect,data-quickstart=embedded" {#run-the-app-show_ifdata-quickstartredirectdata-quickstartembedded}
+
+To run the app, use the following command:
+
+<Tabs groupId="tabs">
+<TabItem value="npm" label="npm">
+
+```bash
+npm run dev
+```
+
+</TabItem>
+<TabItem value="yarn" label="yarn">
+
+```bash
+yarn dev
+```
+
+</TabItem>
+<TabItem value="pnpm" label="pnpm">
+
+```bash
+pnpm dev
+```
+
+</TabItem>
+</Tabs>
+
+Visit your app's homepage at [http://localhost:3000](http://localhost:3000).
+
+:::warning[Important]
+You need to create a test user in {edition.productName} by following this [guide](../../../guides/users/users/manage-users.mdx) to tryout sign-in and sign-out features.
+:::
+
+[//] STEPS_END

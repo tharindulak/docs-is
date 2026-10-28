@@ -1,0 +1,668 @@
+---
+title: Retrieve Tenant Resources Based on Search Parameters
+description: This section guides you through using the /search endpoint of the Configuration Management REST API to search for tenant resources.  # generated from the first paragraph; a writer should improve it
+type: reference
+sidebar_label: Retrieve tenant resources based on search parameters
+sidebar_position: 2
+editions: self-hosted
+---
+
+This section guides you through using the `         /search        `
+endpoint of the [Configuration Management REST
+API](./use-the-configuration-management-rest-apis.mdx) to search for
+tenant resources.  
+
+---
+
+## /search endpoint
+
+The `         /search        ` endpoint of the Configuration Management
+REST API allows you to perform cross-tenant search for resources.
+
+The search context URL should be as follows:
+
+`         https://{host}:{port}/t/{tenant-domain}/api/identity/config-mgt/v1.0/search?filter={search-query}        `
+
+Here, the value of `         {search-query}        ` should be in the
+form of a configuration management search query. For information on how
+to write a search condition that is in the form of a configuration
+management search query, see [Write a configuration management search
+query](#write-a-configuration-management-search-query).
+
+---
+
+## Write a configuration management search query
+
+Configuration management search query is a [Open Data
+Protocol](https://www.odata.org/) based search query supported via
+[Apache CXF](http://cxf.apache.org/docs/jax-rs-search.html#JAX-RSSearch-OpenDataProtocol).
+
+The configuration management search query is a search condition that is
+built using primitive configuration management search conditions in the
+form of a string. The following topics describe the configuration
+management search conditions that you can use to write a configuration
+management search query.
+
+### Configuration management primitive search condition
+
+A primitive search condition is a string in the following form:  
+`         {RESOURCE_SEARCH_PARAMETER} {PRIMITIVE_CONDITION_OPERATOR} '{VALUE}'        `
+
+Following are the parameters of a resource supported in a primitive
+search condition and the corresponding values to replace the
+`         {RESOURCE_SEARCH_PARAMETER}        ` placeholder :
+
+| Resource parameter | Value to replace ` {RESOURCE_SEARCH_PARAMETER} ` |
+| --- | --- |
+| Tenant domain | ` tenantDomain ` |
+| ID value of the resource type | ` resourceTypeId ` |
+| Name of the resource type | ` resourceTypeName ` |
+| ID value of the resource | ` resourceId ` |
+| Name of the resource | ` resourceName ` |
+| A key of the attribute | ` attributeKey ` |
+| Value of the attribute | ` attributeValue ` |
+
+Following are the operators supported in a primitive condition and the
+corresponding values to replace the
+`         {PRIMITIVE_CONDITION_OPERATOR}        ` placeholder :
+
+| Primitive condition operator | Value to replace ` {PRIMITIVE_CONDITION_OPERATOR} ` |
+| --- | --- |
+| Equal | ` eq ` |
+| Not equal | ` ne ` |
+| Less than | ` lt ` |
+| Less or equal | ` le ` |
+| Greater than | ` gt ` |
+| Greater or equal | ` ge ` |
+
+### Configuration management complex search condition
+
+A complex search condition is generally built by combining primitive
+search conditions. The simplest form of a complex search condition
+string is as follows:
+
+`         {PRIMITIVE_SEARCH_CONDITION_1} {COMPLEX_CONDITION_OPERATOR} {PRIMITIVE_SEARCH_CONDITION_2}        `
+
+Two complex search condition created as mentioned above can also be
+joined as follows to form another complex search condition:
+
+`         {COMPLEX_SEARCH_CONDITION_1} {COMPLEX_CONDITION_OPERATOR} {COMPLEX_SEARCH_CONDITION_2}        `
+
+:::tip
+For better readability, it is recommended to use parentheses to group
+complex search conditions when you join conditions using a
+`         COMPLEX_CONDITION_OPERATOR        `.
+:::
+
+Following are the operators supported to build a complex search
+condition and the corresponding values to replace the
+`         {COMPLEX_CONDITION_OPERATOR}        ` placeholder :
+
+| Complex condition operator | Value to replace ` {COMPLEX_CONDITION_OPERATOR} ` |
+| --- | --- |
+| AND | ` and ` |
+| OR | ` or ` |
+
+:::info
+When you join complex search conditions together with complex condition
+operators, the result is always another complex condition. Therefore,
+any required search condition can be built as a configuration management
+complex search condition in this manner.
+:::
+
+---
+
+## Search scenarios
+
+This section demonstrates the different ways of searching for resources
+(i.e. different search scenarios). In the scenarios given below, an HTTP
+GET request is sent to the following location with
+the `{search-query}` placeholder value replaced accordingly and encoded
+for a URL. When you are trying out these scenarios, fill the `{host}`,
+`{port}` and the `{tenant-domain}` placeholders with the relevant values.
+
+<table>
+  <tbody>
+    <tr>
+      <td>
+
+        Reference
+
+      </td>
+      <td>
+
+        Super tenant:
+
+        <Anchor id="cb1" />
+
+        ```text
+        https://{host}:{port}/api/identity/config-mgt/v1.0/search?filter={search-query}
+        ```
+
+        Tenant:
+
+        <Anchor id="cb2" />
+
+        ```text
+        https://{host}:{port}/t/{tenant-domain}/api/identity/config-mgt/v1.0/search?filter={search-query}
+        ```
+
+      </td>
+    </tr>
+    <tr>
+      <td>
+
+        Sample GET request for the super tenant
+
+      </td>
+      <td>
+
+        <Anchor id="cb3" />
+
+        ```text
+        https://localhost:9443/api/identity/config-mgt/v1.0/search?filter=tenantDomain eq ‘carbon.super’
+        ```
+
+      </td>
+    </tr>
+    <tr>
+      <td>
+
+        Sample CURL command for a tenant
+
+      </td>
+      <td>
+
+        <Anchor id="cb4" />
+
+        ```text
+        curl -k -v --user admin:admin GET 'https://localhost:9443/api/identity/config-mgt/v1.0/search?filter=%28tenantDomain%20eq%20%27carbon.super%27%29'
+        ```
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+Assume you have the following resources in your database.
+
+<table>
+  <colgroup>
+    <col style={{width: "30%"}} />
+    <col style={{width: "69%"}} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Resource JSON</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>resource_1</td>
+      <td>
+
+        <Anchor id="cb1" />
+
+        ```text
+        {
+          "name": "resource_1",
+          "attributes": [
+            {
+              "key": "from",
+              "value": "abc.com"
+            },
+            {
+              "key": "to",
+              "value": "123.com"
+            }
+          ]
+        }
+        ```
+
+      </td>
+    </tr>
+    <tr>
+      <td>resource_2</td>
+      <td>
+
+        <Anchor id="cb2" />
+
+        ```text
+        {
+          "name": "resource_2",
+          "attributes": [
+            {
+              "key": "from",
+              "value": "abc.com"
+            },
+            {
+              "key": "to",
+              "value": "wso2.com"
+            }
+          ]
+        }
+        ```
+
+      </td>
+    </tr>
+    <tr>
+      <td>resource_3</td>
+      <td>
+
+        <Anchor id="cb3" />
+
+        ```text
+        {
+          "name": "resource_3",
+          "attributes": [
+            {
+              "key": "from",
+              "value": "xyz.com"
+            },
+            {
+              "key": "to",
+              "value": "wso2.com"
+            }
+          ]
+        }
+        ```
+
+      </td>
+    </tr>
+    <tr>
+      <td>resource_4</td>
+      <td>
+
+        <Anchor id="cb4" />
+
+        ```text
+        {
+          "name": "resource_4",
+          "attributes": [
+            {
+              "key": "to",
+              "value": "wso2.com"
+            },
+            {
+              "key": "server",
+              "value": "smtp.com"
+            }
+          ]
+        }
+        ```
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+There are two approaches to search or filter the resources in your
+database:
+
+-   Meta-data based search
+-   Attribute-based search
+
+### Meta-data based search
+
+Use the following meta-data parameters to search for resources.
+
+| Search Parameter of the Resource | \{RESOURCE\_SEARCH\_PARAMETER\} |
+|----------------------------------|-------------------------------|
+| Tenant domain                    | `tenantDomain`                |
+| ID value of the resource type    | `resourceTypeId`              |
+| Name of the resource type        | `resourceTypeName`            |
+| ID value of the resource         | `resourceId`                  |
+| Name of the resource             | `resourceName`                |
+
+**Search for resources in a specific tenant domain**
+
+The table below shows a sample search query that is used to search for
+resources that are created in the super tenant domain.
+
+<table>
+  <colgroup>
+    <col style={{width: "40%"}} />
+    <col style={{width: "59%"}} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th>
+
+        \{search-query\}
+
+      </th>
+      <th>
+
+        Response JSON
+
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+
+        tenantDomain eq 'carbon.super'
+
+      </td>
+      <td>
+
+        <details open>
+        <summary>click to see the sample response</summary>
+
+        \`\`\` \{ "resources": \[ \{ "resourceId": "29bd5f2d-54b4-4169-8cac-aa2e9cf5c1ba", "tenantDomain": "carbon.super", "resourceName": "resource_2", "resourceType": "e-mail", "lastModified": "2019-01-14 03:16:59", "files": \[\], "attributes": \[ \{ "key": "from", "value": "abc.com", "attributeId": "aea8665f-d6d7-4ec3-9449-b6423ed9fddf" \}, \{ "key": "to", "value": "wso2.com", "attributeId": "22f4f25a-3f79-4db3-b805-e53946110fa8" \} \], "hasFile": false, "hasAttribute": false \}, \{ "resourceId": "aa70ca2e-bd52-4a97-97b6-a3cd3f261a8a", "tenantDomain": "carbon.super", "resourceName": "resource_4", "resourceType": "e-mail", "lastModified": "2019-01-14 06:08:30", "files": \[\], "attributes": \[ \{ "key": "server", "value": "smtp.com", "attributeId": "f4cd7255-a011-4bbb-ae3c-bbb3f860f553" \}, \{ "key": "to", "value": "wso2.com", "attributeId": "de0b80e0-66c0-4168-b884-184c38cd6301" \} \], "hasFile": false, "hasAttribute": false \}, \{ "resourceId": "c9b8913f-3ae4-43f5-9552-a8676fd19646", "tenantDomain": "carbon.super", "resourceName": "resource_1", "resourceType": "e-mail", "lastModified": "2019-01-14 03:16:48", "files": \[\], "attributes": \[ \{ "key": "from", "value": "abc.com", "attributeId": "28092ab2-594f-421f-8c7e-9e8d4fbe1a5c" \}, \{ "key": "to", "value": "123.com", "attributeId": "3633269a-cab9-4e14-a264-dddb1a6001ed" \} \], "hasFile": false, "hasAttribute": false \}, \{ "resourceId": "7982a6e0-512a-4ebe-8c14-16f1819967c9", "tenantDomain": "carbon.super", "resourceName": "resource_3", "resourceType": "e-mail", "lastModified": "2019-01-14 03:26:47", "files": \[\], "attributes": \[ \{ "key": "from", "value": "xyz.com", "attributeId": "589f8423-bf57-4906-bf34-2d821358ed13" \}, \{ "key": "to", "value": "wso2.com", "attributeId": "ffe5acee-d59f-4918-9bfb-85c282490691" \} \], "hasFile": false, "hasAttribute": false \} \] \} \`\`\`
+
+        </details>
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+**  
+Search for resources in a specific tenant domain using the resource
+name**
+
+The table below shows a sample search query that is used to search for
+resources named "resource\_1" and "resource\_2" in the super tenant
+domain using the resource name.   
+
+<table>
+  <colgroup>
+    <col style={{width: "40%"}} />
+    <col style={{width: "59%"}} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th>
+
+        \{search-query\}
+
+      </th>
+      <th>
+
+        Response JSON
+
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+
+        (tenantDomain eq 'carbon.super') and  ((resourceName eq 'resource_1') or (resourceName eq 'resource_2'))
+
+      </td>
+      <td>
+
+        <details>
+        <summary>Click to see the sample response.</summary>
+
+        \`\`\` \{ "resources": \[ \{ "resourceId": "29bd5f2d-54b4-4169-8cac-aa2e9cf5c1ba", "tenantDomain": "carbon.super", "resourceName": "resource_2", "resourceType": "e-mail", "lastModified": "2019-01-14 03:16:59", "files": \[\], "attributes": \[ \{ "key": "from", "value": "abc.com", "attributeId": "aea8665f-d6d7-4ec3-9449-b6423ed9fddf" \}, \{ "key": "to", "value": "wso2.com", "attributeId": "22f4f25a-3f79-4db3-b805-e53946110fa8" \} \], "hasFile": false, "hasAttribute": false \}, \{ "resourceId": "c9b8913f-3ae4-43f5-9552-a8676fd19646", "tenantDomain": "carbon.super", "resourceName": "resource_1", "resourceType": "e-mail", "lastModified": "2019-01-14 03:16:48", "files": \[\], "attributes": \[ \{ "key": "from", "value": "abc.com", "attributeId": "28092ab2-594f-421f-8c7e-9e8d4fbe1a5c" \}, \{ "key": "to", "value": "123.com", "attributeId": "3633269a-cab9-4e14-a264-dddb1a6001ed" \} \], "hasFile": false, "hasAttribute": false \} \] \} \`\`\`
+
+        </details>
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### Attribute-based search
+
+There are two parameters in any attribute; a key, and a value. The
+search queries given below are used to search for a resource using a
+combination of its attribute parameters.
+
+:::note
+The configuration management search query does not support a
+resource search parameter that has multiple primitive search conditions
+joined by the complex operator ‘and’. For more information, see the
+section below.
+:::
+
+**Search for resources using an attribute key, value pair**
+
+The table below shows a sample search query used to search for a
+resource with an attribute, where the key is equal to "from" and the
+value is equal to "abc.com".
+
+<table>
+  <colgroup>
+    <col style={{width: "40%"}} />
+    <col style={{width: "59%"}} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th>
+
+        \{search-query\}
+
+      </th>
+      <th>
+
+        Response JSON
+
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+
+        (attributeKey eq 'from') and (attributeValue eq ' [abc.com](http://abc.com) ')
+
+      </td>
+      <td>
+
+        <details>
+        <summary>Click to see the sample response.</summary>
+
+        \`\`\` \{ "resources": \[ \{ "resourceId": "29bd5f2d-54b4-4169-8cac-aa2e9cf5c1ba", "tenantDomain": "carbon.super", "resourceName": "resource_2", "resourceType": "e-mail", "lastModified": "2019-01-14 03:16:59", "files": \[\], "attributes": \[ \{ "key": "from", "value": "abc.com", "attributeId": "aea8665f-d6d7-4ec3-9449-b6423ed9fddf" \} \], "hasFile": false, "hasAttribute": false \}, \{ "resourceId": "c9b8913f-3ae4-43f5-9552-a8676fd19646", "tenantDomain": "carbon.super", "resourceName": "resource_1", "resourceType": "e-mail", "lastModified": "2019-01-14 03:16:48", "files": \[\], "attributes": \[ \{ "key": "from", "value": "abc.com", "attributeId": "28092ab2-594f-421f-8c7e-9e8d4fbe1a5c" \} \], "hasFile": false, "hasAttribute": false \} \] \} \`\`\`
+
+        </details>
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+:::note
+Although both `           resource_1          ` and
+`           resource_2          ` have another attribute where the key
+is equal to "to", the returned search response only contains the
+requested attribute "from". To retrieve all available attributes for a
+resource using search, you need to search for the resource using the
+resource ID as given below.
+For example, to retrieve resource\_1 using the resource ID, use the
+following search query: 
+
+<details>
+<summary>Click to see the search query</summary>
+
+<table>
+  <thead>
+    <tr>
+      <th>\{search-query\}</th>
+      <th>Response JSON</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>resourceId eq 'c9b8913f-3ae4-43f5-9552-a8676fd19646'</td>
+      <td>
+
+        <details>
+        <summary>Click to see the sample response.</summary>
+
+        \`\`\` \{ "resources": \[ \{ "resourceId": "c9b8913f-3ae4-43f5-9552-a8676fd19646", "tenantDomain": "carbon.super", "resourceName": "resource_1", "resourceType": "e-mail", "lastModified": "2019-01-14 03:16:48", "files": \[\], "attributes": \[ \{ "key": "from", "value": "abc.com", "attributeId": "28092ab2-594f-421f-8c7e-9e8d4fbe1a5c" \}, \{ "key": "to", "value": "123.com", "attributeId": "3633269a-cab9-4e14-a264-dddb1a6001ed" \} \], "hasFile": false, "hasAttribute": false \} \] \} \`\`\`
+
+        </details>
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+</details>
+:::
+
+**Search for resources using an attribute key**
+
+The table below shows a sample search query used to search for a
+resource with an attribute where the key is equal to "from". In this
+case, the value for the attribute can be any value.
+
+<table>
+  <colgroup>
+    <col style={{width: "40%"}} />
+    <col style={{width: "59%"}} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th>
+
+        \{search-query\}
+
+      </th>
+      <th>
+
+        Response JSON
+
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+
+        attributeKey eq 'from'
+
+      </td>
+      <td>
+
+        <details>
+        <summary>Click to see the sample response</summary>
+
+        \`\`\` \{ "resources": \[ \{ "resourceId": "29bd5f2d-54b4-4169-8cac-aa2e9cf5c1ba", "tenantDomain": "carbon.super", "resourceName": "resource_2", "resourceType": "e-mail", "lastModified": "2019-01-14 03:16:59", "files": \[\], "attributes": \[ \{ "key": "from", "value": "abc.com", "attributeId": "aea8665f-d6d7-4ec3-9449-b6423ed9fddf" \} \], "hasFile": false, "hasAttribute": false \}, \{ "resourceId": "c9b8913f-3ae4-43f5-9552-a8676fd19646", "tenantDomain": "carbon.super", "resourceName": "resource_1", "resourceType": "e-mail", "lastModified": "2019-01-14 03:16:48", "files": \[\], "attributes": \[ \{ "key": "from", "value": "abc.com", "attributeId": "28092ab2-594f-421f-8c7e-9e8d4fbe1a5c" \} \], "hasFile": false, "hasAttribute": false \}, \{ "resourceId": "7982a6e0-512a-4ebe-8c14-16f1819967c9", "tenantDomain": "carbon.super", "resourceName": "resource_3", "resourceType": "e-mail", "lastModified": "2019-01-14 03:26:47", "files": \[\], "attributes": \[ \{ "key": "from", "value": "xyz.com", "attributeId": "589f8423-bf57-4906-bf34-2d821358ed13" \} \], "hasFile": false, "hasAttribute": false \} \] \} \`\`\`
+
+        </details>
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+**Search for resources with multiple attributes using the keys**
+
+The table below shows a sample search query for a resource that
+satisfies the following conditions:
+
+-   Has an Attribute where the key is equal to “from”.
+
+-   Has an Attribute where the key is equal to “to”.
+
+:::note
+Building the configuration management search query for this
+scenario will create the following search query:
+`            attributeKey eq 'from' and attributeKey eq 'to'.           `
+
+However, the Search API does not allow multiple search conditions joined
+by the 'and' complex operator for the same Resource search parameter.
+Therefore, this requirement cannot be achieved using a single search and
+has to be done in two steps. See the instructions given below for sample
+search queries.
+:::
+
+1.  Retrieve all the resources with an attribute where the key is equal
+    to "from".
+
+    <table>
+      <colgroup>
+        <col style={{width: "38%"}} />
+        <col style={{width: "61%"}} />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>
+
+            \{search-query\}
+
+          </th>
+          <th>
+
+            Response JSON
+
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+
+            attributeKey eq
+
+            'from''
+
+          </td>
+          <td>
+
+            <details>
+            <summary>Click to see the sample response.</summary>
+
+            \`\`\` \{ "resources": \[ \{ "resourceId": "29bd5f2d-54b4-4169-8cac-aa2e9cf5c1ba", "tenantDomain": "carbon.super", "resourceName": "resource_2", "resourceType": "e-mail", "lastModified": "2019-01-14 03:16:59", "files": \[\], "attributes": \[ \{ "key": "from", "value": "abc.com", "attributeId": "aea8665f-d6d7-4ec3-9449-b6423ed9fddf" \} \], "hasFile": false, "hasAttribute": false \}, \{ "resourceId": "c9b8913f-3ae4-43f5-9552-a8676fd19646", "tenantDomain": "carbon.super", "resourceName": "resource_1", "resourceType": "e-mail", "lastModified": "2019-01-14 03:16:48", "files": \[\], "attributes": \[ \{ "key": "from", "value": "abc.com", "attributeId": "28092ab2-594f-421f-8c7e-9e8d4fbe1a5c" \} \], "hasFile": false, "hasAttribute": false \}, \{ "resourceId": "7982a6e0-512a-4ebe-8c14-16f1819967c9", "tenantDomain": "carbon.super", "resourceName": "resource_3", "resourceType": "e-mail", "lastModified": "2019-01-14 03:26:47", "files": \[\], "attributes": \[ \{ "key": "from", "value": "xyz.com", "attributeId": "589f8423-bf57-4906-bf34-2d821358ed13" \} \], "hasFile": false, "hasAttribute": false \} \] \} \`\`\`
+
+            </details>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+2.  Search within the results received above for resources with an
+    attribute where the key is equal to "to". This will retrieve search
+    results that satisfies both conditions (i.e. resources with an
+    attribute where the key is equal to "from" and an attribute where
+    the key is equal to "to").
+
+    <table>
+      <colgroup>
+        <col style={{width: "43%"}} />
+        <col style={{width: "56%"}} />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>
+
+            \{search-query\}
+
+          </th>
+          <th>
+
+            Response JSON
+
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+
+            attributeKey eq 'to' and (resourceId eq '29bd5f2d-54b4-4169-8cac-aa2e9cf5c1ba' or resourceId eq 'c9b8913f-3ae4-43f5-9552-a8676fd19646' or resourceId eq '7982a6e0-512a-4ebe-8c14-16f1819967c9')
+
+            <br />
+
+          </td>
+          <td>
+
+            <details>
+            <summary>Click to see the sample response.</summary>
+
+            \`\`\` \{ "resources": \[ \{ "resourceId": "29bd5f2d-54b4-4169-8cac-aa2e9cf5c1ba", "tenantDomain": "carbon.super", "resourceName": "resource_2", "resourceType": "e-mail", "lastModified": "2019-01-14 03:16:59", "files": \[\], "attributes": \[ \{ "key": "to", "value": "wso2.com", "attributeId": "22f4f25a-3f79-4db3-b805-e53946110fa8" \} \], "hasFile": false, "hasAttribute": false \}, \{ "resourceId": "c9b8913f-3ae4-43f5-9552-a8676fd19646", "tenantDomain": "carbon.super", "resourceName": "resource_1", "resourceType": "e-mail", "lastModified": "2019-01-14 03:16:48", "files": \[\], "attributes": \[ \{ "key": "to", "value": "123.com", "attributeId": "3633269a-cab9-4e14-a264-dddb1a6001ed" \} \], "hasFile": false, "hasAttribute": false \}, \{ "resourceId": "7982a6e0-512a-4ebe-8c14-16f1819967c9", "tenantDomain": "carbon.super", "resourceName": "resource_3", "resourceType": "e-mail", "lastModified": "2019-01-14 03:26:47", "files": \[\], "attributes": \[ \{ "key": "to", "value": "wso2.com", "attributeId": "ffe5acee-d59f-4918-9bfb-85c282490691" \} \], "hasFile": false, "hasAttribute": false \} \] \} \`\`\`
+
+            </details>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>

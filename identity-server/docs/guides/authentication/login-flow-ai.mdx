@@ -1,0 +1,50 @@
+---
+title: Login Flow AI
+description: AI-powered login flow generation simplifies the setup of authentication sequences in WSO2 Identity Platform by using an AI-driven approach.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Login flow AI
+sidebar_position: 13
+---
+
+AI-powered login flow generation simplifies the setup of authentication sequences in {edition.productName} by using an AI-driven approach. This tool allows users to efficiently create tailored authentication sequences without needing in-depth knowledge of the underlying authenticators or scripting languages.
+
+<Edition only="self-hosted">
+
+:::note[Enable AI-powered features]
+To enable AI-powered features, {edition.productName} requires a subscription key from the [WSO2 AI subscription portal](https://ai-subscriptions.wso2.com/). See the [guide](../../get-started/subscribe-to-ai-features.mdx) for step by step instructions.
+:::
+
+</Edition>
+
+## Generate login flows with Login Flow AI
+
+To generate your login flow with LoginFlow AI:
+
+1. On the {edition.productName} Console, go to **Applications**.
+
+2. Select your application and go to its **Login Flow** tab.
+
+3. Click **Try Login Flow AI**.
+
+    <img src={require("../../../assets/img/guides/ai-loginflow-try.png").default} alt="LoginFlow AI button" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+4. Enter the login scenario you want to configure and press enter.
+
+    :::note
+    If you wish to add connections to your login sequence, make sure to [set up the required connection](./index.mdx#manage-connections). Only existing connections can be incorporated into the login flow.
+    :::
+
+    <img src={require("../../../assets/img/guides/ai-loginflow-input.png").default} alt="LoginFLow AI input" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    The system will analyze the input and generate the appropriate authentication sequence.
+
+## Customize the generated authentication sequence
+
+The AI system processes your input and provides an authentication sequence, you can further customize the authentication sequence by:
+
+- Adding or removing authenticators as needed.
+- Modifying the suggested steps.
+
+## Apply Login Flow
+
+Once you've reviewed and customized the generated login flow, click **Update** to apply it to your application.

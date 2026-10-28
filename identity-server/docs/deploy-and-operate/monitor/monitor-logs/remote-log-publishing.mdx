@@ -1,0 +1,44 @@
+---
+title: Remote Log Publishing
+description: The Remote Log Publishing feature in WSO2 Identity Server allows organizations to securely transmit and store audit logs in an external server.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Remote log publishing
+sidebar_position: 4
+editions: self-hosted
+---
+
+The Remote Log Publishing feature in {edition.productName} allows organizations to securely transmit and store [audit logs](./monitor-logs.mdx) in an external server. This capability ensures that critical log data is not only preserved in a secure location but also remains readily accessible for thorough analysis and compliance auditing.
+
+## Set up
+
+:::note[Before you begin]
+- Ensure that the WSO2 Identity Server is up and running.
+- Have access to an external log storage solution that is reachable over the network.
+:::
+
+Follow the steps below to configure remote log publishing to an external system:
+
+1. On the {edition.productName} Console, click the **Root Organization** dropdown at the top and click **Manage Root Organizations**.
+2. Click on the gear icon to enter the system settings.
+
+3. Enter the following details in the **Remote Log Publishing** tab and click **Update**:
+
+    | Parameter | Description | Example Value |
+    | --- | --- | --- |
+    | Destination URL | The URL of the remote log server. | `https://logserver.example.com/store` |
+    | Connection timeout | The timeout in milliseconds for connecting to the remote server. | `2000` |
+    | Verify the hostname | Select to verify the remote server's hostname against its SSL certificate. | `true` or `false` |
+    | Remote server username | The username for basic authentication with the remote server. | `admin` |
+    | Remote server password | The password for basic authentication with the remote server. | `admin_password` |
+    | Keystore location | The file path to the keystore for SSL connections. | `/etc/identity/keystore.jks` |
+    | Keystore password | The password for the keystore. | `keystore_password` |
+    | Truststore location | The file path to the truststore for SSL connections. | `/etc/identity/truststore.jks` |
+    | Truststore password | The password for the truststore. | `truststore_password` |
+
+:::tip
+- After the configurations are set, generate test log events to ensure that the logs are being successfully published to the external system.
+
+- Secure the transmission of logs by utilizing HTTPS and other security mechanisms to protect the data in transit.
+
+- If any issues arise with remote log publishing, check the network connectivity, verify the configurations, and ensure the external log service is operational.
+:::

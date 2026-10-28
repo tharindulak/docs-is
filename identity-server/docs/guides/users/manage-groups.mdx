@@ -1,0 +1,191 @@
+---
+title: Manage groups
+description: A group is a collection of users who have the same privileges to access resources in an organization.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_position: 4
+---
+
+A group is a collection of users who have the same privileges to access resources in an organization. One user can be assigned to any number of groups. When one user group is granted access to a resource, it applies to all users in the group.
+
+Applications can get details about groups a user belongs to as a user attribute in the authentication response (e.g., ID token).
+
+## Onboard a group
+There are two ways to onboard a group:
+
+<Variants>
+
+<Edition only="cloud">
+
+- An administrator can onboard users from an on-premise user store by [connecting a remote user store to WSO2 Identity Platform](./user-stores/configure-a-user-store.mdx).
+
+    :::note
+    If the remote user store access type is read-only, you cannot update the user groups onboarded from this read-only user store.
+    :::
+
+- Administrators can add groups via the WSO2 Identity Platform Console.
+
+Let's look at how administrators can onboard groups from the WSO2 Identity Platform Console.
+
+1. On the WSO2 Identity Platform Console, go to **User Management** > **Groups**.
+2. Click **New Group** and provide the following details.
+
+    - **Group Name:** A unique name to identify the group.
+    - **Add Users:** If you already have existing users, you can search and add them to a group.
+
+    <img src={require("../../../assets/cloud/img/guides/groups/create-new-group-form.png").default} alt="create-new-group-form" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+3. Click **Finish**.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+- An administrator can onboard users from a secondary user store by [configuring a secondary user store in WSO2 Identity Server](./user-stores/configure-secondary-user-stores.mdx).
+
+    :::note
+    If the secondary user store access type is read-only, you cannot update the user groups onboarded from this read-only user store.
+    :::
+
+- Administrators can add groups via the WSO2 Identity Server Console.
+
+Let's look at how administrators can onboard groups from the WSO2 Identity Server Console.
+
+1. On the WSO2 Identity Server Console, go to **User Management** > **Groups**.
+2. Click **New Group** and provide the following details.
+
+    - **Group Name:** A unique name to identify the group.
+    - **Add Users:** If you already have existing users, you can search and add them to a group.
+
+    <img src={require("../../../assets/self-hosted/img/guides/groups/create-new-group-form.png").default} alt="create-new-group-form" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+3. Click **Next** and in the next step, you can assign roles to the group (optional).
+
+    <img src={require("../../../assets/self-hosted/img/guides/groups/assign-roles-to-group-view.png").default} alt="assign-roles-to-group-view" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+4. Click **Finish**.
+
+</Edition>
+
+</Variants>
+
+## Assign users to groups
+Users can be assigned to groups. Admins can allow/restrict access to resources based on the groups.
+
+To assign users to groups:
+
+<Variants>
+
+<Edition only="cloud">
+
+1. On the WSO2 Identity Platform Console, go to **User Management** > **Groups**.
+2. Select the group to assign the user.
+3. Click **Edit** and navigate to **Users**.
+
+    <img src={require("../../../assets/cloud/img/guides/groups/add-user-to-group-view.png").default} alt="add-user-to-group-view" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+</Edition>
+
+<Edition only="self-hosted">
+
+1. On the WSO2 Identity Server Console, go to **User Management** > **Groups**.
+2. Select the group to which you wish to assign users.
+3. Click **Edit** and navigate to **Users**.
+
+    <img src={require("../../../assets/self-hosted/img/guides/groups/add-user-to-group-view.png").default} alt="add-user-to-group-view" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+</Edition>
+
+</Variants>
+
+4. Click **Assign User** and select users to add to the group.
+6. Click **Save**.
+
+<Variants>
+
+<Edition only="cloud">
+
+## Remove users from groups
+[Users](./users/manage-users.mdx) can be removed from the assigned groups by administrators.
+
+To remove users from groups:
+
+1. On the WSO2 Identity Platform Console, go to **User Management** > **Groups**.
+2. Select the group to remove the user.
+3. Click the **Edit** icon and navigate to **Users**.
+
+    <img src={require("../../../assets/img/guides/groups/remove-user-from-group-view.png").default} alt="remove-user-from-group-view" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+</Edition>
+
+<Edition only="self-hosted">
+
+## Remove users from groups
+Administrators can remove users from groups.
+
+To remove users from a group:
+
+1. On the WSO2 Identity Server Console, go to **User Management** > **Groups**.
+2. Select the group from which you wish to remove users.
+3. Click **Edit** and navigate to **Users**.
+
+    <img src={require("../../../assets/img/guides/groups/remove-user-from-group-view.png").default} alt="remove-user-from-group-view" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+</Edition>
+
+</Variants>
+
+4. Click **Delete** icon of the user(s) you want to remove.
+
+<Variants>
+
+<Edition only="cloud">
+
+## Assign groups to application roles
+
+You can assign groups to application roles and grant permission for the group's users to access an API resource. See [manage application roles](./manage-roles.mdx) for more information.
+
+To assign a group to a role:
+
+1. On the WSO2 Identity Platform Console, go to **User Management** > **Groups**.
+2. Go to the **Roles** tab and click **+ Assign Roles**.
+3. Expand the application to which the required roles belong.
+4. Select the application role/s you wish to add to the group.
+
+    <img src={require("../../../assets/cloud/img/guides/groups/assign-application-roles.png").default} alt="Assign groups to app roles" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+5. Click **Save** to assign the group to the selected application role.
+
+## Delete a group
+An administrator can delete groups via the WSO2 Identity Platform Console.
+To delete a group:
+
+1. On the WSO2 Identity Platform Console, go to **User Management** > **Groups**.
+2. Click the trash icon next to the group you wish to delete.
+3. Select the checkbox and confirm your action.
+
+## View remote user store groups
+Once you connect a remote user store to WSO2 Identity Platform, you can view the onboarded groups and the members of the groups.
+To view the onboarded groups:
+
+1. On the WSO2 Identity Platform Console, go to **User Management** >  **Groups**.
+2. Select the preferred user store from the drop-down menu.
+
+:::note
+Remote groups are read-only in the WSO2 Identity Platform console. Administrators can only view the group details and its members.
+:::
+
+</Edition>
+
+<Edition only="self-hosted">
+
+## Delete a group
+An administrator can delete groups via the WSO2 Identity Server Console.
+To delete a group:
+
+1. On the WSO2 Identity Server Console, go to **User Management** > **Groups**.
+2. Click the trash icon next to the group you wish to delete.
+3. Select the checkbox and confirm your action.
+
+</Edition>
+
+</Variants>

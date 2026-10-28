@@ -1,0 +1,29 @@
+---
+title: Configure group-based outbound provisioning
+description: Group-based provisioning allows you to automatically provision users to external systems when they are added to a group and automatically deprovision when…  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Group-based provisioning
+sidebar_position: 3
+---
+
+Group-based provisioning allows you to automatically provision users to external systems when they are added to a group and automatically deprovision when they are removed from a group. This guide explains how to configure group-based provisioning in {edition.productName}.
+
+## Prerequisites
+
+Before you begin, ensure you have [set up outbound provisioning](./setup-outbound-provisioning.mdx) at the organization or application level.
+
+## Enable group-based provisioning
+
+1. On the {edition.productName} Console, go to **Connections**.
+2. Select the connection in which you configured the outbound connector and navigate to its **Outbound Provisioning** tab.
+3. Select the required groups from the dropdown. 
+
+    <img src={require("../../../../assets/img/guides/outbound-provisioning/outbound-provisioning.png").default} alt="group-based provisioning" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+4. Click **Update** to save the changes.
+
+## Try it out
+
+1. On the {edition.productName} Console, [create a user](../users/manage-users.mdx).
+2. [Assign the created user to a group](../manage-groups.mdx#assign-users-to-groups) that you specified for outbound provisioning. The user will be provisioned to the external system automatically.
+3. Remove the user from the group. The user will be deprovisioned from the external system automatically.

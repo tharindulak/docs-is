@@ -1,0 +1,95 @@
+---
+title: Manage root organizations
+description: 'The root organizations you create in WSO2 Identity Platform can be structured according to your business needs as follows:'  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_position: 2
+editions: cloud
+---
+
+The root organizations you create in {edition.productName} can be structured according to your business needs as follows:
+
+**B2C organizations**
+
+In a B2C scenario,
+
+- you will create an organization (root) to represent your business.
+
+- the organization (root) manages the identity and access management requirements of your B2C applications and the user identities of your direct consumers.
+
+- You may create separate root organizations to replicate the environments of the application development lifecycle.
+
+**B2B organizations**
+
+In a B2B scenario,
+
+- you will create an organization (root) to represent your business, which functions as your primary organization.
+
+- you will create subordinate organizations to onboard other business organizations (partners, suppliers, customer organizations, etc.) to your platform.
+
+- administrators of each subordinate organization manage the respective organization's user base and define login experiences for applications according to the organization's requirements.
+
+If you have a B2C (Business-to-Consumer) platform offering services to direct consumers, you can use an {edition.productName} organization (root) to manage the identities and access requirements of your users. Note that your first organization on {edition.productName} is created when you [sign up to {edition.productName}](../../get-started/create-identity-platform-account.mdx).
+
+:::note
+If you have a B2B platform, this will also be the organization (root) of your platform. Your root organization will work with other businesses to make your applications available to their users. Such businesses should be defined as [organizations](../organization-management/manage-organizations.mdx) in your organization (root).
+:::
+
+The following guides explain how you can create and manage these root organizations in {edition.productName}.
+
+## Create a new organization (root)
+
+To create a new organization (root) in {edition.productName}:
+
+1. Select the organization list and click **New Organization**.
+
+    <img src={require("../../../assets/cloud/img/guides/organization/manage-organizations/create-new-organization.png").default} alt="Create new organization (root)" width="400" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+2. Enter a name for your organization (root) and click **Create**.
+    <img src={require("../../../assets/cloud/img/guides/organization/manage-organizations/create-guardio-org.png").default} alt="Create guardio organization" width="400" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+The new organization (root) is now available in the root organization list.
+
+:::note
+If you a have B2B platform, you can now onboard your organizations. See the instructions on [setting up organizations](../organization-management/manage-organizations.mdx) and build your B2B organization structure.
+:::
+
+## Switch between root organizations
+
+When you have multiple root organizations, you can switch between them on the {edition.productName} Console by selecting the required organization (root) from the list.
+
+The list of root organizations will show all the root organizations you own or to which you have administrator access.
+
+<img src={require("../../../assets/cloud/img/guides/organization/manage-organizations/root-organizations.png").default} alt="Root organizations" width="400" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+## Obtain the organization ID
+
+You may need to use the organization ID to execute cURLs when managing root organizations or organizations using APIs.
+
+To obtain the organization ID of your root organization, expand the organization list and copy the provided organization ID.
+
+<img src={require("../../../assets/cloud/img/guides/organization/manage-organizations/obtain-organization-id.png").default} alt="Obtain organization id" width="300" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+## Delete root organizations
+
+You cannot remove root organizations using the {edition.productName} Console. If you have such a requirement, contact the {edition.productName} team at **asgardeo-help@wso2.com**.
+If you are a B2B platform and you want to remove child organizations in your organization, see the instructions on [deleting organizations](../organization-management/manage-organizations.mdx).
+
+:::note[Before you begin]
+Note the following before you proceed to delete a root organization: <br />
+
+- A deleted root organization cannot be restored. Proceed with caution.
+- Only a root organization owner can request a root organization to be deleted.
+- Be sure to use the same email address of your owner user account to send the request.
+- If you remove all the root organizations you own in {edition.productName}, your user account will also be deleted from {edition.productName}. <br />
+:::
+
+To remove any of your root organizations, send an email to `asgardeo-help@wso2.com` with the following required details.
+
+- The name of the organization (root) you want to delete.
+- The first name, last name, and email address of your (owner's) {edition.productName} user account.
+
+ This information will help the {edition.productName} team to confirm the authenticity of your request.
+
+## What's next?
+- Learn about managing administrators and users of an organization in the [user management](../users/index.mdx) section.
+- Learn about [managing the environments of your SDLC](./manage-environments/index.mdx).

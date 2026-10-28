@@ -1,0 +1,96 @@
+---
+title: Configure an application
+description: First unless you already have done that, you need to create an organization in WSO2 Identity Platform and register your application as a single page…  # generated from the first paragraph; a writer should improve it
+type: how-to
+layout: complete-guide
+sidebar_position: 3
+---
+
+<Variants>
+
+<Edition only="cloud">
+
+First unless you already have done that, you need to create an organization in {edition.productName} and register your application as a single page application.
+
+* Sign up for a [free WSO2 Identity Platform account](../../../get-started/create-identity-platform-account.mdx)
+
+* Sign into the WSO2 Identity Platform console and navigate to **Applications > New Application.**
+* Select React Application
+
+<img src={require("../../../../assets/cloud/img/complete-guides/react/image5.png").default} alt="Select React Application" width="600" style={{display: "block", margin: "0"}} />  
+
+</Edition>
+
+<Edition only="self-hosted">
+
+First unless you already have done that, you need to register your application as a single page application.
+
+* Download and [setup WSO2 Identity Server](https://is.docs.wso2.com/en/latest/get-started/quick-set-up/)
+* Sign into the WSO2 Identity Server console and navigate to **Applications > New Application.**
+* Select Single Page Application
+
+<img src={require("../../../../assets/self-hosted/img/complete-guides/react/image5.png").default} alt="Select Single Page Application" width="600" style={{display: "block", margin: "0"}} />  
+
+</Edition>
+
+</Variants>
+
+Next, complete the wizard popup by providing a suitable name and an authorized redirect URL.
+
+<Variants>
+
+<Edition only="cloud">
+
+:::note[Example]
+name: asgardeo-react
+
+Authorized redirect URL: http://localhost:5173
+:::
+
+</Edition>
+
+<Edition only="self-hosted">
+
+:::note[Example]
+name: is-react
+
+Authorized redirect URL: http://localhost:5173
+:::
+
+</Edition>
+
+</Variants>
+
+<Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/complete-guides/react/image8.png").default} alt="Register a new application" width="600" style={{display: "block", margin: "0"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/complete-guides/react/image8.png").default} alt="Register a new application" width="600" style={{display: "block", margin: "0"}} /></Edition></Variants>
+
+:::info
+The authorized redirect URL determines where {edition.productName} should send users after they successfully log in. Typically, this will be the web address where your app is hosted. For this guide, we'll use [http://localhost:5173](http://localhost:5173), as the sample app will be accessible at this URL.
+:::
+
+<Variants>
+
+<Edition only="cloud">
+
+You will need the following information available in the Quick Start tab of your app or the Quickstart guide under the React SDK for the `AuthProvider` config.
+
+* Client ID
+* Base URL
+* Redirect URL
+
+<img src={require("../../../../assets/cloud/img/complete-guides/react/image9.png").default} alt="Quick start guide" width="600" style={{display: "block", margin: "0"}} />
+
+</Edition>
+
+<Edition only="self-hosted">
+
+You need the following information.
+
+* Client ID - You can find this from the application's **Protocol** tab.
+* Base URL - `https://localhost:9443`
+* Redirect URL - `http://localhost:5173` or the custom redirect URL you specified when creating the application.
+
+</Edition>
+
+</Variants>
+
+In this step, we have registered our React app as an application in the {edition.productName} console and generated the required metadata. Next, we will create a React app using Vite.

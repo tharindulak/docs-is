@@ -1,0 +1,701 @@
+---
+title: Custom authentication
+description: Custom authentication allows you to extend the authentication functionality of WSO2 Identity Platform by implementing a custom authentication service.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_position: 1
+---
+
+Custom authentication allows you to extend the authentication functionality of {edition.productName} by implementing a custom authentication service. This provides greater flexibility in handling diverse authentication requirements beyond the built-in authenticators.
+
+## Types of authenticators
+
+In {edition.productName}, authenticators identify and verify users. You can use different types for specific authentication needs:
+
+- **Identification Authenticators:**
+
+    These authenticators identify the user. Successful execution of this authenticator means the system manages the user either within {edition.productName} as an internal user or by the external system as a federated user.
+
+      - **Internal User Identification Authenticators:**
+        Authenticate users against the internal user stores (e.g., basic authentication with username and password).
+      - **External (Federated) User Identification Authenticators:**
+        Delegate authentication to external systems like social login providers (e.g., Google, Facebook).
+
+- **Verification Authenticators:**
+
+    These authenticators provide extra security by verifying the authenticated identity. They often use multi-factor authentication (MFA) to confirm the user’s identity (for example 2FA with a one-time password).
+
+{edition.productName} includes built-in (system-defined) authenticators for both `Identification` and `Verification` types. Custom authenticators (user-defined) let you address specific requirements not met by system-defined authenticators. You can write custom authenticators for both `Identification` and `Verification` types.
+
+## How custom authentication service extension works
+
+When you configure and add a custom authenticator to an application's login flow, the following execution sequence occurs:
+
+1. When a user attempts to log in to an application, the application sends a login request to {edition.productName}.
+2. If the user isn't already authenticated, {edition.productName} presents the login page with the available authentication options configured for that application.
+At the relevant login step, if the user selects a custom authenticator, {edition.productName} invokes the corresponding authentication service endpoint. This request includes the `flowId`, a unique identifier used to track the authentication flow.
+3. The custom authentication service processes the request and either:
+    - Authenticates the user directly and returns the response to {edition.productName}.
+    - If required inputs (for example user identifier, PIN) are missing, redirect the user to a designated URL where they can provide the necessary information. This URL is part of your custom authenticator's implementation.
+4. When your service requests a redirect, {edition.productName} forwards the user to the provided URL.
+5. The user directly interacts with the custom authentication service and authenticates.
+6. Once authenticated, the external service redirects the user back to {edition.productName}, including the assigned `flowId` in the request.
+7. {edition.productName} calls the custom authentication service endpoint again,  with the `flowId`, to verify authentication completion.
+8. The custom authentication service responds with the final authentication outcome, indicating whether authentication was successful or failed.
+
+The following diagram illustrates the detailed authentication flow.
+
+<Variants><Edition only="cloud"><img src={require("../../../../../assets/cloud/img/guides/actions/how-custom-authenticator-service-work.png").default} alt="how-custom-authentication-work" width="850" style={{display: "block", margin: "0", border: "0"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../../assets/self-hosted/img/guides/actions/how-custom-authenticator-service-work.png").default} alt="how-custom-authentication-work" width="850" style={{display: "block", margin: "0", border: "0"}} /></Edition></Variants>
+
+The [custom authentication API contract](../../../../reference/apis/api-contract-2/index.mdx) defines the request and response structures that your service must follow.
+
+The request and response structure between {edition.productName} and the external service varies based on the authenticator's invocation step and authentication type (for example external, internal, 2FA).
+
+:::tip
+Utilize the [sample custom authentication service](https://github.com/asgardeo-samples/asgardeo-service-extension-samples/tree/main/custom-authentication-service-samples/pin-based-authentication-service-express) to experiment with custom authentication, understand its workflow, and familiarize yourself with the required request-response format for seamless implementation.
+:::
+
+## Configuring a custom authenticator
+
+This guide provides a step-by-step approach to configure a custom authenticator in {edition.productName} to integrate your use case with unique authentication logic.
+
+### Prerequisites
+
+Ensure that you have:
+
+- Access to the {edition.productName} console.
+- Ability to create a web service or endpoint accessible to {edition.productName}.
+
+### Set up the external service
+
+Your external web service should do the following to integrate as a custom authenticator.
+
+:::tip
+Use the [sample custom authentication service](https://github.com/asgardeo-samples/asgardeo-service-extension-samples/tree/main/custom-authentication-service-samples/pin-based-authentication-service-express) to experiment with custom authentication, understand its workflow, and familiarize yourself with the required request-response format for seamless implementation.
+:::
+
+1. Expose an endpoint that accepts HTTP POST requests with JSON payloads. This endpoint should be deployed in a server accessible to {edition.productName}.
+
+2. To ensure successful integration, your external web service needs to adhere to the [REST API contract](../../../../reference/apis/api-contract-2/index.mdx), including correctly handling requests and responses. Refer to [How custom authentication service extension works](#how-custom-authentication-service-extension-works) for an explanation of the invocation flow and [Custom authentication API deep dive](#custom-authentication-api-deep-dive) for detailed API contract information.
+
+3. Choose an authenticator type for your service:
+    - External (Federated) User Authentication: Authenticate and provision federated users.
+    - Internal User Authentication: Authenticate user accounts stored within the organization’s connected user stores.
+    - 2FA Authentication: Provide an extra verification step during authentication flow.
+
+    For more details, refer to [Types of authenticators](#types-of-authenticators).
+
+4. Use one of the following methods to secure the communication between your external service and {edition.productName}:
+    - Basic Authentication: Use HTTP Basic authentication to secure the endpoint.
+    - OAuth 2.0 Bearer Tokens: Use OAuth 2.0 for token-based authentication.
+    - API Key Header: Secure the endpoint using an API key sent in the request header.
+
+    <Edition selfHostedFrom="next">
+
+    - OAuth 2.0 Client Credentials Grant: {edition.productName} obtains an access token from your authorization server using the OAuth 2.0 client credentials grant and uses it to call the endpoint.
+    - OAuth 2.0 Password Grant: {edition.productName} obtains an access token from your authorization server using the OAuth 2.0 resource owner password credentials grant and uses it to call the endpoint.
+
+    </Edition>
+
+    :::tip
+    During the development phase, you may choose to invoke your external service without security for testing purposes. Always secure your service before deploying it in a production environment.
+    :::
+
+### Configure the custom authenticator in {edition.productName}
+
+Follow the steps below to configure a custom authenticator.
+
+1. On the {edition.productName} Console, navigate to **Connections**.
+2. Click on **New Connection** button, select **Custom Authenticator** and click **Create**.
+
+    <img src={require("../../../../../assets/img/guides/actions/select-custom-authenticator-template-in-ui.png").default} alt="select-custom-authenticator-template-in-ui" width="650" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+3. In the setup wizard, choose the appropriate authentication type and click **Next**. Refer to [Types of authenticators](#types-of-authenticators) for further clarification.
+
+    <img src={require("../../../../../assets/img/guides/actions/select-custom-authenticator-type-in-ui.png").default} alt="select-custom-authenticator-type-in-ui" width="500" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+4. Under **General Settings**, specify an **identifier** for your authenticator and a **display name** that appears on login pages.
+
+5. In the **Configuration** section, fill in the following details and click **Finish**:
+
+    - **Endpoint**: Provide the URL of the web service endpoint you created.
+    - **Authentication**: Choose the authentication method required to invoke your endpoint and configure its properties accordingly.
+
+        :::note
+        Once added, these authentication secret values will not be displayed again. You will only be able to reset them.
+        :::
+
+        - Basic - Provide a username and password.
+        - Bearer - Provide a bearer token.
+        - API Key - Provide the header name and the value.
+
+        <Edition selfHostedFrom="next">
+
+        - OAuth 2.0 Client Credentials - Provide the token endpoint, client ID, client secret, and optionally a space-separated list of scopes. {edition.productName} retrieves a fresh access token from the configured token endpoint using the OAuth 2.0 client credentials grant and uses it as a bearer token when invoking the custom authenticator endpoint.
+        - OAuth 2.0 Password Grant - Provide the token endpoint, client ID, client secret, username, password, and optionally a space-separated list of scopes. {edition.productName} retrieves a fresh access token from the configured token endpoint using the OAuth 2.0 resource owner password credentials grant and uses it as a bearer token when invoking the custom authenticator endpoint.
+
+        </Edition>
+
+        - No Authentication - No authentication (recommended only for testing purposes).
+
+6. If you select **External (Federated) User Authentication**, configure [JIT-User Provisioning](../../../authentication/jit-user-provisioning.mdx) according to your requirements. Additionally, review and set up [role assignments for user groups](../../../users/manage-roles.mdx#assign-external-groups-to-a-role) to ensure seamless integration.
+
+:::note
+By default, {edition.productName} does not send the HTTP headers or the request parameters of the login flow to your external service. To forward them, add their names in **Allowed headers** and **Allowed parameters** under the **Settings** tab in custom authenticator configuration. See [Request headers and parameters](#request-headers-and-parameters) for what your service receives and when.
+:::
+
+### Add the custom authenticator to an application login flow
+
+Follow the steps below to integrate the custom authenticator into your application's login flow:
+
+1. Open the {edition.productName} Console and navigate to **Applications**.
+
+2. Select the application you want to enable authentication using the custom authenticator.
+
+3. Go to the **Login Flow** tab of the application.
+
+4. Click **Add Sign-In Option** in the step where you want to add the authenticator.
+
+    <img src={require("../../../../../assets/img/guides/actions/click-signin-option-in-ui.png").default} alt="click-signin-option-in-ui" width="500" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+5. Select the authenticator you configured and click **Add** to engage the authenticator in the flow.
+
+    :::note
+    You can include **External and Internal User Authentication** type authenticators at any stage of the login flow. In contrast, **2FA Authentication** type authenticators are only allowed from the second step onwards.
+    :::
+
+6. Click **Update** to save your changes.
+
+### Test your custom authenticator
+
+Follow the steps below to try out the created custom authenticator.
+
+1. Start an authentication request from the application where you've configured your custom authenticator. This will trigger the login flow in {edition.productName}.
+
+2. Observe the {edition.productName} login page. Your custom authenticator should now appear as an available option for the user to select.
+
+3. Select your custom authenticator. Check your external authentication service for the incoming request from {edition.productName}. This request will be in JSON format.
+
+4. Examine the captured JSON request payload. Verify that it matches the expected structure and includes necessary parameters like `actionType`, `flowId`, and the `event` object. The specific payload format will vary depending on the step where {edition.productName} invokes the authenticator. Refer to the [Request from {edition.productName}](#request-from-product) section for detailed information on request payload semantics and examples.
+
+5. For initial testing, consider having your external service return a simple, predefined response (for example a `SUCCESS` response). This allows you to verify that {edition.productName} receives and processes the response correctly.
+
+6. Once you've verified basic connectivity and response handling, test with a variety of responses:
+    - `INCOMPLETE`: To ensure {edition.productName} correctly redirects the user for further input.
+    - `SUCCESS`: With user data and claims to ensure proper user provisioning and session creation in {edition.productName}.
+    - `FAILED`: With different `failureReason` and `failureDescription` values to see how {edition.productName} handles and displays error messages.
+    - `ERROR`: To test {edition.productName}'s behavior when your service encounters server-side errors.
+
+7. After your service responds, check how {edition.productName} handles that response. Verify that:
+    - The authentication flow proceeds as expected based on the response.
+    - Users are correctly redirected, authenticated, or shown error messages.
+    - User data (claims, groups) is correctly processed in {edition.productName}.
+    Refer to [Expected Response from External Service](#expected-response-from-external-service) for detailed expected response semantics and examples for different response types.
+
+### Troubleshoot issues
+
+The following are some troubleshooting steps that you may take to resolve issues.
+
+1. Ensure that your external service is up and running and that there are no connectivity issues.
+2. Confirm that the request and response payloads conform to the expected formats as defined by the [REST API contract](../../../../reference/apis/api-contract-2/index.mdx).
+3. Use diagnostic logs to capture detailed information during the troubleshooting process. For more information refer to the [troubleshooting guide here](../understanding-service-extensions.mdx#troubleshooting).
+
+<Edition only="self-hosted">
+
+4. If your external service uses a self-signed certificate, ensure the certificate is imported into the WSO2 Carbon truststore. By default, {edition.productName} uses the WSO2 Carbon truststore at `<IS_HOME>/repository/resources/security/client-truststore.jks`.
+
+</Edition>
+
+## Custom authentication API deep dive
+
+This section delves into the specifics of the custom authentication API, providing a detailed look at the requests {edition.productName} sends to your external authentication service and the responses it expects. Understanding these interactions is crucial for successfully implementing and integrating your custom authenticator.
+
+### Request from {edition.productName}
+
+<Anchor id="request-from-product" />
+
+The request from {edition.productName} includes following in the JSON request payload:
+
+<Variants>
+
+<Edition only="cloud">
+
+| Property | Description |
+| --- | --- |
+| actionType | Specifies the action that {edition.productName} triggers. In this case, the value is `AUTHENTICATE`. |
+| flowId | A unique correlation identifier, used to track the login flow throughout all requests and responses. |
+| requestId | A unique correlation identifier that associates with the authentication request received by {edition.productName}. |
+| allowedOperations | Allow redirection. for example \`\`\`json "allowedOperations": \[ \{ "op": "redirect" \} \] \`\`\` |
+
+</Edition>
+
+<Edition only="self-hosted">
+
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>actionType</td>
+      <td>
+
+        Specifies the action that {edition.productName} triggers. In this case, the value is `AUTHENTICATE`.
+
+      </td>
+    </tr>
+    <tr>
+      <td>flowId</td>
+      <td>
+
+        A unique correlation identifier, used to track the login flow throughout all requests and responses.
+
+      </td>
+    </tr>
+    <tr>
+      <td>requestId</td>
+      <td>
+
+        A unique correlation identifier that associates with the authentication request received by {edition.productName}.
+
+        *The property appears in the request payload only when you enable [product observability](../../../../deploy-and-operate/monitor/work-with-product-observability.mdx).*
+
+      </td>
+    </tr>
+    <tr>
+      <td>allowedOperations</td>
+      <td>
+
+        Allow redirection. for example \`\`\`json "allowedOperations": \[ \{ "op": "redirect" \} \] \`\`\`
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+</Edition>
+
+</Variants>
+
+#### event
+
+<Anchor id="event" />
+
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>event.tenant</td>
+      <td>
+
+        This property shows the tenant (root organization) that handles the authentication request.
+
+      </td>
+    </tr>
+    <tr>
+      <td>event.user</td>
+      <td>
+
+        Contains details of the user currently authenticated in the flow. If the authenticator executes in the first step of login, this property is unavailable.
+
+        <table>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>The unique numeric identifier of the user.</td>
+            </tr>
+            <tr>
+              <td>userIdentitySource</td>
+              <td>Denotes the source managing the user’s identity (`LOCAL` for internally managed user identities in userstores, `FEDERATED` for external identity providers).</td>
+            </tr>
+            <tr>
+              <td>sub</td>
+              <td>Subject identifier of the authenticating user.</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </td>
+    </tr>
+    <tr>
+      <td>event.userStore</td>
+      <td>
+
+        This property indicates the user store that manages the currently authenticated user's identity or profile.
+
+      </td>
+    </tr>
+    <tr>
+      <td>event.organization</td>
+      <td>
+
+        This property refers to the organization to which the authenticating user is trying to log into. Organizations represent partners/enterprise customers in Business-to-Business (B2B) use cases.
+
+      </td>
+    </tr>
+    <tr>
+      <td>currentStepIndex</td>
+      <td>
+
+        Shows the current authentication step where the system calls the authenticator.
+
+      </td>
+    </tr>
+    <tr>
+      <td>authenticatedSteps</td>
+      <td>
+
+        Lists the authenticators executed in each step up to the current step.
+
+        for example \`\`\`json "authenticatedSteps": \[ \{ "index": 1, "name": "BasicAuthenticator" \} \] \`\`\`
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+#### Request headers and parameters
+
+<Anchor id="request-headers-and-parameters" />
+
+The `event.request` property carries HTTP headers and request parameters of the login flow. {edition.productName} sends only the names you list in **Allowed headers** and **Allowed parameters** of the custom authenticator configuration, and omits the corresponding field when no name matches.
+
+```json
+"request": {
+  "additionalHeaders": [
+    { "name": "x-device-id", "value": [ "6f2b41c8" ] }
+  ],
+  "additionalParams": [
+    { "name": "campaign", "value": [ "summer" ] }
+  ]
+}
+```
+
+{edition.productName} can invoke your service more than once during a single login. The first invocation happens when the authentication step begins, or when the user selects your authenticator if the step offers more than one login option. A further invocation happens each time the user returns to {edition.productName}, for example after your service redirects them back with the `flowId`. Which values are available depends on the invocation.
+
+- The parameters of the original authorization request are available on every invocation. This includes invocations that follow a redirect from your service, and invocations of an authenticator in the second or a later step.
+- {edition.productName} URL-encodes these values using form encoding rather than copying them from the query string. For example, a value of `hello world` is sent as `hello+world` and a value of `a@b` is sent as `a%40b`, so your service must decode them.
+- {edition.productName} sends them as separate entries. If the request being processed carries a parameter of the same name, `additionalParams` holds an entry for each. The entry from the request being processed comes first and holds the decoded value, and the entry from the original authorization request follows and holds the encoded value.
+- The same set carries parameters that {edition.productName} adds internally, such as `relyingParty` and `sessionDataKey`. They reach your service only if you list them in **Allowed parameters**.
+
+:::warning
+A name you list is matched against the headers and parameters of the request being processed, which can be the login form submission of an earlier authentication step. Do not list credential or session names such as `password`, `cookie` or `authorization`, or {edition.productName} will send them to your external service.
+:::
+
+:::note
+Values passed through the `authenticatorParams` option of the [`executeStep()`](../../../../reference/conditional-auth/api-reference.mdx#execute-a-step) function in a conditional authentication script are not sent to a custom authenticator service. That option configures the authenticators that {edition.productName} provides.
+:::
+
+#### Example requests from {edition.productName}
+
+The following examples show requests sent from {edition.productName} to external services. Each example highlights a different authentication type.
+
+**Request for a custom authenticator engaged in the first step**:
+
+```http
+POST authservice/api/authenticate HTTP/1.1
+Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
+Content-Type: application/json
+
+{
+  "actionType": "AUTHENTICATION",
+  "flowId": "75919d4d-026b-4b7b-87e1-3f32986f6d97",
+  "requestId": "20250709T163958Z-159c6956d75ltm28hC1SINpsqs00000000p00000000009s4",
+  "event": {
+    "request": {},
+    "tenant": {
+      "id": "12",
+      "name": "example.com"
+    },
+    "application": {
+      "id": "634f9b10-5fb9-49e3-96cd-43ccaa92564c",
+      "name": "example.app"
+    },
+    "currentStepIndex": 1
+  },
+  "allowedOperations": [
+    {
+      "op": "redirect"
+    }
+  ]
+}
+```
+
+**Request for a custom authenticator in the second or later step**:
+
+```http
+POST authservice/api/authenticate HTTP/1.1
+Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
+Content-Type: application/json
+
+{
+  "actionType": "AUTHENTICATION",
+  "flowId": "8f5f25a8-1fb7-4c93-9e86-2c328beac833",
+  "requestId": "20250709T163958Z-159c6956d75ltm28hC1SINpsqs00000000p00000000009s4",
+  "event": {
+    "request": {},
+    "tenant": {
+      "id": "12",
+      "name": "example.com"
+    },
+    "user": {
+      "id": "afb93858-18c8-4c65-9d08-86609d4eeee3",
+      "userIdentitySource": "FEDERATED",
+      "sub": "johd@aol.com"
+    },
+    "userStore": {},
+    "application": {
+      "id": "57c3a037-571f-4597-97e8-91a3bb1042d7",
+      "name": "example.app"
+    },
+    "currentStepIndex": 1
+  },
+  "allowedOperations": [
+    {
+      "op": "redirect"
+    }
+  ]
+}
+```
+
+### Expected Response from external service
+
+When {edition.productName} invokes your external authentication service, it expects a response that adheres to the defined [API contract](../../../../reference/apis/api-contract-2/index.mdx).
+
+This response determines the authentication status and the authenticated user from your custom authenticator.
+
+Here’s a breakdown of the expected response:
+
+The response can have four possible states:  `INCOMPLETE`, `SUCCESS`, `FAILED` and `ERROR`.
+
+`INCOMPLETE`: Insufficient input to complete authentication. The service needs more input and must redirect the user to a specified endpoint for further interaction.
+
+`SUCCESS`: The authentication request was successfully processed, and your service authenticated the user.
+
+`FAILED`: Authentication failed due to credential validation errors or other business rules defined by the external service. The application receives an error response formatted as per the authentication protocol, including the failure message from the external service.
+
+`ERROR`: A processing failure occurred due to server-side issues. The application receives a server error response generated by {edition.productName}, indicating an internal system failure.
+
+#### Response for INCOMPLETE state
+
+When the external authentication service returns a `200` status code with an `INCOMPLETE` state, authentication doesn't complete. {edition.productName} redirects the user to the endpoint specified in the response to continue the authentication process.
+
+Http Status Code: `200`
+
+| Property | Description |
+| --- | --- |
+| actionStatus | Represents the outcome of the request. For incomplete authentication, this should be `INCOMPLETE`. |
+| operations | This operation redirects the user. Use it to send the user to another endpoint. |
+
+Below is an example of an incomplete response at custom authentication.
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "actionStatus": "INCOMPLETE",
+    "operations": [
+      {
+        "op": "redirect",
+        "url": "https://pinauth.com/pin-entry
+        }
+    ]
+}
+```
+
+This response prompts {edition.productName} to redirect the user to the specified **url**, allowing them to complete the authentication process with the external service.
+
+#### Response for SUCCESS state
+
+When the external service responds with a `200` status code and a `SUCCESS` state, it means the service successfully processed the request and authenticated the user.
+
+The expected response format varies based on the authentication type implemented by the external service.
+
+Http Status Code: `200`
+
+| Property | Description |
+| --- | --- |
+| actionStatus | Represents the outcome of the request. For successful authentication of any type, this property applies. The value should be `SUCCESS`. |
+| data.user | Required if the authentication type is **External (Federated) User Authentication** or **Internal User Authentication**, which function as identification authenticators. The validation process differs based on the type. For **2FA Authentication**, the authentication process only verifies an already authenticated user and doesn't use this property. |
+
+**Response from an external service implementing External (Federated) User Authentication**:
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "actionStatus": "SUCCESS",
+  "data": {
+    "user": {
+      "id": "9f1ab106-ce85-46b1-8f41-6a071b54eb56",
+      "claims": [
+        {
+          "uri": "http://wso2.org/claims/username",
+          "value": "johnd"
+        },
+        {
+          "uri": "http://wso2.org/claims/emailaddress",
+          "value": "johnd@gmail.com"
+        }
+      ],
+      "groups": [
+        "gold-tier"
+      ]
+    }
+  }
+}
+```
+
+When an external identity provider (IdP) authenticates a user, it sends the user's profile information to {edition.productName} as `claims`.
+These claims can include any standard claim available in the WSO2 claim dialect: `http://wso2.org/claims`.
+
+The `groups` attribute indicates the user groups to which the user belongs within the external IdP.
+
+Since you handle this user as an external user, configure [JIT-User Provisioning](../../../authentication/jit-user-provisioning.mdx) to automatically create a corresponding user account in {edition.productName}. Additionally, set up [role assignments for external user groups](../../../users/manage-roles.mdx#assign-external-groups-to-a-role) included in the response.
+
+**Response from an external service implementing Internal User Authentication**:
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "actionStatus": "SUCCESS",
+  "data": {
+    "user": {
+      "id": "9f1ab106-ce85-46b1-8f41-6a071b54eb56",
+      "claims": [
+        {
+          "uri": "http://wso2.org/claims/username",
+          "value": "emily"
+        },
+        {
+          "uri": "http://wso2.org/claims/emailaddress",
+          "value": "emily@aol.com"
+        }
+      ],
+      "userStore": {
+        "id": "UFJJTUFSWQ==",
+        "name": "PRIMARY"
+      }
+    }
+  }
+}
+```
+
+Here, the `claims` represent the attributes the internal user uses to authenticate.
+In this scenario, {edition.productName} verifies the existence of a user with the provided `id` within its internal user stores. If your external service includes the `http://wso2.org/claims/username` claim in the response, the username value must match the username associated with the given `id` in the internal user store.
+The `claims` payload can include any claim defined in the `http://wso2.org/claims` dialect.
+
+**Response from an external service implementing 2FA Authentication**:
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+   "actionStatus": "SUCCESS"
+}
+```
+
+For 2FA authenticators, the system completes user identification in a preceding authentication step. These authenticators only verify the existing identity and report a `SUCCESS` or `FAILED` status.
+
+#### Response for FAILED state
+
+When the external service returns a `200` status code with a `FAILED` state, it means the authentication has failed.
+
+The response body must be a JSON object containing the following properties:
+
+Http Status Code: `200`
+
+| Property | Description |
+| --- | --- |
+| actionStatus | Indicates the outcome of the request. For a failed operation, set this to `FAILED`. |
+| failureReason | Provides the reason for failing to authenticate the user. The application receives this value in the error response. |
+| failureDescription | Offers a detailed explanation of the failure. The application receives this value in the error response. |
+
+Below is an example of a failed response due to invalid credentials.
+
+Response from external service:
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "actionStatus": "FAILED",
+  "failureReason": "auth-failed",
+  "failureDescription": "Unable to find user for given credentials"
+}
+```
+
+The application implementing OIDC receives the following error response after it initiates the login request.
+
+Error response to the application:
+
+```http
+HTTP/1.1 400 
+Content-Type: application/json
+
+{
+  "error": "auth-failed",
+  "error_description": "Unable to find user for given credentials"
+}
+```
+
+#### Response for ERROR state
+
+When the external service responds with an `ERROR` state, it can return an HTTP status code of `400`, `401`, or `500`, indicating either a validation failure or an issue processing the request.
+
+Http Status Code: `400`, `401` or `500`
+
+| Property | Description |
+| --- | --- |
+| actionStatus | Indicates the outcome of the request. Set this to `ERROR` for an error operation. |
+| errorMessage | Describes the cause of the error.. |
+| errorDescription | A detailed description of the error.. |
+
+If the external service returns an error response (either defined or undefined) or fails to respond entirely, the system marks authentication as an error. In any of these cases, the application that initiated the login request receives an error state.
+
+Below is an example of an error response returned by the service implementing the authenticator.
+
+Response from external service:
+
+```http
+HTTP/1.1 500
+Content-Type: application/json
+
+{
+  "actionStatus": "ERROR",
+  "errorMessage": "Server error",
+  "errorDescription": "Error while processing request."
+}
+```
+
+:::note
+Currently, the `errorMessage` or `errorDescription` from the external service’s `ERROR` response isn't directly included in the error response sent back to the application.
+:::
+
+<Edition only="self-hosted">
+
+## Custom authentication with app-native authentication
+
+You can configure custom authentication services in app-native authentication flows, which authenticate users through API-based mechanisms instead of redirecting them to a web browser.
+
+:::note
+Learn more about [app-native authentication](../../../authentication/app-native-authentication/add-app-native-authentication.mdx)
+:::
+
+Refer to the [custom authentication-based app-native authentication flow](../../../../reference/iam-concepts/app-native-authentication.mdx#scenario-9-user-logs-in-with-service-based-custom-authentication) for a detailed guidance on how to implement this.
+
+</Edition>
+

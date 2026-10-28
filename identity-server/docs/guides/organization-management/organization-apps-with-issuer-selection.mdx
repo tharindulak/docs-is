@@ -1,0 +1,61 @@
+---
+title: Configure the token issuer for an organization application
+description: By default, applications created within an organization use the root organization's token issuer.  # generated from the first paragraph; a writer should improve it
+type: how-to
+unlisted: true
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+By default, applications created within an organization use the root organization's token issuer. As an organization administrator, you can change this behavior and configure an application to use either the root organization's token issuer or your organization’s own token issuer.
+
+The following guides explain how to configure the token issuer when creating a new application or updating an existing application.
+
+For more information on organization applications, see [Create an application in an organization](./configure-organization-applications/organization-applications/organization-applications.mdx).
+
+## Set the token issuer when creating an application
+
+<Tabs groupId="tabs">
+<TabItem value="using-the-console" label="Using the Console">
+
+To create an application with a specific token issuer,
+
+1. On the {edition.productName} Console, go to **Organizations** and switch to your desired organization.
+
+2. In the organization, go to **Applications**.
+
+    <Variants><Edition only="cloud"><img src={require("../../../assets/cloud/img/guides/applications/organization-applications/organization-application-create.png").default} alt="Organization Application Create" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../assets/self-hosted/img/guides/applications/organization-applications/organization-application-create.png").default} alt="Organization Application Create" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+3. Click **Add Application** and use either the **Standard-Based Application** or **M2M Application** template to create your application.
+
+    <Variants><Edition only="cloud"><img src={require("../../../assets/cloud/img/guides/applications/organization-applications/organization-application-templates.png").default} alt="Organization Application Templates" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../assets/self-hosted/img/guides/applications/organization-applications/organization-application-templates.png").default} alt="Organization Application Templates" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+4. Enter a name in the **Name** field and select the required issuer from the **Token Issuer** dropdown.
+
+    <img src={require("../../../assets/img/guides/applications/organization-applications/organization-app-creation-with-issuer-selection.png").default} alt="Organization Application Creation with Issuer" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+5. Click **Create** to create the application.
+
+</TabItem>
+</Tabs>
+
+## Update the token issuer for an existing application
+
+<Tabs groupId="tabs">
+<TabItem value="using-the-console" label="Using the Console">
+
+To update the token issuer for an existing application,
+
+1. On the {edition.productName} Console, switch to the desired organization and go to **Applications**.
+
+2. Select the application you want to update and click the edit icon.
+
+3. Go to the **Protocol** tab and select the required issuer from the **Token Issuer** dropdown.
+
+    <img src={require("../../../assets/img/guides/applications/organization-applications/org-app-issuer-selection-update.png").default} alt="Organization Application Editing with Issuer" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+4. Click **Update** to save the changes.
+
+</TabItem>
+</Tabs>

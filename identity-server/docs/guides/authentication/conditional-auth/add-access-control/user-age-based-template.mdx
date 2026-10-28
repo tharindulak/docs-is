@@ -1,0 +1,206 @@
+---
+title: Add user age-based access control
+description: To control access to your application based on the user's age, you can apply the User Age-Based conditional authentication template.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: User age-based access
+sidebar_position: 2
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+To control access to your application based on the user's age, you can apply the **User Age-Based** conditional authentication template. The age of the user is calculated using the `date of birth` attribute in the user's profile. Users are redirected to an error page if the date of birth is not specified in the user profile or if the user's age is below the minimum age configured in the template.
+
+## Scenario
+
+Consider a scenario where users who are younger than 18 years should be prevented from signing in to an application and redirected to an error message.
+
+![Age based access control](../../../../../assets/img/guides/conditional-auth/age-based-access-control.png)
+
+## Prerequisites
+
+- You need to [register an application with {edition.productName}](../../../applications/index.mdx). You can register your own application or use one of the [sample applications](../../../../get-started/try-samples/index.mdx) provided.
+
+- Go to the user's profile and update the date of birth so that the current age is below 18 years. For instructions, see [Manage user profiles](../../../user-self-service/self-service-portal/update-profile-info.mdx).
+
+## Configure the login flow
+
+1. On the {edition.productName} Console, click **Applications**.
+
+2. Select the relevant application and go to its **Login Flow** tab.
+
+<Variants>
+
+<Edition only="cloud">
+
+3. Add user-age-based access control as follows:
+
+    <Tabs groupId="tabs">
+    <TabItem value="classic-editor" label="Classic Editor">
+
+    To add user-age-based access control using the classic editor:
+
+    1. Click **Start with default configuration** to define the login flow starting with the `username and password` login.
+
+    2. Turn on **Conditional Authentication** by switching the toggle on.
+
+    3. Select the **Access Control > Age-Based** template.
+
+    </TabItem>
+    <TabItem value="visual-editor" label="Visual Editor">
+
+    To add age-based access control using the visual editor:
+
+    1. Switch to the **Visual Editor** tab, and expand **Predefined Flows** > **Conditional Login Flows** > **Access Control**.
+
+    2. Click **+ ADD** next to **User-Age-Based** to add the user-age-based access control script.
+
+        <img src={require("../../../../../assets/cloud/img/guides/conditional-auth/age-based-access-control-with-visual-editor.png").default} alt="Age-based access control with visual editor" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    3. Click **Confirm** to replace any existing script with the selected predefined script.
+
+    </TabItem>
+    </Tabs>
+
+    ---
+
+    :::warning[Important]
+    As a security measure, WSO2 Identity Platform does not allow the usage of two consecutive periods (`..`) in authentication scripts.
+    :::
+
+</Edition>
+
+<Edition only="self-hosted">
+
+3. Add user-age-based access control as follows:
+
+    1. Go to **Predefined Flows** > **Conditional Login Flows**.
+
+    2. Click **Access Control** > **User-Age-Based** > **ADD**.
+
+        {/*![Age-based access control with visual editor]({{base_path}}/assets/img/guides/conditional-auth/age-based-access-control-with-visual-editor.png){: width="600" style="display: block; margin: 0; border: 0.3px solid lightgrey;"}*/}
+
+    3. Click **Confirm** to replace any existing script with the selected predefined script.
+
+</Edition>
+
+</Variants>
+
+4. Update the following parameter in the script.
+
+    <table>
+      <thead>
+        <tr>
+          <th>Parameter</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>`ageLimit`</td>
+          <td>
+
+            Minimum age required for the user to log in to the application.
+
+            For this example scenario, enter `18` as the value.
+
+          </td>
+        </tr>
+        <tr>
+          <td>`errorPage`</td>
+          <td>The error page to which users are redirected if the age limit is below age limit.<br /> The default error page is used if this parameter is not configured.</td>
+        </tr>
+        <tr>
+          <td>`errorPageParameters`</td>
+          <td>Parameters to be passed to the error page. This information will display on the error page.</td>
+        </tr>
+      </tbody>
+    </table>
+
+5. Click **Update** to confirm.
+
+## How it works
+
+Shown below is the user age-based conditional authentication template.
+
+```javascript
+// This script will only allow login to application if the user's age is over configured value
+// The user will be redirected to an error page if the date of birth is not present or user is below configured value
+
+var ageLimit = 18;
+
+// Error page to redirect unauthorized users,
+// can be either an absolute url or relative url to server root, or empty/null
+// null/empty value will redirect to the default error page
+var errorPage = '';
+
+// Additional query params to be added to the above url.
+// Hint: Use i18n keys for error messages
+var errorPageParameters = {
+    'status': 'Unauthorized',
+    'statusMsg': 'You need to be over ' + ageLimit + ' years to login to this application.'
+};
+
+// Date of birth attribute at the client side
+var dateOfBirthClaim = 'http://wso2.org/claims/dob';
+
+// The validator function for DOB. Default validation check if the DOB is in YYYY-MM-dd format
+var validateDOB = function (dob) {
+    return dob.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+};
+
+var onLoginRequest = function(context) {
+    executeStep(1, {
+        onSuccess: function (context) {
+            var underAge = true;
+            // Extracting user store domain of authenticated subject from the first step
+            var dob = context.currentKnownSubject.localClaims[dateOfBirthClaim];
+            Log.debug('DOB of user ' + context.currentKnownSubject.uniqueId + ' is : ' + dob);
+            if (dob && validateDOB(dob)) {
+                var birthDate = new Date(dob);
+                if (getAge(birthDate) >= ageLimit) {
+                    underAge = false;
+                }
+            }
+            if (underAge === true) {
+                Log.debug('User ' + context.currentKnownSubject.uniqueId + ' is under aged. Hence denied to login.');
+                sendError(errorPage, errorPageParameters);
+            }
+        }
+    });
+};
+
+var getAge = function(birthDate) {
+    var today = new Date();
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+};
+```
+
+Let's look at how this script works.
+
+1. The **validateDOB** function validates whether the provided date of birth is correct.
+2. The **getAge** function calculates the age based on the configured birth date.
+3. When step 1 of the authentication flow is complete, the **onLoginRequest** function checks whether the
+age of the user is above the configured age limit.
+4. If the age is below the configured limit, the user is directed to the
+configured error page.
+
+:::note
+Find out more about the scripting language in the [Conditional Authentication API Reference](../../../../reference/conditional-auth/api-reference.mdx).
+:::
+
+## Try it out
+
+Follow the steps given below.
+
+1. Access the application URL.
+2. Try to log in as a user who is above 18 years of age. This user will successfully log in to the application.
+3. Log out of the application.
+4. Log in again with a user who is below 18 years. The user will see the following error.
+
+    <Variants><Edition only="cloud"><img src={require("../../../../../assets/cloud/img/guides/conditional-auth/auth-failure.png").default} alt="authentication failed" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../../assets/self-hosted/img/guides/conditional-auth/auth-failure.png").default} alt="authentication failed" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>

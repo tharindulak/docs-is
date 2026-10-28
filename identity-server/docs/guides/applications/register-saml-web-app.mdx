@@ -1,0 +1,89 @@
+---
+title: Register a SAML web app
+description: To integrate your web application with WSO2 Identity Platform using SAML, you need to first register your application as a SAML application in WSO2 Identity…  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Register web app with SAML
+sidebar_position: 4
+---
+
+To integrate your web application with {edition.productName} using [SAML](https://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf), you need to first register your application as a SAML application in {edition.productName}.
+
+There are two ways to provide your SAML application configurations to {edition.productName} during registration:
+
+- Use a SAML SP metadata file
+- Add SAML SP configurations manually
+
+Follow the instructions given below.
+
+## Register the app
+
+To register the app:
+
+1. On the {edition.productName} Console, click **Applications**.
+
+    <img src={require("../../../assets/img/guides/applications/select-app-type.png").default} alt="Select app type" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+2. Click **New Application** and select **Traditional Web Application**.
+3. In the **Name** field, enter a unique name to identify your application.
+4. Select the **SAML** protocol.
+5. Select one of the following methods and add the SAML configurations:
+
+    | Method | Description |
+    | --- | --- |
+    | Manual | Use this option to manually specify the required SAML configurations. See \[Add SAML configs manually\](#add-saml-configs-manually). |
+    | File Based | Upload a SAML metadata file with the required configurations. See \[Use a SAML metadata file\](#use-a-saml-metadata-file). |
+    | URL Based | Point to the endpoint with the SAML metadata. See \[Use a SAML metadata file\](#use-a-saml-metadata-file). |
+
+6. [Optional] Enable **Allow sharing with organizations** to share the new application with all or any selected organizations that belong to your organization.
+
+7. Click **Register** to complete the registration.
+
+    <details>
+    <summary>Sharing with selected organizations</summary>
+
+    If you have enabled **Allow sharing with organizations** while registering the application, you will see a popup window with the following options.
+
+    <img src={require("../../../assets/img/guides/applications/share-application.png").default} alt="Share the application with organizations" width="500" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    | Option | Description |
+    | --- | --- |
+    | Share with all organizations | If selected, the application will be shared with all existing organizations and any new organizations you may create in the future. |
+    | Share with only selected organizations | If selected, you can select the organizations you wish to share the application with. |
+
+    </details>
+
+8. [Enable the application](./index.mdx#enabledisable-an-application) when it is ready for use.
+
+### Add SAML configs manually
+
+If you selected **Manual** in the previous step, you can manually specify the SAML configurations as follows:
+
+<Variants><Edition only="cloud"><img src={require("../../../assets/cloud/img/guides/applications/create-new-saml-app.png").default} alt="Register SAML app" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../assets/self-hosted/img/guides/applications/create-new-saml-app.png").default} alt="Register SAML app" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+| Parameter | Description |
+| --- | --- |
+| Issuer | The unique identifier of the application. The value added here should be specified in the SAML authentication request as `saml:Issuer` element sent from the client application. You can't change this `issuer` configuration after you register the app. |
+| Assertion consumer service URLs | The URLs to which the browser is redirected upon successful authentication. This receives the SAML response. |
+
+### Use a SAML metadata file
+
+An SP metadata XML file contains the following:
+
+- SP certificate
+- The entity ID (also known as issuer)
+- Assertion Consumer Service URLs (ACS URLs)
+- Single Logout Service URLs
+
+There are two ways to use a SAML metadata file during application registration:
+
+- Select the **File Based** option and upload the SAML SP metadata file.
+
+    <Variants><Edition only="cloud"><img src={require("../../../assets/cloud/img/guides/applications/saml-app/register-saml-app-using-metadata-file.png").default} alt="Register SAML app using metadata file" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../assets/self-hosted/img/guides/applications/saml-app/register-saml-app-using-metadata-file.png").default} alt="Register SAML app using metadata file" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+- Select the **URL Based** option and specify the SAML meta URL, which refers to the endpoint that hosts the SAML metadata file.
+
+    <Variants><Edition only="cloud"><img src={require("../../../assets/cloud/img/guides/applications/saml-app/register-saml-app-using-meta-url.png").default} alt="Register SAML app using meta url" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../assets/self-hosted/img/guides/applications/saml-app/register-saml-app-using-meta-url.png").default} alt="Register SAML app using meta url" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+## What's next?
+
+- [Add login to your web app](../authentication/add-login-to-apps/add-login-to-web-app.mdx)

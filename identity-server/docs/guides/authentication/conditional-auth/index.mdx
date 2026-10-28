@@ -1,0 +1,131 @@
+---
+title: Add conditional authentication
+description: With conditional authentication, the login flow in an application is dependent on the risk factors associated with the user's login request.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_position: 1
+---
+
+With conditional authentication, the login flow in an application is dependent on the risk factors associated with the user's login request.
+This allows you to strengthen the authentication flow when the risk is higher. In {edition.productName}, conditional authentication is configured using a [script](#authentication-script).
+
+<Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/conditional-auth/conditional-auth-intro.png").default} alt="what is conditional authentication" style={{display: "block", margin: "0"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/conditional-auth/conditional-auth-intro.png").default} alt="what is conditional authentication" style={{display: "block", margin: "0"}} /></Edition></Variants>
+
+## Authentication script
+
+The authentication script for configuring dynamic authentication flows in {edition.productName} uses a functional language similar to Javascript. You can configure the script using the script editor in the {edition.productName} Console. You can either use a [template](#script-templates) or [write a custom script](./write-your-first-script.mdx).
+
+This scripting language supports a set of inbuilt [functions](../../../reference/conditional-auth/api-reference.mdx#utility-functions) and [objects](../../../reference/conditional-auth/api-reference.mdx#object-reference). A simple conditional authentication script will look like the following:
+
+```javascript
+var onLoginRequest = function(context) {
+    // Some possible initializations...
+    executeStep(1);
+        if (doStepUp(context) === true) { 
+            executeStep(2);
+        }
+};
+
+function doStepUp(context) {
+    // A function that decides whether to enforce second step based on the request context.
+    return true;
+}
+```
+
+:::note
+Find out more about the scripting language in the [Conditional Authentication API Reference](../../../reference/conditional-auth/api-reference.mdx).
+:::
+
+## Script templates
+
+The script editor in {edition.productName} comes with a set of predefined templates to get you started with some of the most common conditional authentication scenarios. These scripts contain inline comments explaining the conditions that are applied.
+
+<Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/conditional-auth/conditional-auth-templates.png").default} alt="conditional-auth-templates-view" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/conditional-auth/conditional-auth-templates.png").default} alt="conditional-auth-templates-view" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+{/*
+You can define scripts that can consider the following evaluation criteria:
+
+- User attributes
+- User behavior
+- Authentication Request Attributes
+- Application attributes
+
+You can define dynamic authentication flows that can perform actions similar to the following:
+
+- Control the authentication step selection
+- Change user attributes
+- Send email notifications
+- Redirect users to an error page etc. 
+
+We will discuss the scenario that the template covers, the prerequisites, the
+required parameters, the default authentication steps, and how you can try out the behavior of this template.
+*/}
+
+The available templates are categorized as follows:
+
+<Variants>
+
+<Edition only="cloud">
+
+- Access Control - These templates restrict user login to the application based on specified conditions.
+- Adaptive MFA - These templates prompt two-factor authentication for login attempts based on specific conditions.
+- Passkey Enrollment - These templates allows users to progressively enroll with passkey authenticator.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+- User
+- Request
+- Environment
+- Analytics
+- IdP
+
+</Edition>
+
+</Variants>
+
+The pre-defined templates are listed below.
+
+<Variants>
+
+<Edition only="cloud">
+
+| Template  | Description |
+|-----------|-------------|
+| [User-Age-Based](./add-access-control/user-age-based-template.mdx) | This configures a login flow where users can log in only if their age is over the configured value. The user's age is calculated using the `date of birth` attribute. |
+| [Group-Based (Access Control)](./add-access-control/group-based-template-access-control.mdx) | This login flow allows login only for users who belong to any of the given set of groups  |
+| [Session Based](./add-access-control/concurrent-session-based-template.mdx)  | This login flow allows login only for users who have less than the configured number of concurrent sessions.  |
+| [Sign-In-Option-Based](./add-adaptive-mfa/sign-in-option-based-template.mdx) | This login flow prompts two-factor authentication (2FA) only for users who are signing in with a given option.  |
+| [New-Device-Based](./add-adaptive-mfa/new-device-based-template.mdx) | This login flow sends an email notification and/or prompts two-factor authentication for users who are logged in from a previously unused device. |
+| [Group-Based (Adaptive MFA)](./add-adaptive-mfa/group-based-template.mdx)  | This login flow prompts two-factor authentication (2FA) for users who belong to any of the given set of groups. |
+| [IP-Based](./add-adaptive-mfa/ip-based-template.mdx) | This login flow prompts two-factor authentication for users who log in from outside the given IP range. |
+| [OTP Retry and Resend Limits](./specialized-scenarios/otp-retry-resend-limits.mdx) | Limit how many times users can resend an OTP or enter a wrong OTP per application using the conditional authentication script. |
+| [Passkey-Progressive-Enrollment-Based](./specialized-scenarios/passkey-progressive-enrollment-based-template.mdx) | This login flow allows users to progressively enroll with passkey authenticator. |
+
+</Edition>
+
+<Edition only="self-hosted">
+
+| Template  | Description |
+|-----------|-------------|
+| [Role-Based](./add-adaptive-mfa/role-based-template.mdx) | This login flow prompts two-factor authentication (2FA) for users who are assigned to any of the given set of roles. |
+| [User-Age-Based](./add-access-control/user-age-based-template.mdx) | This configures a login flow where users can log in only if their age is over the configured value. The user's age is calculated using the `date of birth` attribute. |
+| [User Store-Based](./add-adaptive-mfa/user-store-based-template.mdx) | This login flow prompts two-factor authentication (2FA) for users who are from to any of the given set of user stores.  |
+| [Login Attempt-Based](./add-adaptive-mfa/login-attempt-based-template.mdx) | This login flow prompts two-factor authentication (2FA) for users who are from to any of the given set of user stores. |
+| [Group-Based](./add-adaptive-mfa/group-based-template.mdx)  | This login flow prompts two-factor authentication (2FA) for users who belong to any of the given set of groups. |
+| [Concurrent Session-Based](./add-access-control/concurrent-session-based-template.mdx) | This login flow prompts adaptive authentication for users who have exceeded the maximum number of allowed sessions.|
+| [New-Device-Based](./add-adaptive-mfa/new-device-based-template.mdx) | This login flow sends an email notification and/or prompts two-factor authentication for users who are logged in from a previously unused device. |
+| [IP-Based](./add-adaptive-mfa/ip-based-template.mdx) | This login flow prompts two-factor authentication for users who log in from outside the given IP range. |
+| [OTP Retry and Resend Limits](./specialized-scenarios/otp-retry-resend-limits.mdx) | Limit how many times users can resend an OTP or enter a wrong OTP per application using the conditional authentication script. |
+| [Passkey-Progressive-Enrollment-Based](./specialized-scenarios/passkey-progressive-enrollment-based-template.mdx) | This login flow permits users to seamlessly enroll their passkey on-the-fly, when Passkey is designated as the first authentication factor. |
+
+</Edition>
+
+</Variants>
+
+If required, you can also use the script editor to introduce new functions and fields to an authentication script based on your requirement. See the instructions on [writing a custom authentication script](./write-your-first-script.mdx).
+
+## What's next
+
+- [Configure conditional authentication](./configure-conditional-auth.mdx)
+- [Conditional authentication API reference](../../../reference/conditional-auth/api-reference.mdx)

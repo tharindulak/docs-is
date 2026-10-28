@@ -1,0 +1,66 @@
+---
+title: Create an application in an organization
+description: Organization administrators can create and mange applications directly within their organizations.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Create applications
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Organization administrators can create and mange applications directly within their organizations. These applications can access and consume the organization’s API resources. To create an application, it must meet the following conditions:
+
+- Use OAuth2.
+
+- Use only the following grant types: authorization code, client credentials, password, and refresh token.
+
+- Use a standard-based application or an M2M application template.
+
+:::note
+By default, applications created within an organization use the root organization's token issuer. As an organization administrator, you can change this behavior and configure an application to use either the root organization's token issuer or your organization’s own token issuer.
+
+For more information on the use cases to select the token issuer, see [Selecting the appropriate token issuer for organization applications](./select-token-issuer-for-organization-apps.mdx).
+:::
+
+You can use either the Console or the API to create an application in an organization.
+
+<Tabs groupId="tabs">
+<TabItem value="using-the-console" label="Using the Console">
+
+To create an application,
+
+1. On the {edition.productName} Console, go to **Organizations** and switch to your desired organization.
+
+2. In the organization, go to **Applications**.
+
+    <Variants><Edition only="cloud"><img src={require("../../../../../assets/cloud/img/guides/applications/organization-applications/organization-application-create.png").default} alt="Organization Application Create" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../../assets/self-hosted/img/guides/applications/organization-applications/organization-application-create.png").default} alt="Organization Application Create" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+3. Click **Add Application** and use either the **Standard-Based Application** or **M2M Application** template to create your application.
+
+<Variants><Edition only="cloud"><img src={require("../../../../../assets/cloud/img/guides/applications/organization-applications/organization-application-templates.png").default} alt="Organization Application Templates" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../../assets/self-hosted/img/guides/applications/organization-applications/organization-application-templates.png").default} alt="Organization Application Templates" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+</TabItem>
+<TabItem value="using-the-api" label="Using the API">
+
+To create an application,
+
+1. Get a bearer token with the `internal_org_application_mgt_create` scope. Learn more about [accessing organization APIs](../../../../reference/apis/organization-apis/authentication.mdx)
+
+2. Use the [Application management REST API](../../../../reference/apis/organization-application-mgt/index.mdx#op-createApplication) to create an application in an organization.
+
+</TabItem>
+</Tabs>
+
+## Edit an application
+
+You can find the created applications in the **Application** section of your organization's Console. You can use the Console to make the following changes to these applications.
+
+- Protocol level configurations
+- User attributes related configurations
+- Login Flow configurations
+- API Authorization for organization application
+- Role management for organization application
+- Advanced configurations
+
+<Variants><Edition only="cloud"><img src={require("../../../../../assets/cloud/img/guides/applications/organization-applications/organization-application-edit.png").default} alt="Organization Application Edit" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../../assets/self-hosted/img/guides/applications/organization-applications/organization-application-edit.png").default} alt="Organization Application Edit" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>

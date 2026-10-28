@@ -1,0 +1,150 @@
+---
+title: Configure JWT bearer grant
+description: You can add a trusted token issuer to exchange JWT assertion with an OAuth 2.0 access token to access protected resources on behalf of the resource owner.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: JWT bearer grant
+sidebar_position: 1
+---
+
+You can add a trusted token issuer to exchange JWT assertion with an OAuth 2.0 access token to access protected resources on behalf of the resource owner.
+
+Learn how to configure the OAuth 2.0 JWT bearer grant flow in {edition.productName}. Refer [JWT bearer grant](../../../../reference/iam-concepts/grant-types.mdx#jwt-bearer-grant) for more information on how the flow works.
+
+Follow this guide for instructions.
+
+## Register a trusted token issuer
+
+To exchange a third-party token for an {edition.productName} token, you need to register the third-party token issuer as a trusted token issuer in your {edition.productName} organization.
+
+To register a trusted token issuer:
+
+1. On the {edition.productName} console, go to **Connections**.
+2. Click **New Connections** and click **Create** on the **Trusted Token Issuer**.
+3. Enter the following details of the trusted token issuer:
+
+    | Parameter | Description |
+    | --- | --- |
+    | Trusted token issuer name | A unique name for the new trusted token issuer. |
+    | Issuer | A unique issuer value of the trusted token issuer. This is the value of the \`iss\` claim in the JWT token generated from the configured identity provider. <br /> Example: `https://third-party-token-issuers.io/oauth2/token` |
+    | Alias | The name by which the trusted token issuer knows {edition.productName}. The `aud` claim of the token should include the {edition.productName} organization's issuer value. If the `aud` claim doesn't include the organization's issuer value, the system validates the alias value you assign here against the `aud` claim. <br /> Example: `https://third-party-token-issuers.io/oauth2/token` |
+
+4. Click **Next** and provide the mode of certificate configuration.
+
+    - **JWKS endpoint**: The JWKS endpoint of the trusted token issuer.
+
+        <Edition only="self-hosted">
+
+        :::note
+        For JWKS endpoints, the default read timeout equals 1000 milliseconds. To update this value, add the following parameter to the `deployment.toml` file in the `<PRODUCT_HOME>/conf/repository` directory.
+
+        ```toml
+        [oauth.jwks_endpoint]
+        read_timeout = <value in milliseconds>
+        ```
+        :::
+
+        </Edition>
+
+    - **Use PEM certificate**: Upload or paste the public certificate of the trusted token issuer in the PEM format.
+
+        <details>
+        <summary>Convert `.crt`, `.cer` or `.der` to the `.pem` format using [OpenSSL](https://www.openssl.org/)</summary>
+
+        **Convert CRT to PEM**
+        ```bash
+        openssl x509 -in cert.crt -out cert.pem
+        ```
+        **Convert CER to PEM:**
+        ```bash
+        openssl x509 -in cert.cer -out cert.pem
+        ```
+        **Convert DER to PEM:**
+        ```bash
+        openssl x509 -in cert.der -out cert.pem
+        ```
+
+        </details>
+
+5. Click **Finish** to add the new trusted token issuer.
+
+## Enable JWT bearer grant in your app
+
+:::note[Before you begin]
+You need to register  [Standard-based OIDC application](../../../applications/register-standard-based-app.mdx) application types with {edition.productName}.
+:::
+
+To enable JWT bearer grant in your application:
+
+1. On the {edition.productName} Console, go to **Applications**.
+
+2. Open your application from the list and go to the **Protocol** tab.
+
+3. Add `JWT Bearer` under the **Allowed grant types**.
+
+4. Click **Update** to save the configurations.
+
+## Try it out
+
+Follow the steps given below.
+
+1. Get the JWT token received from the third-party token issuer.
+
+2. The application sends the access request to the token endpoint in {edition.productName} with the following:
+
+    - JWT bearer grant type.
+
+    - `JWT assertion` created by the third-party token issuer.
+
+    - Service provider's `client ID` and `client secret`.
+
+<Variants>
+
+<Edition only="cloud">
+
+3. Execute the following cURL command to exchange the third-party token for an {edition.productName} token.
+
+    ```bash
+    curl -v -k -X POST https://api.asgardeo.io/t/<organization_name>/oauth2/token \
+    --header "Authorization: Basic <Base64Encoded(CLIENT_ID:CLIENT_SECRET)>" \
+    --header "Content-Type:application/x-www-form-urlencoded" \
+    --data-urlencode "grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer" \
+    --data-urlencode "assertion=<jwt_token>"
+    ```
+
+    Upon successful execution, you will receive the exchanged token issued by {edition.productName}.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+3. Execute the following cURL command to exchange the third-party token for an {edition.productName} token.
+
+    ```bash
+    curl -v -k -X POST {{ base_url }}/oauth2/token \
+    --header "Authorization: Basic <Base64Encoded(CLIENT_ID:CLIENT_SECRET)>" \
+    --header "Content-Type:application/x-www-form-urlencoded" \
+    --data-urlencode "grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer" \
+    --data-urlencode "assertion=<jwt_token>"
+    ```
+
+    Upon successful execution, you will receive the exchanged token issued by {edition.productName}.
+
+</Edition>
+
+</Variants>
+
+<Edition only="self-hosted">
+
+:::note
+ While configuring the JWT bearer grant type, the iat validating time period can also be configured in the `deployment.toml` file in the `<IS_HOME>/repository/conf` as shown below. The default value is 30 minutes.
+
+```toml
+ [oauth.grant_type.jwt]
+ enable_iat_validation="true"
+ iat_validity_period=30
+```
+:::
+
+</Edition>
+
+Refer to [JWT Bearer grant](../../../../reference/iam-concepts/grant-types.mdx#jwt-bearer-grant) for more information on how the flow works.

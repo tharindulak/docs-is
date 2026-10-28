@@ -1,0 +1,43 @@
+---
+title: Access the ELK Analytics Dashboard
+description: Once you have setup ELK analytics dashboards, follow the guide below to learn how to access the analytics dashboard.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Access analytics
+sidebar_position: 2
+editions: self-hosted
+---
+
+Once you have [setup ELK analytics dashboards](../../../deploy-and-operate/analytics/elk-analytics-installation-guide.mdx), follow the guide below to learn how to access the analytics dashboard.
+
+1. Access Kibana using the following URL:
+    `http://{KIBANA_HOST}:5601`
+
+    <img src={require("../../../../assets/self-hosted/img/elk-analytics/accessing-analytics-dashboard/accessing-analytics-dashboard-1.png").default} alt="Kibana login" width="600" style={{display: "block", margin: "0"}} />
+
+2. You can login to Kibana with the default `elastic` user or refer to the [elastic documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/users-command.html) and learn how to create a new user.
+
+3. On the left panel, navigate to **Analytics** > **Dashboard** and click on **Auth Dashboard**.
+
+    <img src={require("../../../../assets/self-hosted/img/elk-analytics/accessing-analytics-dashboard/accessing-analytics-dashboard-2.png").default} alt="Kibana dashboard" width="600" style={{display: "block", margin: "0"}} />
+
+4. Use the filter to set the time range in which to view the statistics and click **Update**.
+
+    <img src={require("../../../../assets/self-hosted/img/elk-analytics/accessing-analytics-dashboard/accessing-analytics-dashboard-5.png").default} alt="filter auth dashboard" width="600" style={{display: "block", margin: "0"}} />
+
+5. To synchronize analytics automatically:
+    1. Click the calendar icon in the time range filter.
+    2. Toggle **Refresh every** at the bottom of the dropdown.
+    3. Set your desired time interval.
+
+        <img src={require("../../../../assets/self-hosted/img/elk-analytics/accessing-analytics-dashboard/accessing-analytics-dashboard-6.png").default} alt="synchronize alerts periodically" width="600" style={{display: "block", margin: "0"}} />
+
+6. You can use the following filters to narrow down your analytics further.
+
+    <img src={require("../../../../assets/self-hosted/img/elk-analytics/accessing-analytics-dashboard/accessing-analytics-dashboard-7.png").default} alt="narrow the search using filters" style={{display: "block", margin: "0"}} />
+
+## What's Next?
+
+Explore the following topics:
+
+- [Analyze Login Attempts](./analyzing-login-attempts.mdx)
+- [Analyze Session Statistics](./analyzing-active-sessions.mdx)

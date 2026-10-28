@@ -1,0 +1,79 @@
+---
+title: Model Context Protocol (MCP) server authorization
+description: Just like APIs, MCP (Model Context Protocol) servers need fine-grained access control so that only authorized users can access the tools they expose.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: MCP server authorization
+sidebar_position: 3
+editions: self-hosted
+---
+
+Just like APIs, MCP (Model Context Protocol) servers need fine-grained access control so that only authorized users can access the tools they expose. {edition.productName} provides robust support for securing MCP servers, letting you configure access policies and monitor how users and applications interact with them.
+
+## Register an MCP server
+
+Organization administrators can define their MCP servers and configure scopes to enable fine-grained access control to the MCP server tools.
+
+To register an MCP server,
+
+1. On the {edition.productName} Console, go to **Resources** > **MCP Servers**.
+
+2. Click **+ New MCP Server** to register a new MCP server.
+
+    <img src={require("../../../assets/img/guides/authorization/mcp-authorization/create-new-mcp-server.png").default} alt="New MCP server wizard" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+3. Enter the following details and click **Next**.
+    | Parameter | Description |
+    | --- | --- |
+    | **Identifier** | This value will be used as the `aud` attribute in the issued JWT token. Although any value is acceptable, it's recommended to use the URI of the MCP server. |
+    | **Display Name** | A meaningful name to identify your MCP server in {edition.productName}. |
+
+4. In the **Scopes** tab, enter the following details and click **Add Scope**. Repeat this for all scopes.
+
+    | Parameter | Description |
+    | --- | --- |
+    | **Scope (Permission)** | Maps to an action in your MCP server. This value should match the scopes requested by your application. |
+    | **Display Name** | A meaningful name for your scope (permission). This will be displayed on your application's user consent page. |
+    | **Description** | A description for your scope (permission). This will be displayed on your application's user consent page. |
+
+5. Once done, click **Create** to complete the MCP server registration.
+
+## Authorize apps to access MCP servers
+
+Applications, by default, don't have permissions to access MCP servers. Administrators can selectively grant authorization for applications to use specific MCP servers, so that users logging into the application will have access to that MCP server, provided they're assigned to a role that grants the necessary permissions.
+
+:::note
+
+<Edition selfHostedFrom="next">
+
+MCP servers can be authorized to all OIDC application types including Custom OIDC applications, Traditional Web applications, Single-Page applications (SPA), Mobile applications, and Machine-to-Machine (M2M) applications. The [MCP Client Application](../applications/register-mcp-client-app.mdx) template provides a pre-configured option for MCP-specific use cases. Digital Wallet applications can only access Verifiable Credential resources and cannot authorize MCP servers.
+
+</Edition>
+
+:::
+
+To authorize an application to consume an MCP server,
+
+1. On the {edition.productName} Console, go to **Applications**.
+
+<Edition selfHostedFrom="next">
+
+2. Select your application and go to its **Authorization** tab.
+
+</Edition>
+
+3. Click **Authorize a resource**.
+
+4. Enter the following details:
+
+    <Edition selfHostedFrom="next">
+
+    | Parameter | Description |
+    | --- | --- |
+    | **Resource** | Select the MCP server from the list of resources |
+    | **Authorized Scopes** | Select the scopes that the application should be able to request. |
+
+    </Edition>
+
+5. Click **Finish**.
+
+    <img src={require("../../../assets/img/guides/authorization/mcp-authorization/authorized-mcp-server-to-mcp-client.png").default} alt="Successfully authorized an API resource in the app" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />

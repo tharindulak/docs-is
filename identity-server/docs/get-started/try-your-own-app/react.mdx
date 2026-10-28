@@ -1,0 +1,543 @@
+---
+title: react
+description: Follow the steps given below to authenticate users to your React SPA with OpenID Connect using the WSO2 Identity Platform React SDK.  # generated from the first paragraph; a writer should improve it
+type: quick-start
+unlisted: true
+---
+
+<Variants>
+
+<Edition only="cloud">
+
+# Integrate WSO2 Identity Platform with your React SPA
+
+Follow the steps given below to authenticate users to your React SPA with OpenID Connect using the [WSO2 Identity Platform React SDK](https://github.com/asgardeo/asgardeo-auth-react-sdk/blob/main/README.md).
+
+## Prerequisites
+- [Install node.js and npm](https://nodejs.org) in your local environment.
+- [Register an application](../../guides/applications/register-single-page-app.mdx) in WSO2 Identity Platform.
+
+:::note
+In the tutorial,
+
+- your organization name is referred to as `{org_name}`.
+- `{client_id}` refers to the client credential that you obtain once you register your application in WSO2 Identity Platform.
+:::
+
+</Edition>
+
+<Edition only="self-hosted">
+
+# Integrate with your React SPA
+
+Follow the steps given below to authenticate users to your React SPA with OpenID Connect using the [React SDK](https://github.com/asgardeo/asgardeo-auth-react-sdk#readme).
+
+## Prerequisites
+- [Install npm and node](https://www.npmjs.com/get-npm) in your local environment.
+- [Register an application](../../guides/applications/register-single-page-app.mdx) in the {edition.productName}.
+
+:::note
+In the tutorial,
+
+- your organization name is referred to as `{org_name}`.
+- `{client_id}` refers to the client credential that you obtain once you register your application in the {edition.productName}.
+:::
+
+</Edition>
+
+</Variants>
+
+## Install the SDK
+
+Run the following command to install the React SDK and the necessary dependencies from the npm registry.
+
+```bash
+npm install @asgardeo/auth-react
+```
+
+## Configure the SDK
+
+<Variants>
+
+<Edition only="cloud">
+
+SDK uses the [React Context API](https://react.dev/learn/passing-data-deeply-with-context) under the hood to share the data between components.
+You can easily integrate WSO2 Identity Platform in your application by using `AuthProvider` as the wrapper element to inject configurations.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+SDK uses the [React Context API](https://react.dev/learn/passing-data-deeply-with-context) under the hood to share the data between components.
+You can easily integrate the {edition.productName} in your application by using `AuthProvider` as the wrapper element to inject configurations.
+
+</Edition>
+
+</Variants>
+
+`AuthProvider` will provide the session state which contains information such as the authenticated user's display name, email address etc. as well as the methods required to implement authentication in the React app.
+
+<Variants>
+
+<Edition only="cloud">
+
+```javascript
+import { AuthProvider } from "@asgardeo/auth-react";
+```
+`AuthProvider` takes a config object as a [prop](https://react.dev/learn/passing-props-to-a-component) which is used to initialize the SDK instance. Copy and use the following code within your root component to configure `AuthProvider` for your application.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+```javascript
+import { AuthProvider } from "@asgardeo/auth-react";
+```
+`AuthProvider` takes a config object as a [prop](https://react.dev/learn/passing-props-to-a-component) which is used to initialize the SDK instance. Copy and use the following code within your root component to configure `AuthProvider` for your application.
+
+</Edition>
+
+</Variants>
+
+:::note
+Typically, the root component of a react app is defined in the `index.*` file.
+:::
+
+<Variants>
+
+<Edition only="cloud">
+
+```javascript
+import React from "react";
+import { AuthProvider } from "@asgardeo/auth-react";
+
+const config = {
+     signInRedirectURL: "https://localhost:3000/sign-in",
+     signOutRedirectURL: "https://localhost:3000/sign-out",
+     clientID: "{client_id}",
+     baseUrl: "https://api.asgardeo.io/t/{org_name}",
+     scope: [ "openid","profile" ]
+};
+
+export const MyApp = (): ReactElement => {
+    return (
+        <AuthProvider config={ config }>
+            <App />
+        </AuthProvider>
+    )
+}
+```
+Details of the parameters are given below.
+
+| Parameter | Description |
+| --- | --- |
+| `clientID` | This is the Client ID of your OIDC app. See [how to obtain client ID](../../guides/applications/register-single-page-app.mdx#get-the-client-id). |
+| `baseUrl` | This is the WSO2 Identity Platform server's host name along with your organization name. |
+| `signInRedirectURL` | This is the URL the app redirects to after user login. See [Authorized redirect URLs](../../reference/app-settings/oidc-settings-for-app.mdx#authorized-redirect-urls). |
+| `signOutRedirectURL` | This is the URL the app redirects to after user logout. See [Authorized redirect URLs](../../reference/app-settings/oidc-settings-for-app.mdx#authorized-redirect-urls). |
+| `scope` | The list of OIDC scopes that are used for requesting user information. The `openid` scope is mandatory to get the ID token. You can add other OIDC scopes such as `profile` and `email`. |
+
+</Edition>
+
+<Edition only="self-hosted">
+
+```javascript
+import React from "react";
+import { AuthProvider } from "@asgardeo/auth-react";
+
+const config = {
+     signInRedirectURL: "https://localhost:3000/sign-in",
+     signOutRedirectURL: "https://localhost:3000/sign-out",
+     clientID: "{client_id}",
+     baseUrl: "https://localhost:9443",
+     scope: [ "openid","profile" ]
+};
+
+export const MyApp = (): ReactElement => {
+    return (
+        <AuthProvider config={ config }>
+            <App />
+        </AuthProvider>
+    )
+}
+```
+Details of the parameters are given below.
+
+| Parameter | Description |
+| --- | --- |
+| `clientID` | This is the Client ID of your OIDC app. See [how to obtain client ID](../../guides/applications/register-single-page-app.mdx#get-the-client-id). |
+| `baseUrl` | This is the {edition.productName}'s URL in the form `https://{host}:{port}`. |
+| `signInRedirectURL` | This is the URL the app redirects to after user login. See [Authorized redirect URLs](../../reference/app-settings/oidc-settings-for-app.mdx#authorized-redirect-urls) |
+| `signOutRedirectURL` | This is the URL the app redirects to after user logout. See [Authorized redirect URLs](../../reference/app-settings/oidc-settings-for-app.mdx#authorized-redirect-urls) |
+| `scope` | The list of OIDC scopes that are used for requesting user information. The `openid` scope is mandatory to get the ID token. You can add other OIDC scopes such as `profile` and `email`. |
+
+</Edition>
+
+</Variants>
+
+## Access the session state
+
+The ```useAuthContext()``` hook provided by the SDK could be used to access the session state that contains information such as the email address of the authenticated user and to access the methods that are required for implementing authentication.
+
+:::note
+Once the root component is wrapped with `AuthProvider`, `useAuthContext()` hook can be used anywhere within the application.
+:::
+
+Use the below code segment to import the ```useAuthContext()``` hook from ```@asgardeo/auth-react```.
+
+```javascript
+import { useAuthContext } from "@asgardeo/auth-react";
+```
+And then inside your components, you can access the context as follows.
+
+```javascript
+const { state, signIn, signOut } = useAuthContext();
+```
+Few common methods that you can access with `useAuthContext()` are listed below. These will be helpful when implementing authentication capabilities in your application.
+
+- `state` object - This will contain attributes such as whether a user is currently logged in, the username of the currently logged-in user etc.
+
+<Variants>
+
+<Edition only="cloud">
+
+- `signIn` - Initiate a login request to WSO2 Identity Platform, process the response to obtain authentication response.
+
+- `signOut` - Logout the user from WSO2 Identity Platform and clear any authentication data from the SDK storage.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+- `signIn` - Initiate a login request to the {edition.productName}, process the response to obtain authentication response.
+
+- `signOut` - Logout the user from the {edition.productName} and clear any authentication data from the SDK storage.
+
+</Edition>
+
+</Variants>
+
+- `isAuthenticated` - Check whether there is an authenticated user session. Based on the result you can decide to change the application view/behaviour.
+
+- `getBasicUserInfo` - Get authenticated user's basic information from the authentication response.
+
+- `getDecodedIDToken` - Get the decoded `id_token` obtained in the authentication response. From there you can derive more information such as additional user-attributes.
+
+- `getIDToken` - Get the `id_token` (JWT) obtained in the authentication response.
+
+- `getAccessToken` - Get the `access_token` obtained in the authentication response.
+
+- `refreshAccessToken` - Get the `refresh_token` obtained in the authentication response.
+
+:::note
+Methods related to the token such as `getIDToken`, `getDecodedIDToken`, `getAccessToken` and `refreshAccessToken` are only available if the storage mechanism is set to `sessionStorage` or `localStorage` in the SDK configuration.
+If it is set to `webWorker`, an error is thrown since the token is stored inside the web worker and cannot be accessed by outside party.
+:::
+
+## Use the API
+
+You can now start using the SDK's API to implement the required authentication logic. Follow the instructions given below to implement each use case.
+
+### Access the `state` object
+The `state` object contains attributes of a user. Its structure is as follows.
+
+<Variants>
+
+<Edition only="cloud">
+
+```javascript
+{
+    "allowedScopes": "openid profile",
+    "displayName": "alica",
+    "isAuthenticated": true,
+    "isLoading": false,
+    "sub": "d33ab8c0-1234-4567-7890-b5c3619cb356",
+    "username": "alica@bifrost.com",
+    "isSigningOut": false
+}
+```
+:::note
+The `isAuthenticated` attribute checks whether a user is currently logged in via WSO2 Identity Platform or not.
+:::
+
+### Add login to your application
+You can use the `useAuthContext` hook from the WSO2 Identity Platform React SDK to easily authenticate your React application.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+```javascript
+{
+    "allowedScopes": "openid profile",
+    "displayName": "alica",
+    "isAuthenticated": true,
+    "isLoading": false,
+    "sub": "d33ab8c0-1234-4567-7890-b5c3619cb356",
+    "username": "alica@bifrost.com",
+    "isSigningOut": false
+}
+```
+:::note
+The `isAuthenticated` attribute checks whether a user is currently logged in via the {edition.productName} or not.
+:::
+
+### Add login to your application
+You can use the `useAuthContext` hook from the React SDK to easily authenticate your React application.
+
+</Edition>
+
+</Variants>
+
+Implement a login button as follows using the `signIn()` function in the `useAuthContext` hook.
+
+<Variants>
+
+<Edition only="cloud">
+
+```javascript
+<button onClick={ () => signIn() }>Login</button>
+```
+Clicking on the **Login** button will take the user to the WSO2 Identity Platform login page. Once `signIn()` succeeds, the user will be redirected to the app (based on the `signInRedirectURL` specified in the [AuthProvider configuration](#configure-the-sdk)) and the `state.isAuthenticated` will be set to `true`.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+```javascript
+<button onClick={ () => signIn() }>Login</button>
+```
+Clicking on the **Login** button will take the user to the {edition.productName} login page. Once `signIn()` succeeds, the user will be redirected to the app (based on the `signInRedirectURL` specified in the [AuthProvider configuration](#configure-the-sdk)) and the `state.isAuthenticated` will be set to `true`.
+
+</Edition>
+
+</Variants>
+
+### Get access token
+
+<Variants>
+
+<Edition only="cloud">
+
+Once the user is logged in with WSO2 Identity Platform, the application can get the access token issued by WSO2 Identity Platform.
+
+See the [SDK reference](https://github.com/asgardeo/asgardeo-auth-react-sdk/blob/main/API.md#getaccesstoken) for more information.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+Once the user is logged in, the application can get the access token issued by the {edition.productName} .
+
+See the [SDK reference](https://github.com/asgardeo/asgardeo-auth-react-sdk/blob/main/API.md#getaccesstoken) for more information.
+
+</Edition>
+
+</Variants>
+
+```javascript
+const { getAccessToken } = useAuthContext();
+
+useEffect(() => {
+    getAccessToken().then((accessToken) => {
+        //console.log(accessToken);
+    }).catch((error) => {
+        //console.log(error);
+    });
+}, []);
+```
+
+Sample access token is given below:
+
+```text
+61985b0e-26c3-38b7-acff-b18ad934eafc
+```
+
+### Get user information
+
+In addition to implementing login and logout, you can also use the SDK to get user information.
+
+There are two ways for you to get user information:
+- Get user information from a [decoded ID token](#get-decoded-id-token).
+- Use the `getBasicUserInfo()` API and get basic user information.
+
+`getBasicUserInfo()` can be used as follows.
+
+```typescript
+const { getBasicUserInfo } = useAuthContext();
+
+getBasicUserInfo().then((basicUserDetails) => {
+    console.log(basicUserDetails);
+}).catch((error) => {
+    // Handle the error
+})
+```
+
+`basicUserDetails` object will have a structure similar to below:
+
+```json
+{
+    "allowedScopes": "openid",
+    "sessionState": "eb0e12f9a113f49ffef887a464c7980d84bb5b11dfeb1774309aee9b88c83c21.8-LXzzHCUSOOa2GeH-LFfA",
+    "username": "alica@bifrost.com",
+    "country": "Sri Lanka",
+    "email": "alica@bifrost.com"
+}
+```
+
+<Variants>
+
+<Edition only="cloud">
+
+You can get additional information from the user by [requesting user information from WSO2 Identity Platform using scopes](../../guides/users/attributes/manage-scopes.mdx#use-scopes-to-request-attributes)
+
+</Edition>
+
+<Edition only="self-hosted">
+
+You can get additional information from the user by [requesting user information using scopes](../../guides/users/attributes/manage-scopes.mdx#use-scopes-to-request-attributes)
+
+</Edition>
+
+</Variants>
+
+### Get decoded ID token
+
+<Variants>
+
+<Edition only="cloud">
+
+Once the user is logged in with WSO2 Identity Platform, the application can get the ID token issued by WSO2 Identity Platform.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+Once the user is logged in, the application can get the ID token issued by the {edition.productName}.
+
+</Edition>
+
+</Variants>
+
+The SDK provides the `getDecodedIDToken()` API to get the decoded token. You can use this decoded token to obtain user claims as below.
+
+```typescript
+const { getDecodedIDToken } = useAuthContext();
+
+getDecodedIDToken().then((decodedIDToken) => {
+    console.log(decodedIDToken);
+}).catch((error) => {
+    // Handle the error
+})
+```
+
+**Sample decoded ID token** object is given below:
+
+<Variants>
+
+<Edition only="cloud">
+
+```json
+{
+    "isk": "329d5bf5732791509edabb093d78a4a2665dbc65d99119f45f1d4db1a2459cf1",
+    "at_hash": "TN1HIyOnt_8shS2DalrdfQ",
+    "sub": "alica@bifrost.com",
+    "country": "Sri Lanka",
+    "amr": [
+        "BasicAuthenticator"
+    ],
+    "iss": "https://api.asgardeo.io/t/bifrost/oauth2/token",
+    "sid": "81a61d37-9a6d-487a-8f5f-c7a313c44c31",
+    "aud": "SmLpPiRube64JmkAf4nhZVD_6V8a",
+    "c_hash": "1pWTMQ7ZTxCWSapucJF-bw",
+    "nbf": 1627966715,
+    "azp": "SmLpPiRube64JmkAf4nhZVD_6V8a",
+    "exp": 1627970315,
+    "iat": 1627966715,
+    "email": "alica@bifrost.com"
+}
+```
+
+</Edition>
+
+<Edition only="self-hosted">
+
+```json
+{
+    "isk": "329d5bf5732791509edabb093d78a4a2665dbc65d99119f45f1d4db1a2459cf1",
+    "at_hash": "TN1HIyOnt_8shS2DalrdfQ",
+    "sub": "alica@bifrost.com",
+    "country": "Sri Lanka",
+    "amr": [
+        "BasicAuthenticator"
+    ],
+    "iss": "https://localhost:9443/oauth2/token",
+    "sid": "81a61d37-9a6d-487a-8f5f-c7a313c44c31",
+    "aud": "SmLpPiRube64JmkAf4nhZVD_6V8a",
+    "c_hash": "1pWTMQ7ZTxCWSapucJF-bw",
+    "nbf": 1627966715,
+    "azp": "SmLpPiRube64JmkAf4nhZVD_6V8a",
+    "exp": 1627970315,
+    "iat": 1627966715,
+    "email": "alica@bifrost.com"
+}
+```
+
+</Edition>
+
+</Variants>
+
+From the decoded ID Token(`decodedIDToken`) object, you can get the following information:
+
+<table>
+  <tbody>
+    <tr>
+      <td>**sub**</td>
+      <td>`decodedIDToken.sub`</td>
+    </tr>
+    <tr>
+      <td>**email**</td>
+      <td>`decodedIDToken.email`</td>
+    </tr>
+    <tr>
+      <td>**country**</td>
+      <td>`decodedIDToken.country`</td>
+    </tr>
+  </tbody>
+</table>
+
+You can loop through the `decodedIDToken` object and get the other claims as well.
+
+### Add logout to your application
+We can use the `signOut()` method from `useAuthContext()` hook to implement a logout button.
+
+```javascript
+<button onClick={ () => signOut() }>Logout</button>
+```
+Clicking on the **Logout** button will sign out the user. The user will then be redirected to the `signOutRedirectURL` (specified in the [AuthProvider configuration](#configure-the-sdk)) and the `state.isAuthenticated` will be set to `false`.
+
+:::tip
+You can use the `state.isAuthenticated` attribute to check the authentication status of the user.
+:::
+
+### Add Routing
+If your application needs routing, you can use any router of your choice. You can learn more about routing [here](https://github.com/asgardeo/asgardeo-auth-react-sdk/blob/main/API.md#securing-routes-with-asgardeo).
+
+<Variants>
+
+<Edition only="cloud">
+
+## More Information
+If you want to learn in-depth about the WSO2 Identity Platform React SDK, you can refer to the [WSO2 Identity Platform React SDK documentation](https://github.com/asgardeo/asgardeo-auth-react-sdk#readme).
+
+</Edition>
+
+<Edition only="self-hosted">
+
+## More Information
+If you want to learn in-depth about the React SDK, you can refer to the [React SDK documentation](https://github.com/asgardeo/asgardeo-auth-react-sdk#readme).
+
+</Edition>
+
+</Variants>
+

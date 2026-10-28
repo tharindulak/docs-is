@@ -1,0 +1,362 @@
+---
+title: Nuxt quickstart
+description: Welcome to the Nuxt quickstart guide!  # generated from the first paragraph; a writer should improve it
+type: quick-start
+sidebar_label: Quickstart
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Variants>
+
+<Edition only="cloud">
+
+</Edition>
+
+<Edition only="self-hosted">
+
+</Edition>
+
+</Variants>
+
+Welcome to the Nuxt quickstart guide! In this document, you will learn to build a Nuxt app, add user login, and display user profile information using {edition.productName}.
+
+[//] STEPS_START
+
+## Configure an application in {edition.productName}
+
+- Sign into the {edition.productName} Console and navigate to **Applications > New Application**.
+- Select **Traditional Web Application** and complete the wizard by providing a suitable name, the **OpenID Connect** protocol, and an authorized redirect URL.
+
+<Variants>
+
+<Edition only="cloud">
+
+:::note[Example]
+**Name:** `asgardeo-nuxt`
+
+**Authorized redirect URL:** `http://localhost:3000/api/auth/callback`
+:::
+
+</Edition>
+
+<Edition only="self-hosted">
+
+:::note[Example]
+**Name:** `is-nuxt`
+
+**Authorized redirect URL:** `http://localhost:3000/api/auth/callback`
+:::
+
+</Edition>
+
+</Variants>
+
+Once you finish creating the application, note down the following values from its **Info** tab. You will need them to configure the WSO2 Identity Platform Nuxt SDK.
+
+- **Client ID** - The unique identifier for your application.
+- **Client Secret** - The confidential secret generated for your application.
+- **Base URL** - The base URL of your {edition.productName} organization. This typically follows the format `{edition.sdkBaseUrl}`.
+
+:::info
+The authorized redirect URL is the address {edition.productName} sends the user back to after a successful sign-in. The SDK exposes this callback at `/api/auth/callback`, so for local development you must register `http://localhost:3000/api/auth/callback`.
+:::
+
+## Create a Nuxt app
+
+Create your new Nuxt app.
+
+<Variants>
+
+<Edition only="cloud">
+
+<Tabs groupId="tabs">
+<TabItem value="npm" label="npm">
+
+```bash
+npm create nuxt@latest asgardeo-nuxt
+cd asgardeo-nuxt
+npm run dev
+```
+
+</TabItem>
+<TabItem value="yarn" label="yarn">
+
+```bash
+yarn create nuxt@latest asgardeo-nuxt
+cd asgardeo-nuxt
+yarn dev
+```
+
+</TabItem>
+<TabItem value="pnpm" label="pnpm">
+
+```bash
+pnpm create nuxt@latest asgardeo-nuxt
+cd asgardeo-nuxt
+pnpm dev
+```
+
+</TabItem>
+</Tabs>
+
+</Edition>
+
+<Edition only="self-hosted">
+
+<Tabs groupId="tabs">
+<TabItem value="npm" label="npm">
+
+```bash
+npm create nuxt@latest is-nuxt
+cd is-nuxt
+npm run dev
+```
+
+</TabItem>
+<TabItem value="yarn" label="yarn">
+
+```bash
+yarn create nuxt@latest is-nuxt
+cd is-nuxt
+yarn dev
+```
+
+</TabItem>
+<TabItem value="pnpm" label="pnpm">
+
+```bash
+pnpm create nuxt@latest is-nuxt
+cd is-nuxt
+pnpm dev
+```
+
+</TabItem>
+</Tabs>
+
+</Edition>
+
+</Variants>
+
+## Install `@asgardeo/nuxt`
+
+The WSO2 Identity Platform Nuxt SDK is shipped as a Nuxt module. It registers a Nitro server plugin that runs the OAuth flow, a set of API routes under `/api/auth/*`, and auto-imported components and composables you can use anywhere in your app. Stop the dev server before installing the module.
+
+<Tabs groupId="tabs">
+<TabItem value="npm" label="npm">
+
+```bash
+npm install @asgardeo/nuxt
+```
+
+</TabItem>
+<TabItem value="yarn" label="yarn">
+
+```bash
+yarn add @asgardeo/nuxt
+```
+
+</TabItem>
+<TabItem value="pnpm" label="pnpm">
+
+```bash
+pnpm add @asgardeo/nuxt
+```
+
+</TabItem>
+</Tabs>
+
+## Set up environment variables
+
+Create a `.env` file in the root of your Nuxt project. The Nuxt module reads `NUXT_PUBLIC_*` variables on the client and the unprefixed secrets on the server only.
+
+```bash title=".env"
+NUXT_PUBLIC_ASGARDEO_BASE_URL="{edition.sdkBaseUrl}"
+NUXT_PUBLIC_ASGARDEO_CLIENT_ID="<your-app-client-id>"
+NUXT_PUBLIC_ASGARDEO_AFTER_SIGN_OUT_URL="<after-sign-out-redirect-url>"
+ASGARDEO_CLIENT_SECRET="<your-app-client-secret>"
+```
+
+<Edition only="self-hosted">
+
+:::note
+If you are running in a local development or testing environment using self-signed SSL certificates, the application may fail to connect to {edition.productName} due to TLS certificate validation errors. To bypass this check, add `NODE_TLS_REJECT_UNAUTHORIZED=0` to the `.env` file.
+:::
+
+</Edition>
+
+## Register the WSO2 Identity Platform Nuxt module
+
+Open `nuxt.config.ts` and add `@asgardeo/nuxt` to the `modules` array. The SDK reads the credentials you set in `.env` automatically — you only need to declare the module.
+
+```typescript title="nuxt.config.ts" {2}
+export default defineNuxtConfig({
+  modules: ['@asgardeo/nuxt'],
+});
+```
+
+The SDK reads your credentials from the environment variables automatically. You can optionally configure post sign-in / sign-out destinations in the `asgardeo` config block if needed.
+
+## Wrap your app with `<AsgardeoProvider />`
+
+`<AsgardeoProvider />` mounts the SDK's full provider tree (auth, user, organization, branding, theme) and exposes the SSR-hydrated state to every composable below it. The component is auto-registered by the module — you do not need to import it.
+
+Replace the contents of `app.vue` with the following.
+
+```markup title="app.vue" {2,4}
+<template>
+  <AsgardeoProvider>
+    <NuxtPage />
+  </AsgardeoProvider>
+</template>
+```
+
+:::info
+All SDK components are auto-registered (for example, `SignedIn`, `SignInButton`, `UserDropdown`). You can use them directly in any `<template>` without an explicit import.
+:::
+
+## Add sign-in and sign-out to your app
+
+The WSO2 Identity Platform Nuxt SDK provides `<SignInButton />` and `<SignOutButton />` to start and end a session. Combine them with `<SignedIn />` and `<SignedOut />` to render content based on the user's authentication state.
+
+Create a `pages/index.vue` file (or replace its contents if it already exists) with the following.
+
+```markup title="pages/index.vue" {3-8}
+<template>
+  <header>
+    <SignedOut>
+      <SignInButton />
+    </SignedOut>
+    <SignedIn>
+      <SignOutButton />
+    </SignedIn>
+  </header>
+</template>
+```
+
+When the user clicks **Sign In**, the SDK calls `/api/auth/signin`, which redirects the browser to {edition.productName}'s sign-in page. After authentication, {edition.productName} sends the user back to `/api/auth/callback` where the SDK exchanges the authorization code for tokens and issues the session cookie.
+
+## Display the signed-in user's profile information
+
+The SDK provides several ways to access the signed-in user's profile information. You can use the `User`, `UserProfile`, or `UserDropdown` components to access and display user profile information in a declarative way.
+
+- `<User />`: Component provides a scoped slot (v-slot) pattern to access user profile information:
+- `<UserProfile />` — Component provides a declarative way to display and update user profile information.
+- `<UserDropdown />` — Component provides a dropdown menu with built-in user information and sign-out functionality.
+
+Update `pages/index.vue` to render the dropdown and a personalized greeting.
+
+```markup title="pages/index.vue" {7,14-19}
+<template>
+  <header>
+    <SignedOut>
+      <SignInButton />
+    </SignedOut>
+    <SignedIn>
+      <UserDropdown />
+      <SignOutButton />
+    </SignedIn>
+  </header>
+
+  <main>
+    <SignedIn>
+      <User v-slot="{ user }">
+        <div>
+          <p>Welcome back, {{ user.userName || user.username || user.sub }}</p>
+        </div>
+      </User>
+      <UserProfile />
+    </SignedIn>
+  </main>
+</template>
+```
+
+## Protect a page with middleware
+
+The WSO2 Identity Platform Nuxt SDK provides a named middleware called `asgardeoMiddleware` that you can use to gate any route behind authentication. Unauthenticated visitors are redirected to the sign-in flow automatically.
+
+Use `definePageMeta` to apply the `asgardeoMiddleware` middleware to any page. For example, create a `pages/dashboard.vue`:
+
+```markup title="pages/dashboard.vue" {2}
+<script setup lang="ts">
+  definePageMeta({ middleware: ['asgardeoMiddleware'] });
+</script>
+```
+
+## Choose how users will sign in
+
+Before running the app, you need to decide how you want users to sign into your application:
+
+<button data-quickstart="redirect" data-next-step="10" data-default="true"> Redirect to {edition.productName} (Default) </button> <button data-quickstart="embedded" data-next-step="10"> Show sign-in form in your app </button>
+
+When users click \`Sign In\`, your app redirects them to {edition.productName}'s sign-in page. After they sign in, it redirects them back to your app. This default behavior works without extra configurations.
+
+The sign-in form appears directly inside your application using the \`SignIn\` component. Users never leave your app during the sign-in process.
+
+## Enable `App-Native Authentication` [//] SHOW_IF="data-quickstart=embedded" {#enable-app-native-authentication-show_ifdata-quickstartembedded}
+
+The embedded sign-in functionality depends on the **App-Native Authentication** feature. This feature allows your app to authenticate users without redirecting them to the {edition.productName} sign-in page.
+
+To enable this feature, follow these steps:
+
+- Navigate to {edition.productName} Console.
+- Go to **Applications > Your App > Advanced**.
+- Enable **App-Native Authentication** by checking the checkbox.
+
+:::info
+Read more about [App-Native Authentication](../../../guides/authentication/app-native-authentication/index.mdx) to understand how it works.
+:::
+
+## Set up the in-app sign-in form [//] SHOW_IF="data-quickstart=embedded" {#set-up-the-in-app-sign-in-form-show_ifdata-quickstartembedded}
+
+Create a dedicated sign-in page that renders the embedded form. Create `pages/sign-in.vue`:
+
+```markup title="pages/sign-in.vue" {2}
+<template>
+  <SignIn />
+</template>
+```
+
+Then, update the `.env` file with the route for the sign-in page. Add the following line to your `.env` file:
+
+```bash title=".env"
+NUXT_PUBLIC_ASGARDEO_SIGN_IN_URL="/sign-in"
+```
+
+## Run the app [//] SHOW_IF="data-quickstart=redirect,data-quickstart=embedded" {#run-the-app-show_ifdata-quickstartredirectdata-quickstartembedded}
+
+Start the dev server.
+
+<Tabs groupId="tabs">
+<TabItem value="npm" label="npm">
+
+```bash
+npm run dev
+```
+
+</TabItem>
+<TabItem value="yarn" label="yarn">
+
+```bash
+yarn dev
+```
+
+</TabItem>
+<TabItem value="pnpm" label="pnpm">
+
+```bash
+pnpm dev
+```
+
+</TabItem>
+</Tabs>
+
+Visit your app's homepage at [http://localhost:3000](http://localhost:3000).
+
+:::warning[Important]
+To try out sign-in and sign-out, create a test user in {edition.productName} by following this [guide](../../../guides/users/users/manage-users.mdx).
+:::
+
+[//] STEPS_END

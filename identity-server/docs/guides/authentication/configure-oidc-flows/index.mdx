@@ -1,0 +1,175 @@
+---
+title: Configure OIDC Flows
+description: Learn how to discover the OIDC endpoints in your WSO2 Identity Platform organization and then use them to implement OIDC flows in your applications.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Configure OIDC flows
+sidebar_position: 1
+---
+
+<Variants>
+
+<Edition only="cloud">
+
+Learn how to discover the OIDC endpoints in your {edition.productName} organization and then use them to implement OIDC flows in your applications.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+Learn how to discover the OIDC endpoints in your WSO2 Identity Server organization and then use them to implement OIDC flows in your applications.
+
+</Edition>
+
+</Variants>
+
+## Discover the OIDC endpoints
+
+<Variants>
+
+<Edition only="cloud">
+
+This section covers how you can configure OIDC-based login for your single page application by discovering the required OIDC endpoints and configuring them in the {edition.productName} Console.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+This section covers how you can configure OIDC-based login for your single page application by discovering the required OIDC endpoints and configuring them in the WSO2 Identity Server Console.
+
+</Edition>
+
+</Variants>
+
+[Discover OIDC endpoints](./discover-oidc-configs.mdx) has detailed instructions on this.
+
+## Implement authorization code grant in apps
+
+The guides listed below will help you understand the OIDC login flow using the authorization code flow.
+
+- [Implement authorization code flow](./oidc/implement-auth-code.mdx)
+
+- [Implement authorization code flow with PKCE](./oidc/implement-auth-code-with-pkce.mdx)
+
+- [Implement private key JWT client authentication for OIDC](./client-authentication-methods/private-key-jwt-client-auth.mdx)
+
+## Implement login using Pushed Authorization Requests
+
+<Variants>
+
+<Edition only="cloud">
+
+{edition.productName} provides the '/par' endpoint which returns a reference to the authorization payload called the request_uri. This authorization payload is sent by the back-channel during a PAR initiated login.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+WSO2 Identity Server provides the '/par' endpoint which returns a reference to the authorization payload called the request_uri. This authorization payload is sent by the back-channel during a PAR initiated login.
+
+</Edition>
+
+</Variants>
+
+- [Implement login using Pushed Authorization Requests](./oidc/implement-login-with-par.mdx) has detailed instructions on this.
+
+## JWT Secured Authorization Response Mode (JARM) for OAuth 2.0
+
+With JWT Secured Authorization Response Mode, clients can request authorization response parameters in JWT format instead of plain text.
+
+- [JWT Secured Authorization Response Mode (JARM) for OAuth 2.0](./oidc/jarm.mdx) has detailed instructions on this.
+
+## Validate ID tokens
+
+<Variants>
+
+<Edition only="cloud">
+
+This section explains how the signature and the claims are verifieed in the ID token that is sent by {edition.productName} to an application.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+This section explains how the signature and the claims are verifieed in the ID token that is sent by WSO2 Identity Server to an application.
+
+</Edition>
+
+</Variants>
+
+[Validate ID tokens](./tokens-and-validation/validate-id-tokens.mdx) has detailed instructions on this.
+
+<Edition only="cloud">
+
+## Encrypt ID tokens
+
+This section explains how to encrypt and decrypt ID tokens in {edition.productName}.
+
+[Encrypt and decrypt ID tokens](./tokens-and-validation/oidc/encrypt-decrypt-id-tokens.mdx) has detailed instructions on this.
+
+</Edition>
+
+## Request user information
+
+<Variants>
+
+<Edition only="cloud">
+
+When {edition.productName} sends the ID token to an application, there is user information encoded within it. This can be obtained using the userinfo endpoint.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+When WSO2 Identity Server sends the ID token to an application, there is user information encoded within it. This can be obtained using the userinfo endpoint.
+
+</Edition>
+
+</Variants>
+
+[Request user information](./tokens-and-validation/request-user-info.mdx) has detailed instructions on this.
+
+## Token validation by resource servers
+
+<Variants>
+
+<Edition only="cloud">
+
+{edition.productName} provides the '/oauth2/introspect' endpoint to perform token validation. Using this, the resource server can verify the access token before authorizing the access.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+WSO2 Identity Server provides the '/oauth2/introspect' endpoint to perform token validation. Using this, the resource server can verify the access token before authorizing the access.
+
+[Token validation by resource servers](./tokens-and-validation/token-validation-resource-server.mdx) has detailed instructions on this.
+
+</Edition>
+
+</Variants>
+
+## Revoke access tokens
+
+The token revocation endpoint can revoke any access granted to both confidential clients such as web apps and public clients such as the SPAs or mobile apps.
+
+[Revoke access tokens](./tokens-and-validation/revoke-tokens.mdx) has detailed instructions on this.
+
+## Add logout to application
+
+<Variants>
+
+<Edition only="cloud">
+
+The logout endpoint is used to terminate the user session at {edition.productName} and to log the user out.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+The logout endpoint is used to terminate the user session at WSO2 Identity Server and to log the user out.
+
+</Edition>
+
+</Variants>
+
+[Add logout to application](./logout/add-logout.mdx) has detailed instructions on this.

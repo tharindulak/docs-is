@@ -1,0 +1,752 @@
+---
+title: Enable mobile number verification on update
+description: Mobile number verification ensures that when a user updates their primary mobile number, an SMS OTP is sent to the new number for verification.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Mobile number update verification
+sidebar_position: 2
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Mobile number verification ensures that when a user updates their primary mobile number, an SMS OTP is sent to the new number for verification. The primary mobile number remains unchanged until the new one is successfully verified. If you have enabled [multiple mobile numbers per user](../../user-attributes/manage-attributes.mdx), users can maintain several verified mobile numbers and designate one as the primary mobile number.
+
+:::note
+- This feature can be invoked via a PUT/PATCH request to the SCIM 2.0 /Users endpoint or /Me endpoint.
+- The verification on update capability is **only** supported for the `Mobile` (`http://wso2.org/claims/mobile`) 
+and `Verified Mobile Numbers` (`http://wso2.org/claims/verifiedMobileNumbers`) claims.
+- An SMS OTP verification is not triggered if the mobile number to be updated is the same as a previously verified mobile number of the user.
+:::
+
+## Prerequisites
+
+- Configure your preferred SMS provider in {edition.productName}. For detailed instructions, see [Configure SMS providers](../../../../notification-channels/configure-sms-provider.mdx).
+
+- If required, enable [support for multiple mobile numbers](../../user-attributes/manage-attributes.mdx) for users.
+
+- Update [mobile number verification settings](../user-attribute-change-verification.mdx).
+
+## Try it out
+
+Follow the guides below to try out different mobile number update scenarios.
+
+### Update the primary mobile number
+
+If you only support a single mobile number and wish to update the mobile number of a user,
+
+1. On the {edition.productName} Console, go to **User Management** > **Users**.
+
+2. Select a user account and go to its **Profile** tab.
+
+3. Under **Mobile**, update the user's mobile number.
+
+4. Click **Update** to save the changes. An SMS OTP will be sent to the specified mobile number for verification. The user needs to enter the SMS OTP to verify the mobile number.
+
+<Variants>
+
+<Edition only="cloud">
+
+Alternatively, you may update the mobile number via a PATCH operation to the [SCIM 2.0 Me endpoint](../../../../../reference/apis/scim2-me/index.mdx) as shown below.
+
+:::info
+<Tabs groupId="tabs">
+<TabItem value="request-format" label="Request format">
+
+```text
+curl -X PATCH
+https://api.asgardeo.io/t/{organization_name}/scim2/Me \
+-d '{
+    "schemas":["urn:ietf:params:scim:api:messages:2.0:PatchOp"], 
+    "Operations":[{
+        "op":<operation>, 
+        "value":
+            { "mobileNumbers":[{"type":"mobile", "value":<new_mobile>}]}
+        }]
+    }' \
+--header "Content-Type:application/json"
+--header "Authorization: Bearer <access_token>"
+```
+
+</TabItem>
+<TabItem value="sample-request" label="Sample request">
+
+```bash
+curl -X PATCH
+https://api.asgardeo.io/t/bifrost/scim2/Me \
+-d '{
+    "schemas":["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+    "Operations":[{
+        "op":"replace",
+        "value":
+            { "phoneNumbers":[{"type": "mobile", "value":"0123456789"}]}
+        }]
+    }' \
+--header "Content-Type:application/json"
+--header "Authorization: Bearer <access_token>"
+```
+
+</TabItem>
+</Tabs>
+---
+**Sample Response**
+```text
+{
+    "emails": [
+        "bobsmith@abc.com"
+    ],
+    "meta": {
+        "location": "https://api.asgardeo.io/t/bifrost/scim2/Users/6d433ee7-7cd4-47a3-810b-bc09023bc2ce",
+        "lastModified": "2020-10-12T13:35:24.579Z",
+        "resourceType": "User"
+    },
+    "schemas": [
+        "urn:ietf:params:scim:schemas:core:2.0:User",
+        "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User",
+        "urn:scim:wso2:schema"
+    ],
+    "roles": [
+        {
+            "type": "default",
+            "value": "Internal/everyone"
+        }
+    ],
+    "name": {
+        "givenName": "Bob",
+        "familyName": "Smith"
+    },
+    "id": "6d433ee7-7cd4-47a3-810b-bc09023bc2ce",
+    "userName": "bob123",
+    "phoneNumbers": [
+        {
+            "type": "mobile",
+            "value": "0111111111"
+        }
+    ],
+    "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User": {
+        "pendingMobileNumber": "0123456789"
+    }
+}
+```
+:::
+
+</Edition>
+
+<Edition only="self-hosted">
+
+Alternatively, you may update the mobile number via a PATCH operation to the [SCIM 2.0 Me endpoint](../../../../../reference/apis/scim2-me-rest-apis/index.mdx) as shown below.
+
+:::info
+<Tabs groupId="tabs">
+<TabItem value="request-format" label="Request format">
+
+```text
+curl -X PATCH
+https://{edition.hostName}/scim2/Me \
+-d '{
+    "schemas":["urn:ietf:params:scim:api:messages:2.0:PatchOp"], 
+    "Operations":[{
+        "op":<operation>, 
+        "value":
+            { "mobileNumbers":[{"type":"mobile", "value":<new_mobile>}]}
+        }]
+    }' \
+--header "Content-Type:application/json"
+--header "Authorization: Bearer <access_token>"
+```
+
+</TabItem>
+<TabItem value="sample-request" label="Sample request">
+
+```bash
+curl -X PATCH
+https://localhost:9443/scim2/Me \
+-d '{
+    "schemas":["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+    "Operations":[{
+        "op":"replace",
+        "value":
+            { "phoneNumbers":[{"type": "mobile", "value":"0123456789"}]}
+        }]
+    }' \
+--header "Content-Type:application/json"
+--header "Authorization: Bearer <access_token>"
+```
+
+</TabItem>
+</Tabs>
+---
+**Sample Response**
+```text
+{
+    "emails": [
+        "bobsmith@abc.com"
+    ],
+    "meta": {
+        "location": "https://localhost:9443/scim2/Users/6d433ee7-7cd4-47a3-810b-bc09023bc2ce",
+        "lastModified": "2020-10-12T13:35:24.579Z",
+        "resourceType": "User"
+    },
+    "schemas": [
+        "urn:ietf:params:scim:schemas:core:2.0:User",
+        "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User",
+        "urn:scim:wso2:schema"
+    ],
+    "roles": [
+        {
+            "type": "default",
+            "value": "Internal/everyone"
+        }
+    ],
+    "name": {
+        "givenName": "Bob",
+        "familyName": "Smith"
+    },
+    "id": "6d433ee7-7cd4-47a3-810b-bc09023bc2ce",
+    "userName": "bob123",
+    "phoneNumbers": [
+        {
+            "type": "mobile",
+            "value": "0111111111"
+        }
+    ],
+    "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User": {
+        "pendingMobileNumber": "0123456789"
+    }
+}
+```
+:::
+
+</Edition>
+
+</Variants>
+
+Upon receiving the response outlined above, the user will receive an SMS notification prompting them to verify their 
+updated mobile number. Once verified, the `Mobile` claim (`http://wso2.org/claims/mobile`) 
+will be updated to reflect the new mobile number.
+
+:::note
+If you directly update the primary `Mobile` claim directly, the change will not be reflected in the  
+`Verified Mobile Numbers` (`http://wso2.org/claims/verifiedMobileNumbers`) claim after verification.
+:::
+
+### Update the verified mobile numbers list
+
+If you have enabled support for multiple mobile numbers, a user can have several verified mobile numbers and a single primary mobile number.
+
+To verify a mobile number, 
+
+1. On the {edition.productName} My Account, go to **Personal Info** tab.
+
+2. Under **Mobile Numbers**, click the verify icon on an unverified mobile number of the user.
+
+A verification code will be sent to your mobile number.
+
+![Mobile number update](../../../../../../assets/img/guides/users/my-account-verify-mobile.png)
+
+An SMS OTP will be sent to the specified mobile number for verification. The user needs to provide the OTP to verify the mobile number.
+
+<Variants>
+
+<Edition only="cloud">
+
+Alternatively, you may update the mobile numbers via a PATCH operation to the [SCIM 2.0 Me endpoint](../../../../../reference/apis/scim2-me/index.mdx) as shown below.
+
+:::info
+<Tabs groupId="tabs">
+<TabItem value="request-format" label="Request format">
+
+```bash
+curl -X PATCH
+https://api.asgardeo.io/t/{organization_name}/scim2/Me \
+-d '{
+    "schemas":["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+    "Operations":[{
+        "op":<operation>,
+        "value":{"urn:scim:wso2:schema": {"verifiedMobileNumbers": <list_of_mobile_numbers>}}
+        }]
+    }' 
+--header "Content-Type:application/json"
+--header "Authorization: Bearer <access_token>"
+```
+
+</TabItem>
+<TabItem value="sample-request" label="Sample request">
+
+```bash
+curl -X PATCH
+https://api.asgardeo.io/t/bifrost/scim2/Me \
+-d '{
+    "schemas":["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+    "Operations":[{
+        "op":"replace",
+        "value":{"urn:scim:wso2:schema": {"verifiedMobileNumbers": "0111111111,0123456789"}}
+        }]
+    }' 
+--header "Content-Type:application/json"
+--header "Authorization: Bearer <access_token>"
+```
+
+</TabItem>
+</Tabs>
+
+---
+**Sample Response**
+```text
+{
+    "emails": [
+        "bobsmith@abc.com"
+    ],
+    "meta": {
+        "location": "https://api.asgardeo.io/t/bifrost/scim2/Users/6d433ee7-7cd4-47a3-810b-bc09023bc2ce",
+        "lastModified": "2020-10-12T13:35:24.579Z",
+        "resourceType": "User"
+    },
+    "schemas": [
+        "urn:ietf:params:scim:schemas:core:2.0:User",
+        "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User",
+        "urn:scim:wso2:schema"
+    ],
+    "roles": [
+        {
+            "type": "default",
+            "value": "Internal/everyone"
+        }
+    ],
+    "name": {
+        "givenName": "Bob",
+        "familyName": "Smith"
+    },
+    "id": "6d433ee7-7cd4-47a3-810b-bc09023bc2ce",
+    "userName": "bob123",
+    "phoneNumbers": [
+        {
+            "type": "mobile",
+            "value": "0111111111"
+        }
+    ],
+    "urn:scim:wso2:schema": {
+        "mobileNumbers": "0111111111",
+        "verifiedMobileNumbers": "0111111111",
+    },
+    "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User": {
+        "pendingMobileNumber": "0123456789"
+    }
+}
+```
+:::
+
+</Edition>
+
+<Edition only="self-hosted">
+
+Alternatively, you may update the mobile numbers via a PATCH operation to the [SCIM 2.0 Me endpoint](../../../../../reference/apis/scim2-me-rest-apis/index.mdx) as shown below.
+
+:::info
+<Tabs groupId="tabs">
+<TabItem value="request-format" label="Request format">
+
+```bash
+curl -X PATCH
+https://{edition.hostName}/scim2/Me \
+-d '{
+    "schemas":["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+    "Operations":[{
+        "op":<operation>,
+        "value":{"urn:scim:wso2:schema": {"verifiedMobileNumbers": <list_of_mobile_numbers>}}
+        }]
+    }' 
+--header "Content-Type:application/json"
+--header "Authorization: Bearer <access_token>"
+```
+
+</TabItem>
+<TabItem value="sample-request" label="Sample request">
+
+```bash
+curl -X PATCH
+https://localhost:9443/scim2/Me \
+-d '{
+    "schemas":["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+    "Operations":[{
+        "op":"replace",
+        "value":{"urn:scim:wso2:schema": {"verifiedMobileNumbers": "0111111111,0123456789"}}
+        }]
+    }' 
+--header "Content-Type:application/json"
+--header "Authorization: Bearer <access_token>"
+```
+
+</TabItem>
+</Tabs>
+
+---
+**Sample Response**
+```text
+{
+    "emails": [
+        "bobsmith@abc.com"
+    ],
+    "meta": {
+        "location": "https://localhost:9443/scim2/Users/6d433ee7-7cd4-47a3-810b-bc09023bc2ce",
+        "lastModified": "2020-10-12T13:35:24.579Z",
+        "resourceType": "User"
+    },
+    "schemas": [
+        "urn:ietf:params:scim:schemas:core:2.0:User",
+        "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User",
+        "urn:scim:wso2:schema"
+    ],
+    "roles": [
+        {
+            "type": "default",
+            "value": "Internal/everyone"
+        }
+    ],
+    "name": {
+        "givenName": "Bob",
+        "familyName": "Smith"
+    },
+    "id": "6d433ee7-7cd4-47a3-810b-bc09023bc2ce",
+    "userName": "bob123",
+    "phoneNumbers": [
+        {
+            "type": "mobile",
+            "value": "0111111111"
+        }
+    ],
+    "urn:scim:wso2:schema": {
+        "mobileNumbers": "0111111111",
+        "verifiedMobileNumbers": "0111111111",
+    },
+    "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User": {
+        "pendingMobileNumber": "0123456789"
+    }
+}
+```
+:::
+
+</Edition>
+
+</Variants>
+
+Upon receiving the response outlined above, the user will receive an SMS notification prompting them to verify their 
+updated mobile number. Once verified, the `Verified Mobile Numbers` claim (`http://wso2.org/claims/verifiedMobileNumbers`) 
+will be updated to reflect the new mobile number.  If a primary mobile number has not been configured, 
+the verified mobile number will also be set as the primary mobile number.
+
+## Validate the verification code
+
+When going through the mobile number verification process, users can enter the SMS OTP in the provided prompt and click **Verify** to verify the mobile number.
+
+![Mobile number verification code](../../../../../../assets/img/guides/users/my-account-mobile-verification-code.png)
+
+Alternatively, the validation-code API can be used to submit the SMS OTP as shown below.
+
+<Edition only="self-hosted">
+
+### By a non-privileged user
+
+Users can verify the SMS OTP by executing the following API request.
+
+</Edition>
+
+<Variants>
+
+<Edition only="cloud">
+
+:::info
+<Tabs groupId="tabs">
+<TabItem value="request-format" label="Request format">
+
+```bash
+curl -X POST https://api.asgardeo.io/t/{organization_name}/api/identity/user/v1.0/me/validate-code 
+-H "Authorization: Bearer <access_token>"
+-H "Content-Type: application/json" \
+-d '{ "code": "<validation_code>",
+      "properties": []
+    }'
+```
+
+</TabItem>
+<TabItem value="sample-request" label="Sample request">
+
+```bash
+curl -X POST https://api.asgardeo.io/t/bifrost/api/identity/user/v1.0/me/validate-code 
+-H "Authorization: Bearer <access_token>"
+-H "Content-Type: application/json" \
+-d '{ "code": "1234",
+      "properties": []
+    }' 
+```
+
+</TabItem>
+</Tabs>
+---
+**Response**
+```text
+"HTTP/1.1 200 Accepted"
+```
+:::
+
+</Edition>
+
+<Edition only="self-hosted">
+
+:::info
+<Tabs groupId="tabs">
+<TabItem value="request-format" label="Request format">
+
+```bash
+curl -X POST https://{edition.hostName}/api/identity/user/v1.0/me/validate-code 
+-H "Authorization: Bearer <access_token>"
+-H "Content-Type: application/json" \
+-d '{ "code": "<validation_code>",
+      "properties": []
+    }'
+```
+
+</TabItem>
+<TabItem value="sample-request" label="Sample request">
+
+```bash
+curl -X POST https://localhost:9443/api/identity/user/v1.0/me/validate-code 
+-H "Authorization: Bearer <access_token>"
+-H "Content-Type: application/json" \
+-d '{ "code": "1234",
+      "properties": []
+    }' 
+```
+
+</TabItem>
+</Tabs>
+---
+**Response**
+```text
+"HTTP/1.1 200 Accepted"
+```
+:::
+
+</Edition>
+
+</Variants>
+
+<Edition only="self-hosted">
+
+### By a privileged user
+
+Privileged users can verify the SMS OTP on behalf of a user by executing the following API request.
+
+:::info
+<Tabs groupId="tabs">
+<TabItem value="request-format" label="Request format">
+
+```bash
+curl -X POST https://{edition.hostName}/api/identity/user/v1.0/validate-code
+-H "Authorization: Bearer <access_token>"
+-H "Content-Type: application/json" \
+-d '{ "code": "<validation_code>",
+      "properties": []
+    }'
+```
+
+</TabItem>
+<TabItem value="sample-request" label="Sample request">
+
+```bash
+curl -v -k -X POST https://localhost:9443/api/identity/user/v1.0/validate-code 
+-H "Authorization: Bearer <access_token>"
+-H "Content-Type: application/json" \
+-d '{ "code": "1234",
+      "properties": []
+    }' 
+```
+
+</TabItem>
+</Tabs>
+---
+**Response**
+```text
+"HTTP/1.1 200 Accepted"
+```
+:::
+
+</Edition>
+
+## Resend the verification code
+
+Users can request for a new SMS OTP code by simply clicking the `Resend verification code` button in the shown prompt 
+
+![Mobile number verification code](../../../../../../assets/img/guides/users/my-account-mobile-verification-code.png)
+
+Alternatively, the resend-code API can be used to resend the SMS OTP as shown below.
+
+<Edition only="self-hosted">
+
+### By a non-privileged user {#by-a-non-privileged-user_1}
+
+Users can request a new SMS OTP by using the following API request.
+
+</Edition>
+
+<Variants>
+
+<Edition only="cloud">
+
+:::info
+<Tabs groupId="tabs">
+<TabItem value="request-format" label="Request format">
+
+```bash
+curl -X POST https://api.asgardeo.io/t/{organization_name}/api/identity/user/v1.0/me/resend-code 
+-H "Authorization: Bearer <access_token>"
+-H "Content-Type: application/json" \
+-d '{ "properties": [{
+        "key": "RecoveryScenario", 
+        "value": "<recovery_scenario>"
+      }]
+    }'
+```
+
+</TabItem>
+<TabItem value="sample-request" label="Sample request">
+
+```bash
+curl -X POST https://api.asgardeo.io/t/bifrost/api/identity/user/v1.0/me/resend-code 
+-H "Authorization: Bearer <access_token>"
+-H "Content-Type: application/json" \
+-d '{ "properties": [{
+        "key": "RecoveryScenario", 
+        "value": "MOBILE_VERIFICATION_ON_UPDATE"
+      }]
+    }' 
+```
+
+</TabItem>
+</Tabs>
+
+The verification scenario should be specified in the `properties` parameter of the request body as follows:
+
+- `MOBILE_VERIFICATION_ON_UPDATE`: Used when verifying a newly updated mobile number for a user. <br />
+- `MOBILE_VERIFICATION_ON_VERIFIED_LIST_UPDATE`: Used when updating the list of verified mobile numbers for a user.
+---
+
+**Response**
+```text
+"HTTP/1.1 201 Created"
+```
+:::
+
+</Edition>
+
+<Edition only="self-hosted">
+
+:::info
+<Tabs groupId="tabs">
+<TabItem value="request-format" label="Request format">
+
+```bash
+curl -X POST https://{edition.hostName}/api/identity/user/v1.0/me/resend-code 
+-H "Authorization: Bearer <access_token>"
+-H "Content-Type: application/json" \
+-d '{ "properties": [{
+        "key": "RecoveryScenario", 
+        "value": "<recovery_scenario>"
+      }]
+    }'
+```
+
+</TabItem>
+<TabItem value="sample-request" label="Sample request">
+
+```bash
+curl -X POST https://localhost:9443/api/identity/user/v1.0/me/resend-code 
+-H "Authorization: Bearer <access_token>"
+-H "Content-Type: application/json" \
+-d '{ "properties": [{
+        "key": "RecoveryScenario", 
+        "value": "MOBILE_VERIFICATION_ON_UPDATE"
+      }]
+    }' 
+```
+
+</TabItem>
+</Tabs>
+
+The verification scenario should be specified in the `properties` parameter of the request body as follows:
+
+- `MOBILE_VERIFICATION_ON_UPDATE`: Used when verifying a newly updated mobile number for a user. <br />
+- `MOBILE_VERIFICATION_ON_VERIFIED_LIST_UPDATE`: Used when updating the list of verified mobile numbers for a user.
+---
+
+**Response**
+```text
+"HTTP/1.1 201 Created"
+```
+:::
+
+</Edition>
+
+</Variants>
+
+<Edition only="self-hosted">
+
+### By a privileged user {#by-a-privileged-user_1}
+
+Privileged users can resend an SMS OTP on behalf of a user using the following API request.
+
+:::info
+<Tabs groupId="tabs">
+<TabItem value="request-format" label="Request format">
+
+```bash
+curl -X POST https://{edition.hostName}/api/identity/user/v1.0/resend-code 
+-H "Authorization: Bearer <access_token>"
+-H "Content-Type: application/json" \
+-d '{ 
+      "user": {
+        "username": <USERNAME>,
+        "realm": <REALM>"
+    },
+      "properties": [{
+        "key":"RecoveryScenario",
+        "value":<recovery_scenario>
+        }]
+    }'
+```
+
+</TabItem>
+<TabItem value="sample-request" label="Sample request">
+
+```bash
+curl -X POST https://localhost:9443/api/identity/user/v1.0/resend-code
+-H "Authorization: Bearer <access_token>"
+-H "Content-Type: application/json" \
+-d '{ 
+      "user": {
+        "username": "bob",
+        "realm": PRIMARY"
+    },
+      "properties": [{
+        "key":"RecoveryScenario",
+        "value":"MOBILE_VERIFICATION_ON_UPDATE"
+        }]
+    }'
+```
+
+</TabItem>
+</Tabs>
+
+The verification scenario should be specified in the request body as follows:
+
+- `MOBILE_VERIFICATION_ON_UPDATE`: Used when verifying updated primary mobile number.
+- `MOBILE_VERIFICATION_ON_VERIFIED_LIST_UPDATE`: Used when updating the list of verified mobile numbers.
+
+---
+**Response**
+```text
+"HTTP/1.1 201 Created"
+```
+:::
+
+</Edition>
+

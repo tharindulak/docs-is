@@ -1,0 +1,39 @@
+---
+title: Configure unique attributes
+description: Attributes are pieces of user information.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_position: 6
+---
+
+Attributes are pieces of user information. While users can have the same value for a given user attribute (e.g. Country), there can be attributes (e.g. employee ID) for which users must have unique values. This guide explains how you can set a uniqueness check for attributes to prevent duplicate values.
+
+Follow the steps below to set the uniqueness for a user attribute:
+
+1. On the {edition.productName} Console, go to **User Attributes & Stores** > **Attributes**.
+2. Under **Manage Attributes**, click **Attributes** to see the list of attributes.
+3. Click the **Edit** icon corresponding to the attribute you want to update.
+4. In the **General** tab of the attribute, select one of the following scopes from the **Uniqueness Validation** dropdown. 
+
+    - **None**: No validation is applied. Users can have duplicate values for the selected attribute.
+    - **Within User Store**: Users within the same user store cannot have duplicate values for the selected attribute. However, users in other user stores may have duplicates.
+    - **Across User Stores**: Attribute values are unique across all user stores preventing duplicates throughout the organization.
+
+    <Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/users/configure-attribute-uniqueness-validation.png").default} alt="additional-properties" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/users/configure-attribute-uniqueness-validation.png").default} alt="additional-properties" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+5. Click **Update** to save the changes.
+
+You can now verify the functionality by attempting to add users with an existing attribute value or updating the user attribute value of an existing user.
+
+<Edition only="self-hosted">
+
+:::note[Disable uniqueness validation]
+To disable the uniqueness check for user attributes, add the following configuration to the `<IS_HOME>/repository/conf/deployment.toml` file and restart {edition.productName}.
+
+```toml
+[identity_mgt.user_claim_update.uniqueness]
+enable = false
+```
+:::
+
+</Edition>
+

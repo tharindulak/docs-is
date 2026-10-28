@@ -1,0 +1,176 @@
+---
+title: Create a React app
+description: For this guide, you will be creating a simple React app using Vite, a modern, fast and lightweight tool that helps you quickly set up and develop modern…  # generated from the first paragraph; a writer should improve it
+type: how-to
+layout: complete-guide
+sidebar_position: 4
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+For this guide, you will be creating a simple React app using [Vite](https://vitejs.dev/), a modern, fast and lightweight tool that helps you quickly set up and develop modern JavaScript apps.
+
+Open a terminal, change directory to where you want to initialize the project, and run the following command to create your first React sample app.
+
+<Variants>
+
+<Edition only="cloud">
+
+<Tabs groupId="tabs">
+<TabItem value="npm" label="npm">
+
+```bash
+npm create vite@latest asgardeo-react -- --template react
+```
+
+</TabItem>
+<TabItem value="yarn" label="yarn">
+
+```bash
+yarn create vite@latest asgardeo-react -- --template react
+```
+
+</TabItem>
+<TabItem value="pnpm" label="pnpm">
+
+```bash
+pnpm create vite@latest asgardeo-react -- --template react
+```
+
+</TabItem>
+</Tabs>
+
+</Edition>
+
+<Edition only="self-hosted">
+
+<Tabs groupId="tabs">
+<TabItem value="npm" label="npm">
+
+```bash
+npm create vite@latest is-react -- --template react
+```
+
+</TabItem>
+<TabItem value="yarn" label="yarn">
+
+```bash
+yarn create vite@latest is-react -- --template react
+```
+
+</TabItem>
+<TabItem value="pnpm" label="pnpm">
+
+```bash
+pnpm create vite@latest is-react -- --template react
+```
+
+</TabItem>
+</Tabs>
+
+</Edition>
+
+</Variants>
+
+Running this command will create a folder with a ready-to-run boilerplate React project, with a development server to run the project and instantly reload changes to the project in your browser without manual refresh.
+
+Once the application is created, install the dependencies using the following command.
+
+<Variants>
+
+<Edition only="cloud">
+
+<Tabs groupId="tabs">
+<TabItem value="npm" label="npm">
+
+```bash
+cd asgardeo-react
+npm install
+```
+
+</TabItem>
+<TabItem value="yarn" label="yarn">
+
+```bash
+cd asgardeo-react
+yarn install
+```
+
+</TabItem>
+<TabItem value="pnpm" label="pnpm">
+
+```bash
+cd asgardeo-react
+pnpm install
+```
+
+</TabItem>
+</Tabs>
+
+</Edition>
+
+<Edition only="self-hosted">
+
+<Tabs groupId="tabs">
+<TabItem value="npm" label="npm">
+
+```bash
+cd is-react
+npm install
+```
+
+</TabItem>
+<TabItem value="yarn" label="yarn">
+
+```bash
+cd is-react
+yarn install
+```
+
+</TabItem>
+<TabItem value="pnpm" label="pnpm">
+
+```bash
+cd is-react
+pnpm install
+```
+
+</TabItem>
+</Tabs>
+
+</Edition>
+
+</Variants>
+
+Then run the sample in the development mode. This allows you to see real-time updates and debug the app as you make changes.
+
+<Tabs groupId="tabs">
+<TabItem value="npm" label="npm">
+
+```bash
+npm run dev
+```
+
+</TabItem>
+<TabItem value="yarn" label="yarn">
+
+```bash
+yarn dev
+```
+
+</TabItem>
+<TabItem value="pnpm" label="pnpm">
+
+```bash
+pnpm dev
+```
+
+</TabItem>
+</Tabs>
+
+Confirm that the dev server is up and running by verifying the output in the terminal. Then, navigate to [http://localhost:5173](http://localhost:5173)  and you should see the sample app working in the browser.
+
+<img src={require("../../../../assets/img/complete-guides/react/image6.png").default} alt="Navigate to localhost" width="600" style={{display: "block", margin: "0"}} />
+
+At this point, you have a simple yet fully functional React app. In the next step, let’s try to integrate an OIDC SDK with the app.

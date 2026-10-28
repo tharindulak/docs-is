@@ -1,0 +1,63 @@
+---
+title: Configure an application
+description: First unless you already have done that, you need to create an organization in WSO2 Identity Platform and register your application as a Traditional Web…  # generated from the first paragraph; a writer should improve it
+type: how-to
+layout: complete-guide
+sidebar_position: 3
+---
+
+<Edition only="cloud">
+
+First unless you already have done that, you need to create an organization in {edition.productName} and register your application as a Traditional Web Application.
+
+* Sign up for a [free {edition.productName} account](../../../get-started/create-identity-platform-account.mdx)
+
+</Edition>
+
+* Sign into {edition.productName} console and navigate to **Applications > New Application.**
+* Select Traditional Web Application
+
+<img src={require("../../../../assets/img/complete-guides/nodejs/image5.png").default} alt="Select Traditional Web Application" width="800" style={{display: "block", margin: "0"}} />  
+
+Next, complete the wizard popup by providing a suitable name and following authorized redirect URLs. Keep OpenID Connect selected as the protocol.
+
+<Variants>
+
+<Edition only="cloud">
+
+:::note[Example]
+**name:** asgardeo-expressjs
+
+**Authorized redirect URLs:** http://localhost:3000/oauth2/redirect,http://localhost:3000
+:::
+
+</Edition>
+
+<Edition only="self-hosted">
+
+:::note[Example]
+**name:** is-expressjs
+
+**Authorized redirect URLs:** http://localhost:3000/oauth2/redirect,http://localhost:3000
+:::
+
+</Edition>
+
+</Variants>
+
+<img src={require("../../../../assets/img/complete-guides/nodejs/image8.png").default} alt="Register a new application" width="800" style={{display: "block", margin: "0"}} />
+
+:::info
+The authorized redirect URL determines where {edition.productName} should send users after they successfully log in. Typically, this will be the web address where your app is hosted. For this guide, we'll use [http://localhost:3000/oauth2/redirect](http://localhost:3000/oauth2/redirect) and [http://localhost:3000](http://localhost:3000).
+:::
+
+You will need the following information available in the Quick Start tab of your app.
+
+* Client ID
+* Client Secret
+
+<img src={require("../../../../assets/img/complete-guides/nodejs/image9.png").default} alt="Quick start guide" width="800" style={{display: "block", margin: "0"}} />
+
+After creating the application, navigate to **User Management > Users** and <Edition only="cloud">[create a new user](../../users/users/manage-users.mdx#onboard-users)</Edition><Edition only="self-hosted">[create a new user](https://wso2.com/asgardeo/docs/guides/users/manage-users/#onboard-users)</Edition>. We will use this user to log in to the Express.js app.
+
+In this step, we have registered our Express.js app as an application in the {edition.productName} console and generated the required metadata. Next, we will create a Express.js app using the Express.js framework.

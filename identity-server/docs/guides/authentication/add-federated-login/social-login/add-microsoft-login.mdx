@@ -1,0 +1,167 @@
+---
+title: Add Microsoft login
+description: You can add Microsoft login to your applications using WSO2 Identity Platform and enable users to log in with their Microsoft accounts.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_position: 5
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+You can add Microsoft login to your applications using {edition.productName} and enable users to log in with their Microsoft accounts.
+
+Follow this guide for instructions.
+
+## Register {edition.productName} on Microsoft
+
+You need to register {edition.productName} as an OAuth2.0 application on Microsoft Entra ID.
+
+:::note
+For detailed instructions, you can follow the [Microsoft documentation](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app).
+:::
+
+1. Sign in to the [Microsoft Entra admin center](https://entra.microsoft.com/) using an account with administrator permission.
+
+    :::note
+    You must use an account in the same Microsoft 365 subscription (tenant) with which you intend to register the app.
+    :::
+
+2. Go to **Identity** > **Applications** > **App registrations** and select **New registration**.
+
+3. Click **Add** and select **App registration** from the list.
+
+4. Provide the required information for app registration.
+
+    <Variants><Edition only="cloud"><img src={require("../../../../../assets/cloud/img/guides/idp/microsoft-idp/register-an-application.png").default} alt="Register an application on the Microsoft Entra admin center" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../../assets/self-hosted/img/guides/idp/microsoft-idp/register-an-application.png").default} alt="Register an application on the Microsoft Entra admin center" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+    | Parameter | Description |
+    | --- | --- |
+    | Name | Enter a meaningful name for your application. |
+    | Supported Account Type | Select the supported account type. <br />**Value:** `Accounts in any organizational directory (Any Microsoft Entra ID tenant - Multitenant) and personal Microsoft accounts (e.g., Skype, Xbox)` |
+    | Redirect URI | Select **Web** as the platform and provide the URL to redirect after the login is completed.<br />**Value:** `{edition.productUrlFormat}/commonauth` |
+
+5. Click **Register** to create the application.
+
+    :::note
+    Take note of the client ID after the application is created.
+    :::
+
+Now, let's generate a client secret for the application.
+
+1. Go to **Certificates & secrets** on the left navigation and click **+ New client secret**.
+2. Enter a description for the client secret and select the expiry time.
+3. Click **Add** to add the client secret.
+
+    :::note[Important]
+    Take note of the generated **Value**. Microsoft Entra will allow copying this value only once. This value is the newly generated client secret for your Microsoft connection in {edition.productName}.
+    :::
+
+## Register the Microsoft IdP
+
+Now, let's register the Microsoft IdP in {edition.productName}.
+
+1. On the {edition.productName} Console, go to **Connections**.
+2. Click **New Connections** and select **Microsoft**.
+3. Enter the following details of the Microsoft identity provider and click **Finish**:
+
+    <Variants><Edition only="cloud"><img src={require("../../../../../assets/cloud/img/guides/idp/microsoft-idp/add-microsoft-idp.png").default} alt="Add Microsoft IDP in WSO2 Identity Platform" width="600" style={{border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../../assets/self-hosted/img/guides/idp/microsoft-idp/add-microsoft-idp.png").default} alt="Add Microsoft IDP in WSO2 Identity Server" width="600" style={{border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+    | Parameter | Description |
+    | --- | --- |
+    | Name | A unique name for this Microsoft identity provider. |
+    | Client ID | The client ID obtained from Microsoft. |
+    | Client secret | The client secret obtained from Microsoft. |
+
+4. Go to the **Settings** tab and see the list of **scopes** to which Microsoft has granted permissions.
+
+- **email**: Allows to view the user's email address.
+- **openid**: Allows authentication using OpenID Connect and to obtain the ID token.
+- **profile**: Allows to view the user's basic profile data.
+
+:::note
+{edition.productName} needs these scopes to get user information. {edition.productName} checks the attribute configurations of the application and sends the relevant attributes received from Microsoft to the app. You can read the [Microsoft documentation](https://learn.microsoft.com/en-us/entra/identity-platform/scopes-oidc#openid-connect-scopes) to learn more.
+:::
+
+## Enable Microsoft login
+
+:::note[Before you begin]
+You need to [register an application with {edition.productName}](../../../applications/index.mdx). You can register your own application or use one of the [sample applications](../../../../get-started/try-samples/index.mdx) provided.
+:::
+
+To enable Microsoft login:
+
+1. On the {edition.productName} Console, go to **Applications**.
+2. Select your application, go to the **Login Flow** tab and add Microsoft login from your preferred editor:
+
+    <Variants>
+
+    <Edition only="cloud">
+
+    <Tabs groupId="tabs">
+    <TabItem value="classic-editor" label="Classic Editor">
+
+    To add Microsoft login using the Classic Editor:
+
+    1. If you haven't already defined a sign-in flow, click **Start with Default configuration** to get started.
+
+    2. Click **Add Authentication** on the step, select your Microsoft identity provider, and click **Add**.
+
+        <img src={require("../../../../../assets/cloud/img/guides/idp/microsoft-idp/add-microsoft-with-basic.png").default} alt="Add Microsoft login in WSO2 Identity Platform" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    </TabItem>
+    <TabItem value="visual-editor" label="Visual Editor">
+
+    To add Microsoft login using the Visual Editor:
+
+    1. Switch to the **Visual Editor** tab, by default the `Username & Password` login flow will be added onto the Visual Editor's workspace.
+
+    2. Click on `+ Add Sign In Option` to add a new authenticator to the same step and select your Microsoft connection.
+
+        <img src={require("../../../../../assets/img/guides/idp/microsoft-idp/add-microsoft-login-with-visual-editor.png").default} alt="Add Microsoft login in WSO2 Identity Platform using the Visual Editor" width="500" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    </TabItem>
+    </Tabs>
+
+    ---
+
+    </Edition>
+
+    <Edition only="self-hosted">
+
+    1. Click **Add Sign In Option** to add a new authenticator to the first step.
+
+    2. Select the Microsoft connection.
+
+    3. Click **Confirm** to add login with Microsoft to the sign-in flow.
+
+        <img src={require("../../../../../assets/img/guides/idp/microsoft-idp/add-microsoft-login-with-visual-editor.png").default} alt="Configuring Microsoft login in WSO2 Identity Server using the Visual Editor" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    </Edition>
+
+    </Variants>
+
+    :::note[Recommendations]
+    It is recommended to add your social and enterprise connections to the first authentication step as they are used for identifying the user.
+    :::
+
+3. Click **Update** to save your changes.
+
+## Try it out
+
+Follow the steps given below.
+
+1. Access the application URL.
+2. Click **Login** to open the {edition.productName} login page.
+3. On the {edition.productName} login page, **Sign in with Microsoft**.
+
+    <Variants><Edition only="cloud"><img src={require("../../../../../assets/cloud/img/guides/idp/microsoft-idp/sign-in-with-microsoft.png").default} alt="Login with Microsoft" width="300" style={{border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../../assets/self-hosted/img/guides/idp/microsoft-idp/sign-in-with-microsoft.png").default} alt="Login with Microsoft" width="300" style={{border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+4. Log in to Microsoft with an existing user account.
+
+:::note
+When a user successfully logs in with Microsoft for the first time, a **user** account is created in the {edition.productName} Console with the Microsoft username. Microsoft will manage this new user account.
+:::
+
+## Configure connection
+
+To learn more about other configurations available for the connection, refer to the [add federated login](../index.mdx) documentation.

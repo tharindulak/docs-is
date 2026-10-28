@@ -1,0 +1,66 @@
+---
+title: Setting up MCP Clients
+description: The Model Context Protocol (MCP) specification defines that authorization is initiated by MCP clients.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Setting up MCP clients
+sidebar_position: 3
+---
+
+The Model Context Protocol (MCP) specification defines that authorization is initiated by MCP clients. These clients handle authorization flows, manage tokens and sessions with MCP servers, and provide end-user experiences based on user permissions.
+
+<Edition selfHostedFrom="next">
+
+{edition.productName} provides an **MCP Client Application** template with default configurations to register an MCP client with minimal effort. This template has been configured to create an OAuth application that adheres to the guidelines and best practices outlined in the [MCP authorization specification](https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization).
+
+:::info[Other Application Types]
+While the MCP Client Application template is optimized for MCP connections, MCP servers can also be accessed by most other application types in {edition.productName}, including Single Page Applications, Traditional Web Applications, Mobile Applications, and M2M Applications. The only exception is Digital Wallet applications, which cannot access MCP servers.
+:::
+
+</Edition>
+
+## Register an MCP Client Application
+
+To regiser an MCP Client application,  
+
+1. On {edition.productName} Console, go to **Applications** > **New Application** to navigate to the application template selection wizard.
+
+    <img src={require("../../../../assets/img/guides/applications/select-mcp-client-app-template.png").default} alt="Select MCP client application template" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+2. Select **MCP Client Application**. The application creation wizard will appear.
+
+    <img src={require("../../../../assets/img/guides/applications/create-mcp-client-application.png").default} alt="Create an MCP client application" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    The MCP application creation wizard includes the following fields.
+
+    | Parameter | Description |
+    | --- | --- |
+    | Name | A unique name to identify your application. |
+    | Authorized redirect URL | The URL to which the authorization code is sent upon user authentication and where the user is redirected upon logout. |
+    | Public client | Keep this enabled if your MCP client application cannot securely store client secrets. (Eg: mobile apps, single page web apps etc). |
+
+    :::note
+    MCP Authorization specification recommends that MCP clients should be public clients with authorization code grant flow enabled. However, if your MCP client runs on a server side environment where you can keep a secret, you can untick the *public client* option.
+    :::
+
+3. Click **Create** to complete the registration.
+
+## What's next?
+
+- [Obtain an M2M token using client credential grant](../../../reference/iam-concepts/grant-types.mdx#client-credentials-grant)
+
+<Variants>
+
+<Edition only="cloud">
+
+- [End-to-end MCP Authorization with WSO2 Identity Platform](../../../get-started/tutorials/end-to-end-mcp-authorization-with-identity-platform.mdx)
+
+</Edition>
+
+<Edition only="self-hosted">
+
+- [Implement authorization code flow with PKCE](../../authentication/configure-oidc-flows/oidc/implement-auth-code-with-pkce.mdx)
+
+</Edition>
+
+</Variants>
+

@@ -1,0 +1,42 @@
+---
+title: Customize SMS templates
+description: The following topics explain how you can customize SMS notifications that are sent to users of your WSO2 Identity Platform organization.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_position: 7
+---
+
+The following topics explain how you can customize SMS notifications that are sent to users of your {edition.productName} organization.
+
+:::note[SMS templates for B2B applications]
+If you have set up [organizations](../../organization-management/manage-organizations.mdx),
+refer [SMS template inheritance](../../organization-management/customize-organizations/inheritance-in-organizations/email-sms-templates-inheritance.mdx) to see how SMS templates are inherited.
+:::
+
+You can tailor the **body** of SMS notifications to your preferences by following the steps below.
+
+:::note
+This feature is only available for the most frequently used SMS templates. You can customize [all available SMS templates](../../../reference/sms-templates.mdx) using the [Notification Templates API](../../../reference/apis/notification-templates/index.mdx).
+:::
+
+1. On the {edition.productName}, go to **Branding** > **SMS Templates**.
+2. Select the SMS template and the relevant locale that you wish to modify.
+
+    <img src={require("../../../../assets/img/guides/branding/select-sms-template.png").default} alt="Select SMS template" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+3. Make your modifications in the **SMS Template Body** input field and use the **Preview** for a real-time preview.
+
+4. Click **Save** to publish your changes.
+
+:::warning[Apply changes to user profiles]
+To apply these changes to each user's profile in your organization:
+
+1. Display the `local` attribute on the user's profile. Learn how to do so in [updating user attributes](../../users/attributes/user-attributes/manage-attributes.mdx).
+
+2. Update the `local` attribute value with the [required locale code](./localization.mdx#supported-languages). The value should be updated by,
+
+    - the admin, if the admin onboards the user to the organization.
+
+    - the user, if the user self-registers to the organization.
+:::
+
+Alternatively, you can customize the content of SMS templates using the [Notification Templates API](../../../reference/apis/notification-templates/index.mdx) provided by {edition.productName}.

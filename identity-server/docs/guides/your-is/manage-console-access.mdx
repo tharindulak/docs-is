@@ -1,0 +1,246 @@
+---
+title: Manage WSO2 Identity Server Console access
+description: The WSO2 Identity Server Console is a pivotal point for managing identity and access within your organization.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Manage Console access
+sidebar_position: 2
+editions: self-hosted
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Manage {edition.productName} Console access
+
+The {edition.productName} Console is a pivotal point for managing identity and access within your organization. It provides a comprehensive interface for configuring and managing users, groups, roles, and various identity services. To ensure a secure and efficient management process, it is crucial to configure access to the console appropriately. This section outlines the steps to access the console and how to manage access based on user roles.
+
+## Accessing the WSO2 Identity Server Console
+
+To access the WSO2 Identity Server Console, you need to have the required permissions and the URL of the Console. This can be achieved by navigating to the console through a web browser using the following URL format:
+
+   ```text
+   https://<hostname>:<port>/console
+   ```
+
+For example, if you are using the default host and port, the URL will be `https://localhost:9443/console`.
+
+Upon navigating to this URL, you will be presented by the login screen of the WSO2 Identity Server. Use your credentials to log in to the Console.
+
+:::note
+The default credentials for an administrative user is as follows. It is crucial to change these default credentials before deploying the server in any production environment. Using default login information can pose a significant security risk, making the system vulnerable to unauthorized access. Learn more about [changing the super admin password](../../deploy-and-operate/secure/maintain-logins-and-passwords.mdx#change-the-super-admin-password)
+```text
+Username: admin
+Password: admin
+```
+:::
+
+## Configure Console login
+
+Just like any other application registered in {edition.productName}, you can customize the login flow of the Console using any configured connection.
+
+:::note
+Learn about the connections supported in {edition.productName} and how to configure them in the [Authentication](../authentication/index.mdx) section.
+:::
+
+To customize login for the Console,
+
+1. Sign in to the {edition.productName} Console and click **Console Settings**.
+
+2. Go to the **Login Flow** tab and configure the login flow from your preferred editor:
+
+    <Tabs groupId="tabs">
+    <TabItem value="classic-editor" label="Classic Editor">
+
+    - Click **Add Authentication** on a step, select a connection from the list and click **Add**. You can add multiple connections to the same step.
+
+        <img src={require("../../../assets/self-hosted/img/guides/organization/console/login-flow-classic.png").default} alt="Configure the Console login flow using the classic editor" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    - Click the **+** icon on the login flow if you wish to add an additional authentication step and repeat the above.
+
+    - Turn on the **Conditional Authentication** toggle if you wish to customize authentication using a script.
+
+        :::note
+        Refer to [**Add conditional authentication**](../authentication/conditional-auth/index.mdx) to learn more about conditional authentication scripts.
+        :::
+
+    </TabItem>
+    <TabItem value="visual-editor" label="Visual Editor">
+
+    - Switch to the **Visual Editor** tab.
+
+    - Click **Add Sign In Option**, select a connection from the list and click **Add**. You can add multiple authentication methods to the same step. (Alternatively, go to **Predefined Flows** > **Basic Flows** to quickly add a login flow.)
+
+        <img src={require("../../../assets/self-hosted/img/guides/organization/console/login-flow-visual.png").default} alt="Configure the Console login flow using the Visual Editor" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    - Click the **+** icon on the login flow if you wish to add an additional authentication step and repeat the above.
+
+    - Turn on the **Conditional Authentication** toggle if you wish to customize authentication using a script.
+
+        :::note
+        Refer to [Add conditional authentication](../authentication/conditional-auth/index.mdx) to learn more about conditional authentication scripts.
+        :::
+
+    </TabItem>
+    </Tabs>
+
+3. Click **Update** to save the changes.
+
+## Manage Console roles
+
+Roles are a collection of permissions. You can create roles and assign users and groups to them so that they gain limited access to Console features. Follow the sections below to learn about managing Console roles.
+
+### Console role permissions
+
+When you create a Console role, you grant it access to one or more **Console components** — features such as **Applications**, **Connections**, **Users**, **Groups**, and **Roles**. You assign these permissions at two levels:
+
+<table>
+  <tbody>
+    <tr>
+      <td>**Tenant Permissions**</td>
+      <td>The permissions the role has for the root organization.</td>
+    </tr>
+    <tr>
+      <td>**Organization Permissions**</td>
+      <td>The permissions the role has for the child organizations.</td>
+    </tr>
+  </tbody>
+</table>
+
+#### Permission levels
+
+By default, you can assign each Console component one of the following permission levels:
+
+<table>
+  <tbody>
+    <tr>
+      <td>**View**</td>
+      <td>Assigns read permissions for the component.</td>
+    </tr>
+    <tr>
+      <td>**Edit**</td>
+      <td>Assigns read, create, update, and delete permissions for the component.</td>
+    </tr>
+  </tbody>
+</table>
+
+:::note
+Selecting **View** or **Edit** for a given Console component assigns the role several scopes pertaining to it. For example, if you select **Applications** and assign the **View** permission, the role is assigned the following scopes.
+
+<img src={require("../../../assets/self-hosted/img/guides/organization/console/console-role-permissions.png").default} alt="Scopes assigned for a given permission for a Console component" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+:::
+
+<Edition selfHostedFrom="next">
+
+#### Granular console permissions
+
+By default, Console roles use the combined **View** and **Edit** permission model described above, where **Edit** grants **Create**, **Update**, and **Delete** access together.
+
+You can optionally enable a more granular permission model that lets you assign **Create**, **Update**, and **Delete** permissions independently for each Console component in both tenant and organization permissions. For example, you can allow a role to create users without allowing it to update or delete existing users.
+
+This model assigns the corresponding granular Console scopes for the selected actions. It's controlled by the `use_granular_console_permissions` setting, which is `false` by default. Enable it only when you need this level of control over Console permissions. To do so, add the following configuration to the `deployment.toml` file and restart the server.
+
+```toml
+[console_settings]
+use_granular_console_permissions = true
+```
+
+Once enabled, you can assign each Console component the following permission levels:
+
+<table>
+  <tbody>
+    <tr>
+      <td>**View**</td>
+      <td>Assigns read permissions for the component.</td>
+    </tr>
+    <tr>
+      <td>**Create**</td>
+      <td>Assigns read and create permissions for the component.</td>
+    </tr>
+    <tr>
+      <td>**Update**</td>
+      <td>Assigns read and update permissions for the component.</td>
+    </tr>
+    <tr>
+      <td>**Delete**</td>
+      <td>Assigns read and delete permissions for the component.</td>
+    </tr>
+  </tbody>
+</table>
+
+<img src={require("../../../assets/self-hosted/img/guides/organization/console/granular-console-role-permissions.png").default} alt="Granular console permissions" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+:::note
+**View** is required whenever **Create**, **Update**, or **Delete** is selected for a component, and it cannot be turned off while any of those write permissions remain active.
+:::
+
+:::note[Compatibility with existing roles]
+Console roles created earlier with the combined **Edit** permission continue to work when the granular model is enabled. **Edit** grants **Create**, **Update**, and **Delete** together.
+:::
+
+:::warning[Switching back to the default model]
+If you enable granular Console permissions and create roles with granular **Create**, **Update**, or **Delete** permissions, those role permissions will not work after you switch back to the default **View** and **Edit** permission model. Keep granular Console permissions enabled for roles created with the granular model, or review and update those roles before disabling it.
+:::
+
+</Edition>
+
+### Create a role
+
+:::warning[Important]
+Roles created here are roles for the Console application which are solely for the purpose of limiting features of the Console. You can define organization level roles and roles for other applications in **User Management** > **Roles**. Refer to [Manage roles](../users/manage-roles.mdx) to learn more.
+:::
+
+To create a role for the Console,
+
+1. Sign in to the {edition.productName} Console as an administrator and click **Console Settings**.
+
+2. Select the **Roles** tab and click **New Role**.
+
+3. Provide the following details for the role.
+
+    <img src={require("../../../assets/self-hosted/img/guides/organization/console/create-console-role.png").default} alt="Create a role for the Console" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+4. Click **Add** to save the role.
+
+### Assign users/groups to a role
+
+To assign a user or a group to a role,
+
+1. On the {edition.productName} Console, click **Console Settings**.
+
+2. Go to the **Roles** tab and select the role you wish to assign.
+
+3. Do one of the following:
+
+    - To assign a user:
+
+        - Go to the **Users** tab and click **Assign Users**
+
+        - Choose a user store and select the relevant user.
+
+            <img src={require("../../../assets/self-hosted/img/guides/organization/console/assign-console-role-to-user.png").default} alt="assign a user to a role" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+        - Click **Update** to assign the user.
+
+    - To assign a group:
+
+        - Go to the **Groups** tab.
+
+        - Select a relevant local group.
+
+            <img src={require("../../../assets/self-hosted/img/guides/organization/console/assign-console-role-to-group.png").default} alt="assign a group to a role" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+        - Click **Update** to assign the group.
+
+### Delete a role
+
+To delete a role:
+
+1. On the WSO2 Identity Server Console, go to **Console Settings** > **Roles**.
+
+2. Click the trash icon next to the role you wish to delete.
+
+3. Select the checkbox and confirm your action.
+
+## Manage administrators
+
+Users who are assigned to one or more Console roles created [above](#create-a-role), are listed under the **Administrators** tab in **Console Settings**. For instructions on managing administrators, refer to [manage administrators](../users/administrators/manage-administrators.mdx).

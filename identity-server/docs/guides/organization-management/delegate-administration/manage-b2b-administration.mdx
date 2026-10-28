@@ -1,0 +1,88 @@
+---
+title: Administration of organizations
+description: As the organization creator, you may delegate administration of a child organization to a user of that organization.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Set up administration portal
+sidebar_position: 1
+---
+
+As the organization creator, you may delegate administration of a child organization to a user of that organization. You may facilitate administration for an organization by creating a dedicated administration portal or by using the organization Console. The following guides explain these two scenarios in detail.
+
+## Implement an administration portal
+
+You may implement an administration portal by leveraging the [organization APIs](../../../reference/apis/organization-apis/index.mdx). These APIs are tailor-made for managing organizations created under the root organization.
+
+:::note
+Your administration portal should be registered as an application in {edition.productName} and be authorized to consume organization APIs. Learn how to do this in [API authorization](../../authorization/api-authorization/api-authorization.mdx).
+:::
+
+The administration portal should facilitate the following features for organization admins.
+
+### Manage users
+
+Organization admins should be able to perform the following user-related operations within the organization.
+
+- Onboard and manage users. You may facilitate this using the <Edition only="cloud">[user management - SCIM2 API](../../../reference/apis/org-scim2-org-user-mgt/index.mdx)</Edition><Edition only="self-hosted">[user management - SCIM2 API](../../../reference/apis/org-user-mgt/index.mdx)</Edition>.
+
+- Create and manage groups for users. You may facilitate this using the <Edition only="cloud">[group management - SCIM2 API](../../../reference/apis/org-scim2-org-group-mgt/index.mdx)</Edition><Edition only="self-hosted">[group management - SCIM2 API](../../../reference/apis/org-group-mgt/index.mdx)</Edition>.
+
+- Manage roles associated with applications shared with the organization. You may facilitate this using the <Edition only="cloud">[role management - SCIM2 API](../../../reference/apis/org-scim2-org-group-mgt/index.mdx)</Edition><Edition only="self-hosted">[role management - SCIM2 API](../../../reference/apis/org-group-mgt/index.mdx)</Edition>.
+
+### Onboard identity providers
+
+Organization users may already be registered in another identity provider (IdP). In such a scenario, you should facilitate organization admins to onboard IdPs to the organizations. Hence, users may use existing credentials and a familiar interface to log in to applications.
+
+You may facilitate this using the <Edition only="cloud">[identity provider API](../../../reference/apis/org-idp/index.mdx)</Edition><Edition only="self-hosted">identity provider API</Edition>.
+
+### Define application login flows
+
+The login flows of applications shared by the root organization should be customizable by an organization admin. They should be able to decide the number of login steps that should be configured and what login methods each step should contain.
+
+You may facilitate this using the <Edition only="cloud">[application management API](../../../reference/apis/org-shared-application-management/index.mdx)</Edition><Edition only="self-hosted">application management API</Edition>.
+
+:::note[Extend administration tasks]
+Explore the [organization APIs](../../../reference/apis/organization-apis/index.mdx) of {edition.productName} that are available for you to enable all the required administration capabilities from your administration portal.
+:::
+
+## Use the Console as the administration portal
+
+{edition.productName} Console can also function as an administration portal for your B2B application which is accessible through the following URL:
+
+<Variants>
+
+<Edition only="cloud">
+
+```text
+https://console.asgardeo.io/t/{{ root_organization_name }}/o/<organization id>/app
+```
+
+</Edition>
+
+<Edition only="self-hosted">
+
+```text
+https://localhost:9443/t/<root_organization_handle>/o/<organization id>/console
+```
+
+</Edition>
+
+</Variants>
+
+However, the following limitations apply.
+- The Console is not customizable.
+- The Console will not reflect the branding customizations of your organization.
+- The login flow of the Console does not adhere to the customizations done for the application. (You may change the login flow for the Console under **Console settings** \> **Login Flow**.)
+- The Console access is governed by separate roles and are not linked to your B2B application roles.
+
+:::note[Find the Console ID]
+As the B2B SaaS provider, you may copy the organization URL and share it with your customers/partners. Also, you may integrate the Console URL with your application to provide a seamless experience for your customers/partners.
+
+To locate your organization URL,
+
+1. Log in to the {edition.productName} Console.
+2. Go to **Organizations** and select the organization that you want to share the URL of.
+3. Switch to that organization.
+4. Go to **Console Settings** and click **Copy** next to the **Console URL**.
+
+<Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/organization/manage-organizations/sub-org-console-access-url.png").default} alt="Copy organization space URL" width="600" style={{display: "block", margin: "0"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/organization/manage-organizations/sub-org-console-access-url.png").default} alt="Copy organization space URL" width="600" style={{display: "block", margin: "0"}} /></Edition></Variants>
+:::

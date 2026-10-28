@@ -1,0 +1,48 @@
+---
+title: Manage approvals
+description: To view the approvals, you can navigate to the Approvals section from the My Account Portal side menu.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_position: 15
+---
+
+To view the approvals, you can navigate to the **Approvals** section from the My Account Portal side menu.
+
+<Edition only="cloud">
+
+Depending on the type of administrator, approvals can be handled as follows:
+
+- **Privileged user** – These administrators have business user accounts and can manage approvals through the organization’s MyAccount portal.
+- **Organization owners and invited administrators** – These administrators do not have business user accounts and therefore cannot access the organization-specific MyAccount portal. They can manage approvals directly from the Console.
+
+</Edition>
+
+This page displays all approval requests that you are eligible to act on.
+
+<img src={require("../../../../assets/img/guides/workflows/workflow-approvals.png").default} alt="Workflow approval page" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+### Approval states
+
+Each approval request can be in one of the following states:
+
+- **Ready**: The approval request is available for assignment. You can either approve it immediately or reserve it for review later.
+- **Reserved**: You have assigned yourself this approval for review. Other approvers can't act on it until you unassign it.
+- **Blocked**: Another approver has already reserved this request, so you can't act on it.
+- **Approved**: You have approved the request.
+- **Rejected**: You have rejected the request.
+
+:::note
+Once you reserve (assign yourself) an approval, no one else can approve it. However, you can unassign a reserved approval back to the shared pool at any time, allowing other eligible approvers to act on it.
+:::
+
+<img src={require("../../../../assets/img/guides/workflows/reserved-approval.png").default} alt="Reserved approval" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+You can filter approval requests based on their state, as shown below.
+
+<img src={require("../../../../assets/img/guides/workflows/filter-approvals.png").default} alt="Filter approvals page" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+### View approval details
+
+To view more information about a specific approval, click on the approval entry in the list.
+This opens the Approval Details page, which displays all relevant information about the associated operation.
+
+<Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/workflows/approval-details.png").default} alt="Approval details" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/workflows/approval-details.png").default} alt="Approval details" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>

@@ -1,0 +1,23 @@
+---
+title: Configure bot detection
+description: WSO2 Identity Platform uses reCAPTCHA to detect bots that attempt unauthorized login or other types of internet abuse.  # generated from the first paragraph; a writer should improve it
+type: how-to
+unlisted: true
+editions: cloud
+---
+
+{edition.productName} uses [reCAPTCHA](https://developers.google.com/recaptcha/) to detect bots that attempt unauthorized login or other types of internet abuse. This is a free service provided by Google that verifies whether a user is a human or a robot. It comes in the form of a widget.
+
+When bot detection is enabled, {edition.productName} enforces reCAPTCHA validation in the following scenarios:
+
+- User login
+- User password recovery
+- User self-registration
+
+To configure reCAPTCHA:
+
+1. On the {edition.productName} Console, go to **Login & Registration**.
+2. Under **Login Security**, click **Bot Detection**.
+3. Turn the toggle on or off to enable or disable reCAPTCHA for your organization.
+
+    <img src={require("../../../../assets/cloud/img/guides/organization/account-security/bot-detection/enable-bot-detection.png").default} alt="Enable bot detection" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />

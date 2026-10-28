@@ -1,0 +1,28 @@
+---
+title: Email and SMS template inheritance
+description: In WSO2 Identity Platform, child organizations inherit email and SMS templates from the organizational hierarchy.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Email and SMS templates
+sidebar_position: 4
+---
+
+In {edition.productName}, child organizations inherit email and SMS templates from the organizational hierarchy. Child organizations can make their own adjustments to these inherited templates.
+
+Organization administrators can access email and SMS templates from the {edition.productName} Console under **Branding** > **Email Templates** and **Branding** > **SMS Templates** respectively.
+
+## How it works
+
+Inheritance for email and SMS templates works as follows.
+
+- Child organizations inherit email and SMS templates from the nearest ancestor with custom templates. If no ancestor has customized templates, the default templates apply.
+
+- Organizations can customize their own email and SMS templates, overriding the inherited templates. These overridden templates then pass down to the organization’s descendants.
+
+- Organizations can also revert their email and SMS templates, restoring the inherited values.
+
+## Customize email and SMS templates
+
+To learn how to customize email and SMS templates, refer to the following guides:
+
+- [Customize email templates](../../../customizations/branding/customize-email-templates.mdx)
+- [Customize SMS templates](../../../customizations/branding/customize-sms-templates.mdx)

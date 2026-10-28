@@ -1,0 +1,44 @@
+---
+title: Multi-valued attributes for user contact information
+description: Multi-valued attributes can store more than one value.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Configure multi-valued contact attributes
+sidebar_position: 7
+---
+
+Multi-valued attributes can store more than one value. {edition.productName} uses multi-valued attributes to associate multiple email addresses and mobile numbers with their profiles. For users with multiple values, they may also select a primary email address and a primary mobile number.
+
+The following attributes are used for this purpose:
+
+- Email Addresses
+- Verified Email Addresses
+- Mobile Numbers
+- Verified Mobile Numbers
+
+## Exclude these attributes from a user store
+
+<Variants>
+
+<Edition only="cloud">
+
+If the remote user store does not support the required schemas for these attributes, you can configure {edition.productName} to store the attribute values in the identity store instead. See [Select storage location for selected attributes](./user-attributes/configure-attributes.mdx#select-storage-location-for-selected-attributes) for instructions.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+If the secondary user store does not support the required schemas for these attributes, you can configure {edition.productName} to store the attribute values in the identity store instead. See [Select storage location for selected attributes](./user-attributes/configure-attributes.mdx#select-storage-location-for-selected-attributes) for instructions.
+
+</Edition>
+
+</Variants>
+
+## Enable/Disable multiple emails and mobile numbers feature
+
+To enable or disable the multiple email addresses or mobile numbers feature, enable or disable the corresponding attribute in the relevant profile.
+
+1. On the {edition.productName} Console, navigate to **User Attributes and Stores** > **Attributes**.
+2. Under **Manage Attributes**, click **Attributes** to view the list of all attributes.
+3. Click **Edit** next to the corresponding attribute.
+4. Disable the **Display** checkbox from the profiles (Administrator Console, End-User Profile).
+5. Click **Update** to save the changes.

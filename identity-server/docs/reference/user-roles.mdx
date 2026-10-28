@@ -1,0 +1,627 @@
+---
+title: WSO2 Identity Platform user roles
+description: Roles assigned to a group or user determine their permissions for accessing resources in the organization.  # generated from the first paragraph; a writer should improve it
+type: reference
+sidebar_position: 7
+---
+
+<Variants>
+
+<Edition only="cloud">
+
+# WSO2 Identity Platform user roles
+
+Roles assigned to a group or user determine their permissions for accessing resources in the organization. WSO2 Identity Platform offers a set of default roles that tailor the Console experience to privileged users. As the organization administrator/owner, you can assign these roles to privileged users.
+
+:::note
+The roles described here are only for the WSO2 Identity Platform Console. To learn more about roles that govern access to REST APIs, refer to [manage roles](../guides/users/manage-roles.mdx).
+:::
+
+<table>
+  <tbody>
+    <tr>
+      <td>**Administrator**</td>
+      <td>This role provides all administrative permissions in the organization. An administrator has full access to the organization as a privileged user.</td>
+    </tr>
+    <tr>
+      <td>**Auditor**</td>
+      <td>This role provides list and view permissions to WSO2 Identity Platform resources. With read-only access to all resources in the WSO2 Identity Platform Console, this role suits troubleshooting issues and supporting other users within the organization.</td>
+    </tr>
+    <tr>
+      <td>**Editor - Applications**</td>
+      <td>This role provides permissions for registering and managing applications, ideal for privileged users who can integrate applications with WSO2 Identity Platform.</td>
+    </tr>
+    <tr>
+      <td>**Viewer - Applications**</td>
+      <td>This role provides permissions for viewing applications and their settings. Users with this role get read-only access to applications and their integration settings.</td>
+    </tr>
+    <tr>
+      <td>**Editor - Users**</td>
+      <td>This role provides permissions for managing users and groups within the organization.</td>
+    </tr>
+    <tr>
+      <td>**Viewer - Users**</td>
+      <td>This role provides permissions required for viewing users and groups.</td>
+    </tr>
+    <tr>
+      <td>**Editor - Connections**</td>
+      <td>This role provides permissions for managing connections, ideal for a privileged user who can manage enterprise logins, social logins and MFA options available within the organization.</td>
+    </tr>
+  </tbody>
+</table>
+
+The following sections outline the permissions for each role. Resources not explicitly specified for a role remain inaccessible to users and groups assigned to it.
+
+<details>
+<summary>Administrator</summary>
+
+Administrator has read/write access to all the resources in the WSO2 Identity Platform Console.
+
+</details>
+
+<details>
+<summary>Auditor</summary>
+
+Auditor has read-only access to all the resources in the WSO2 Identity Platform Console.
+
+</details>
+
+<details>
+<summary>Editor - Applications</summary>
+
+| Resources | Sub-section | Read/Write access | Read access only |
+| --- | --- | --- | --- |
+| Applications | ️ | ✔ | ️ |
+| Connections | ️ | ️ | ✔ |
+| API Resources | ️ | ✔ |  |
+| Branding | ️ | ✔ | ️ |
+| User Management | Users️ | ️ | ✔ |
+| User Management | Groups️ | ️ | ✔ |
+| User Management | Roles | ️✔ | ️ |
+| User Management | Role Assignments | ️✔ | ️ |
+| User Attributes & Stores | Attributes | ️ | ️✔ |
+| User Attributes & Stores | Attributes \> Scopes | ️️✔ |  |
+| Organizations | ️ | ️ | ✔ |
+| Login & Registration | ️ | ️✔ | ️ |
+| Actions | ️ | ️✔ | ️ |
+| Events | ️ | ️✔ | ️ |
+| Logs | ️Diagnostic logs |  | ️✔ |
+
+</details>
+
+<details>
+<summary>Viewer - Applications</summary>
+
+| Resources | Sub-section | Read/Write access | Read access only |
+| --- | --- | --- | --- |
+| Applications | ️ | ️ | ✔ |
+| Connections | ️ | ️ | ✔ |
+| API Resources | ️ | ️ | ✔ |
+| Branding | ️ | ️ | ️✔ |
+| User Management | Users️ | ️ | ✔ |
+| User Management | Groups️ | ️ | ✔ |
+| User Management | Roles |  | ️️✔ |
+| User Attributes & Stores | Attributes | ️ | ️✔ |
+| User Attributes & Stores | Attributes \> Scopes | ️️ | ✔ |
+| Organizations | ️ | ️ | ✔ |
+| Login & Registration | ️ | ️ | ️✔ |
+| Actions | ️ | ️ | ️✔ |
+| Events | ️ | ️ | ️✔ |
+| Logs | ️Diagnostic logs |  | ️✔ |
+
+</details>
+
+<details>
+<summary>Editor - Users</summary>
+
+| Resources | Sub-section | Read/Write access | Read access only |
+| --- | --- | --- | --- |
+| User Management | Users️ | ️✔ | ️ |
+| User Management | Groups️ | ✔ | ️ |
+| User Management | Roles | ️✔ | ️ |
+| User Management | Role Assignments | ️✔ | ️ |
+
+</details>
+
+<details>
+<summary>Viewer - Users</summary>
+
+| Resources | Sub-section | Read/Write access | Read access only |
+| --- | --- | --- | --- |
+| User Management | Users️ |  | ️️✔ |
+| User Management | Groups️ |  | ️️✔ |
+| User Management | Roles | ️ | ️️✔ |
+
+</details>
+
+<details>
+<summary>Editor - Connections</summary>
+
+| Resources | Sub-section | Read/Write access | Read access only |
+| --- | --- | --- | --- |
+| Connections |  | ✔ | ️️ |
+| User Attributes & Stores | Attributes |  | ️️✔ |
+
+</details>
+
+## ⚠️ Change in Role Permissions {#change-in-role-permissions}
+
+Effective **October 2, 2025 at 00:00 UTC**, permissions of the **Editor - Users** and **Editor - Applications** will change as follows:
+
+- **Editor - Users**: No longer able to edit role metadata or change permissions.  
+- **Editor - Applications**: No longer able to assign roles to users or groups.
+
+This change ensures that roles follow the principle of least privilege, granting only the permissions necessary to perform their tasks.
+
+In line with the updated permissions,
+
+- Make sure to assign tasks only to users who have the necessary permissions.
+
+- If a user affected by this change needs the lost permissions, you can assign a different role to that user. When doing so, review all permissions in that role before making the assignment.
+
+The following tables show the updated permissions.
+
+<details>
+<summary>Editor - Applications</summary>
+
+| Resources | Sub-section | Read/Write access | Read access only |
+| --- | --- | --- | --- |
+| Applications | ️ | ✔ | ️ |
+| Connections | ️ | ️ | ✔ |
+| API Resources | ️ | ✔ |  |
+| Branding | ️ | ✔ | ️ |
+| User Management | Users️ | ️ | ✔ |
+| User Management | Groups️ | ️ | ✔ |
+| **User Management** | **Roles** | ️ | ️✔ |
+| **User Management** | **Role Assignments** | ️✔ | ️ |
+| User Attributes & Stores | Attributes | ️ | ️✔ |
+| User Attributes & Stores | Attributes \> Scopes | ️️✔ |  |
+| Organizations | ️ | ️ | ✔ |
+| Login & Registration | ️ | ️✔ | ️ |
+| Actions | ️ | ️✔ | ️ |
+| Events | ️ | ️✔ | ️ |
+| Logs | ️Diagnostic logs |  | ️✔ |
+
+</details>
+
+<details>
+<summary>Editor - Users</summary>
+
+| Resources | Sub-section | Read/Write access | Read access only |
+| --- | --- | --- | --- |
+| User Management | Users️ | ️✔ | ️ |
+| User Management | Groups️ | ✔ | ️ |
+| **User Management** | **Roles** | ️✔ | ️ |
+| **User Management** | **Role Assignments** | ️ | ️✔ |
+
+</details>
+
+</Edition>
+
+<Edition only="self-hosted">
+
+# {edition.productName} user roles
+
+Roles define the permissions required for the users to access the {edition.productName} resources such as functions available on the {edition.productName} Console, REST APIs, etc.
+
+When you assign a role to a user, you control what the user can do in {edition.productName}.
+
+By default, {edition.productName} has the **admin** user role. This role includes all administrative permissions in the organization. An organization can have many users with the
+admin role. An admin represents a privileged user who has full access to the organization.
+
+{/* 2. **Application developer**: This role includes the permissions required for registering and managing applications. The application developer is a privileged user who can integrate applications with WSO2 Identity Platform. 
+
+1. **Administrative auditor**: This role includes list and view permissions to WSO2 Identity Platform resources, which is useful in troubleshooting issues and providing support for other users in the organization. This role provides users read only access to the organization.
+
+Only [Administrators]({{base_path}}/guides/users/manage-administrators/) can be assigned to WSO2 Identity Platform roles, and an administrator can be assigned only with one role.
+
+The following tables list the permissions enabled for roles in the organization. */}
+The following list contains the permissions enabled for an admin:
+
+## User management
+
+- View users
+- Onboard users
+- Update user profiles
+- Delete users
+- Terminate sessions
+- View groups
+- Create groups
+- Update and delete groups
+- View assigned users to groups
+- Assign users to groups
+- View roles
+- Create roles
+- Update and delete roles
+- Assign users to roles
+- Assign groups to roles
+
+## Application management
+
+- View apps and app settings
+- Register apps
+- Update and delete apps
+- Update Sign-in methods
+- Update protocol settings
+
+## Connections management
+
+- View connections and connection settings
+- Create new connection
+- Update and delete connections
+
+## Organization management
+
+- Create new organizations
+- View all the organizations created
+- As the organization creator, update and delete organizations that you created
+- Switch to the organizations that you created
+- Share applications from the organization (root) to its organizations
+
+## Managing attributes and scopes
+
+- View attributes
+- Create new attributes
+- Update and delete attributes
+- View scopes
+- Add new attributes to scopes
+- Update and delete scopes
+
+## Managing organization settings
+
+- View account recovery scenario and settings
+- Configure account recovery scenarios
+- View self registration related settings
+- Configure self registration for users
+- View account security related settings and configurations
+- Configure account security related settings
+
+{/*
+## Users
+<table>
+  <tr>
+    <th>Permission</th>
+    <th>Administrator</th> 
+    <th>Application developer</th> 
+    <th>Administrative auditor</th> 
+  </tr>
+  <tr>
+    <td>View users</td>
+    <td>✔️</td>
+    <td>✖️</td>
+    <td>✔️</td>
+  </tr>
+  <tr>
+      <td>Onboard users</td>
+      <td>✔️</td>
+      <td>✖️</td>
+      <td>✖️</td>
+  </tr>
+  <tr>
+    <td>Update user profiles</td>
+    <td>✔️</td>
+    <td>✖️</td>
+    <td>✖️</td>
+  </tr>
+  <tr>
+      <td>Delete users</td>
+      <td>✔️</td>
+      <td>✖️</td>
+      <td>✖️</td>
+    </tr>
+    <tr>
+      <td>Terminate user session</td>
+      <td>✔️</td>
+      <td>✖️</td>
+      <td>✖️</td>
+    </tr>
+    <tr>
+      <td>View groups</td>
+      <td>✔️</td>
+      <td>✖️</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td>Create groups</td>
+      <td>✔️</td>
+      <td>✖️</td>
+      <td>✖️</td>
+    </tr>
+    <tr>
+      <td>Update and delete groups</td>
+      <td>✔️</td>
+      <td>✖️</td>
+      <td>✖️</td>
+    </tr>
+    <tr>
+      <td>View assigned users to groups</td>
+      <td>✔️</td>
+      <td>✖️</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+      <td>Assign users to groups</td>
+      <td>✔️</td>
+      <td>✖️</td>
+      <td>✖️</td>
+    </tr>  
+</table>
+
+<br>
+
+## Applications
+
+<table>
+  <tr>
+    <th>Permission</th>
+    <th>Administrator</th> 
+    <th>Application developer</th>
+    <th>Administrative auditor</th>
+  </tr>
+  <tr>
+    <td>View apps and app settings</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+  </tr>
+  <tr>
+      <td>Register apps</td>
+      <td>✔️</td>
+      <td>✔️</td>
+      <td>✖️</td>
+  </tr>
+  <tr>
+    <td>Update and delete apps</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✖️</td>
+  </tr>
+  <tr>
+      <td>Update Sign-in methods</td>
+      <td>✔️</td>
+      <td>✔️</td>
+      <td>✖️</td>
+  </tr>
+  <tr>
+    <td>Update protocol settings</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✖️</td>
+  </tr>
+</table>
+
+<br>
+
+## Connections
+
+<table>
+  <tr>
+    <th>Permission</th>
+    <th>Administrator</th> 
+    <th>Application developer</th>
+     <th>Administrative auditor</th>  
+  </tr>
+  <tr>
+    <td>View connection and connection settings</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+  </tr>
+  <tr>
+      <td>Create new connection</td>
+      <td>✔️</td>
+      <td>✔️
+      <td>✖️</td>
+  </tr>
+  <tr>
+    <td>Update and delete connections</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✖️</td>
+  </tr>
+</table>
+
+<br>
+
+## Attributes and scopes
+<table>
+  <tr>
+    <th>Permission</th>
+    <th>Administrator</th> 
+    <th>Application developer</th> 
+     <th>Administrative auditor</th> 
+  </tr>
+  <tr>
+    <td>View attributes</td>
+    <td>✔️</td>
+    <td>✖️</td>
+    <td>✔️</td>
+  </tr>
+  <tr>
+      <td>Create new attributes</td>
+      <td>✔️</td>
+      <td>✖️</td>
+      <td>✖️</td>
+  </tr>
+  <tr>
+    <td>Update and delete attributes</td>
+    <td>✔️</td>
+    <td>✖️</td>
+    <td>✖️</td>
+  </tr>
+  <tr>
+      <td>View scopes</td>
+      <td>✔️</td>
+      <td>✖️</td>
+      <td>✔️</td>
+    </tr>
+    <tr>
+        <td>Add new attributes to scopes</td>
+        <td>✔️</td>
+        <td>✖️</td>
+        <td>✖️</td>
+    </tr>
+    <tr>
+      <td>Update and delete scopes</td>
+      <td>✔️</td>
+      <td>✖️</td>
+      <td>✖️</td>
+    </tr>
+</table>
+
+## Organization settings
+<table>
+  <tr>
+    <th>Permission</th>
+    <th>Administrator</th> 
+    <th>Application developer</th> 
+    <th>Administrative auditor</th> 
+  </tr>
+    <tr>
+          <td>View account recovery scenarios ad settings</td>
+          <td>✔️</td>
+          <td>✖️</td>
+          <td>✔️</td>
+    </tr>
+    <tr>
+      <td>Configure account recovery scenarios</td>
+      <td>✔️</td>
+      <td>✖️</td>
+      <td>✖️</td>
+    </tr>
+    <tr>
+          <td>View self registration related settings</td>
+          <td>✔️</td>
+          <td>✖️</td>
+          <td>✔️</td>
+    </tr>   
+    <tr>
+      <td>Configure self registration for users</td>
+      <td>✔️</td>
+      <td>✖️</td>
+      <td>✖️</td>
+    </tr> 
+     <tr>
+          <td>View account security related settings and configurations</td>
+          <td>✔️</td>
+          <td>✖️</td>
+          <td>✔️</td>
+    </tr>   
+    <tr>
+      <td>Configure account security related settings</td>
+      <td>✔️</td>
+      <td>✖️</td>
+      <td>✖️</td>
+    </tr> 
+</table> */}
+<br />
+
+</Edition>
+
+</Variants>
+
+## Create custom console roles
+
+{edition.productName} allows you to create custom roles with specific permissions to tailor the Console experience to privileged users in your organization.
+
+Follow the steps below to configure a custom console role in {edition.productName}.
+
+1. On the {edition.productName} Console, go to **Console Settings** > **Roles**.
+2. Click on **New Role** and provide the following details:
+
+    - **Role Name**: Provide a name for the role.
+    - **Permissions**: Select the required permissions for the role.
+
+    :::note
+    You can select either **View** or **Edit** permission for each resource. Selecting **Edit** will automatically inherit the **View** permission for that resource.
+    :::
+
+    <img src={require("../../assets/img/references/user-management/custom-console-role-create-wizard.png").default} alt="role-wizard" width="650" style={{display: "block", margin: "0", border: "0px"}} />
+3. Click **Add** to create the custom role.
+
+<Edition selfHostedFrom="next">
+
+### Granular console permissions
+
+<Variants>
+
+<Edition only="cloud">
+
+{edition.productName} lets you assign **Create**, **Update**, and **Delete** permissions to roles, independently for each feature component. For example, you can allow a role to create users without allowing it to update or delete existing users.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+By default, Console roles use the combined **View** and **Edit** permission model, where **Edit** grants create, update, and delete access together.
+
+You can optionally enable a more granular permission model that lets you assign **Create**, **Update**, and **Delete** permissions independently for each Console component. For example, you can allow a role to create users without allowing it to update or delete existing users.
+
+This model is controlled by the `use_granular_console_permissions` setting, which is `false` by default. To enable it, add the following configuration to the `deployment.toml` file and restart the server.
+
+```toml
+[console_settings]
+use_granular_console_permissions = true
+```
+
+</Edition>
+
+</Variants>
+
+<Variants>
+
+<Edition only="cloud">
+
+You can assign each Console component the following permission levels: **View**, **Create**, **Update**, and **Delete**.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+You can assign each Console component the following permission levels instead of **View**/**Edit**: **View**, **Create**, **Update**, and **Delete**.
+
+</Edition>
+
+</Variants>
+
+<img src={require("../../assets/img/references/user-management/granular-console-role-permissions.png").default} alt="granular-console-permissions" width="650" style={{display: "block", margin: "0", border: "0px"}} />
+
+:::note
+**View** is required whenever **Create**, **Update**, or **Delete** is selected for a component, and it cannot be turned off while any of those write permissions remain active.
+:::
+
+<Edition only="self-hosted">
+
+:::note[Compatibility with existing roles]
+Console roles created earlier with the combined **Edit** permission continue to work when the granular model is enabled. **Edit** grants **Create**, **Update**, and **Delete** together.
+:::
+
+:::warning[Switching back to the default model]
+If you enable granular Console permissions and create roles with granular **Create**, **Update**, or **Delete** permissions, those role permissions will not work after you switch back to the default **View** and **Edit** permission model. Keep granular Console permissions enabled for roles created with the granular model, or review and update those roles before disabling it.
+:::
+
+</Edition>
+
+</Edition>
+
+### Assign users to console role
+
+You can assign users to roles using either of the following methods:
+
+1. On the **Console Settings** > **Administrators** tab, click **Add Administrator**, then select the user and the role to assign.
+   <img src={require("../../assets/img/references/user-management/assign-console-role-from-administrator-tab.png").default} alt="assign-role-from-administrator" width="650" style={{display: "block", margin: "0", border: "0px"}} />
+2. On the **Console Settings** > **Roles** tab, click on the role you want to assign. In the **Role Settings** page, go to the **Users** tab and click **Assign User** to assign users to the role.
+   <Variants><Edition only="cloud"><img src={require("../../assets/cloud/img/references/user-management/assign-console-role-from-roles-tab.png").default} alt="assign-role-from-roles" width="650" style={{display: "block", margin: "0", border: "0px"}} /></Edition><Edition only="self-hosted"><img src={require("../../assets/self-hosted/img/references/user-management/assign-console-role-from-roles-tab.png").default} alt="assign-role-from-roles" width="650" style={{display: "block", margin: "0", border: "0px"}} /></Edition></Variants>
+
+<Edition only="cloud">
+
+:::note
+To assign users within the organization, enable the **Enable users to manage the organization** from **Console Settings** > **Administrators** tab by clicking on the **Settings** icon.
+:::
+
+</Edition>
+
+### Try it out
+
+1. Copy the Console URL from the **Console Settings** page.
+2. Share it with the assigned users to log in to the {edition.productName} Console.

@@ -1,0 +1,49 @@
+---
+title: Rate limits
+description: WSO2 Identity Platform endpoints are subjected to rate limits to maintain smooth and reliable processing of requests, preventing system failures and slowdowns.  # generated from the first paragraph; a writer should improve it
+type: reference
+sidebar_label: WSO2 Identity Platform rate limits
+sidebar_position: 21
+editions: cloud
+---
+
+WSO2 Identity Platform endpoints are subjected to rate limits to maintain smooth and reliable processing of requests, preventing system failures and slowdowns. These rate limits are applied globally across all tiers of WSO2 Identity Platform subscriptions.
+
+Rate limits are calculated on a per IP address basis. For example, if the rate limit for an endpoint is 200, it means that the maximum number of requests you can make to this endpoint from a single IP address is 200 per minute.
+
+Exceeding the rate limit results in a [429 Too Many Requests error code](https://datatracker.ietf.org/doc/html/rfc6585#section-4).
+
+Listed below are the endpoints and the rate limits that apply to each endpoint.
+
+| Endpoint | Rate limit per IP<br /> (per minute) |
+| --- | --- |
+| /me/ | 200 |
+| /api/users/\* | 200 |
+| /scim2/\* | 200 |
+| /api/asgardeo/\* | 200 |
+| /api/asgardeo/v1/\* | 200 |
+| /api/asgardeo/v2/\* | 200 |
+| /api/asgardeo-associate/\* | 200 |
+| /api/asgardeo-guest/\* | 200 |
+| /api/asgardeo-enterprise-login/v2/\* | 200 |
+| /api/cloud/ | 200 |
+| /api/identity/\* | 200 |
+| /api/server/\* | 200 |
+| /api/onprem-userstore/\* | 200 |
+| /api/event-configurations/v1/events | 200 |
+| /.well-known/ | 200 |
+| /identity/\* | 200 |
+| /identity/extend-session | 200 |
+| /identity/metadata/saml2 | 200 |
+| /logincontext | 200 |
+| /commonauth | 200 |
+| /oauth2/\* | 200 |
+| /oidc/\* | 200 |
+| /samlartresolve | 200 |
+| /samlsso | 200 |
+| /acs | 200 |
+| /authenticationendpoint | 200 |
+| /accountrecoveryendpoint | 200 |
+| /commonauth | 200 |
+| /scim2/Bulk | 5 |
+| /branding-preference/generate | 5 |

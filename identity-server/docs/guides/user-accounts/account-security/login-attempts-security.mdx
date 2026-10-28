@@ -1,0 +1,80 @@
+---
+title: Configure login-attempts security
+description: You can protect user accounts in WSO2 Identity Platform from password brute-force attacks by locking the account on consecutive failed login attempts.  # generated from the first paragraph; a writer should improve it
+type: how-to
+unlisted: true
+editions: cloud
+---
+
+You can protect user accounts in {edition.productName} from password brute-force attacks by locking the account on consecutive failed login attempts. By default, this setting is disabled.
+
+You can configure the number of consecutive failed login attempts that should be allowed for users in an organization. When a user exceeds this number of attempts, the account is automatically locked and the user is informed via email. The account will be activated automatically after the specified lock duration.
+
+## Enable login attempts security
+
+To configure login attempts security:
+
+1. On the {edition.productName} Console, go to **Login  Registration**.
+
+2. Click on **Login Attempts** under **Login Security** section.
+
+3. Switch to **Enabled** to enable this configuration.  
+
+    <img src={require("../../../../assets/cloud/img/guides/organization/account-security/login-attempts-security/enable-login-attempts-security.png").default} alt="Enable login attempts security" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+4. Configure the settings below if you want to change how login attempts security works by default.
+
+    <img src={require("../../../../assets/cloud/img/guides/organization/account-security/login-attempts-security/configure-login-attempts-security.png").default} alt="View account security options" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    <table>
+      <tbody>
+        <tr>
+          <td>**Number of consecutive failed login attempts**</td>
+          <td>Specifies the number of consecutive failed login attempts allowed before the account is locked. <br /> If you enter 5 as the value, the user's account is locked when five login attempts fail consecutively.</td>
+        </tr>
+        <tr>
+          <td>**Account lock duration**</td>
+          <td>Specifies the initial duration that the account will be locked for. The account is automatically unlocked after this time period. <br /> If you enter 5 minutes as the value, the user's account is locked for 5 minutes starting from the last login attempt. The user can log in again after 5 minutes.</td>
+        </tr>
+        <tr>
+          <td>**Account lock duration increment factor**</td>
+          <td>Specifies the factor by which the account lock duration should be incremented on further failed login attempts after the account is locked.</td>
+        </tr>
+      </tbody>
+    </table>
+
+5. Click **Update** once you configure the required settings.
+
+### How it works
+
+Admin has configured the below settings:
+
+- Number of consecutive failed login attempts: 5
+- Account lock duration: 5 min
+- Account lock duration increment factor: 2
+
+Based on the above settings, let's see how account lock happens in {edition.productName} when a user tries to log in with an incorrect password.
+
+1. User tries to log in with an incorrect password in **5 consecutive attempts** (Number of consecutive failed login attempts).
+2. User account will be **locked** for **5 minutes** (Account lock duration).
+3. After **5 minutes**, the account will be unlocked.
+
+   - If the user enters the correct password, the user can successfully log in.
+   - If the user tries an incorrect password, the account will be locked for a duration of period incremented by **2 times**(Account lock duration increment factor) the previous lock duration.
+
+       - That is, the account will be locked for 2 x (5 ^ 1)= 10 minutes.
+       - If the user attempts to log in with an incorrect password again after the wait time(10min) has elapsed, and the account is unlocked, the account will be locked for 2 * (5 ^ 2)= 50 minutes.
+
+```text
+Account unlock timeout = Account lock duration * (Account lock duration increment factor ^ failed login attempts)
+```
+
+## Disable login attempts security
+
+To disable login attempts security:
+
+1. On the {edition.productName} Console, go to **Login  Registration**.
+2. Under **Login Security**, click on **Login Attempts**.
+3. Switch to **Disabled** to disable this security.
+
+    <img src={require("../../../../assets/cloud/img/guides/organization/account-security/login-attempts-security/disable-login-attempts-security.png").default} alt="Disable login attempts security" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />

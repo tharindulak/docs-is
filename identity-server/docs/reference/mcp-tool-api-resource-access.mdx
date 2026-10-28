@@ -1,0 +1,140 @@
+---
+title: API resources and scopes required for MCP tools
+description: The following table details the API Resources and Scopes each MCP Tool in WSO2 Identity Platform MCP Server requires for authorization.  # generated from the first paragraph; a writer should improve it
+type: reference
+sidebar_position: 19
+editions: cloud
+---
+
+The following table details the API Resources and Scopes each MCP Tool in WSO2 Identity Platform MCP Server requires for authorization.
+
+<table>
+  <thead>
+    <tr>
+      <th>MCP Tool</th>
+      <th>API Resource</th>
+      <th>Scopes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`list_applications`</td>
+      <td>Application Management API (`/api/server/v1/applications`)</td>
+      <td>`internal_application_mgt_view`</td>
+    </tr>
+    <tr>
+      <td>`create_single_page_app`</td>
+      <td>Application Management API (`/api/server/v1/applications`)</td>
+      <td>`internal_application_mgt_create`</td>
+    </tr>
+    <tr>
+      <td>`create_webapp_with_ssr`</td>
+      <td>Application Management API (`/api/server/v1/applications`)</td>
+      <td>`internal_application_mgt_create`</td>
+    </tr>
+    <tr>
+      <td>`create_mobile_app`</td>
+      <td>Application Management API (`/api/server/v1/applications`)</td>
+      <td>`internal_application_mgt_create`</td>
+    </tr>
+    <tr>
+      <td>`create_m2m_app`</td>
+      <td>Application Management API (`/api/server/v1/applications`)</td>
+      <td>`internal_application_mgt_create`</td>
+    </tr>
+    <tr>
+      <td>`get_application_by_name`</td>
+      <td>Application Management API (`/api/server/v1/applications`)</td>
+      <td>`internal_application_mgt_view`</td>
+    </tr>
+    <tr>
+      <td>`get_application_by_client_id`</td>
+      <td>Application Management API (`/api/server/v1/applications`)</td>
+      <td>`internal_application_mgt_view`</td>
+    </tr>
+    <tr>
+      <td>`update_application_basic_info`</td>
+      <td>Application Management API (`/api/server/v1/applications`)</td>
+      <td>`internal_application_mgt_update`</td>
+    </tr>
+    <tr>
+      <td rowSpan="2">`update_application_oauth_config`</td>
+      <td rowSpan="2">Application Management API (`/api/server/v1/applications`)</td>
+      <td>`internal_application_mgt_view`</td>
+    </tr>
+    <tr>
+      <td>`internal_application_mgt_update`</td>
+    </tr>
+    <tr>
+      <td>`update_application_claim_config`</td>
+      <td>Application Management API (`/api/server/v1/applications`)</td>
+      <td>`internal_application_mgt_update`</td>
+    </tr>
+    <tr>
+      <td rowSpan="3">`authorize_api`</td>
+      <td rowSpan="3">Application Management API (`/api/server/v1/applications`)</td>
+      <td>`internal_application_mgt_update`</td>
+    </tr>
+    <tr>
+      <td>`internal_application_internal_api_update` (required when authorizing management/organization APIs)</td>
+    </tr>
+    <tr>
+      <td>`internal_application_business_api_update` (required when authorizing business APIs)</td>
+    </tr>
+    <tr>
+      <td>`list_authorized_api`</td>
+      <td>Application Management API (`/api/server/v1/applications`)</td>
+      <td>`internal_application_mgt_view`</td>
+    </tr>
+    <tr>
+      <td rowSpan="5">`update_login_flow`</td>
+      <td rowSpan="2">Application Management API (`/api/server/v1/applications`)</td>
+      <td>`internal_application_mgt_view`</td>
+    </tr>
+    <tr>
+      <td>`internal_application_mgt_update`</td>
+    </tr>
+    <tr>
+      <td>Authenticators Management API(`/api/server/v1/authenticators`)</td>
+      <td>`internal_authenticator_view`</td>
+    </tr>
+    <tr>
+      <td>Identity Provider Management API (`/api/server/v1/identity-providers`)</td>
+      <td>`internal_idp_view`</td>
+    </tr>
+    <tr>
+      <td>Claim Management API (`/api/server/v1/claim-dialects`)</td>
+      <td>`internal_claim_meta_view`</td>
+    </tr>
+    <tr>
+      <td>`list_api_resources`</td>
+      <td>API Resource Management API (`/api/server/v1/api-resources`)</td>
+      <td>`internal_api_resource_view`</td>
+    </tr>
+    <tr>
+      <td>`search_api_resources_by_name`</td>
+      <td>API Resource Management API (`/api/server/v1/api-resources`)</td>
+      <td>`internal_api_resource_view`</td>
+    </tr>
+    <tr>
+      <td>`get_api_resource_by_identifier`</td>
+      <td>API Resource Management API (`/api/server/v1/api-resources`)</td>
+      <td>`internal_api_resource_view`</td>
+    </tr>
+    <tr>
+      <td>`create_api_resource`</td>
+      <td>API Resource Management API (`/api/server/v1/api-resources`)</td>
+      <td>`internal_api_resource_create`</td>
+    </tr>
+    <tr>
+      <td>`create_user`</td>
+      <td>SCIM2 Users API (`/scim2/Users`)</td>
+      <td>`internal_user_mgt_create`</td>
+    </tr>
+    <tr>
+      <td>`list_claims`</td>
+      <td>Claim Management API (`/api/server/v1/claim-dialects`)</td>
+      <td>`internal_claim_meta_view`</td>
+    </tr>
+  </tbody>
+</table>

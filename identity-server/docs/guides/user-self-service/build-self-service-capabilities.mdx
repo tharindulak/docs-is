@@ -1,0 +1,219 @@
+---
+title: Build self-service capabilities for your application
+description: Developers can use WSO2 Identity Platform's REST APIs to implement self-service capabilities for the users on their business applications.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Build self-service capabilities
+sidebar_position: 3
+---
+
+Developers can use {edition.productName}'s REST APIs to implement self-service capabilities for the users on their business applications.
+
+Here are some capabilities you may want to enable when you implement self-service capabilities in your business app.
+
+- Allow users to update their user profiles
+- Allow users to change passwords
+- Allow users to enable MFA
+- Allow users to manage consents given to applications
+
+Once the user logs in to the business application, you can make these capabilities available to the user from the business application itself.
+
+## Self-service APIs
+You can use the following {edition.productName} APIs to enable self-service capabilities in your business application.
+
+<Variants>
+
+<Edition only="cloud">
+
+- SCIM/Me Endpoint
+
+    - [List user details](../../reference/apis/scim2/index.mdx)
+    - [Update user profile](../../reference/apis/scim2/index.mdx)
+    - [Update user password](../../reference/apis/scim2/index.mdx)
+
+        :::note
+        To update the password of a user, update the `value` parameter of the API payload as follows:
+
+        ```bash
+        {
+          "schemas": [
+            "urn:ietf:params:scim:api:messages:2.0:PatchOp"
+          ],
+          "Operations": [
+            {
+              "op": "add",
+              "value": {
+                "nickName": "shaggy"
+              }
+            }
+          ]
+        }
+        ```
+        :::
+
+- Manage MFA settings and recovery
+
+    - [TOTP](../../reference/apis/totp/index.mdx)
+    - [Backup codes](../../reference/apis/backup-code/index.mdx)
+
+- [Export user profile](../../reference/apis/export-user-info/index.mdx)
+- [Manage consent of users](../../reference/apis/consent-management/index.mdx)
+
+</Edition>
+
+<Edition only="self-hosted">
+
+- SCIM/Me Endpoint
+
+    - [List user details](../../reference/apis/scim2-me-rest-apis/index.mdx#tag-me-endpoint)
+    - [Update user profile](../../reference/apis/scim2-me-rest-apis/index.mdx#op-patchUserMe)
+    - [Update user password](../../reference/apis/scim2-me-rest-apis/index.mdx#op-patchUserMe)
+
+        :::note
+        To update the password of a user, update the `value` parameter of the API payload as follows:
+
+        ```bash
+        {
+          "schemas": [
+            "urn:ietf:params:scim:api:messages:2.0:PatchOp"
+          ],
+          "Operations": [
+            {
+              "op": "add",
+              "value": {
+                "nickName": "shaggy"
+              }
+            }
+          ]
+        }
+        ```
+        :::
+
+- Manage MFA settings and recovery
+
+    - [TOTP](../../reference/apis/totp-rest-api/index.mdx)
+    {/* TODO - [Backup codes]({{base_path}}/apis/{{ backup_codes_api }}/)*/}
+
+{/* TODO - [Export user profile]({{base_path}}/apis/{{ export_user_prof }}/) */}
+
+- [Manage consent of users](../../reference/apis/consent-management-api-definition/index.mdx)
+
+</Edition>
+
+</Variants>
+
+## Prerequisites
+
+You need an application that [integrates login with {edition.productName}](../authentication/add-login-to-apps/add-login-to-apps.mdx) over OpenID connect standards.
+
+Learn more about registering OIDC applications on {edition.productName}.
+
+- [SPA](../applications/register-single-page-app.mdx)
+- [Traditional Web application](../applications/register-oidc-web-app.mdx)
+- [Mobile appliction](../applications/register-mobile-app.mdx)
+
+## Invoke the self-service APIs
+
+To invoke the self-service APIs from your application:
+
+1. Once the user logs into your application, get an access token on behalf of the user.
+2. Use the obtained `access_token` as a bearer token to invoke the APIs.
+
+Given below is a sample API request for a client sending a `PATCH` request sent to the `/scim2/Me` endpoint to update the user password.
+
+```bash
+URL:  https://api.asgardeo.io/t/<org_name>/scim2/Me
+HTTP Method: PATCH
+Headers:
+'Content-Type: application/scim+json'
+ 'Authorization: Bearer <access_token>'
+Data:
+{
+  "schemas": [
+    "urn:ietf:params:scim:api:messages:2.0:PatchOp"
+  ],
+  "Operations": [
+    {
+      "op": "add",
+      "value": {
+        "password": "<new-password>"
+      }
+    }
+  ]
+}
+```
+
+<Variants>
+
+<Edition only="cloud">
+
+<details>
+<summary>If you are using {edition.productName}'s React SDK</summary>
+
+You can use the `[httpRequest](https://github.com/asgardeo/asgardeo-auth-react-sdk/blob/main/API.md#httprequest)` method to invoke the APIs on {edition.productName}'s React SDK.
+
+A sample of how to use the `httpRequest` method in [{edition.productName}'s React SDK](../../get-started/try-your-own-app/react.mdx) is given below:
+
+```javascript
+import { useAuthContext, HttpRequestConfig } from "@asgardeo/auth-react";
+const {httpRequest } = useAuthContext();
+
+   const requestConfig: HttpRequestConfig = {
+            // Add API content here
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/scim+json"
+            },
+            attachToken: true,
+            method: "GET",
+            url: "https://api.asgardeo.io/t/<org_name>/scim2/Me"
+        };
+        httpRequest(requestConfig).then((response: any) => {
+            console.log(“request response : ”+response.data);
+        }).catch((error) => {
+            console.log("request error: " + error);
+        })
+```
+
+You can replace the body of `const requestConfig: HttpRequestConfig = {}` with the API you wish to invoke.
+
+</details>
+
+</Edition>
+
+<Edition only="self-hosted">
+
+<details>
+<summary>If you are using {edition.productName}'s React SDK</summary>
+
+You can use the `[httpRequest](https://github.com/asgardeo/asgardeo-auth-react-sdk/blob/main/API.md#httprequest){:target="_blank"}` method to invoke the APIs on {edition.productName}'s React SDK.
+
+A sample of how to use the `httpRequest` method in [{edition.productName}'s React SDK](../../get-started/try-your-own-app/react.mdx) is given below:
+
+```javascript
+import { useAuthContext, HttpRequestConfig } from "@asgardeo/auth-react";
+const {httpRequest } = useAuthContext();
+
+   const requestConfig: HttpRequestConfig = {
+            // Add API content here
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/scim+json"
+            },
+            attachToken: true,
+            method: "GET",
+            url: "https://api.asgardeo.io/t/<org_name>/scim2/Me"
+        };
+        httpRequest(requestConfig).then((response: any) => {
+            console.log(“request response : ”+response.data);
+        }).catch((error) => {
+            console.log("request error: " + error);
+        })
+```
+
+You can replace the body of `const requestConfig: HttpRequestConfig = {}` with the API you wish to invoke.
+
+</details>
+
+</Edition>
+
+</Variants>

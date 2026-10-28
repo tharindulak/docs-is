@@ -1,0 +1,576 @@
+---
+title: Try out email address update verification
+description: Email address verification ensures that when a user updates their primary email address, a verification request is triggered to the new email address.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Email address update verification
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Email address verification ensures that when a user updates their primary email address, a verification request is triggered to the new email address. The primary email address will not change until the new email address is verified. If you have enabled [multiple email addresses per user](../../user-attributes/manage-attributes.mdx), users can maintain several verified email addresses and designate one as the primary email address.
+
+:::note
+- This feature can be invoked via a PUT/PATCH request to the SCIM 2.0 /Users endpoint or /Me endpoint.
+- The verification on update capability is **only** supported for the `Email` (`http://wso2.org/claims/emailaddress`) 
+and `Verified Email Addresses` (`http://wso2.org/claims/verifiedEmailAddresses`) claims.
+- Verification is not triggered if the email address to be updated is the same as a previously verified email address of the user.
+:::
+
+## Prerequisites
+
+<Edition only="self-hosted">
+
+- [Configure the email sending module](../../../../../deploy-and-operate/configure/email-sending-module.mdx) of the {edition.productName}.
+
+</Edition>
+
+- If required, enable [support for multiple email addresses](../../user-attributes/manage-attributes.mdx) for users.
+
+- Update [email verification settings](../user-attribute-change-verification.mdx).
+
+## Try it out
+
+Follow the guides below to try out different email update scenarios.
+
+### Update the primary email address
+
+If you only support a single email address and wish to update the email address of a user,
+
+1. On the {edition.productName} Console, go to **User Management** > **Users**.
+
+2. Select a user account and go to its **Profile** tab.
+
+3. Under **Email**, update the user's email address.
+
+4. Click **Update** to save the changes. An email will be sent to the specified address for verification. The user needs to click the link provided in the email to verify the email address.
+
+<Variants>
+
+<Edition only="cloud">
+
+Alternatively, you may update the email address via a PATCH operation to the [SCIM 2.0 Me endpoint](../../../../../reference/apis/scim2-me/index.mdx) as shown below.
+
+:::info
+<Tabs groupId="tabs">
+<TabItem value="request-format" label="Request format">
+
+```text
+curl -v -k -X PATCH
+https://api.asgardeo.io/t/{organization_name}/scim2/Me \
+-d '{
+    "schemas":["urn:ietf:params:scim:api:messages:2.0:PatchOp"], 
+    "Operations":[{
+        "op":<operation>, 
+        "value":
+            { "emails":[{"primary":true, "value":<new_email>}]}
+        }]
+    }' \
+--header "Content-Type:application/json" 
+--header "Authorization: Bearer <access_token>"
+```
+
+</TabItem>
+<TabItem value="sample-request" label="Sample request">
+
+```bash
+curl -X PATCH
+https://api.asgardeo.io/t/bifrost/scim2/Me \
+-d '{
+    "schemas":["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+    "Operations":[{
+        "op":"replace",
+        "value":
+            { "emails":[{"primary":true,"value":"kim.jackson.new@gmail.com"}]}
+        }]
+    }' \
+--header "Content-Type:application/json"
+--header "Authorization: Bearer <access_token>"
+```
+
+</TabItem>
+</Tabs>
+---
+**Sample Response**
+
+```text
+{
+    "emails":[
+        "kimjack@gmail.com"
+    ],
+    "meta":{
+        "created":"2020-01-07T09:32:18",
+        "location":"https://api.asgardeo.io/t/bifrost/scim2/Users/1e624046-520c-4628-a245-091e04b03f21",
+        "lastModified":"2020-01-07T14:18:49",
+        "resourceType":"User"
+    },
+    "schemas":[
+        "urn:ietf:params:scim:schemas:core:2.0:User",
+        "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User",
+        "urn:scim:wso2:schema"
+    ],
+    "urn:scim:wso2:schema": {
+        "emailAddresses": "kimjack@gmail.com",
+        "verifiedEmailAddresses": "kimjack@gmail.com",
+    },
+    "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User":{
+        "pendingEmails":[
+            {
+                "value":"kim.jackson.new@gmail.com"
+            }
+        ]
+    },
+    "roles":[
+        {
+            "type":"default",
+            "value":"Internal/everyone"
+        }
+    ],
+    "name":{
+        "givenName":"kim",
+        "familyName":"jackson"
+    },
+    "id":"1e624046-520c-4628-a245-091e04b03f21",
+    "userName":"kim"
+}
+```
+:::
+Upon receiving the response outlined above, the user will receive an email notification prompting them to verify their 
+updated email address. Once verified, the `Email` claim (`http://wso2.org/claims/emailaddress`) will be updated to 
+reflect the new email address.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+Alternatively, you may update the email address via a PATCH operation to the [SCIM 2.0 Me endpoint](../../../../../reference/apis/scim2-me-rest-apis/index.mdx) as shown below.
+
+:::info
+<Tabs groupId="tabs">
+<TabItem value="request-format" label="Request format">
+
+```text
+curl -v -k -X PATCH
+https://{edition.hostName}/scim2/Me \
+-d '{
+    "schemas":["urn:ietf:params:scim:api:messages:2.0:PatchOp"], 
+    "Operations":[{
+        "op":<operation>, 
+        "value":
+            { "emails":[{"primary":true, "value":<new_email>}]}
+        }]
+    }' \
+--header "Content-Type:application/json" 
+--header "Authorization: Bearer <access_token>"
+```
+
+</TabItem>
+<TabItem value="sample-request" label="Sample request">
+
+```bash
+curl -X PATCH
+https://localhost:9443/scim2/Me \
+-d '{
+    "schemas":["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+    "Operations":[{
+        "op":"replace",
+        "value":
+            { "emails":[{"primary":true,"value":"kim.jackson.new@gmail.com"}]}
+        }]
+    }' \
+--header "Content-Type:application/json"
+--header "Authorization: Bearer <access_token>"
+```
+
+</TabItem>
+</Tabs>
+---
+**Sample Response**
+
+```text
+{
+    "emails":[
+        "kimjack@gmail.com"
+    ],
+    "meta":{
+        "created":"2020-01-07T09:32:18",
+        "location":"https://localhost:9443/scim2/Users/1e624046-520c-4628-a245-091e04b03f21",
+        "lastModified":"2020-01-07T14:18:49",
+        "resourceType":"User"
+    },
+    "schemas":[
+        "urn:ietf:params:scim:schemas:core:2.0:User",
+        "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User",
+        "urn:scim:wso2:schema"
+    ],
+    "urn:scim:wso2:schema": {
+        "emailAddresses": "kimjack@gmail.com",
+        "verifiedEmailAddresses": "kimjack@gmail.com",
+    },
+    "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User":{
+        "pendingEmails":[
+            {
+                "value":"kim.jackson.new@gmail.com"
+            }
+        ]
+    },
+    "roles":[
+        {
+            "type":"default",
+            "value":"Internal/everyone"
+        }
+    ],
+    "name":{
+        "givenName":"kim",
+        "familyName":"jackson"
+    },
+    "id":"1e624046-520c-4628-a245-091e04b03f21",
+    "userName":"kim"
+}
+```
+:::
+Upon receiving the response outlined above, the user will receive an email notification prompting them to verify their 
+updated email address. Once verified, the `Email` claim (`http://wso2.org/claims/emailaddress`) will be updated to 
+reflect the new email address.
+
+</Edition>
+
+</Variants>
+
+:::note
+If you update the primary `Email` claim directly, the change will not be reflected in the  `Verified Email Addresses` 
+(`http://wso2.org/claims/verifiedEmailAddresses`) claim after verification.
+:::
+
+### Update the verified email addresses list
+
+If you have enabled support for multiple email addresses and mobile numbers, a user can have several verified email addresses and a single primary email address.
+
+To verify an email address, 
+
+1. On the {edition.productName} Console, go to **User Management** > **Users**.
+
+2. Select a user account and go to its **Profile** tab.
+
+3. Under **Email Addresses**, click the verify icon on an unverified email address of the user.
+
+    ![Email addresses update](../../../../../../assets/img/guides/users/my-account-verify-email.png)
+
+    An email will be sent to the specified address for verification. The user needs to click the link provided in the email to verify the email address.
+
+<Variants>
+
+<Edition only="cloud">
+
+Alternatively, you may update the email addresses via a PATCH operation to the [SCIM 2.0 Me endpoint](../../../../../reference/apis/scim2-me/index.mdx) as shown below.
+
+:::info
+<Tabs groupId="tabs">
+<TabItem value="request-format" label="Request format">
+
+```bash
+curl -X PATCH
+https://api.asgardeo.io/t/{organization_name}/scim2/Me \
+-d '{
+    "schemas":["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+    "Operations":[{
+        "op":<operation>,
+        "value":{"urn:scim:wso2:schema": {"verifiedEmailAddresses": <list_of_email_addresses>}}
+        }]
+    }' 
+--header "Content-Type:application/json"
+--header "Authorization: Bearer <access_token>"
+```
+
+</TabItem>
+<TabItem value="sample-request" label="Sample request">
+
+```bash
+curl -X PATCH
+https://api.asgardeo.io/t/bifrost/scim2/Me \
+-d '{
+    "schemas":["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+    "Operations":[{
+        "op":"replace",
+        "value":{"urn:scim:wso2:schema": {"verifiedEmailAddresses": "kimjackson@gmail.com,kim.jackson.new@gmail.com"}}
+        }]
+    }' 
+--header "Content-Type:application/json"
+--header "Authorization: Bearer <access_token>"
+```
+
+</TabItem>
+</Tabs>
+---
+
+**Sample Response**
+```text
+{
+    "emails":[
+        "kimjack@gmail.com"
+    ],
+    "meta":{
+        "created":"2020-01-07T09:32:18",
+        "location":"https://api.asgardeo.io/t/bifrost/scim2/Users/1e624046-520c-4628-a245-091e04b03f21",
+        "lastModified":"2020-01-07T14:18:49",
+        "resourceType":"User"
+    },
+    "schemas":[
+        "urn:ietf:params:scim:schemas:core:2.0:User",
+        "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User",
+        urn:scim:wso2:schema
+    ],
+    "urn:scim:wso2:schema": {
+        "emailAddresses": "kimjack@gmail.com",
+        "verifiedEmailAddresses": "kimjack@gmail.com",
+    },
+    "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User":{
+        "pendingEmails":[
+            {
+                "value":"kim.jackson.new@gmail.com"
+            }
+        ]
+    },
+    "roles":[
+        {
+            "type":"default",
+            "value":"Internal/everyone"
+        }
+    ],
+    "name":{
+        "givenName":"kim",
+        "familyName":"jackson"
+    },
+    "id":"1e624046-520c-4628-a245-091e04b03f21",
+    "userName":"kim"
+}
+```
+:::
+
+</Edition>
+
+<Edition only="self-hosted">
+
+Alternatively, you may update the email addresses via a PATCH operation to the [SCIM 2.0 Me endpoint](../../../../../reference/apis/scim2-me-rest-apis/index.mdx) as shown below.
+
+:::info
+<Tabs groupId="tabs">
+<TabItem value="request-format" label="Request format">
+
+```bash
+curl -X PATCH
+https://{edition.hostName}/scim2/Me \
+-d '{
+    "schemas":["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+    "Operations":[{
+        "op":<operation>,
+        "value":{"urn:scim:wso2:schema": {"verifiedEmailAddresses": <list_of_email_addresses>}}
+        }]
+    }' 
+--header "Content-Type:application/json"
+--header "Authorization: Bearer <access_token>"
+```
+
+</TabItem>
+<TabItem value="sample-request" label="Sample request">
+
+```bash
+curl -X PATCH
+https://localhost:9443/scim2/Me \
+-d '{
+    "schemas":["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+    "Operations":[{
+        "op":"replace",
+        "value":{"urn:scim:wso2:schema": {"verifiedEmailAddresses": "kimjackson@gmail.com,kim.jackson.new@gmail.com"}}
+        }]
+    }' 
+--header "Content-Type:application/json"
+--header "Authorization: Bearer <access_token>"
+```
+
+</TabItem>
+</Tabs>
+---
+
+**Sample Response**
+```text
+{
+    "emails":[
+        "kimjack@gmail.com"
+    ],
+    "meta":{
+        "created":"2020-01-07T09:32:18",
+        "location":"https://localhost:9443/scim2/Users/1e624046-520c-4628-a245-091e04b03f21",
+        "lastModified":"2020-01-07T14:18:49",
+        "resourceType":"User"
+    },
+    "schemas":[
+        "urn:ietf:params:scim:schemas:core:2.0:User",
+        "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User",
+        urn:scim:wso2:schema
+    ],
+    "urn:scim:wso2:schema": {
+        "emailAddresses": "kimjack@gmail.com",
+        "verifiedEmailAddresses": "kimjack@gmail.com",
+    },
+    "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User":{
+        "pendingEmails":[
+            {
+                "value":"kim.jackson.new@gmail.com"
+            }
+        ]
+    },
+    "roles":[
+        {
+            "type":"default",
+            "value":"Internal/everyone"
+        }
+    ],
+    "name":{
+        "givenName":"kim",
+        "familyName":"jackson"
+    },
+    "id":"1e624046-520c-4628-a245-091e04b03f21",
+    "userName":"kim"
+}
+```
+:::
+
+</Edition>
+
+</Variants>
+
+Upon receiving the response outlined above, the user will receive an email notification prompting them to verify their 
+updated email address. Once verified, the `verifiedEmailAddresses` claim (http://wso2.org/claims/verifiedEmailAddresses) 
+will be updated to reflect the new email address.  If a primary email address has not been configured, 
+the verified email address will also be set as the primary email.
+
+## Resend email verification
+
+Run the following curl command in case you want to resend the email verification.
+
+<Variants>
+
+<Edition only="cloud">
+
+:::info
+<Tabs groupId="tabs">
+<TabItem value="request-format" label="Request format">
+
+```bash
+curl -X POST https://api.asgardeo.io/t/{organization_name}/api/identity/user/v1.0/resend-code
+-H "Authorization: Bearer <access_token>"
+-H "Content-Type: application/json" \
+-d '{
+    "user": {
+        "username": <USERNAME>,
+        "realm": <REALM>"
+    },
+    "properties": [{
+        "key":"RecoveryScenario",
+        "value": <recovery_scenario>
+        }]
+    }'
+```
+
+</TabItem>
+<TabItem value="sample-request" label="Sample request">
+
+```text
+curl -X POST https://api.asgardeo.io/t/bifrost/api/identity/user/v1.0/resend-code 
+-H "Authorization: Bearer <access_token>"
+-H "Content-Type: application/json" \
+-d '{
+    "user": {
+        "username": "bob",
+        "realm": "PRIMARY"
+    },
+    "properties": [{
+        "key":"RecoveryScenario",
+        "value":"EMAIL_VERIFICATION_ON_UPDATE"
+        }]
+    }'
+```
+
+</TabItem>
+</Tabs>
+The verification scenario should be specified in the properties parameter of the request body as follows :
+```text
+"properties": [{"key": "RecoveryScenario", "value": "EMAIL_VERIFICATION_ON_UPDATE"}]
+```
+- `EMAIL_VERIFICATION_ON_UPDATE`: Used when verifying a newly updated email address for a user. <br />
+- `EMAIL_VERIFICATION_ON_VERIFIED_LIST_UPDATE`: Used when updating the list of verified email addresses for a 
+user.
+---
+
+**Response**
+```bash
+HTTP/1.1 201 Created
+```
+:::
+
+</Edition>
+
+<Edition only="self-hosted">
+
+:::info
+<Tabs groupId="tabs">
+<TabItem value="request-format" label="Request format">
+
+```bash
+curl -X POST https://{edition.hostName}/api/identity/user/v1.0/resend-code
+-H "Authorization: Bearer <access_token>"
+-H "Content-Type: application/json" \
+-d '{
+    "user": {
+        "username": <USERNAME>,
+        "realm": <REALM>"
+    },
+    "properties": [{
+        "key":"RecoveryScenario",
+        "value": <recovery_scenario>
+        }]
+    }'
+```
+
+</TabItem>
+<TabItem value="sample-request" label="Sample request">
+
+```text
+curl -X POST https://localhost:9443/api/identity/user/v1.0/resend-code 
+-H "Authorization: Bearer <access_token>"
+-H "Content-Type: application/json" \
+-d '{
+    "user": {
+        "username": "bob",
+        "realm": "PRIMARY"
+    },
+    "properties": [{
+        "key":"RecoveryScenario",
+        "value":"EMAIL_VERIFICATION_ON_UPDATE"
+        }]
+    }'
+```
+
+</TabItem>
+</Tabs>
+The verification scenario should be specified in the properties parameter of the request body as follows :
+```text
+"properties": [{"key": "RecoveryScenario", "value": "EMAIL_VERIFICATION_ON_UPDATE"}]
+```
+- `EMAIL_VERIFICATION_ON_UPDATE`: Used when verifying a newly updated email address for a user. <br />
+- `EMAIL_VERIFICATION_ON_VERIFIED_LIST_UPDATE`: Used when updating the list of verified email addresses for a 
+user.
+---
+
+**Response**
+```bash
+HTTP/1.1 201 Created
+```
+:::
+
+</Edition>
+
+</Variants>
+

@@ -1,0 +1,514 @@
+---
+title: Sample SAML Java EE web app
+description: By following this guide, you will be able to deploy a Java EE web application locally and secure it with SAML.  # generated from the first paragraph; a writer should improve it
+type: quick-start
+sidebar_label: SAML Java EE
+sidebar_position: 2
+---
+
+By following this guide, you will be able to deploy a Java EE web application locally and secure it with SAML.
+
+## Prerequisites
+
+- **Apache tomcat 9.x or 8.x**
+
+    If you don't have it, install [Apache tomcat](https://tomcat.apache.org/tomcat-9.0-doc/setup.html).
+
+<Variants>
+
+<Edition only="cloud">
+
+- **A user account in WSO2 Identity Platform**
+
+    If you don't already have one, [create a user account](../../../guides/users/users/manage-users.mdx#onboard-users) in WSO2 Identity Platform.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+- **A user account in the {edition.productName}**
+
+    If you don't already have one, create a user account in the {edition.productName}.
+
+</Edition>
+
+</Variants>
+
+## Register the app
+
+<Variants>
+
+<Edition only="cloud">
+
+Follow these steps given below to register the sample Java EE web application in WSO2 Identity Platform.
+
+1. On the [WSO2 Identity Platform Console](https://console.asgardeo.io/login), go to **Applications**.
+
+2. Click **New Application** and select **Traditional Web Application**.
+
+    <img src={require("../../../../assets/img/guides/applications/select-app-type.png").default} alt="Select app type in WSO2 Identity Platform" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+3. Enter the following details:
+
+    <img src={require("../../../../assets/cloud/img/guides/applications/create-new-saml-app.png").default} alt="Create a new SAML app" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    <table>
+      <tbody>
+        <tr>
+          <td>Name</td>
+          <td>
+
+            Give a unique name to identify your application.
+
+            e.g.:`sample-app`
+
+          </td>
+        </tr>
+        <tr>
+          <td>Protocol</td>
+          <td>Select **SAML**.</td>
+        </tr>
+        <tr>
+          <td>Configuration type</td>
+          <td>Select **Manual** (Learn more about \[SAML configuration types\](\{\{base_path\}\}/guides/applications/register-saml-web-app/))</td>
+        </tr>
+        <tr>
+          <td>Issuer</td>
+          <td>
+
+            Add a unique identifier for the application. This should be used in the SAML authentication request sent from the client. You can't change the issuer after the app is registered.
+
+            e.g.:`sample-issuer`
+
+          </td>
+        </tr>
+        <tr>
+          <td>Assertion consumer service URLs</td>
+          <td>
+
+            The URL to which the user is redirected after login and logout. Use the following URL for this sample app:
+
+            `http://localhost:8080/sample-app/home.jsp`
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+4. Click **Register** to complete the registration.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+Follow these steps given below to register the sample Java EE web application in the {edition.productName}.
+
+1. On the {edition.productName} Console, go to **Applications**.
+
+2. Click **New Application** and select **Traditional Web Application**.
+
+    <img src={require("../../../../assets/img/guides/applications/select-app-type.png").default} alt="Select app type in WSO2 Identity Server" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /><br />
+
+3. Enter the following details:
+
+    <img src={require("../../../../assets/self-hosted/img/guides/applications/create-new-saml-web-app.png").default} alt="Create a new SAML app" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /><br />
+
+    <table>
+      <tbody>
+        <tr>
+          <td>Name</td>
+          <td>
+
+            Give a unique name to identify your application.
+
+            e.g.:`sample-app`
+
+          </td>
+        </tr>
+        <tr>
+          <td>Protocol</td>
+          <td>Select **SAML**.</td>
+        </tr>
+        <tr>
+          <td>Configuration type</td>
+          <td>Select **Manual** (Learn more about \[SAML configuration types\](\{\{base_path\}\}/guides/applications/register-saml-web-app/))</td>
+        </tr>
+        <tr>
+          <td>Issuer</td>
+          <td>
+
+            Add a unique identifier for the application. This should be used in the SAML authentication request sent from the client. You can't change the issuer after the app is registered.
+
+            e.g.:`sample-issuer`
+
+          </td>
+        </tr>
+        <tr>
+          <td>Assertion consumer service URLs</td>
+          <td>
+
+            The URL to which the user is redirected after login and logout. Use the following URL for this sample app:
+
+            `http://localhost:8080/sample-app/home.jsp`
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+5. Click **Create** to complete the registration.
+
+</Edition>
+
+</Variants>
+
+:::tip
+To provide a better experience for the user, it is recommended to configure an access URL for the application. You can set an access URL from the **General** tab of the application. (For this sample application, the access URL is `https://localhost:8080/sample-app`).
+
+The access URL is used,
+
+- in the application catalog and discovery flows.
+- to redirect the user back to the application in the following scenarios.
+    - if the login page times out
+    - after a password reset
+    - after the self sign-up verification
+- to re-initiate the login flow if the login flow fails.
+:::
+
+## Download the sample
+
+Click the button below to download the sample. You can also choose to view the source before doing so.
+
+<Variants>
+
+<Edition only="cloud">
+
+<img src={require("../../../../assets/img/logo/java-logo.svg").default} alt="OIDC" width="50" /><br /> [Download sample](https://github.com/asgardeo/asgardeo-tomcat-saml-agent/releases/latest/download/sample-app.war)
+
+<img src={require("../../../../assets/img/logo/github-logo.svg").default} alt="GitHub" width="50" /> <img src={require("../../../../assets/img/logo/github-logo-dark.svg").default} alt="GitHub" width="50" /><br /> [View source](https://github.com/asgardeo/asgardeo-tomcat-saml-agent/tree/master/io.asgardeo.tomcat.saml.agent.sample)
+
+</Edition>
+
+<Edition only="self-hosted">
+
+<img src={require("../../../../assets/img/logo/java-logo.svg").default} alt="OIDC" width="50" /><br /> [Download sample](https://github.com/asgardeo/asgardeo-tomcat-saml-agent/releases/latest/download/sample-app.war)
+
+<img src={require("../../../../assets/img/logo/github-logo.svg").default} alt="GitHub" width="50" /> <img src={require("../../../../assets/img/logo/github-logo-dark.svg").default} alt="GitHub" width="50" /> <br /> [View source](https://github.com/asgardeo/asgardeo-tomcat-saml-agent/tree/master/io.asgardeo.tomcat.saml.agent.sample)
+
+</Edition>
+
+</Variants>
+
+## Configure the sample
+
+Follow the steps given below to configure the sample app.
+
+1. Move the  **war** file that you downloaded to the `<TOMCAT_HOME>/webapps` folder where `<TOMCAT_HOME>` is the root of your Tomcat server.
+
+<Variants>
+
+<Edition only="cloud">
+
+2. Open a terminal, navigate to the `<TOMCAT_HOME>/bin` folder, and start the Tomcat server using the following command:
+
+    :::note
+      This will extract the contents of the **war** file. <br />
+    If your Tomcat server is set to auto-deploy applications, you can skip this step.
+    :::
+
+    ```bash
+    sh catalina.sh start
+    ```
+
+</Edition>
+
+<Edition only="self-hosted">
+
+2. Open a terminal, navigate to the `<TOMCAT_HOME>/bin` folder, and start the Tomcat server using the following command:
+
+    :::note
+      This will extract the contents of the **war** file. <br />
+    If your Tomcat server is set to auto-deploy applications, you can skip this step.
+    :::
+
+    ```bash
+    sh catalina.sh start
+    ```
+
+</Edition>
+
+</Variants>
+
+3. Go to the `<TOMCAT_HOME>/webapps/sample-app/WEB-INF/classes` folder and open the `sample-app.properties` file in a text editor.
+
+<Variants>
+
+<Edition only="cloud">
+
+4. Update the following in the `sample-app.properties` file:
+
+    :::note
+    - Update the **SAML2.IdPEntityId** parameter with the WSO2 Identity Platform issuer, which is `api.asgardeo.io/t/{organization_name}`.
+    - **SAML2.SPEntityId** should match the issuer name entered when registering the application in WSO2 Identity Platform.
+    :::
+
+    ```xml
+    SAML2.AssertionConsumerURL=http://localhost:8080/sample-app/home.jsp
+    SAML2.SPEntityId=sample-issuer
+    SAML2.IdPEntityId=api.asgardeo.io/t/{organization_name}
+    SAML2.IdPURL=https://api.asgardeo.io/t/{orgaization_name}/samlsso 
+    IdPPublicCert={public_cert_of_asgardeo_organization}
+    SkipURIs=/sample-app/index.html
+
+    #Other properties
+    IdPPublicCertAlias=wso2carbon
+    EnableSAML2SSOLogin=true
+    SAML2.EnableSLO=true
+    SAML2.EnableResponseSigning=false
+    SAML2.EnableAssertionSigning=false
+    SAML2.EnableAssertionEncryption=false
+    SAML2.EnableRequestSigning=false
+    SAML2.IsPassiveAuthn=false      
+    SAML2.SLOURL=logout
+    IndexPage=index.html
+    ErrorPage=/error.jsp
+    SAML2SSOURL=samlsso
+    ```
+
+    <table>
+      <thead>
+        <tr>
+          <th>Configuration</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>`SAML2.AssertionConsumerURL`</td>
+          <td>The URL to which the user is redirected after login and logout.</td>
+        </tr>
+        <tr>
+          <td>`SAML2.SPEntityId`</td>
+          <td>The SAML issuer that is used when registering your application with WSO2 Identity Platform.</td>
+        </tr>
+        <tr>
+          <td>`SAML2.IdPEntityId`</td>
+          <td>
+
+            The issuer name of WSO2 Identity Platform.
+
+            `api.asgardeo.io/t/{organization_name}`
+
+          </td>
+        </tr>
+        <tr>
+          <td>`SAML2.IdPURL`</td>
+          <td>
+
+            The endpoint of WSO2 Identity Platform to which login and logout requests should be sent:
+
+            `https://api.asgardeo.io/t/{organization_name}/samlsso`
+
+          </td>
+        </tr>
+        <tr>
+          <td>`IdPPublicCert`</td>
+          <td>
+
+            This specifies the public certificate of the {edition.productName}. Follow these steps to obtain it:
+
+            1. On the {edition.productName} Console, go to **Applications**.
+            2. Select your SAML application.
+            3. Go to the **Info** tab.
+            4. Under **IdP certificate**, download the certificate.
+            5. Open the downloaded certificate file in a text editor and copy the certificate content (the text between `-----BEGIN CERTIFICATE-----` and `-----END CERTIFICATE-----`, excluding the header and footer lines).
+            6. Paste the certificate content as a single line in the `IdPPublicCert` field.
+
+            For more information, see [how to get SAML configurations from the {edition.productName} Console](../../../guides/authentication/saml/discover-saml-configs.mdx).
+
+          </td>
+        </tr>
+        <tr>
+          <td>`skipURIs`</td>
+          <td>Defines the web pages in your application that should not be secured and does not require authentication.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <details>
+    <summary>Other properties</summary>
+
+    | Configuration | Description |
+    | --- | --- |
+    | `EnableSAML2SSOLogin` | Specifies whether single sign-on is enabled for this application. |
+    | ` SAML2.EnableSLO` | Specifies whether logout is enabled for this application. |
+    | `SAML2.EnableResponseSigning` | If this configuration is set to `true`, the application validates the signature in the SAML response. You also need to \[enable response signing from WSO2 Identity Platform\](\{\{base_path\}\}/references/app-settings/saml-settings-for-app/#response-signing). If this configuration is set to `false`, the application does not mandate response signing from WSO2 Identity Platform. |
+    | `SAML2.EnableAssertionSigning` | If this configuration is set to `true`, the application validates the signature in the SAML assertion. You also need to \[enable response signing from WSO2 Identity Platform\](\{\{base_path\}\}/references/app-settings/saml-settings-for-app/#response-signing). If this configuration is set to `false`, the application does not mandate response signing from WSO2 Identity Platform. |
+    | `SAML2.EnableAssertionEncryption` | If this configuration is set to `true`, the application expects an encrypted SAML assertion. You also need to \[enable encryption for SAML assertions\](\{\{base_path\}\}/references/app-settings/saml-settings-for-app/) from WSO2 Identity Platform. |
+    | `SAML2.EnableRequestSigning` | If this configuration is set to `true`, WSO2 Identity Platform validates the SAML authentication request and logout request. You also need to \[enable request signing\](\{\{base_path\}\}/references/app-settings/saml-settings-for-app/) from WSO2 Identity Platform. |
+    | `SAML2.IsPassiveAuthn` | Specifies whether to enable passive authentication. |
+    | `KeyStorePassword` | Keystore password of your application. |
+    | `PrivateKeyAlias` | Private key alias of your application. |
+    | `PrivateKeyPassword` | Password of the private key of your application. |
+
+    </details>
+
+5. In the `<TOMCAT_HOME>/bin` folder, run the following commands to restart the Tomcat server for the configurations to take effect:
+
+    ```bash
+    sh catalina.sh stop
+    sh catalina.sh start
+    ```
+
+</Edition>
+
+<Edition only="self-hosted">
+
+4. Update the following in the `sample-app.properties` file:
+
+    :::note
+    - Update the **SAML2.IdPEntityId** parameter with the {edition.productName} issuer, which is `localhost`.
+    - **SAML2.SPEntityId** should match the issuer name entered when registering the application in the {edition.productName}.
+    :::
+
+    ```xml
+    SAML2.AssertionConsumerURL=http://localhost:8080/sample-app/home.jsp
+    SAML2.SPEntityId=sample-issuer
+    SAML2.IdPEntityId=localhost
+    SAML2.IdPURL=https://localhost:9443/samlsso
+    SAML2SSOURL=samlsso
+    EnableSAML2SSOLogin=true
+    SAML2.EnableSLO=true
+    SAML2.SLOURL=logout
+    SkipURIs=/sample-app/index.html
+    IndexPage=index.html
+    ErrorPage=/error.jsp
+    SAML2.EnableResponseSigning=false
+    SAML2.EnableAssertionSigning=false
+    SAML2.EnableAssertionEncryption=false
+    SAML2.EnableRequestSigning=true
+    SAML2.IsPassiveAuthn=false
+    IdPPublicCert={public_cert_of_identity-server}
+    KeyStorePassword=wso2carbon
+    PrivateKeyAlias=wso2carbon
+    IdPPublicCertAlias=wso2carbon
+    PrivateKeyPassword=wso2carbon
+    ```
+    <table>
+      <thead>
+        <tr>
+          <th>Configuration</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>`SAML2.AssertionConsumerURL`</td>
+          <td>The URL to which the user is redirected after login and logout.</td>
+        </tr>
+        <tr>
+          <td>`SAML2.SPEntityId`</td>
+          <td>The SAML issuer that is used when registering your application with the {edition.productName}.</td>
+        </tr>
+        <tr>
+          <td>`SAML2.IdPEntityId`</td>
+          <td>
+
+            The issuer name of the {edition.productName}.
+
+            `localhost`
+
+          </td>
+        </tr>
+        <tr>
+          <td>`SAML2.IdPURL`</td>
+          <td>
+
+            The endpoint of the {edition.productName} to which login and logout requests should be sent:
+
+            `https://localhost:9443/samlsso`
+
+          </td>
+        </tr>
+        <tr>
+          <td>`IdPPublicCert`</td>
+          <td>
+
+            This specifies the public certificate of the {edition.productName}. Follow these steps to obtain it:
+
+            1. On the {edition.productName} Console, go to **Applications**.
+            2. Select your SAML application.
+            3. Go to the **Info** tab.
+            4. Under **IdP certificate**, download the certificate.
+            5. Open the downloaded certificate file in a text editor and copy the certificate content (the text between `-----BEGIN CERTIFICATE-----` and `-----END CERTIFICATE-----`, excluding the header and footer lines).
+            6. Paste the certificate content as a single line in the `IdPPublicCert` field.
+
+            For more information, see [how to get SAML configurations from the {edition.productName} Console](../../../guides/authentication/saml/discover-saml-configs.mdx).
+
+          </td>
+        </tr>
+        <tr>
+          <td>`skipURIs`</td>
+          <td>Defines the web pages in your application that should not be secured and do not require authentication.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <details>
+    <summary>Other properties</summary>
+
+    | Configuration | Description |
+    | --- | --- |
+    | `EnableSAML2SSOLogin` | Specifies whether single sign-on is enabled for this application. |
+    | ` SAML2.EnableSLO` | Specifies whether logout is enabled for this application. |
+    | `SAML2.EnableResponseSigning` | If this configuration is set to `true`, the application validates the signature in the SAML response. You also need to \[enable response signing from {edition.productName}\](\{\{base_path\}\}/references/app-settings/saml-settings-for-app/#response-signing). If this configuration is set to `false`, the application does not mandate response signing from {edition.productName}. |
+    | `SAML2.EnableAssertionSigning` | If this configuration is set to `true`, the application validates the signature in the SAML assertion. You also need to \[enable response signing from {edition.productName}\](\{\{base_path\}\}/references/app-settings/saml-settings-for-app/#response-signing). If this configuration is set to `false`, the application does not mandate response signing from {edition.productName}. |
+    | `SAML2.EnableAssertionEncryption` | If this configuration is set to `true`, the application expects an encrypted SAML assertion. You also need to \[enable encryption for SAML assertions\](\{\{base_path\}\}/references/app-settings/saml-settings-for-app/) from {edition.productName}. |
+    | `SAML2.EnableRequestSigning` | If this configuration is set to `true`, {edition.productName} validates the SAML authentication request and logout request. You also need to \[enable request signing\](\{\{base_path\}\}/references/app-settings/saml-settings-for-app/) from {edition.productName}. |
+    | `SAML2.IsPassiveAuthn` | Specifies whether to enable passive authentication. |
+    | `KeyStorePassword` | Keystore password of your application. |
+    | `PrivateKeyAlias` | Private key alias of your application. |
+    | `PrivateKeyPassword` | Password of the private key of your application. |
+
+    </details>
+
+5. In the `<TOMCAT_HOME>/bin` folder, run the following commands to restart the Tomcat server for the configurations to take effect:
+
+    ```bash
+    sh catalina.sh stop
+    sh catalina.sh start
+    ```
+
+</Edition>
+
+</Variants>
+
+## Run the sample
+
+Follow the steps given below to run the sample.
+
+1. Access the application using the following URL: `http://localhost:8080/sample-app/index.html`.
+
+<Variants>
+
+<Edition only="cloud">
+
+2. Click **Login**. You will be redirected to the WSO2 Identity Platform login page.
+
+    <img src={require("../../../../assets/cloud/img/guides/applications/sign-in-asgardeo.png").default} alt="WSO2 Identity Platform Sign in page" width="350" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+</Edition>
+
+<Edition only="self-hosted">
+
+2. Click **Login**. You will be redirected to the {edition.productName} login page.
+
+    <img src={require("../../../../assets/self-hosted/img/guides/applications/sign-in-is.png").default} alt="WSO2 Identity Server sign in page" width="350" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+</Edition>
+
+</Variants>
+
+3. Enter credentials of your user account and click **Sign In**.
+
+    :::note[Extend your login session]
+    By default, the user login session is active for only `15 minutes`. You can extend the session to `14 days` by selecting the **Remember me on this computer** option provided at the login screen of your application.
+    :::

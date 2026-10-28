@@ -1,0 +1,66 @@
+---
+title: Register an application
+description: First unless you already have done that, you need to create an organization in WSO2 Identity Platform and register your Teamspace application as a Next…  # generated from the first paragraph; a writer should improve it
+type: how-to
+layout: complete-guide
+sidebar_position: 3
+editions: cloud
+---
+
+First unless you already have done that, you need to create an organization in {edition.productName} and register your Teamspace application as a Next Application.
+
+1. Sign up for a [free {edition.productName} account](../../../../get-started/create-identity-platform-account.mdx)
+2. Sign into {edition.productName} console and navigate to **Applications > New Application.**
+3. Select **Next.js**
+
+    <img src={require("../../../../../assets/cloud/img/complete-guides/nextjs-b2b/image3.png").default} alt="Select Traditional Page Application" width="600" style={{display: "block", margin: "0"}} />  
+
+4. complete the wizard popup by providing a suitable name and an authorized redirect URL.
+
+    :::note[Example]
+    Name: Teamspace
+
+    Authorized redirect URL: http://localhost:3000
+    :::
+
+    <img src={require("../../../../../assets/cloud/img/complete-guides/nextjs-b2b/image4.png").default} alt="Register a new application" width="600" style={{display: "block", margin: "0"}} />
+
+    :::info
+    The authorized redirect URL determines where {edition.productName} should send users after they successfully log in. Typically, this will be the web address where your application is hosted. For this guide, we'll use http://localhost:3000, as the sample application will be accessible at this URL
+    :::
+
+5. Make a note of the following values from the **Guide** tab of the registered application. You will need them to configure the WSO2 Identity Platform provider.
+
+    ```bash
+    NEXT_PUBLIC_ASGARDEO_BASE_URL="https://api.asgardeo.io/t/<your-org-name>"
+    NEXT_PUBLIC_ASGARDEO_CLIENT_ID="<your-app-client-id>"
+    ASGARDEO_CLIENT_SECRET="<your-app-client-secret>"
+    ```
+
+6. Navigate to the 'Shared Access' tab and select 'Share with all organizations'.
+
+    <img src={require("../../../../../assets/cloud/img/complete-guides/nextjs-b2b/image5.png").default} alt="Allow sharing app" width="800" style={{display: "block", margin: "0"}} />
+
+## Allow required grant types
+
+To ensure seamless authentication and authorization in the Teamspace application, you must allow the necessary OAuth2 grant types in {edition.productName}. These grant types allow your app to authenticate users, retrieve access tokens, and interact with {edition.productName}’s APIs securely.
+
+### Required Grant Types for Teamspace
+
+Based on the features we are expecting to implement, the following grant types are enabled:
+
+- **Authorization Code Grant** – Used for user authentication and obtaining access tokens interactively.
+- **Client Credentials Grant** – Allows the app to make API calls on behalf of the organization (used for retrieving a root organization token).
+- **Organization Switch Grant** – Enables switching between organizations.
+
+### How to Enable Grant Types
+
+1. Navigate to your application in the {edition.productName} console.
+2. Click on "Protocols" tab
+3. Allow the above grant types and update
+
+<img src={require("../../../../../assets/cloud/img/complete-guides/nextjs-b2b/image9.png").default} alt="App Grants" width="800" style={{display: "block", margin: "0"}} />  
+
+:::info
+Read more on [OAuth2 grant types](../../../../reference/iam-concepts/grant-types.mdx)
+:::

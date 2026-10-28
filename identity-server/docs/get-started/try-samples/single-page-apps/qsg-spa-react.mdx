@@ -1,0 +1,325 @@
+---
+title: Sample React SPA
+description: By following this guide, you will be able to deploy a React single-page application (SPA) locally and secure it with OpenID Connect.  # generated from the first paragraph; a writer should improve it
+type: quick-start
+sidebar_label: React
+sidebar_position: 1
+---
+
+By following this guide, you will be able to deploy a React single-page application (SPA) locally and secure it with OpenID Connect.
+
+## Prerequisites
+
+- **npm with Node.js**
+
+    If you don't have it, [install npm and node](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) in your local environment.
+
+<Variants>
+
+<Edition only="cloud">
+
+- **A user account in WSO2 Identity Platform**
+
+    If you don't already have one, [create a user account](../../../guides/users/users/manage-users.mdx#onboard-users) in WSO2 Identity Platform.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+- **A user account in the {edition.productName}**
+
+    If you don't already have one, create a user account in the {edition.productName}.
+
+</Edition>
+
+</Variants>
+
+## Register the app
+
+<Variants>
+
+<Edition only="cloud">
+
+Follow the steps given below to register the sample React SPA in WSO2 Identity Platform.
+
+1. On the [WSO2 Identity Platform Console](https://console.asgardeo.io/login), go to **Applications**.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+Follow the steps given below to register the sample React SPA in the {edition.productName}.
+
+1. On the {edition.productName} Console, go to **Applications**.
+
+</Edition>
+
+</Variants>
+
+2. Click **New Application** and select **Single-Page Application**
+
+<Variants>
+
+<Edition only="cloud">
+
+3. Enter the following details:
+
+    <img src={require("../../../../assets/cloud/img/guides/applications/create-new-spa.png").default} alt="Create a new SPA" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    <table>
+      <tbody>
+        <tr>
+          <td>Name</td>
+          <td>Give a unique name to identify your application.</td>
+        </tr>
+        <tr>
+          <td>Authorized redirect URLs</td>
+          <td>
+
+            The URL to which the user is redirected after a successful login. Use the following URL for this sample app:
+
+            `https://localhost:3000`
+
+          </td>
+        </tr>
+        <tr>
+          <td>Allow sharing with organizations</td>
+          <td>Enable this to share the new application with all or any selected B2B organizations that belong to your primary organization.</td>
+        </tr>
+      </tbody>
+    </table>
+
+</Edition>
+
+<Edition only="self-hosted">
+
+3. Enter the following details:
+
+    <img src={require("../../../../assets/self-hosted/img/guides/applications/create-new-spa.png").default} alt="Create a new SPA" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    <table>
+      <tbody>
+        <tr>
+          <td>Name</td>
+          <td>Give a unique name to identify your application.</td>
+        </tr>
+        <tr>
+          <td>Authorized redirect URLs</td>
+          <td>
+
+            The URL to which the user is redirect to after a successful login. Use the following URL for this sample app:
+
+            `https://localhost:3000`
+
+          </td>
+        </tr>
+        <tr>
+          <td>Allow sharing with organizations</td>
+          <td>Enable this to share the new application with all or any selected B2B organizations that belong to your primary organization.</td>
+        </tr>
+      </tbody>
+    </table>
+
+</Edition>
+
+</Variants>
+
+4. Click **Register** to complete the registration.
+5. Go to the **Protocol** tab and take note of the **Client ID**. You will need it to configure the application later.
+
+    <Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/applications/spa-client-id.png").default} alt="Client ID" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/applications/spa-client-id.png").default} alt="Client ID" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+:::tip
+To provide a better experience for the user, it is recommended to configure an access URL for the application. You can set an access URL from the **General** tab of the application. (For this sample application, the access URL is `https://localhost:3000`).
+
+The access URL is used,
+
+- in the application catalog and discovery flows.
+- to redirect the user back to the application in the following scenarios.
+    - if the login page times out
+    - after a password reset
+    - after the self sign-up verification
+- to re-initiate the login flow if the login flow fails.
+:::
+
+## Download the sample
+
+Click the button below to download the sample. You can also choose to view the source before doing so.
+
+<Variants>
+
+<Edition only="cloud">
+
+<img src={require("../../../../assets/img/logo/react-logo.svg").default} alt="React" width="50" /><br /> [Download sample](https://github.com/asgardeo/asgardeo-auth-react-sdk/releases/latest/download/asgardeo-react-app.zip)
+
+<img src={require("../../../../assets/img/logo/github-logo.svg").default} alt="GitHub" width="50" /> <img src={require("../../../../assets/img/logo/github-logo-dark.svg").default} alt="GitHub" width="50" /><br /> [View source](https://github.com/asgardeo/asgardeo-auth-react-sdk/tree/main/samples/asgardeo-react-app)
+
+</Edition>
+
+<Edition only="self-hosted">
+
+<img src={require("../../../../assets/img/logo/react-logo.svg").default} alt="React" width="50" /><br /> [Download sample](https://github.com/asgardeo/asgardeo-auth-react-sdk/releases/download/v5.2.3/asgardeo-react-app.zip)
+
+<img src={require("../../../../assets/img/logo/github-logo.svg").default} alt="GitHub" width="50" /> <img src={require("../../../../assets/img/logo/github-logo-dark.svg").default} alt="GitHub" width="50" /> <br /> [View source](https://github.com/asgardeo/asgardeo-auth-react-sdk/tree/main/samples/asgardeo-react-app)
+
+</Edition>
+
+</Variants>
+
+## Configure the sample
+
+Follow the steps given below to configure the sample app.
+
+1. Unzip the application folder.
+
+2. Go to the `asgardeo-react-app/src/` folder and open the `config.json` file in a text editor.
+
+<Variants>
+
+<Edition only="cloud">
+
+3. Update the following in the `config.json` file:
+
+    ```json
+
+    {
+    "clientID": "{client ID}",
+    "baseUrl": "https://api.asgardeo.io/t/{organization_name}",
+    "signInRedirectURL": "https://localhost:3000",
+    "signOutRedirectURL": "https://localhost:3000",
+    "scope": [ "profile" ]
+    }
+    ```
+
+    <table>
+      <thead>
+        <tr>
+          <th>Configuration</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>`clientID`</td>
+          <td>The client id that you received when you registered the application in WSO2 Identity Platform.</td>
+        </tr>
+        <tr>
+          <td>`baseUrl`</td>
+          <td>
+
+            All authentication requests that the client application makes to WSO2 Identity Platform will be appended to this base URL:
+
+            `https://api.asgardeo.io/t/{organization_name}`
+
+          </td>
+        </tr>
+        <tr>
+          <td>`scope`</td>
+          <td>
+
+            The list of OIDC scopes that are used for requesting user information. You can add OIDC scopes such as `profile` and `email` in a comma-separated list as follows:
+
+            `"scope": ["profile", "email"]`
+
+            Learn more about \[OIDC scopes in WSO2 Identity Platform\](\{\{base_path\}\}/guides/users/attributes/manage-scopes/).
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+</Edition>
+
+<Edition only="self-hosted">
+
+3. Update the following in the `config.json` file:
+
+    ```json
+
+    {
+    "clientID": "{client ID}",
+    "baseUrl": "https://localhost:9443",
+    "signInRedirectURL": "https://localhost:3000",
+    "signOutRedirectURL": "https://localhost:3000",
+    "scope": [ "profile" ]
+    }
+    ```
+
+    <table>
+      <thead>
+        <tr>
+          <th>Configuration</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>`clientID`</td>
+          <td>The client id that you received when you registered the application in the {edition.productName}.</td>
+        </tr>
+        <tr>
+          <td>`baseUrl`</td>
+          <td>
+
+            All authentication requests that the client application makes to the {edition.productName} will be appended to this base URL.:
+
+            `https://localhost:9443`
+
+          </td>
+        </tr>
+        <tr>
+          <td>`scope`</td>
+          <td>
+
+            The list of OIDC scopes that are used for requesting user information. You can add OIDC scopes such as `profile` and `email` in a comma-separated list as follows:
+
+            `"scope": ["profile", "email"]`
+
+            Learn more about \[OIDC scopes in the {edition.productName}\](\{\{base_path\}\}/guides/users/attributes/manage-scopes/).
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+</Edition>
+
+</Variants>
+
+## Run the sample
+
+Follow the steps given below to run the sample.
+
+1. On your terminal, navigate to the **root** of the project and run the command given below to start the sample application:
+
+    ```bash
+    npm install && npm start
+    ```
+
+2. Once the app is successfully compiled, it is accessible at `https://localhost:3000`.
+
+<Variants>
+
+<Edition only="cloud">
+
+3. Click **Login**. You will be redirected to the WSO2 Identity Platform login page.
+
+    <img src={require("../../../../assets/cloud/img/guides/applications/sign-in-asgardeo.png").default} alt="WSO2 Identity Platform Sign in page" width="350" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+</Edition>
+
+<Edition only="self-hosted">
+
+3. Click **Login**. You will be redirected to the {edition.productName} login page.
+
+    <img src={require("../../../../assets/self-hosted/img/guides/applications/sign-in-is.png").default} alt="Identity Server Sign in page" width="350" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+</Edition>
+
+</Variants>
+
+4. Enter the credentials of your user account and click **Sign In**.
+
+    :::note[Extend your login session]
+    By default, the user login session is active for only `15 minutes`. You can extend the session to `14 days` by selecting the **Remember me on this computer** option provided at the login screen of your application.
+    :::

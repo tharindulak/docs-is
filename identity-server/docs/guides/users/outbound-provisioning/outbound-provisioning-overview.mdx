@@ -1,0 +1,55 @@
+---
+title: Outbound provisioning
+description: Outbound provisioning automatically provisions user accounts from WSO2 Identity Platform to external systems.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Overview
+sidebar_position: 1
+---
+
+Outbound provisioning automatically provisions user accounts from {edition.productName} to external systems. When enabled, user lifecycle events such as creation, updates, and deletion are synchronized in real-time with connected applications.
+
+## Provisioning levels
+
+{edition.productName} lets you configure outbound provisioning at the following levels:
+
+- [Organization-level](./setup-outbound-provisioning.mdx): Organization-level outbound provisioning acts as the default provisioner for all applications. You can override this by configuring an **application-level** outbound provisioner. With organization-level outbound provisioning, users are automatically provisioned to external systems when:
+    - a user is provisioned in {edition.productName} over an API.
+    - an administrator onboards a user from the {edition.productName} Console.
+    - a user self-signs up from a {edition.productName} login page.
+    - a user is JIT provisioned in {edition.productName}.
+
+- [Application-level](./setup-outbound-provisioning.mdx): Application-level outbound provisioning is specific to an individual application. If an application does not have its own outbound provisioner configured, it defaults to the organization-level outbound provisioner. When application-level provisioning is enabled, users are automatically provisioned to the external system when:
+    - a user is created using a token retrieved by the application.
+    - a user is JIT provisioned through the application.
+
+## Group-based provisioning
+
+In addition to provisioning levels, you can refine your provisioning criteria by managing which users are provisioned based on their assigned groups. Group-based provisioning can be applied alongside both organization-level and application-level provisioning to further filter which users are provisioned based on group membership.
+
+Learn more about [group-based provisioning](./group-based-provisioning.mdx).
+
+## Outbound connectors
+
+<Variants>
+
+<Edition only="cloud">
+
+{edition.productName} supports provisioning users via [SCIM2](./outbound-connectors/scim2.mdx).
+
+</Edition>
+
+<Edition only="self-hosted">
+
+{edition.productName} supports provisioning users via the following outbound connectors:
+
+- [Google](../provisioning/outbound-provisioning/outbound-connectors/google.mdx)
+- [Salesforce](../provisioning/outbound-provisioning/outbound-connectors/salesforce.mdx)
+- [SCIM2](./outbound-connectors/scim2.mdx)
+
+</Edition>
+
+</Variants>
+
+## Provisioning attributes
+
+When a provisioning request uses a token issued to an authorized application (other than the Console application), {edition.productName} applies attribute filtering. Only the attributes requested by that application are provisioned to the external system.

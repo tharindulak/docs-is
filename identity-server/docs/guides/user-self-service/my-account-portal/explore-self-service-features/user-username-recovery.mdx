@@ -1,0 +1,45 @@
+---
+title: Username recovery for users
+description: Users may recover a forgotten username from an application sign-in page by following the steps below.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Username recovery
+sidebar_position: 9
+editions: self-hosted
+---
+
+Users may recover a forgotten username from an application sign-in page by following the steps below.
+
+:::note[Before you begin]
+Administrators should [enable username recovery](../../../account-configurations/account-recovery/username-recovery.mdx) for users of the organization.
+:::
+
+## Recover a forgotten username
+
+To recover the username, the user should follow these steps.
+
+1. Go to a login page via a business application or the [My Account portal](../../self-service-portal/configure-self-service-portal.mdx).
+
+    <img src={require("../../../../../assets/self-hosted/img/guides/organization/self-service/customer/recover-your-username.png").default} alt="Recover your password" width="300" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+2. Click **Forgot username?**
+
+3. Enter the information for the account you’re trying to recover, then click **Next**.
+
+    <img src={require("../../../../../assets/self-hosted/img/guides/organization/self-service/customer/username-recovery-claim.png").default} alt="Username recovery claim" width="300" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+4. Select your preferred channel to receive username recovery information, then click **Next**.
+
+    <img src={require("../../../../../assets/self-hosted/img/guides/organization/self-service/customer/username-recovery-channel-selection.png").default} alt="Username recovery channel selection" width="300" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+5. You can now view the username recovery information in your email or mobile, as selected in the previous step.
+
+## Check password recovery channel information
+Users can also check the email address and mobile number to which their username recovery information is sent.
+
+1. In the My Account portal, navigate to **Security** > **Account Recovery**.
+
+    <img src={require("../../../../../assets/img/guides/users/account-recovery.png").default} alt="Account recovery in WSO2 Identity Server MyAccount" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+2. Click the eye icon of the relevant row, to check the recovery email address or the recovery mobile.
+
+3. Click **Done**.

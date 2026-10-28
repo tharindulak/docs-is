@@ -1,0 +1,21 @@
+---
+title: User Impersonation
+description: User impersonation enables an authorized user to act on behalf of another user.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: User impersonation
+sidebar_position: 1
+---
+
+User impersonation enables an authorized user to act on behalf of another user. This feature proves useful for administrators or support personnel who need to perform tasks without requiring the credentials of the end user.
+
+:::note[Limitations]
+Impersonated tokens won't include any user claim values set during adaptive authentication.
+:::
+
+You can start user impersonation in two ways:
+
+   1. [Via Console](./via-console.mdx)
+
+   2. [Via business application (advanced)](./via-business-application.mdx)
+
+If the impersonator is a shared user (a user whose profile is managed by a parent organization), see <Edition selfHostedFrom="next">[Impersonation for shared users](../../organization-management/manage-organization-users/shared-users/shared-user-impersonation.mdx)</Edition>.

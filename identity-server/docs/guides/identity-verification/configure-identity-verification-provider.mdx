@@ -1,0 +1,103 @@
+---
+title: Configure an Identity Verification Provider
+description: Identity verification Providers (IDVP) lets you confirm the identity of users by checking legal documents such as passports, national identification cards,…  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Configure an identity verification provider
+sidebar_position: 2
+---
+
+Identity verification Providers (IDVP) lets you confirm the identity of users by checking legal documents such as passports, national identification cards, and driver's licenses. {edition.productName} allows you to add Identity Verification Providers and specify various details that help you link the IDVP to {edition.productName}. To properly configure the IDVPs, you must specify all information required to perform identity verification.
+
+This guide walks you through adding and configuring IDVPs based on your requirements.
+
+## Register an Identity Verification Provider
+
+Follow the steps below to add an IDVP to {edition.productName}:
+
+1. On the {edition.productName} Console, go to **Connections**.
+
+2. Click **New Connection** and select the **Identity-Verification** filter tag.
+
+    <img src={require("../../../assets/img/guides/identity-verification/create-idvp.png").default} alt="create-idvp" width="700" />
+
+<Variants>
+
+<Edition only="cloud">
+
+3. Select and set up your preferred IDVP:
+
+    - [Identity verification with Onfido](./add-identity-verification-with-onfido.mdx)
+
+</Edition>
+
+<Edition only="self-hosted">
+
+3. Select and set up your preferred IDVP:
+
+    - [Identity verification with Onfido](https://github.com/wso2-extensions/identity-verification-onfido/blob/main/docs/config.md)
+
+</Edition>
+
+</Variants>
+
+## Manage your Identity Verification Provider
+
+This section provides instructions on how to manage the created IDVPs.
+
+### View an Identity Verification Provider
+
+To view the list of IDVPs added to the {edition.productName}:
+
+1. On the {edition.productName} Console, go to **Connections**.
+
+2. Select **Identity-Verification** filter tag to filter out the created IDVPs.
+   ![idvp-list](../../../assets/img/guides/identity-verification/view-idvp.png)
+
+### Edit an Identity Verification Provider
+
+An administrator can update an IDVP via the {edition.productName} Console.
+
+To edit an IDVP:
+
+1. On the {edition.productName} Console, go to **Connections**.
+
+2. Find the IDVP and click **Set up**.
+   ![idvp-list](../../../assets/img/guides/identity-verification/view-idvp.png)
+
+3. Update the information on the IDVP.
+
+4. Click **Update** to save.
+
+### Disable an Identity Verification Provider
+
+An administrator can disable/enable an IDVP via the {edition.productName} Console.
+
+To disable an IDVP:
+
+1. On the {edition.productName} Console, go to **Connections**.
+
+2. Find the IDVP and click **Set up**.
+    ![idvp-list](../../../assets/img/guides/identity-verification/view-idvp.png)
+
+3. Disable the **Disable identity verification provider** toggle at the bottom of the **General tab**.
+    ![idvp-danger-zone](../../../assets/img/guides/identity-verification/danger-zone.png)
+
+:::note
+You can re-enable the IDVP by switching the **Disable identity verification provider** toggle on.
+:::
+
+### Delete an Identity Verification Providers
+
+An IDVP can be deleted by administrators. Once an IDVP is deleted, the action is irreversible.
+
+To delete an IDVP:
+
+1. On the {edition.productName} Console, go to **Connections**.
+
+2. Find the IDVP and click **Delete icon**.
+    ![idvp-list](../../../assets/img/guides/identity-verification/view-idvp.png)
+
+3. Select the checkbox to confirm your action.<br />
+    ![idvp-delete](../../../assets/img/guides/identity-verification/delete-idvp.png)
+
+4. Click **Confirm**.

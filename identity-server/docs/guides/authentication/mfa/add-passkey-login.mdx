@@ -1,0 +1,162 @@
+---
+title: Add MFA with Passkey
+description: Passkey adds passwordless login to your applications, which allows users to replace traditional passwords with FIDO2-supported hardware security keys or…  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Add Passkey
+sidebar_position: 6
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Passkey adds passwordless login to your applications, which allows users to replace traditional passwords with FIDO2-supported hardware security keys or built-in authenticators on their devices. This advanced technology also enables credentials to sync across multiple devices, allowing users to log into applications from any device, even if their credentials are stored on another.
+
+Follow the instructions given below to configure Multi-Factor Authentication (MFA) using Passkey in {edition.productName}.
+
+:::info
+- {edition.productName} uses the WebAuthn API to enable FIDO-based authentication for browsers that no longer support the u2f extension.
+- The following browser versions support the WebAuthn API by default:
+    - Chrome 67 and above
+    - Firefox 60 and above
+    - Edge 17723 and above
+- Passkey login with [platform authenticators](https://developers.yubico.com/WebAuthn/WebAuthn_Developer_Guide/Platform_vs_Cross-Platform.html#:~:text=types%20of%20authenticators%3A-,Platform%20authenticators,-%2C%20also%20known%20as) will NOT work on the Firefox browser in macOS Catalina, Big Sur, and Monterey due to browser limitations.
+- Passkey login with [roaming authenticators](https://developers.yubico.com/WebAuthn/WebAuthn_Developer_Guide/Platform_vs_Cross-Platform.html#:~:text=Roaming%20authenticators) will NOT work on the Firefox browser as the browser doesn't support CTAP2 (Client to Authenticator Protocol 2) with PIN.
+- Refer to the [passkeys documentation](https://passkeys.dev/device-support/) to stay up-to-date with the device support for FIDO2 passkeys.
+:::
+
+## Prerequisites
+
+- To get started, you need to [register an application with {edition.productName}](../../applications/index.mdx). You can register your own application or use one of the [sample applications](../../../get-started/try-samples/index.mdx) provided.
+
+<Variants>
+
+<Edition only="cloud">
+
+- You need to have a user account in {edition.productName}. If you don't already have one, [create a user account](../../users/users/manage-users.mdx#onboard-users) in {edition.productName}.
+
+    :::note
+    You cannot use an administrator account to log in to an application.
+    :::
+
+</Edition>
+
+<Edition only="self-hosted">
+
+- You need to have a user account in {edition.productName}. If you don't already have one, [create a user account](../../users/users/manage-users.mdx#onboard-users) in {edition.productName}.
+
+</Edition>
+
+</Variants>
+
+- If Passkey progressive enrollment is disabled, [application users](../../users/users/manage-users.mdx#onboard-users) need to register their passkeys via the My Account app prior to using passkey login. Be sure to educate your users on how to [enroll passkeys via My Account.](../../user-self-service/self-service-portal/register-passkey.mdx)
+
+## Enable passkey login for an app
+
+Follow the steps given below to enable **Passkey** login for your application.
+
+1. On the {edition.productName} Console, go to **Applications**.
+
+2. Select the application to which you wish to add Passkey.
+
+3. Go to the **Login Flow** tab of the application and add Passkey from your preferred editor:
+
+    <Variants>
+
+    <Edition only="cloud">
+
+    <Tabs groupId="tabs">
+    <TabItem value="classic-editor" label="Classic Editor">
+
+    - If you haven't already built a login flow for your application, select **Start with default configuration** to build one.
+
+        <img src={require("../../../../assets/cloud/img/guides/mfa/passkey/add-basic-login-using-classic-editor.png").default} alt="Configuring basic login in WSO2 Identity Platform" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    - Add a second step to the login flow and add **Passkey** as the authenticator.
+
+        <img src={require("../../../../assets/cloud/img/guides/mfa/passkey/add-passkey-using-classic-editor.png").default} alt="Configuring passkey as the second factor" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    </TabItem>
+    <TabItem value="visual-editor" label="Visual Editor">
+
+    To add Passkey as a second-factor authenticator using the Visual Editor:
+
+    1. Switch to the **Visual Editor** tab.
+
+    2. Click **+** to add a second step to the login flow.
+
+    3. Click **Add Sign In Option**, select **Passkey** and click **Add**.
+
+    3. Click **Confirm** to add login with passkey to the sign-in flow.
+
+        <img src={require("../../../../assets/cloud/img/guides/mfa/passkey/add-passkey-using-visual-editor.png").default} alt="Configuring passkey login in WSO2 Identity Platform" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    </TabItem>
+    </Tabs>
+
+    ---
+
+    </Edition>
+
+    <Edition only="self-hosted">
+
+    1. Click **+** to add a second step to the login flow.
+
+    2. Click **Add Sign In Option**, select **Passkey** and click **Add**.
+
+    3. Click **Confirm** to add login with passkey to the sign-in flow.
+
+        <img src={require("../../../../assets/self-hosted/img/guides/mfa/passkey/add-passkey-using-visual-editor.png").default} alt="Configuring passkey login in WSO2 Identity Server" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    </Edition>
+
+    </Variants>
+
+4. Click **Update** to save your changes.
+
+## Enable Passkey progressive enrollment
+
+This feature allows users to enroll their passkey seamlessly during the usual login flow, offering a blend of convenience and security. Follow the steps given below to enable **Passkey** progressive enrollment for your application.
+
+1. On the {edition.productName} Console, go to **Connections**.
+
+2. Select the **Passkey** connection.
+
+3. Go to the **Settings** tab of the connection.
+
+4. Enable the option for **Allow passkey progressive enrollment** by checking its checkbox.
+
+    <Variants><Edition only="cloud"><img src={require("../../../../assets/img/guides/passwordless/passkey/enable-passkey-progressive-enrollment.png").default} alt="Enable passkey progressive enrollment in WSO2 Identity Platform" width="500" style={{border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/img/guides/passwordless/passkey/enable-passkey-progressive-enrollment.png").default} alt="Enable passkey progressive enrollment in WSO2 Identity Server" width="500" style={{border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+5. Click **Update** to save your changes.
+
+:::note
+Passkey progressive enrollment can only be configured at the organizational level and cannot be modified at the application level.
+:::
+
+## Try it out
+
+In this section, let’s try out the scenario where Passkey progressive enrollment is enabled and the user has not previously enrolled a passkey. The following steps will guide you through enrolling a passkey on-the-fly and then using it to sign in.
+
+1. Access the application URL.
+
+2. Click **Login** to access the {edition.productName} login page.
+
+3. Enter your username and password, then click **Sign In**.
+
+4. Click **Create a passkey** to give the consent to create a passkey.
+
+    <Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/mfa/passkey/enrolled-passkey-not-found-info-page.png").default} alt="Create a passkey in WSO2 Identity Platform" width="300" style={{border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/mfa/passkey/enrolled-passkey-not-found-info-page.png").default} alt="Create a passkey in WSO2 Identity Server" width="300" style={{border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+6. Follow the instructions given by your browser or device to enroll the passkey.
+
+    <Variants><Edition only="cloud"><img src={require("../../../../assets/img/guides/passwordless/passkey/create-passkey-browser-prompt.png").default} alt="Create a passkey browser prompt in WSO2 Identity Platform" width="300" style={{border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/img/guides/passwordless/passkey/create-passkey-browser-prompt.png").default} alt="Create a passkey browser prompt in WSO2 Identity Server" width="300" style={{border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+7. Enter a unique name to your passkey for identification.
+
+    <Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/passwordless/passkey/rename-passkey.png").default} alt="Rename passkey in WSO2 Identity Platform" width="300" style={{border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/passwordless/passkey/rename-passkey.png").default} alt="Rename passkey in WSO2 Identity Server" width="300" style={{border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+8. Click **Submit** to complete the enrollment. You'll be authenticated in the application.
+
+:::note
+For passkeys to function as a second factor alongside federated authenticators, users should have their external accounts already provisioned in {edition.productName}. If, for example, an external user logs in with Google using an account not provisioned in {edition.productName}, attempting a Passkey login will result in an error and the login flow fails.
+:::

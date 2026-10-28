@@ -1,0 +1,171 @@
+---
+title: Add MFA based on user group
+description: You can enable a more secure login flow for users that belong to specific groups by applying the Group-Based conditional authentication template for…  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: MFA based on user group
+sidebar_position: 2
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+You can enable a more secure login flow for users that belong to specific groups by applying the **Group-Based** conditional authentication template for **Adaptive MFA**. This template enables two-factor authentication with TOTP for users who belong to the user groups you specify.
+
+## Scenario
+
+Consider a scenario with two user groups, `manager` and `employee`. For users assigned to these groups, the login flow in applications should be stepped up with TOTP as follows:
+
+1. Username and password
+2. TOTP
+
+<Variants><Edition only="cloud">![Group based adaptive authentication](../../../../../assets/cloud/img/guides/conditional-auth/group-based-adaptive-auth.png)</Edition><Edition only="self-hosted">![Group based adaptive authentication](../../../../../assets/self-hosted/img/guides/conditional-auth/group-based-adaptive-auth.png)</Edition></Variants>
+
+## Prerequisites
+
+- You need to [register an application with {edition.productName}](../../../applications/index.mdx). You can register your own application or use one of the [sample applications](../../../../get-started/try-samples/index.mdx) provided.
+
+- Create two user groups named `manager` and `employee` and assign user accounts to them. For instructions, see the following:
+
+      - [Managing groups](../../../users/manage-groups.mdx)
+      - [Managing users](../../../users/manage-groups.mdx)
+
+## Configure the login flow
+
+To enable conditional authentication:
+
+1. On the {edition.productName} Console, click **Applications**.
+
+2. Select the relevant application and go to its **Login Flow** tab.
+
+<Variants>
+
+<Edition only="cloud">
+
+3. Add group-based adaptive MFA as follows:
+
+    <Tabs groupId="tabs">
+    <TabItem value="classic-editor" label="Classic Editor">
+
+    To add group-based adaptive MFA using the classic editor:
+
+    1. Click **Start with default configuration** to define the login flow starting with the `username and password` login.
+
+    2. Turn on **Conditional Authentication** by switching the toggle on.
+
+    3. Select the **Adaptive MFA > Group-Based** template.
+
+    </TabItem>
+    <TabItem value="visual-editor" label="Visual Editor">
+
+    To add group-based adaptive MFA using the visual editor:
+
+    1. Switch to the **Visual Editor** tab, and expand **Predefined Flows** > **Conditional Login Flows** > **Adaptive MFA**.
+
+    2. Click **+ ADD** next to **Group-Based** to add the group-based adaptive MFA script.
+
+        <img src={require("../../../../../assets/cloud/img/guides/conditional-auth/group-based-adaptive-mfa-with-visual-editor.png").default} alt="Group-based adaptive MFA with visual editor" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    3. Click **Confirm** to replace any existing script with the selected predefined script.
+
+    </TabItem>
+    </Tabs>
+
+    ---
+
+    :::warning[Important]
+    As a security measure, WSO2 Identity Platform does not allow the usage of two consecutive periods (`..`) in authentication scripts.
+    :::
+
+</Edition>
+
+<Edition only="self-hosted">
+
+3. Add group-based adaptive MFA as follows:
+
+    1. Go to **Predefined Flows** > **Conditional Login Flows**.
+
+    2. Click **Adaptive MFA** > **Group-Based** > **ADD**.
+
+        {/*![Configuring group-based adaptive MFA with visual editor]({{base_path}}/assets/img/guides/conditional-auth/group-based-adaptive-mfa-with-visual-editor.png){: style="display: block; margin: 0; border: 0.3px solid lightgrey;"}*/}
+
+    3. Click **Confirm** to replace any existing script with the selected predefined script.
+
+</Edition>
+
+</Variants>
+
+4. Verify that the login flow is now updated with the following two authentication steps:
+
+    - Step 1: Username and Password
+    - Step 2: TOTP
+
+5. Update the following parameter in the script.
+
+      <table>
+        <thead>
+          <tr>
+            <th>Parameter</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>`groupsToStepUp`</td>
+            <td>
+
+              Comma separated list of user groups. Two-factor authentication should apply to users from these groups.
+
+              For this example scenario, enter `manager` and `employee`.
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+6. Click **Update** to confirm.
+
+## How it works
+
+Shown below is the script of the group-based conditional authentication template.
+
+```javascript
+var groupsToStepUp = ['manager', 'employee'];
+
+var onLoginRequest = function (context) {
+   executeStep(1, {
+      onSuccess: function (context) {
+            // Extracting authenticated subject from the first step.
+            var user = context.currentKnownSubject;
+            // Checking if the user is assigned to one of the given groups.
+            var isMember = isMemberOfAnyOfGroups(user, groupsToStepUp);
+            if (isMember) {
+               Log.info(getMaskedValue(user.username) + ' is a member of one of the groups: ' + groupsToStepUp.toString());
+               executeStep(2);
+            }
+      }
+   });
+};
+```
+
+Let's look at how this script works.
+
+1. When step 1 of the authentication flow is complete, the **onLoginRequest** function retrieves the user from the context.
+2. The user and the configured list of groups are passed to the following function: `isMemberOfAnyOfGroups`.
+3. This function (which is available in {edition.productName} by default) verifies whether the given user belongs to any of the listed groups.
+4. If the user belongs to any of the configured groups, authentication step 2 (TOTP) is prompted.
+
+:::note
+Find out more about the scripting language in the [Conditional Authentication API Reference](../../../../reference/conditional-auth/api-reference.mdx).
+:::
+
+## Try it out
+
+Follow the steps given below.
+
+1. Access the application URL.
+2. Try to log in with a user who does not belong to any of the configured groups (manager or employee). You will
+   successfully sign in to the application.
+3. Log out of the application.
+4. Log in with a user who belongs to the `manager` or `employee` group or both. TOTP authentication is prompted.
+
+    <Variants><Edition only="cloud"><img src={require("../../../../../assets/cloud/img/guides/conditional-auth/enter-otp-token.png").default} alt="group-based-2fa-conditional-auth-totp-page" width="300" style={{border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../../assets/self-hosted/img/guides/conditional-auth/enter-otp-token.png").default} alt="group-based-2fa-conditional-auth-totp-page" width="300" style={{border: "0.3px solid lightgrey"}} /></Edition></Variants>

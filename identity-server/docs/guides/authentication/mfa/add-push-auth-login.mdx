@@ -1,0 +1,139 @@
+---
+title: Add MFA with Push Notification
+description: Push notifications provide a seamless and secure MFA solution by allowing users to verify their identity with a simple tap on their registered device.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Add push notification
+sidebar_position: 5
+---
+
+Push notifications provide a seamless and secure MFA solution by allowing users to verify their identity with a simple tap on their registered device. This real-time authentication method reduces reliance on passwords and one-time passcodes, enhancing security against phishing and credential attacks.
+
+Follow the instructions given below to configure Multi-Factor Authentication (MFA) using Push Notifications in {edition.productName}.
+
+## Prerequisites
+
+- To get started, you need to [register an application with {edition.productName}](../../applications/index.mdx). You can register your own application or use one of the [sample applications](../../../get-started/try-samples/index.mdx) provided.
+
+- You need to configure a Push Provider in {edition.productName}. If you haven't configured a Push Notification Provider yet, follow the instructions in the [Push Provider Configuration](../../notification-channels/configure-push-provider.mdx) guide.
+
+- You need to have a user account in {edition.productName}. If you don't already have one, [create a user account](../../users/users/manage-users.mdx#onboard-users) in {edition.productName}.
+
+- A push authenticator application is required for the purpose of receiving push notifications. Learn how to [build your own push authenticator app.](../../../reference/tutorials/build-your-own-push-authenticator-app.mdx)
+
+- If push notification device progressive enrollment is disabled, [application users](../../users/users/manage-users.mdx#onboard-users) need to register their push notification devices via the My Account app prior to using push notification based login. Be sure to educate your users on how to [enroll push notification devices via My Account.](../../user-self-service/self-service-portal/register-push-notification-device.mdx)
+
+## Set up Push Notifications
+
+{edition.productName} has some default settings for Push Notifications, which are sufficient for most cases. If required, you can change the default settings, as explained below.
+
+To update the default Push Notification settings:
+
+1. On the {edition.productName} Console, go to **Connections** and select **Push Notification**.
+2. Update the following parameters in the **Settings** tab:
+
+    <Variants><Edition only="cloud"><img src={require("../../../../assets/img/guides/mfa/push/setup-push-auth.png").default} alt="Setup Push Notifications in WSO2 Identity Platform" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/img/guides/mfa/push/setup-push-auth.png").default} alt="Setup Push Notifications in WSO2 Identity Server" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+    | Field | Description |
+    | --- | --- |
+    | `Enable number Challenge` | When enabled, users must confirm the number displayed in the application on their push authentication device to complete the sign in. |
+    | `Enable push notification device progressive enrollment` | When enabled, users may enroll their devices for push authentication at the moment they log in to the application. |
+    | `Push notification resend interval` | Specifies the time interval between the resend attempts. Also, the polling to identify user's response for the push notification will be ended once the timer is completed. |
+    | `Allowed push notification resend attempts` | The number of allowed push notification resend attempts. Once exceeded, the user will not be allowed to send any push notifications. |
+
+3. Once you update the Push Notification settings, click **Update**.
+
+## Enable push notifications login for an app
+
+Follow the steps given below to enable **Push Notification** login for your application.
+
+1. On the {edition.productName} Console, go to **Applications**.
+
+2. Select the application to which you wish to add Push Notification.
+
+3. Go to the **Login Flow** tab of the application and add Push Notification from your preferred editor:
+
+    <Edition only="self-hosted">
+
+    1. Click **+** to add a second step to the login flow.
+
+    2. Click **Add Sign In Option**, select **Push Notification** and click **Add**.
+
+    3. Click **Confirm** to add login with push notifications to the sign-in flow.
+
+        <img src={require("../../../../assets/self-hosted/img/guides/mfa/push/add-push-notification-using-visual-editor.png").default} alt="Configuring push notification login in WSO2 Identity Server" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    </Edition>
+
+4. Click **Update** to save your changes.
+
+## Enable push notification device progressive enrollment
+
+This feature allows users to enroll their push notification devices seamlessly during the usual login flow, offering a blend of convenience and security. Follow the steps given below to enable **Push Notification Devices progressive enrollment** for your application.
+
+1. On the {edition.productName} Console, go to **Connections**.
+
+2. Select the **Push Notification** connection.
+
+3. Go to the **Settings** tab of the connection.
+
+4. Enable the option for **Enable push notification device progressive enrollment** by checking its checkbox.
+
+    <Variants><Edition only="cloud"><img src={require("../../../../assets/img/guides/mfa/push/enable-push-progressive-enrollment.png").default} alt="Enable push notification device progressive enrollment in WSO2 Identity Platform" width="700" style={{border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/img/guides/mfa/push/enable-push-progressive-enrollment.png").default} alt="Enable push notification device progressive enrollment in WSO2 Identity Server" width="700" style={{border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+5. Click **Update** to save your changes.
+
+:::note
+Push notification device progressive enrollment can only be configured at the organizational level and cannot be modified at the application level.
+:::
+
+## Enable progressive enrollment for multiple devices
+
+When multiple device registration is enabled, you can also let a user who already has a registered device add another one during sign-in.
+
+:::warning
+Anyone who gets past the earlier authentication step can register their own device during sign-in. Enable this option only if your use case requires it.
+:::
+
+1. On the {edition.productName} Console, go to **Connections** > **Push Notification** and open the **Settings** tab.
+
+2. With **Enable push notification device progressive enrollment** and **Allow users to register multiple devices** both enabled, select **Allow progressive enrollment for multiple devices** and confirm the security prompt.
+
+3. Click **Update**.
+
+:::note
+For the full walkthrough — enabling multiple device registration, registering additional devices, and device registration notifications — see [Register multiple devices for push notifications](../../../get-started/tutorials/register-multiple-devices-for-push-notifications.mdx).
+:::
+
+## Try out Push Notification MFA flow with a user already enrolled with a device
+
+In this section, we will guide you through the steps to authenticate using Push Notification MFA with a user who has already enrolled a push notification device.
+
+1. Access the application URL.
+
+2. Click **Login** to access the {edition.productName} login page.
+
+3. Enter your username and password, then click **Sign In**.
+
+4. You will receive a push notification on your registered device. Approve the authentication request from the registered device. Below shown page will be displayed and will be polling for the user's response.
+
+    <Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/mfa/push/push-auth-wait-page.png").default} alt="Push notification await page" width="400" style={{border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/mfa/push/push-auth-wait-page.png").default} alt="Push notification await page" width="400" style={{border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+5. Once you approve the authentication request, you will be successfully logged in to the application.
+
+## Try out Push Notification MFA flow with a user not enrolled with a device
+
+In this section, we will guide you through the steps to authenticate using Push Notification MFA with a user who has not enrolled a push notification device when progressive enrollment is enabled.
+
+1. Access the application URL.
+
+2. Click **Login** to access the {edition.productName} login page.
+
+3. Enter your username and password, then click **Sign In**.
+
+4. You will be displayed with a similar page as shown below. Scan the QR code using your Push Authenticator App to enroll your device. Once the device is enrolled successfully, check the checkbox and click **Continue** to proceed with the authentication.
+
+    <Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/mfa/push/push-auth-enroll-page.png").default} alt="Push notification device enrollment page" width="400" style={{border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/mfa/push/push-auth-enroll-page.png").default} alt="Push notification device enrollment page" width="400" style={{border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+5. You will receive a push notification on your registered device. Approve the authentication request from the registered device.
+
+6. Once you approve the authentication request, you will be successfully logged in to the application.

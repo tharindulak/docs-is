@@ -1,0 +1,156 @@
+---
+title: Create a Next.js app
+description: For this guide, we will walk you through setting up a simple Next.js application.  # generated from the first paragraph; a writer should improve it
+type: how-to
+layout: complete-guide
+sidebar_position: 4
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+For this guide, we will walk you through setting up a simple Next.js application.
+
+Open a terminal, change directory to where you want to initialize the project, and run the following command to create your first Next.js sample app.
+
+<Variants>
+
+<Edition only="cloud">
+
+Running the above command will generate a new folder named asgardeo-nextjs, containing a ready-to-use Next.js project set up with TypeScript. The project includes a development server that automatically reloads the app whenever changes are made.
+
+<Tabs groupId="tabs">
+<TabItem value="npm" label="npm">
+
+```bash
+npm create next-app@latest asgardeo-nextjs -- --yes
+```
+
+</TabItem>
+<TabItem value="yarn" label="yarn">
+
+```bash
+yarn create next-app@latest asgardeo-nextjs -- --yes
+```
+
+</TabItem>
+<TabItem value="pnpm" label="pnpm">
+
+```bash
+pnpm create next-app@latest asgardeo-nextjs -- --yes
+```
+
+</TabItem>
+</Tabs>
+
+</Edition>
+
+<Edition only="self-hosted">
+
+Running the above command will generate a new folder named is-nextjs, containing a ready-to-use Next.js project set up with TypeScript. The project includes a development server that automatically reloads the app whenever changes are made.
+
+<Tabs groupId="tabs">
+<TabItem value="npm" label="npm">
+
+```bash
+npm create next-app@latest is-nextjs -- --yes
+```
+
+</TabItem>
+<TabItem value="yarn" label="yarn">
+
+```bash
+yarn create next-app@latest is-nextjs -- --yes
+```
+
+</TabItem>
+<TabItem value="pnpm" label="pnpm">
+
+```bash
+pnpm create next-app@latest is-nextjs -- --yes
+```
+
+</TabItem>
+</Tabs>
+
+</Edition>
+
+</Variants>
+
+Once this command is executed, if everything goes smoothly, your terminal output should resemble the following.
+
+<Variants><Edition only="cloud"><img src={require("../../../../../assets/cloud/img/complete-guides/nextjs/image3.png").default} alt="Create Next.js app" width="800" style={{display: "block", margin: "0"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../../assets/self-hosted/img/complete-guides/nextjs/image3.png").default} alt="Create Next.js app" width="800" style={{display: "block", margin: "0"}} /></Edition></Variants>
+
+Once the application is created, navigate to the app folder. Then run the sample in the development mode. This allows you to see real-time updates and debug the app as you make changes.
+
+<Variants>
+
+<Edition only="cloud">
+
+<Tabs groupId="tabs">
+<TabItem value="npm" label="npm">
+
+```bash
+cd asgardeo-nextjs
+npm run dev
+```
+
+</TabItem>
+<TabItem value="yarn" label="yarn">
+
+```bash
+cd asgardeo-nextjs
+yarn dev
+```
+
+</TabItem>
+<TabItem value="pnpm" label="pnpm">
+
+```bash
+cd asgardeo-nextjs
+pnpm dev
+```
+
+</TabItem>
+</Tabs>
+
+</Edition>
+
+<Edition only="self-hosted">
+
+<Tabs groupId="tabs">
+<TabItem value="npm" label="npm">
+
+```bash
+cd is-nextjs
+npm run dev
+```
+
+</TabItem>
+<TabItem value="yarn" label="yarn">
+
+```bash
+cd is-nextjs
+yarn dev
+```
+
+</TabItem>
+<TabItem value="pnpm" label="pnpm">
+
+```bash
+cd is-nextjs
+pnpm dev
+```
+
+</TabItem>
+</Tabs>
+
+</Edition>
+
+</Variants>
+
+This will start the Next.js development server, typically at [http://localhost:3000](http://localhost:3000), and you should see the default Next.js starter page. Confirm that everything is set up correctly by checking for the terminal output indicating that the server is running.
+
+<img src={require("../../../../../assets/img/complete-guides/nextjs/image4.png").default} alt="Navigate to localhost" width="800" style={{display: "block", margin: "0"}} />
+
+At this point, you have a simple yet fully functional Next.js app. Now, it's time to integrate user authentication within the application. For this guide, we will be using the auth.js library, which provides a simple and secure way to handle authentication in Next.js apps.

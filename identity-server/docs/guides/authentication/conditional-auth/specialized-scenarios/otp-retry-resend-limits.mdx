@@ -1,0 +1,145 @@
+---
+title: Configure OTP retry and resend limits per application
+description: Use conditional authentication to control how many times a user can resend an OTP or fail OTP verification during a single login attempt.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: OTP retry and resend limits
+sidebar_position: 4
+---
+
+Use conditional authentication to control how many times a user can resend an OTP or fail OTP verification during a single login attempt.
+
+## Scenario
+
+Consider a login flow that uses SMS OTP with these requirements:
+
+- Users can request at most 3 OTP resends per login.
+- Users can submit at most 3 incorrect OTPs per login.
+
+Once a user reaches either limit, the login flow blocks further retries or resend requests.
+
+## Prerequisites
+
+- [Register an application in {edition.productName}](../../../applications/index.mdx).
+- Add an SMS OTP authenticator to at least one step in the application's login flow.
+
+## Configure the login flow
+
+1. On the {edition.productName} Console, go to **Applications**.
+
+2. Select the application and open the **Login Flow** tab.
+
+3. In the authentication script, find the `executeStep(...)` call that runs SMS OTP or Email OTP. Inside that step, add an `authenticatorParams` block. Use the correct authenticator identifier:
+
+    - `sms-otp-authenticator` for SMS OTP
+    - `email-otp-authenticator` for Email OTP
+
+    See the **Example script** section for the full structure.
+
+4. Set the following parameters in the script:
+
+    | Parameter | Description |
+    | --- | --- |
+    | `enableRetryFromAuthenticator` | Set to `"true"` to enforce the limits defined in the script. |
+    | `maximumAllowedResendAttempts` | Maximum number of OTP resend attempts allowed per login. |
+    | `maximumAllowedFailureAttempts` | Maximum number of incorrect OTP submissions allowed before the flow blocks further retries. |
+    | `terminateOnResendLimitExceeded` | Controls what happens when the resend limit is reached.<br /><br /> `"true"` — Ends the authentication flow immediately.<br /> `"false"` — Blocks further resends but still accepts the last issued OTP. |
+
+5. Click **Update** to save the script.
+
+:::note[Account lock takes precedence]
+If {edition.productName} locks the user account (for example, due to too many failed login attempts at the organization level) before the user reaches `maximumAllowedFailureAttempts`, the account lock ends the authentication flow immediately.
+:::
+
+:::note[Connection-level resend block]
+You can also configure a resend block at the connection level using settings such as **Allowed OTP resend attempt count** and **Resend block duration**. If the connection-level block triggers before the application-level limit (`maximumAllowedResendAttempts`), the connection temporarily blocks resend requests for the configured duration.
+
+See the [SMS OTP](../../mfa/add-smsotp-login.mdx) and [Email OTP](../../mfa/add-emailotp-login.mdx) documentation for details.
+:::
+
+## Example script
+
+The following script sets a maximum of 3 resends and 3 OTP verification failures for the **SMS OTP** step. The flow ends when the user exceeds the resend limit:
+
+```javascript
+var onLoginRequest = function(context) {
+    executeStep(1); // Basic Authentication
+    executeStep(2, {
+        authenticatorParams: {
+            local: {
+                "sms-otp-authenticator": {
+                    "enableRetryFromAuthenticator": "true",
+                    "maximumAllowedResendAttempts": "3",
+                    "maximumAllowedFailureAttempts": "3",
+                    "terminateOnResendLimitExceeded": "true"
+                }
+            }
+        }
+    }, {});
+};
+```
+
+For **Email OTP**, replace `sms-otp-authenticator` with `email-otp-authenticator` inside the `local` block:
+
+```javascript
+"email-otp-authenticator": {
+    "enableRetryFromAuthenticator": "true",
+    "maximumAllowedResendAttempts": "3",
+    "maximumAllowedFailureAttempts": "3",
+    "terminateOnResendLimitExceeded": "true"
+}
+```
+
+If you omit these parameters, the OTP step uses its default behavior with no application-level limits.
+
+## API-based flow error responses
+
+When you use app-native authentication, reaching either limit returns an error response.
+
+<Edition only="self-hosted">
+
+:::note
+See the [App-native error codes](../../../../reference/troubleshoot/app-native-error-codes.mdx) catalog for the full list of error codes.
+:::
+
+</Edition>
+
+### Retry limit exceeded
+
+{edition.productName} returns this error when the user exceeds `maximumAllowedFailureAttempts`:
+
+```json
+{
+  "code": "ABA-60013",
+  "message": "Maximum retry attempts exceeded.",
+  "description": "Authentication failed. The maximum number of retry attempts has been exceeded.",
+  "traceId": "20260311T060000Z-186b9bdb58cwz52dhC1SG155uc00000005zg000000002m7c"
+}
+```
+
+### Resend limit exceeded
+
+{edition.productName} returns this error when the user exceeds `maximumAllowedResendAttempts`:
+
+```json
+{
+  "code": "ABA-60014",
+  "message": "Maximum resend attempts exceeded.",
+  "description": "Authentication failed. The maximum number of resend attempts has been exceeded.",
+  "traceId": "20260311T060000Z-186b9bdb58cwz52dhC1SG155uc00000005zg000000002m7c"
+}
+```
+
+## Try it out
+
+1. Open the application and complete the first authentication step (for example, username and password).
+
+2. When prompted for an OTP, enter an incorrect code repeatedly. After `maximumAllowedFailureAttempts` failures, the flow blocks OTP retries.
+
+3. Start a new login and request OTP resends repeatedly. After `maximumAllowedResendAttempts` resends:
+
+    - If `terminateOnResendLimitExceeded` is `"true"`, the authentication flow ends.
+    - If `terminateOnResendLimitExceeded` is `"false"`, the flow blocks further resends but still accepts the last issued OTP.
+
+:::note
+For more on the authentication script and `executeStep`, see the [Conditional Authentication API Reference](../../../../reference/conditional-auth/api-reference.mdx).
+:::

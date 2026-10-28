@@ -1,0 +1,68 @@
+---
+title: SMS templates
+description: WSO2 Identity Platform organizations use several SMS templates to send SMS notifications to users.  # generated from the first paragraph; a writer should improve it
+type: reference
+sidebar_position: 15
+---
+
+{edition.productName} organizations use several SMS templates to send SMS notifications to users.
+
+:::note
+- You can customize all available SMS templates to match your organization's preferences using the [Notification Template Management API](./apis/notification-templates/index.mdx).
+- You can also use the Console to change some of the most frequently used SMS templates in {edition.productName}. Learn how to [customize SMS content from the Console](../guides/customizations/branding/customize-sms-templates.mdx).
+:::
+
+## SMS templates in {edition.productName}
+
+The following is a list of all SMS templates available in {edition.productName}.
+
+<Variants>
+
+<Edition only="cloud">
+
+| Template ID | Description |
+| --- | --- |
+| SMSOTP | These SMS messages are sent when a user attempts to sign in to an account using SMS OTP. The OTP can be displayed using the \{\{confirmation-code\}\} literal. |
+| passwordReset | These SMS messages are sent when a user attempts to recover the password using SMS OTP. The OTP can be displayed using the \{\{confirmation-code\}\} literal. |
+| adminForcedPasswordReset | This SMS is sent to provide a one-time password when admin initiates a password reset for a user. The OTP can be displayed using the \{\{confirmation-code\}\} literal. |
+| resendAdminForcedPasswordReset | This SMS is sent to provide a one-time password when admin resends a password reset request. The OTP can be displayed using the \{\{confirmation-code\}\} literal. |
+
+</Edition>
+
+<Edition only="self-hosted">
+
+| Template ID | Description |
+| --- | --- |
+| SMSOTP | These SMS messages are sent when a user attempts to sign in to an account using SMS OTP. The OTP can be displayed using the \{\{confirmation-code\}\} literal. |
+| passwordReset | These SMS messages are sent when a user attempts to recover the password using SMS OTP. The OTP can be displayed using the \{\{confirmation-code\}\} literal. |
+| accountconfirmation | These SMS messages are sent when a user creates an account in {edition.productName}, when administrators have enabled account confirmation via SMS. The OTP can be displayed using the \{\{confirmation-code\}\} literal. |
+| verifyMobileOnUpdate | This SMS message is sent when a user changes the mobile number associated with the account, when administrators have enabled mobile number verification. The OTP can be displayed using the \{\{confirmation-code\}\} literal. |
+| accountIdRecovery | This SMS message is sent when a user requests a username recovery. The username can be displayed using the \{\{user-name\}\} literal. |
+| adminForcedPasswordReset | This SMS is sent to provide a one-time password when admin initiates a password reset for a user. The OTP can be displayed using the \{\{confirmation-code\}\} literal. |
+| resendAdminForcedPasswordReset | This SMS is sent to provide a one-time password when admin resends a password reset request. The OTP can be displayed using the \{\{confirmation-code\}\} literal. |
+
+</Edition>
+
+</Variants>
+
+## Literals in SMS templates
+
+Literals are placeholders used to display dynamic information in SMS templates. The following are the template literals that are accessible for all SMS templates in {edition.productName}.
+
+### General literals
+
+The following user-related literals are accessible for all SMS templates.
+
+| Literal | Description |
+| --- | --- |
+| \{\{user-name\}\} | Name of the user account. |
+|  |  |
+| \{\{userstore-domain\}\} | Name of the user store. |
+|  |  |
+| \{\{organization-name\}\} | Name of the organization. Insert this placeholder where you want to display the organization's name in a human-readable format. |
+| \{\{tenant-domain\}\} | Domain name specific to the organization. For root organizations, this is the human-readable domain name. For other organizations, it is the UUID. |
+| \{\{current-year\}\} | Current calendar year. |
+
+:::note
+Root organizations created before October 2022 will utilize `{{ tenant-domain }}` as the placeholder to represent the organization name. As this placeholder may not provide the organization name in a human-readable format, consider updating it to `{{ organization-name }}` as needed for clarity and ease of understanding.
+:::

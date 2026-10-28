@@ -1,0 +1,105 @@
+---
+title: Configure login-attempts security
+description: You can protect user accounts in WSO2 Identity Platform from brute-force attacks by locking the account after consecutive failed login attempts.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Login attempts
+sidebar_position: 1
+---
+
+You can protect user accounts in {edition.productName} from brute-force attacks by locking the account after consecutive failed login attempts.
+
+You can configure the number of consecutive failed login attempts that should be allowed for users in an organization. When a user exceeds this number of attempts, the account is automatically locked and the user is informed via email. The account will be activated automatically after the specified lock duration.
+
+## Enable login attempts security
+
+This setting is disabled by default. To enable login attempts security,
+
+1. On the {edition.productName} Console, go to **Login  Registration**.
+
+2. Click on **Login Attempts** under **Login Security** section.
+
+3. Switch to **Enabled** to enable this configuration.  
+
+    <Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/organization/account-security/login-attempts-security/enable-login-attempts-security.png").default} alt="Enable login attempts security" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/organization/account-security/login-attempts-security/enable-login-attempts-security.png").default} alt="Enable login attempts security" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+4. Configure the settings below if you want to change how login attempts security works by default.
+
+    <Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/account-configurations/login-attempts.png").default} alt="View account security options" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/account-configurations/login-attempts.png").default} alt="View account security options" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+    <table>
+      <tbody>
+        <tr>
+          <td>**Number of consecutive failed login attempts**</td>
+          <td>Specifies the number of consecutive failed login attempts allowed before the account is locked. <br /> If you enter 5 as the value, the user's account is locked when five login attempts fail consecutively.</td>
+        </tr>
+        <tr>
+          <td>**Account lock duration**</td>
+          <td>Specifies the duration of the initial account lock. The account is automatically unlocked after this time period. <br /> If you enter 5 minutes as the value, the user's account is locked for 5 minutes starting from the last login attempt. The user can log in again after 5 minutes.</td>
+        </tr>
+        <tr>
+          <td>**Account lock duration increment factor**</td>
+          <td>Specifies the factor by which the account lock duration increases after each subsequent lock following the initial one.</td>
+        </tr>
+        <tr>
+          <td>**Notify user when lock time is increased**</td>
+          <td>Send an email notification to the user when the lock time increases due to continuous failed login attempts.</td>
+        </tr>
+      </tbody>
+    </table>
+
+5. Click **Update** once you configure the required settings.
+
+## How it works
+
+Let's look at how the login attempt configurations work with an example. Imagine a scenario where an admin has configured the settings below:
+
+- Number of consecutive failed login attempts: 5
+- Account lock duration: 5 min
+- Account lock duration increment factor: 2
+
+Based on the above settings, the following happens when a user tries to log in with an incorrect password.
+
+1. User tries to log in with an incorrect password for **5 consecutive attempts**.
+2. User account will be **locked** for **5 minutes**.
+3. After **5 minutes**, the account will be unlocked.
+
+   - If the user enters the correct password, the user can successfully log in.
+   - If the user tries enters an incorrect password for another **5 consecutive attempts**, the account lock period will be incremented by **2 times** the previous lock duration i.e. the account will be locked for 5 x (2 ^ 1)= 10 minutes.
+   - If the user attempts to enter an incorrect password for another **5 consecutive attempts**, after the wait time (10min), the account will be locked again for 5 * (2 ^ 2)= 20 minutes.
+
+```text
+Time for account to unlock = Account lock duration * (Account lock duration increment factor ^ Account lock count excluding the initial occurrence)
+```
+
+<Edition only="self-hosted">
+
+:::info
+- On the {edition.productName} login pages, a generic error message is displayed by default to end-users in the event of login failures. To show more specific error messages on the login page, the following properties can be configured in the `deployment.toml` file, which is located in the `<IS_HOME>/repository/conf` directory.
+
+Basic authenticator configurations:
+
+```toml
+    [authentication.authenticator.basic.parameters]
+    showAuthFailureReason = true
+    showAuthFailureReasonOnLoginPage = true
+```
+
+Email OTP authenticator configurations:
+
+```toml
+    [authentication.authenticator.email_otp.parameters]
+    showAuthFailureReason = true
+    showAuthFailureReasonOnLoginPage = true
+```
+
+TOTP authenticator configurations:
+
+```toml
+    [authentication.authenticator.totp.parameters]
+    showAuthFailureReason = true
+    showAuthFailureReasonOnLoginPage = true
+```
+:::
+
+</Edition>
+

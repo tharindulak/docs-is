@@ -1,0 +1,283 @@
+---
+title: Add Apple login
+description: You can add Apple login to your applications using WSO2 Identity Platform and enable users to log in with their Apple IDs.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_position: 6
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+You can add Apple login to your applications using {edition.productName} and enable users to log in with their Apple IDs.
+
+Follow this guide for instructions.
+
+## Register {edition.productName} on Apple
+
+:::note[Before you begin]
+You need a paid subscription to get access to an Apple developer account.
+:::
+
+To register {edition.productName} on Apple, you need to create the following components on Apple's Developer Portal:
+
+<details>
+<summary>Step 1: Register an App ID</summary>
+
+To register an App ID:
+
+1. On the [Apple Developer portal](https://developer.apple.com/), go to **Program resources** > **Certificates, Identifiers & Profiles** > **Identifiers**.
+
+    <img src={require("../../../../../assets/img/guides/idp/apple-idp/add-apple-identifiers.png").default} alt="Add Apple identifiers" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+2. Click `+` to register an **App ID**.
+3. Select **App IDs** and click **Continue**.
+4. Select **App** as the type and click **Continue**.
+5. Enter the values for the following parameters.
+
+    | Parameter | Definition |
+    | --- | --- |
+    | Description | A description for the services ID. |
+    | Bundle ID | A unique identifier for the application. It is usually a string of characters in reverse domain name notation. <br /> **Example**: `com.domainname.appname` |
+
+    <img src={require("../../../../../assets/img/guides/idp/apple-idp/register-an-app-id.png").default} alt="Register an App ID" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+6. Under the **Capabilities** tab, select **Sign in with Apple**.
+7. Click **Continue** and then click **Register**.
+
+</details>
+
+<Variants>
+
+<Edition only="cloud">
+
+<details>
+<summary>Step 2: Register a Services ID</summary>
+
+To register a services ID:
+
+1. On the [Apple Developer portal](https://developer.apple.com/), go to **Program resources** > **Certificates, Identifiers & Profiles** > **Identifiers**.
+
+    <img src={require("../../../../../assets/img/guides/idp/apple-idp/add-apple-identifiers.png").default} alt="Add Apple identifiers" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+2. Click `+` and select **Services IDs** and click **Continue**.
+3. Enter values for the following parameters:
+
+    | Parameter | Definition |
+    | --- | --- |
+    | **Description** | A description for the services ID. |
+    | **Identifier** | A unique identifier for the application. It is usually a string of characters in reverse domain name notation. This value is considered the client ID of the application.<br /> **Example**: `com.domainname.appname` |
+
+4. Click **Continue** and then click **Register**.
+5. Go back to the **Identifiers** section and click on the **Services ID** you created.
+6. Enable **Sign in with Apple** and click **Configure**.
+7. Under **Web Authentication Configuration**, select the **App ID** you created as the **Primary App ID**.
+8. Enter the following values under **Register Website URLs**.
+
+    | Parameter | Value |
+    | --- | --- |
+    | **Domain** | `api.asgardeo.io` |
+    | **Return URL** | `{edition.productUrlFormat}/commonauth` |
+
+9. Click **Continue** and then click **Save**.
+
+</details>
+
+</Edition>
+
+<Edition only="self-hosted">
+
+<details>
+<summary>Step 2: Register a Services ID</summary>
+
+To register a services ID:
+
+1. On the [Apple Developer portal](https://developer.apple.com/), go to **Program resources** > **Certificates, Identifiers & Profiles** > **Identifiers**.
+
+    <img src={require("../../../../../assets/img/guides/idp/apple-idp/add-apple-identifiers.png").default} alt="Add Apple identifiers" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+2. Click `+` and select **Services IDs** and click **Continue**.
+3. Enter values for the following parameters:
+
+    | Parameter | Definition |
+    | --- | --- |
+    | **Description** | A description for the services ID. |
+    | **Identifier** | A unique identifier for the application. It is usually a string of characters in reverse domain name notation. This value is considered the client ID of the application.<br /> **Example**: `com.domainname.appname` |
+
+4. Click **Continue** and then click **Register**.
+5. Go back to the **Identifiers** section and click on the **Services ID** you created.
+6. Enable **Sign in with Apple** and click **Configure**.
+7. Under **Web Authentication Configuration**, select the **App ID** you created as the **Primary App ID**.
+8. Enter the following values under **Register Website URLs**.
+
+    | Parameter | Value |
+    | --- | --- |
+    | **Domain** | `wso2is.example.com` |
+    | **Return URL** | `https://wso2is.example.com/commonauth` |
+
+    :::warning[Restrictions with Sign in with Apple on Localhost]
+    The `Sign in with Apple` feature cannot be configured with `localhost` (or `127.0.0.1`). Attempting this setup results in an "invalid domain" error from Apple's configuration step. For testing, use a real or DNS-resolvable domain name. For local development, domain mappings in the `etc/hosts` file can be utilized.
+    :::
+
+9. Click **Continue** and then click **Save**.
+
+</details>
+
+</Edition>
+
+</Variants>
+
+<details>
+<summary>Step 3: Register a new key</summary>
+
+To register a new key:
+
+1. On [Apple Developer portal](https://developer.apple.com/), go to **Program resources** > **Certificates, Identifiers & Profiles** > **Keys**.
+
+    <img src={require("../../../../../assets/img/guides/idp/apple-idp/register-a-new-key.png").default} alt="Add Apple keys" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+2. Click `+` to register a new key.
+3. Enter a name for the key, enable **Sign in with Apple**, and click **Configure**.
+4. Under **Configure Keys**, select the App ID you created previously and click Save. Then click Continue.
+5. Click **Register**.
+
+    :::note
+    You will now see that your app's **Private key** is ready to be downloaded. Download and save it securely, as you cannot download it again.
+    Also, take note of the **Key ID** that is displayed on this page.
+    :::
+
+6. Click **Done**.
+
+Note down the **Team ID** displayed in the top right corner under your name.
+
+</details>
+
+You can follow the [Apple documentation](https://developer.apple.com/documentation/sign_in_with_apple/configuring_your_environment_for_sign_in_with_apple) for detailed instructions.
+
+:::tip
+A client secret is required to integrate the Apple application with {edition.productName}. Usually, the external IdP generates a client secret, but in this scenario, Apple expects {edition.productName} to generate the client secret.
+:::
+
+## Register the Apple IdP
+Now, let's register the Apple IdP in {edition.productName}.
+
+1. On the {edition.productName} Console, go to **Connections**.
+2. Click **New Connections** and select **Apple**.
+3. Enter the following details of the Apple identity provider and click **Finish**:
+
+    <Variants><Edition only="cloud"><img src={require("../../../../../assets/cloud/img/guides/idp/apple-idp/add-apple-idp.png").default} alt="Add Apple IDP in WSO2 Identity Platform" width="600" style={{border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../../assets/self-hosted/img/guides/idp/apple-idp/add-apple-idp.png").default} alt="Add Apple IDP in WSO2 Identity Server" width="600" style={{border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+    | Parameter | Description |
+    | --- | --- |
+    | Name | A unique name for this Apple identity provider. |
+    | Services ID | The services ID obtained from Apple.. |
+    | Team ID | Apple developer team ID obtained from Apple. |
+    | Key ID | Key identifier of the private key generated for the app. |
+    | Private Key | Private key generated for the app. |
+
+After creating the Apple identity provider, go to the **Settings** tab and see the list of **scopes** to which Apple has granted permissions.
+
+- **email**: Allows to view the user's email address.
+- **name**: Allows to view the user's name fields.
+
+:::note
+{edition.productName} needs these scopes to get user information. {edition.productName} checks the attribute configurations of the application and sends the relevant attributes received from Apple to the app. You can read the [Apple documentation](https://developer.apple.com/documentation/sign_in_with_apple/clientconfigi/3230955-scope) to learn more.
+:::
+
+<details>
+<summary>Update the client secret validity period</summary>
+
+{edition.productName} generates a client secret for the IdP. This client secret has the default maximum validity period of six months.
+
+If you wish to reduce the validity period:
+
+1. On the {edition.productName} Console, go to **Connections**.
+2. Click **Setup** on your Apple IdP.
+3. On the **Settings** tab update the value of the **Client Secret Validity Period**.
+
+</details>
+
+## Enable Apple login
+
+:::note[Before you begin]
+You need to [register an application with {edition.productName}](../../../applications/index.mdx). You can register your own application or use one of the [sample applications](../../../../get-started/try-samples/index.mdx) provided.
+:::
+
+1. On the {edition.productName} Console, go to **Applications**.
+2. Select your application, go to the **Login Flow** tab and add Apple login from your preferred editor:
+
+    <Variants>
+
+    <Edition only="cloud">
+
+    <Tabs groupId="tabs">
+    <TabItem value="classic-editor" label="Classic Editor">
+
+    To add Apple login using the Classic Editor:
+    1. If you haven't already defined a sign-in flow, click **Start with Default configuration** to get started.
+
+    2. Click **Add Authentication** on the step, select your Apple identity provider, and click **Add**.
+
+        <img src={require("../../../../../assets/cloud/img/guides/idp/apple-idp/add-apple-federation-with-basic.png").default} alt="Add Apple login in WSO2 Identity Platform" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    </TabItem>
+    <TabItem value="visual-editor" label="Visual Editor">
+
+    To add Apple login using the Visual Editor:
+
+    1. Switch to the **Visual Editor** tab, by default the `Username & Password` login flow will be added onto the Visual Editor's workspace.
+
+    2. Click on `+ Add Sign In Option` to add a new authenticator to the same step and select your Apple connection.
+
+        <img src={require("../../../../../assets/img/guides/idp/apple-idp/add-apple-federation-with-visual-editor.png").default} alt="Add Apple login in WSO2 Identity Platform" width="500" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    </TabItem>
+    </Tabs>
+
+    ---
+
+    </Edition>
+
+    <Edition only="self-hosted">
+
+    1. Click **Add Sign In Option** to add a new authenticator to the first step.
+
+    2. Select the Apple connection.
+
+    3. Click **Confirm** to add login with Apple to the sign-in flow.
+
+        <img src={require("../../../../../assets/img/guides/idp/apple-idp/add-apple-federation-with-visual-editor.png").default} alt="Configuring Apple login in WSO2 Identity Server using the Visual Editor" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    </Edition>
+
+    </Variants>
+
+    :::note[Recommendations]
+    It is recommended to add your social and enterprise connections to the first authentication step as they are used for identifying the user.
+    :::
+
+3. Click **Update** to save your changes.
+
+## Try it out
+
+Follow the steps given below.
+
+1. Access the application URL.
+
+2. Click **Login** to open the {edition.productName} login page.
+
+3. On the {edition.productName} login page, click **Sign in with Apple**.
+
+    <Variants><Edition only="cloud"><img src={require("../../../../../assets/cloud/img/guides/idp/apple-idp/sign-in-with-apple.png").default} alt="Login with Apple" width="300" style={{border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../../assets/self-hosted/img/guides/idp/apple-idp/sign-in-with-apple.png").default} alt="Login with Apple" width="300" style={{border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+4. Log in to Apple with an existing Apple ID.
+
+:::note
+When a user successfully logs in with Apple for the first time,
+
+- Apple will prompt you to create an account for the Apple IDP application.
+- A user account is created in the {edition.productName} Console with the Apple username. Apple will manage this new user account.
+:::
+
+## Configure connection
+
+To learn more about other configurations available for the connection, refer to the [add federated login](../index.mdx) documentation.

@@ -1,0 +1,30 @@
+---
+title: Use cases
+description: These guides show common patterns for integrating with the Customer Data Service from your application.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_position: 1
+editions: cloud
+---
+
+# Customer data service use cases
+
+These guides show common patterns for integrating with the Customer Data Service from your application. They capture visitor activity even before an account is created, and unify it into a single profile that follows the user across sessions, devices, and applications.
+
+---
+
+## Before you begin
+
+- [Enable Customer Data Service](../enable-customer-data-service.mdx) for your organization.
+- A [machine-to-machine (M2M) application](../../applications/register-machine-to-machine-app.mdx) is registered for your backend to call the Customer Data Service APIs, granted the `internal_cds_profile_create`, `internal_cds_profile_update`, and `internal_cds_profile_view` scopes and configured to issue tokens with the `iam-cds` audience.
+- The [profile attributes](../guides/manage-profile-attributes.mdx) that your activity maps to are defined, each with the merge strategy it should use.
+- The [unification rules](../guides/manage-unification-rules.mdx) that decide when two profiles are the same person are defined.
+
+---
+
+## Use cases
+
+| Read | Use this when |
+|---|---|
+| [Unify anonymous and registered profiles](./self-registration.mdx) | A visitor interacts anonymously, then signs up, and their activity is consolidated into the new profile. |
+| [Accumulate data across multiple devices](./cross-device.mdx) | A user interacts anonymously across multiple devices and then signs in, and their activity is consolidated into a single profile. |
+| [Stitch user profiles across websites](./lead-stitching.mdx) | A visitor interacts anonymously across multiple applications or domains, and their activity is consolidated into a single profile based on a shared identifier. |

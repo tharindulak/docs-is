@@ -1,0 +1,15 @@
+---
+title: Weak MFA
+description: Multi-factor authentication (MFA) is essential in any application to enhance security by requiring multiple forms of verification from the user, reducing…  # generated from the first paragraph; a writer should improve it
+type: how-to
+layout: complete-guide
+sidebar_position: 7
+---
+
+Multi-factor authentication (MFA) is essential in any application to enhance security by requiring multiple forms of verification from the user, reducing the risk of unauthorized access.
+
+If you're using OIDC with PKCE and the WSO2 Identity Platform SDK for login, you can easily add the necessary [multi-factor authentication](../../authentication/mfa/index.mdx) steps within the application configuration in {edition.productName}. You can also implement [conditional authentication](../../authentication/conditional-auth/index.mdx) logic to tailor the login process based on risk factors, without requiring any changes to the SDK—simply configure it in the {edition.productName} console.
+
+<img src={require("../../../../assets/img/complete-guides/fesecurity/image10.png").default} alt="Sample Authentication Step Configurations in WSO2 Identity Platform" width="800" style={{display: "block", margin: "0"}} />
+
+Additionally, {edition.productName} offers [App-Native authentication](../../authentication/app-native-authentication/index.mdx), allowing you to create your own user interfaces while handling authentication via REST APIs. In this case, you must follow the [API specifications](../../../reference/iam-concepts/app-native-authentication.mdx) and incorporate all required MFA steps to complete the authentication process. If the authentication flow involves a federated IdP, you'll also need to manage IdP redirection accordingly.

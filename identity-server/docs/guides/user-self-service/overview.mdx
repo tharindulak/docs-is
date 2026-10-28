@@ -1,0 +1,59 @@
+---
+title: Access the My Account portal
+description: Users and administrators in your organization can manage their accounts and information by accessing the My Account portal, a self-service portal offered by…  # generated from the first paragraph; a writer should improve it
+type: how-to
+unlisted: true
+---
+
+Users and administrators in your organization can manage their accounts and information by accessing the **My Account portal**, a self-service portal offered by {edition.productName}.
+
+<Variants>
+
+<Edition only="cloud">
+
+Users can access the My Account portal using the following link - \{\{ my_account_link \}\}
+
+:::note
+If you have set up organizations in {edition.productName} and [shared the My Account portal with organization users](../organization-management/configure-organization-applications/share-applications.mdx#share-the-my-account-portal), they can access the organization-specific My Account Portal using the following link:
+
+```bash
+{{ my_account_org_link }}
+```
+:::
+You can access the following features from the **My Account portal**.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+Users can access the My Account portal using the following link - `https://{host_name}:{port}/myaccount`
+
+For example, if using the default settings, the link to your My Account portal is,
+
+`https://localhost:9443/myaccount`
+
+:::note
+If you have set up organizations in {edition.productName} and [shared the My Account portal with organization users](../organization-management/configure-organization-applications/share-applications.mdx#share-the-my-account-portal), they can access the organization-specific My Account Portal using the following link:
+
+```bash
+https://localhost:9443/t/carbon.super/o/{organization-id}/myaccount
+```
+:::
+You can access the following features from the **My Account portal**.
+
+</Edition>
+
+</Variants>
+
+- [Update profile information](./self-service-portal/update-profile-info.mdx)
+- [Change password](./self-service-portal/change-password.mdx)
+- [View and revoke consents given to applications](./self-service-portal/manage-consents.mdx)
+- [Enroll TOTP](./self-service-portal/enable-totp.mdx)
+- [Manage backup codes](./self-service-portal/manage-backup-codes.mdx)
+- [Manage linked social accounts](./self-service-portal/manage-linked-accounts.mdx)
+- [Export profile information](./self-service-portal/export-profile-information.mdx)
+- [View and revoke login sessions](./self-service-portal/manage-login-sessions.mdx)
+- [Manage password recovery](./self-service-portal/user-password-recovery.mdx)
+- [Discover and maintain applications](./self-service-portal/discover-applications.mdx)
+- [Register passkeys](./self-service-portal/register-passkey.mdx)
+- [View and update the approvals](./self-service-portal/manage-approvals.mdx)

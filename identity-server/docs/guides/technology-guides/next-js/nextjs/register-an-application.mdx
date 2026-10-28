@@ -1,0 +1,97 @@
+---
+title: Register an application
+description: First unless you already have done that, you need to create an organization in WSO2 Identity Platform and register your application as a Next Application.  # generated from the first paragraph; a writer should improve it
+type: how-to
+layout: complete-guide
+sidebar_position: 3
+---
+
+<Variants>
+
+<Edition only="cloud">
+
+First unless you already have done that, you need to create an organization in {edition.productName} and register your application as a Next Application.
+
+* Sign up for a [free {edition.productName} account](../../../../get-started/create-identity-platform-account.mdx)
+* Sign into {edition.productName} console and navigate to **Applications > New Application.**
+* Select **Next.js**
+
+</Edition>
+
+<Edition only="self-hosted">
+
+First unless you already have done that, you need to register your application as a Traditional Web Application.
+
+* Download and [setup WSO2 Identity Server](https://is.docs.wso2.com/en/latest/get-started/quick-set-up/)
+* Sign into {edition.productName} console and navigate to **Applications > New Application.**
+* Select **Traditional Web Application** (*Make sure that the protocol remains set to OpenID Connect (OIDC)*)
+
+</Edition>
+
+</Variants>
+
+<Variants><Edition only="cloud"><img src={require("../../../../../assets/cloud/img/complete-guides/nextjs/image1.png").default} alt="Select Traditional Page Application" width="600" style={{display: "block", margin: "0"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../../assets/self-hosted/img/complete-guides/nextjs/image1.png").default} alt="Select Traditional Page Application" width="600" style={{display: "block", margin: "0"}} /></Edition></Variants>  
+
+Next, complete the wizard popup by providing a suitable name and an authorized redirect URL.
+
+<Variants>
+
+<Edition only="cloud">
+
+:::note[Example]
+name: asgardeo-nextjs
+
+Authorized redirect URL: http://localhost:3000
+:::
+
+</Edition>
+
+<Edition only="self-hosted">
+
+:::note[Example]
+name: is-nextjs
+
+Authorized redirect URL: http://localhost:3000
+:::
+
+</Edition>
+
+</Variants>
+
+<Variants><Edition only="cloud"><img src={require("../../../../../assets/cloud/img/complete-guides/nextjs/image2.png").default} alt="Register a new application" width="600" style={{display: "block", margin: "0"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../../assets/self-hosted/img/complete-guides/nextjs/image2.png").default} alt="Register a new application" width="600" style={{display: "block", margin: "0"}} /></Edition></Variants>
+
+<Variants>
+
+<Edition only="cloud">
+
+:::info
+The authorized redirect URL determines where {edition.productName} should send users after they successfully log in. Typically, this will be the web address where your application is hosted. For this guide, we'll use http://localhost:3000, as the sample application will be accessible at this URL
+:::
+
+Make a note of the following values from the **Guide** tab of the registered application. You will need them to configure the WSO2 Identity Platform provider.
+
+```bash
+NEXT_PUBLIC_ASGARDEO_BASE_URL="https://api.asgardeo.io/t/<your-org-name>"
+NEXT_PUBLIC_ASGARDEO_CLIENT_ID="<your-app-client-id>"
+ASGARDEO_CLIENT_SECRET="<your-app-client-secret>"
+```
+
+</Edition>
+
+<Edition only="self-hosted">
+
+:::info
+The authorized redirect URL determines where Asgardeo should send users after they successfully log in. Typically, this will be the web address where your application is hosted. For this guide, we'll use http://localhost:3000, as the sample application will be accessible at this URL
+:::
+
+Make a note of the following values from the **Protocol** and **Info** tabs of the registered application. You will need them to configure the Asgardeo provider.
+
+* **`client-id`** from the **Protocol** tab.
+* **`client-secret`** from the **Protocol** tab.
+* **`issuer`** from the **Info** tab.
+
+</Edition>
+
+</Variants>
+
+In this step, we have registered our Next.js app as an application in the {edition.productName} console and generated the required metadata. Next, we will create a Next.js app.

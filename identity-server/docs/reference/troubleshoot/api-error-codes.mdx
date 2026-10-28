@@ -1,0 +1,505 @@
+---
+title: REST API Error Catalog
+description: This document describes all the REST API error codes that are used in WSO2 Identity Server.  # generated from the first paragraph; a writer should improve it
+type: reference
+sidebar_label: API error catalog
+sidebar_position: 3
+editions: self-hosted
+---
+
+This document describes all the REST API error codes that are used in WSO2 Identity Server.
+
+## General errors
+
+| Error Code | HTTP Status Code | Error Message | Possible Cause |
+| --- | --- | --- | --- |
+| UE-10000 | 400 | Invalid Request | Provided request body content is not in the expected format. |
+| SE-50000 | 500 | Unexpected processing error | The server encountered an error while serving the request. |
+
+## Challenge question management errors
+
+<table>
+  <thead>
+    <tr>
+      <th>Error Code</th>
+      <th>HTTP Status Code</th>
+      <th>Error Message</th>
+      <th>Possible Cause</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CQM-10002</td>
+      <td>500</td>
+      <td>Unable to retrieve challenges for the user</td>
+      <td>The server encountered an error while retrieving challenges for the user.</td>
+    </tr>
+    <tr>
+      <td>CQM-10003</td>
+      <td>500</td>
+      <td>Unable to retrieve all user challenge answers</td>
+      <td>The server encountered an error while retrieving challenge answers of the user.</td>
+    </tr>
+    <tr>
+      <td>CQM-10004</td>
+      <td>500</td>
+      <td>Unable to retrieve the user challenge answer of a specific challenge</td>
+      <td>The server encountered an error while retrieving the challenge answer of a specific challenge.</td>
+    </tr>
+    <tr>
+      <td>CQM-10005</td>
+      <td>500</td>
+      <td>Unable to set user challenge answers.</td>
+      <td>The server encountered an error while setting answers to the user challenges.</td>
+    </tr>
+    <tr>
+      <td>CQM-20053</td>
+      <td>400</td>
+      <td>Unable to set user challenge answers.</td>
+      <td>Validation error. Cannot answer two questions from the same question set claim uri.</td>
+    </tr>
+    <tr>
+      <td>CQM-10006</td>
+      <td>500</td>
+      <td>Unable to update user challenge answer.</td>
+      <td>The server encountered an error while updating the answers to the user challenges.</td>
+    </tr>
+    <tr>
+      <td>CQM-10007</td>
+      <td>500</td>
+      <td>Unable to remove user challenge answers.</td>
+      <td>The server encountered an error while removing answers of the user challenges.</td>
+    </tr>
+    <tr>
+      <td>CQM-10008</td>
+      <td>500</td>
+      <td>Unable to update user challenge answer.</td>
+      <td>The server encountered an error while updating the answer of a specific user challenge.</td>
+    </tr>
+    <tr>
+      <td>CQM-10009</td>
+      <td>500</td>
+      <td>Unable to update user challenge answer.</td>
+      <td>The server encountered an error while updating the answer of the user challenge.</td>
+    </tr>
+    <tr>
+      <td>CQM-10010</td>
+      <td>500</td>
+      <td>Unable to remove user challenge answer.</td>
+      <td>The server encountered an error while removing answer of the user challenge.</td>
+    </tr>
+    <tr>
+      <td>CQM-10011</td>
+      <td>400</td>
+      <td>Invalid Request.</td>
+      <td>Challenge question is missing in the user challenge answer request.</td>
+    </tr>
+    <tr>
+      <td>CQM-10012</td>
+      <td>409</td>
+      <td>Challenge questions are already answered.</td>
+      <td>User has already answered some challenges. Hence, the system is unable to add new answers.</td>
+    </tr>
+    <tr>
+      <td>CQM-10013</td>
+      <td>404</td>
+      <td>Challenge answers not set</td>
+      <td>User has not answered any challenges. Hence, the system is unable to process.</td>
+    </tr>
+    <tr>
+      <td>CQM-10014</td>
+      <td>409</td>
+      <td>Challenge answer already set</td>
+      <td>User has already answered this challenge. Hence, the system is unable to add a new challenge answer.</td>
+    </tr>
+    <tr>
+      <td>CQM-10015</td>
+      <td>404</td>
+      <td>Challenge answer not set</td>
+      <td>User has not answered this challenge. Hence, the system is unable to process.</td>
+    </tr>
+    <tr>
+      <td>CQM-20054</td>
+      <td>400</td>
+      <td>Unable to set user challenge answer(s).</td>
+      <td>Invalid Locale value provided : \{\{locale\}\}.</td>
+    </tr>
+    <tr>
+      <td>CQM-20056</td>
+      <td>400</td>
+      <td>Unable to add challenge set.</td>
+      <td>ChallengeSetId contains non alpha-numeric characters.</td>
+    </tr>
+    <tr>
+      <td>CQM-18017</td>
+      <td>400</td>
+      <td>Unable to set user challenge answers.</td>
+      <td>
+
+        No challenge question found. Error persisting user challenge answers for user. Challenge question answered is not registered with
+
+        \<tenant\> domain.
+
+      </td>
+    </tr>
+    <tr>
+      <td>CQM-20057</td>
+      <td>500</td>
+      <td></td>
+      <td>Error when deleting challenge question sets.</td>
+    </tr>
+    <tr>
+      <td>CQM-50002</td>
+      <td>500</td>
+      <td>Unable to get challenge</td>
+      <td>The server encountered an error while retrieving a specific challenge.</td>
+    </tr>
+    <tr>
+      <td>CQM-50003</td>
+      <td>500</td>
+      <td>Unable to get the challenges</td>
+      <td>The server encountered an error while retrieving all challenges.</td>
+    </tr>
+    <tr>
+      <td>CQM-50004</td>
+      <td>500</td>
+      <td>Unable to add challenge set</td>
+      <td>The server encountered an error while setting answers to the user challenges.</td>
+    </tr>
+    <tr>
+      <td>CQM-50005</td>
+      <td>500</td>
+      <td>Unable to update challenge set</td>
+      <td>The server encountered an error while updating answers to the user challenges.</td>
+    </tr>
+    <tr>
+      <td>CQM-50006</td>
+      <td>500</td>
+      <td>Unable to add a new challenge question</td>
+      <td>The server encountered an error while adding a new question to the set.</td>
+    </tr>
+    <tr>
+      <td>CQM-50007</td>
+      <td>500</td>
+      <td>Unable to remove challenges</td>
+      <td>The server encountered an error while removing the challenge set.</td>
+    </tr>
+    <tr>
+      <td>CQM-50008</td>
+      <td>500</td>
+      <td>Unable to remove challenge question</td>
+      <td>The server encountered an error while removing a specific challenge question.</td>
+    </tr>
+    <tr>
+      <td>CQM-50009</td>
+      <td>400</td>
+      <td>Patch operation not supported</td>
+      <td>Operation is not supported on the challenge set patch API.</td>
+    </tr>
+    <tr>
+      <td>CQM-50010</td>
+      <td>404</td>
+      <td>Challenge set does not exist</td>
+      <td>Specified challenge set does not exist in the system, hence unable to proceed.</td>
+    </tr>
+    <tr>
+      <td>CQM-20055</td>
+      <td>400</td>
+      <td>Unable to add challenge set</td>
+      <td>Attributes of a challenge question to be set cannot be empty.</td>
+    </tr>
+  </tbody>
+</table>
+
+## Claim management errors
+
+| Error Code | HTTP Status Code | Error Message | Possible Cause |  |
+| --- | --- | --- | --- | --- |
+| CMT-50001 | 500 | Unable to add claim dialect | The server encountered an error while adding the claim dialect, \{\{claim dialect\}\}. |  |
+| CMT-50002 | 500 | Unable to add external claim | The server encountered an error while adding the external claim, \{\{external claim\}\}. |  |
+| CMT-50003 | 500 | Unable to add local claim | The server encountered an error while adding the local claim, \{\{local claim\}\}. |  |
+| CMT-50004 | 500 | Unable to delete claim dialect | The server encountered an error while deleting the claim dialect for identifier, \{\{identifier\}\}. |  |
+| CMT-50005 | 500 | Unable to delete external claim. | The server encountered an error while deleting the external claim for identifier, \{\{identifier\}\} in dialect identifier, \{\{identifier\}\}. |  |
+| CMT-50006 | 500 | Unable to delete local claim | The server encountered an error while deleting the local claim for identifier, \{\{identifier\}\}. |  |
+| CMT-50007 | 500 | Unable to retrieve claim dialects | The server encountered an error while retrieving the claim dialects. |  |
+| CMT-50008 | 500 | Unable to retrieve claim dialects | The server encountered an error while retrieving the claim dialects. |  |
+| CMT-50009 | 500 | Unable to retrieve external claim | The server encountered an error while retrieving the external claim for identifier, \{\{identifier\}\} in dialect identifier, \{\{identifier\}\}. |  |
+| CMT-50010 | 500 | Unable to retrieve external claims | The server encountered an error while retrieving the external claims for dialect identifier, \{\{identifier\}\}. |  |
+| CMT-50011 | 500 | Unable to retrieve local claim | The server encountered an error while retrieving the local claim for identifier, \{\{identifier\}\}. |  |
+| CMT-50012 | 500 | Unable to retrieve local claims | The server encountered an error while retrieving the local claims. |  |
+| CMT-50013 | 500 | Unable to update claim dialect | The server encountered an error while updating the claim dialect for identifier, \{\{identifier\}\}. |  |
+| CMT-50014 | 500 | Unable to update external claim | The server encountered an error while updating the external claim for identifier, \{\{identifier\}\} in dialect identifier, \{\{identifier\}\}. |  |
+| CMT-50015 | 500 | Unable to update local claim | The server encountered an error while updating the local claim for identifier, \{\{identifier\}\}. |  |
+| CMT-50016 | 404 | Resource not found | Unable to find a resource matching the provided claim dialect identifier, \{\{identifier\}\}. |  |
+| CMT-50017 | 404 | Resource not found | Unable to find any claims matching the provided claim dialect identifier, \{\{identifier\}\} |  |
+| CMT-50018 | 404 | Resource not found | Unable to find a resource matching the provided external claim identifier, \{\{identifier\}\} in dialect identifier, \{\{identifier\}\}. |  |
+| CMT-50019 | 404 | Resource not found | Unable to find a resource matching the provided local claim identifier, \{\{identifier\}\} |  |
+| CMT-50020 | 409 | Unable to update external claim | The existing external claim uri, \{\{external claim\}\} in dialect identifier, \{\{identifier\}\} cannot be changed. |  |
+| CMT-50021 | 409 | Unable to update local claim | The existing local claim uri, \{\{local claim\}\} cannot be changed. |  |
+| CMT-50022 | 501 | Pagination not supported | Pagination capabilities are not supported in this version of the API. |  |
+| CMT-50023 | 501 | Filtering not supported | Filtering capability is not supported in this version of the API. |  |
+| CMT-50024 | 501 | Sorting not supported | Sorting capability is not supported in this version of the API. |  |
+| CMT-50025 | 501 | Attribute filtering not supported | Attribute filtering capability is not supported in this version of the API. |  |
+| CMT-50026 | 400 | Invalid attribute mapping | Invalid userstore, \{\{userstore\}\} provided in attribute mapping |  |
+| CMT-50027 | 400 | Invalid dialect identifier | The used dialect identifier, \{\{identifier\}\} does not exist. |  |
+| CMT-50028 | 400 | Empty claim dialect URI | The claim dialect URI cannot be empty. |  |
+| CMT-50029 | 400 | Empty local claim URI | The claim URI cannot be empty. |  |
+| CMT-50030 | 400 | Empty mapped attributes | The mapped attributes cannot be empty. |  |
+| CMT-50031 | 400 | Unable to remove local claim | Unable to remove local claim while having associations with external claims |  |
+| CMT-50032 | 400 | Empty external claim URI | The external claim URI cannot be empty. |  |
+| CMT-50033 | 400 | Invalid external claim dialect | The provided claim dialect is the local claim dialect and cannot be used as an external dialect. |  |
+| CMT-50034 | 400 | Empty external claim dialect URI | The external dialect URI cannot be empty. |  |
+| CMT-50035 | 400 | Empty mapped local claim URI | The mapped local claim URI cannot be empty. |  |
+| CMT-50036 | 400 | Invalid mapped local claim URI | The mapped local claim URI is invalid. |  |
+| CMT-50037 | 400 | Invalid input | One of the given inputs is invalid. |  |
+
+## Email template management errors
+
+| Error Code | HTTP Status Code | Error Message | Possible Cause |
+| --- | --- | --- | --- |
+| ETM-55002 | 500 | Unable to retrieve email template types. | The server encountered an error while retrieving email template types. |
+| ETM-55003 | 500 | Unable to retrieve the email template type | The server encountered an error while retrieving the email template type identified by the given template-type-id. |
+| ETM-55004 | 500 | Unable to retrieve the email template | The server encountered an error while retrieving the email template identified by the given template-type-id and the template-id |
+| ETM-55005 | 500 | Unable to add the email template type | The server encountered an error while adding the email template type. |
+| ETM-55006 | 500 | Unable to add the email template | The server encountered an error while adding the email template to the system. |
+| ETM-55007 | 500 | Unable to delete the email template type | The server encountered an error while deleting the email template type. |
+| ETM-55008 | 500 | Unable to delete the email template | The server encountered an error while deleting the email template. |
+| ETM-55009 | 500 | Unable to update the email template type | The server encountered an error while updating the email template type. |
+| ETM-55010 | 500 | Unable to update the email template | The server encountered an error while updating the email template. |
+| ETM-55011 | 501 | Pagination is not yet supported. | Please remove the 'limit' and 'offset' parameters from the request and try again. |
+| ETM-55012 | 501 | Sorting is not yet supported. | Please remove the 'sortOrder' and 'sortBy' parameters from the request and try again. |
+| ETM-50001 | 400 | Provided email template-type-id is invalid | The server encountered an error while processing the given template-type-id. |
+| ETM-50002 | 404 | Email Template Type does not exist | The specified email template type does not exist in the system. |
+| ETM-50003 | 404 | Email Template does not exist | The specified email template does not exist in the system. |
+| ETM-50004 | 409 | Email Template already exists in the system. | An email template for the provided template ID already exists in the system. |
+| ETM-50005 | 409 | Email Template Type already exists in the system | An email template type for the provided template display name already exists in the system. |
+
+## Human task approval errors
+
+| Error Code | HTTP Status Code | Error Message | Possible Cause |  |
+| --- | --- | --- | --- | --- |
+| HTA-10001 | 403 | Access denied | You are not authorized to perform this task. |  |
+| HTA-10002 | 400 | Invalid input provided | The provided Task ID is not in the correct format. |  |
+| HTA-10003 | 404 | Task does not exist. | The selected task does not exist. |  |
+| HTA-10004 | 400 | Invalid input data provided | Invalid input data provided |  |
+| HTA-10005 | 400 | Unacceptable input provided | Only \[CLAIM, RELEASE, APPROVED, REJECTED\] are acceptable. |  |
+| HTA-10006 | 400 | Unable to change the approval status | Invalid state change is requested for the given task. |  |
+| HTA-10007 | 400 | Unable to update the approval status | Invalid state change is requested for the given task. |  |
+| HTA-15002 | 500 | Unable to retrieve approvals for the user | The server encountered an error while retrieving approvals for user. |  |
+| HTA-15003 | 500 | Unable to retrieve the user approval | The server encountered an error while retrieving information on the approval task. |  |
+| HTA-15004 | 500 | Unable to update the approval status | The server encountered an error while updating the approval task status. |  |
+
+## Identity governance errors
+
+| Error Code | HTTP Status Code | Error Message | Possible Cause |
+| --- | --- | --- | --- |
+| IDG-50001 | 500 | Unable to get the identity governance categories | The server encountered an error while retrieving identity governance categories. |
+| IDG-50002 | 500 | Unable to get the identity governance category | The server encountered an error while retrieving identity governance category. |
+| IDG-50003 | 500 | Unable to get the identity governance connector | The server encountered an error while retrieving identity governance connector. |
+| IDG-50004 | 500 | Unable to update the identity governance connector property | The server encountered an error while updating the identity governance connector property. |
+| IDG-50005 | 501 | Pagination not supported | Pagination capabilities are not supported in this version of the API. |
+| IDG-50006 | 501 | Filtering not supported | Filtering capability is not supported in this version of the API. |
+| IDG-50007 | 501 | Sorting not supported | Sorting capability is not supported in this version of the API. |
+| IDG-50008 | 400 | Resource not found | Unable to find any category with the provided identifier, \{\{category identifier\}\}. |
+| IDG-50009 | 400 | Resource not found. | Unable to find any connector with the provided identifier, \{\{connector identifier\}\}. |
+
+## Identity provider errors
+
+| Error Code | HTTP Status Code | Error Message | Possible Cause |
+| --- | --- | --- | --- |
+| IDP-65001 | 500 | Unexpected Error | The server encountered an unexpected error. |
+| IDP-65002 | 500 | An error occurred while adding the Identity Provider | The server encountered an error while adding the Identity Provider, \{\{identity-provider-name\}\}. |
+| IDP-60001 | 409 | Identity Provider exists | Identity Provider with the name, \{\{identity-provider-name\}\} already exists. |
+| IDP-6500 | 500 | An error occurred while getting the Identity Provider | The server encountered an error while getting the Identity Provider, \{\{identity-provider-id\}\}. |
+| IDP-60002 | 404 | Identity Provider does not exist | Identity Provider with resource ID, \{\{identity-provider-id\}\} does not exist. |
+| IDP-65004 | 500 | An error occurred while deleting Identity Provider | The server encountered an error while deleting Identity Provider, \{\{identity-provider-id\}\}. |
+| IDP-65005 | 500 | An error occurred while updating Identity Provider | The server encountered an error while updating Identity Provider, \{\{identity-provider-id\}\}. |
+| IDP-60003 | 400 | Identity Provider add request validation failed | Identity Provider add request validation failed for the identitiy provider, \{\{identity-provider-name\}\}. |
+| IDP-60004 | 400 | Identity Provider get request validation failed | Identity Provider get request validation failed for the identity provider ID, \{\{identity-provider-id\}\}. |
+| IDP-60005 | 400 | Identity Provider delete request validation failed | Identity Provider delete request validation failed for the identity provider ID, \{\{identity-provider-id\}\}. |
+| IDP-60007 | 400 | Search request validation failed. | Search request validation failed since search filter, \{\{search-filter\}\} is invalid. |
+| IDP-60021 | 500 | Unable to list existing identity providers | The server encountered an error while listing the identity providers. |
+| IDP-65003 | 500 | Unable to retrieve identity provider | The server encountered an error while retrieving the identity provider for identifier, \{\{identity-provider-id\}\}. |
+| IDP-65021 | 500 | Unable to retrieve meta federated authenticator list | The server encountered an error while retrieving the meta federated authenticators. |
+| IDP-65022 | 500 | Unable to retrieve meta outbound connector list | The server encountered an error while retrieving the meta outbound connector list. |
+| IDP-65023 | 500 | Unable to retrieve meta federated authenticator | The server encountered an error while retrieving the meta federated authenticator with identifier, \{\{federated-authenticator-identifier\}\}. |
+| IDP-65024 | 500 | Unable to retrieve meta outbound connector | The server encountered an error while retrieving the meta outbound connector with identifier, \{\{outbound-connector-identifier\}\}. |
+| IDP-65025 | 500 | Unable to retrieve identity provider's federated authenticator list | The server encountered an error while retrieving the federated authenticators of identity provider, \{\{identity-provider-id\}\}. |
+| IDP-65026 | 500 | Unable to retrieve identity provider's outbound connector list | The server encountered an error while retrieving the outbound connectors of identity provider, \{identity-provider-id\}. |
+| IDP-65027 | 500 | Unable to retrieve identity provider's federated authenticator | The server encountered an error while retrieving the federated authenticator with identifier, \{\{federated-authenticator-id\}\}. |
+| IDP-65028 | 500 | Unable to retrieve identity provider's outbound connector | The server encountered an error while retrieving the outbound connector with identifier, \{\{outbound-connector-id\}\}. |
+| IDP-65029 | 500 | Unable to retrieve identity provider's provisioning config | The server encountered an error while retrieving the provisioning config of identity provider, \{identity-provider-id\}. |
+| IDP-65030 | 500 | Unable to retrieve identity provider claim config | The server encountered an error while retrieving the identity provider claim config for identifier, \{\{identity-provider-id\}\}. |
+| IDP-65031 | 500 | Unable to retrieve identity provider role config | The server encountered an error while retrieving the identity provider role config for identifier, \{\{identity-provider-id\}\}. |
+| IDP-65032 | 500 | Unable to retrieve identity provider JIT config | The server encountered an error while retrieving the identity provider JIT config for identifier, \{\{identity-provider-id\}\}. |
+| IDP-65033 | 500 | Unable to update identity provider federated authenticator | The server encountered an error while updating the identity provider federated authenticator for identifier, \{\{federated-authenticator-id\}\}. |
+| IDP-65034 | 500 | Unable to update identity provider outbound connector | The server encountered an error while updating the identity provider outbound connector for identifier, \{\{identity-provider-id\}\}. |
+| IDP-65035 | 500 | Unable to update identity provider claims | The server encountered an error while updating the identity provider claim config for identifier, \{\{identity-provider-id\}\}. |
+| IDP-65036 | 500 | Unable to update identity provider roles | The server encountered an error while updating the identity provider role config for identifier, \{\{identity-provider-id\}\}. |
+| IDP-65037 | 500 | Unable to update identity provider Just-In-Time provisioning | The server encountered an error while updating the identity provider Just-In-Time provisioning config for identifier, \{\{identity-provider-id\}\}. |
+| IDP-60022 | 404 | Resource not found | Unable to find federated authenticator with identifier, \{\{federated-authenticator-id\}\}. |
+| IDP-60023 | 404 | Resource not found | Unable to find outbound provisioning connector identifier, \{\{outbound-connector-id\}\}. |
+| IDP-65041 | 500 | Attribute filtering not supported | Attribute filtering capability is not supported in this version of the API. |
+| IDP-60024 | 400 | Invalid claim uri | Invalid claim uri, \{\{claim-uri\}\} provided in claim config. |
+| IDP-60025 | 400 | Invalid input | One of the given inputs is invalid. \{\{Optional Details, if any\}\}. |
+| IDP-60026 | 400 | Invalid SAML metadata | SAML metadata is invalid/empty. |
+| IDP-65050 | 500 | Unable to list existing identity provider templates | An error occurred while listing identity provider templates. |
+| IDP-65051 | 500 | Unable to add IDP template. | An error occurred while trying to add the IDP template. |
+| IDP-65052 | 500 | Unable to delete IDP template | An error occurred while trying to delete the IDP template. |
+| IDP-65053 | 500 | Unable to update IDP template | An error occurred while trying to update the IDP template. |
+| IDP-65054 | 500 | Unable to retrieve IDP template | An error occurred while trying to retrieve the IDP template. |
+| TMM_00001 | 500 | Unable to list existing identity provider templates | An error occurred while listing identity provider templates. |
+| TMM_00006 | 500 | Unable to update identity provider template | An error occurred while updating identity provider template with id, \{\{template-id\}\}. |
+| TMM_00007 | 400 | Unable to add/update IDP template | A template name is required. |
+| TMM_00008 | 400 | Unable to add/update IDP template | A template script is required. |
+| TMM_00009 | 401 | Unauthorized access | No authenticated user is found to perform action. |
+| TMM_00011 | 401 | Unauthorized access | The user is not authorized to perform the action. |
+| TMM_00014 | 409 | Unable to add/update IdP template | A template with name, \{\{template-name\}\} already exists. |
+| TMM_00017 | 500 | Unable to list existing identity provider templates | An error occurred while listing identity provider templates. |
+| TMM_00018 | 500 | Unable to delete IDP template | An error occurred while trying to delete the IDP template. |
+| TMM_00019 | 500 | Unable to retrieve IDP template | An error occurred while trying to retrieve the IDP template. |
+| TMM_00021 | 404 | Template not found | Template with given id, \{\{template-id\}\} is not found. |
+| TMM_00022 | 400 | Invalid template Id. | The provided template ID, \{\{template-id\}\} is not valid. |
+
+## Keystore management errors
+
+| Error Code | HTTP Status Code | Error Message | Possible Cause |
+| --- | --- | --- | --- |
+| KSS-60001 | 400 | Provided certificate already exists with the alias: \{\{alias\}\}. | An error while importing the certificate with alias, \{\{alias\}\} to the keystore. |
+| KSS-60002 | 400 | Provided alias \{\{alias\}\} is already available in the keystore. | An error while importing the certificate with alias, \{\{alias\}\} to the keystore. |
+| KSS-60003 | 400 | Unsupported filter: \{\{filter\}\}. | An error while retrieving the list of certificates from keystore. |
+| KSS-60004 | 400 | Unsupported filter operation \{\{filter operation\}\}. | An error while retrieving the list of certificates from keystore. |
+| KSS-60010 | 400 | There exists no certificate with alias: \{\{alias\}\}. | Couldn't find a certificate with alias, \{\{alias\}\} from the keystore. |
+| KSS-65001 | 500 | Unable to retrieve the keystore for tenant: \{\{tenant domain\}\}. | The server encountered an error while retrieving the keystore. |
+| KSS-65002 | 500 | Unable to retrieve keystore information for keystore: \{\{keystore name\}\}. | The server encountered an error whie retrieving the keystore information. |
+| KSS-65003 | 500 | Unable to retrieve client truststore for tenant: \{\{tenant domain\}\}. | The server encountered an error while retrieving the client truststore. |
+| KSS-65004 | 500 | Unable to retrieve the client truststore aliases for tenant: \{\{tenant domain\}\}. | The server encountered an error while retrieving the aliases from client truststore. |
+| KSS-65005 | 500 | Unable to retrieve the client truststore certificate for alias: \{\{alias\}\}. | The server encountered an error while retrieving the certificate from client truststore. |
+| KSS-65006 | 500 | Unable to add certificate with alias: \{\{alias\}\}. | The server encountered an error while adding a certificate. |
+| KSS-65007 | 500 | Unable to delete certificate with alias: \{\{alias\}\}. | The server encountered an errorwhile removing a certificate. |
+| KSS-65008 | 500 | An error occurred while validating the certificate | The server encountered an error while adding a certificate. |
+| KSS-65010 | 500 | Unable to create file: \{\{filename\}\}. | The server encountered an error while creating a file to return the certificate. |
+| KSS-65011 | 500 | Unable to encode the certificate with alias: \{\{alias\}\}. | The server encountered an error while encoding the certificate. |
+
+## OAuth authorized apps errors
+
+| Error Code | HTTP Status Code | Error Message | Possible Cause |
+| --- | --- | --- | --- |
+| OAA-10001 | 404 | Invalid application ID | An application with the provided ID cannot be found for the user. |
+| OAA-10002 | 500 | Error retrieving authorized application | A system error occurred while retrieving the provided authorized application for the user. |
+| OAA-10003 | 500 | Error retrieving authorized applications | A system error occurred while retrieving authorized applications for the provided user. |
+| OAA-10004 | 500 | Error revoking authorized application | A system error occurred while revoking the provided authorized application for the user. |
+| OAA-10005 | 500 | Error revoking authorized application | A system error occurred while revoking authorized applications for the provided user. |
+
+## Secondary userstore errors
+
+  | Error Code | HTTP Status Code | Error Message | Possible Cause |
+  | --- | --- | --- | --- |
+  | SUS-50001 | 500 | Unable to add the secondary userstore | The server encountered an error while adding the secondary userstore. |
+  | SUS-50002 | 500 | Unable to delete the secondary user store | The server encountered an error while deleting the secondary user store. |
+  | SUS-50003 | 500 | Unable to get the configured user stores | The server encountered an error while retrieving secondary user stores. |
+  | SUS-50004 | 500 | Unable to update the secondary user store configurations | The server encountered an error while updating the secondary user store configurations. |
+  | SUS-50005 | 501 | Pagination not supported | Pagination capabilities are not supported in this version of the API. |
+  | SUS-50006 | 501 | Filtering not supported | Filtering capability is not supported in this version of the API. |
+  | SUS-50007 | 501 | Sorting not supported | Sorting capability is not supported in this version of the API. |
+  | SUS-50008 | 404 | Resource not found | Unable to find any userstore's id with the provided identifier, %s. |
+  | SUS-50009 | 500 | Unable to check RDBMS connection health | The server encountered an error while checking the data source connection. |
+  | SUS-50010 | 500 | Unable to retrieve the user store implementations | The server encountered an error while retrieving the userstore types. |
+  | SUS-50011 | 400 | Invalid Input | The provided input is not valid. |
+  | SUS-50012 | 404 | Resource not found | Unable to find a required resource for this request. |
+  | SUS-50013 | 500 | Unable to get the userstore by its domain id. | The server encountered an error while retrieving the userstore by its domain id. |
+
+## Session management errors
+
+| Error Code | HTTP Status Code | Error Message | Possible Cause |
+| --- | --- | --- | --- |
+| USM-15001 | 500 | Unable to retrieve session information | The server encountered an error while retrieving session information. |
+| USM-15002 | 500 | Unable to retrieve sessions | The server encountered an error while retrieving session list of user, \{userid/username\}. |
+| USM-10003 | 501 | Pagination not supported | Pagination capabilities are not supported in this version of the API. |
+| USM-10004 | 501 | Filtering not supported | Filtering capability is not supported in this version of the API. |
+| USM-10005 | 501 | Sorting not supported | Sorting capability is not supported in this version of the API. |
+| USM-15006 | 500 | Unable to validate user | The server encountered an error while authorizing user, \{userid/username\}. |
+| USM-10007 | 403 | Action forbidden | User is not authorized to terminate this session. |
+| USM-10008 | 400 | Invalid user | User is not provided to perform session management tasks. |
+| USM-10009 | 400 | Invalid session | Session ID is not provided to perform session tasks. |
+| USM-10010 | 403 | Action Forbidden | User is not authorized to terminate the session/s. |
+| USM-10011 | 400 | Invalid data. | Data validation has failed, \{details\} |
+
+## Script libraries errors
+
+| Error Code | HTTP Status Code | Error Message | Possible Cause |
+| --- | --- | --- | --- |
+| SCL-65001 | 500 | Unexpected Error | The server encountered an unexpected error. |
+| SCL-65002 | 500 | Unable to add Script library | An error occurred while creating the script library, \{\{script-library-name\}\}. |
+| SCL-65003 | 500 | Unable to add Script library | An error occurred while processing content stream of script library script, \{\{script-library-name\}\}. |
+| SCL-65005 | 500 | Unable to update Script library | An error occurred while getting the script library, \{\{script-library-name\}\}. |
+| SCL-65006 | 500 | Unable to list existing script libraries | An error occurred while reading script libraries. |
+| SCL-65007 | 500 | Unable to update script library | Failed to update Script library, \{\{script-library-name\}\} |
+| SCL-65008 | 500 | Unable to delete script library | An error occurred while deleting script library, \{\{script-library-name\}\}. |
+| SCL-60002 | 400 | Unable to add Script library | The script library script of \{\{script-library-name\}\} contains errors. |
+| SCL-60006 | 400 | Script library not found | The script library cannot be found for the provided name, \{\{script-library-name\}\} in the tenantDomain, \{tenat -domain\}. |
+| SCL-60007 | 409 | Script library already exist | The script library already exist for the provided name, \{\{script-library-name\}\} in the tenantDomain, \{tenant -domain\}. |
+| SCL-60008 | 400 | Invalid script library name | The script library name should include the .js extension. |
+| SCL-60009 | 400 | Invalid offset | Offset should be greater than or equal to 0. |
+
+## Tenant management errors
+
+| Error Code | HTTP Status Code | Error Message | Possible Cause |
+| --- | --- | --- | --- |
+| TM-60000 | 400 | Unable to add tenant | The provided email is empty. |
+| TM-60001 | 400 | Unable to add tenant | The email contains wrong characters. |
+| TM-60002 | 400 | Unable to add tenant | An invalid email address is provided. |
+| TM-60003 | 400 | Unable to add tenant | You cannot use a registry reserved word as a tenant domain. Please choose a different one. |
+| TM-60004 | 400 | Unable to add tenant | The provided domain name is empty. |
+| TM-60005 | 400 | Unable to add tenant | You should have an extension to your domain. |
+| TM-60006 | 400 | Unable to add tenant | Invalid domain. Domain should not start with '.'. |
+| TM-60007 | 400 | Unable to add tenant | The tenant domain, \{\{tenant-domain\}\} contains one or more illegal characters. The valid characters are lowercase letters, numbers, '.', '-' and '_'. |
+| TM-60008 | 400 | Unable to add tenant | Username, \{\{username\}\} exists in the system. Please pick another username for tenant administrator. |
+| TM-60009 | 400 | Unable to add tenant | A tenant with same domain \{\{tenant-domain\}\} already exists. Please use a different domain name. |
+| TM-60010 | 400 | Invalid Request | Limit should not be negative. |
+| TM-60011 | 400 | Invalid Request | Offset should not be negative. |
+| TM-60012 | 400 | Invalid Request | Required parameter owner is not specified. |
+| TM-60013 | 400 | Invalid Request | Required parameter, \{\{required-parameter\}\} is not specified. |
+| TM-60014 | 400 | Unable to retrieve tenant | Tenant cannot be found for the provided id, \{\{tenant-unique-id\}\}. |
+| TM-60015 | 400 | Unable to retrieve tenant | Tenant cannot be found for the provided domain, \{\{tenant-domain\}\}. |
+| TM-60016 | 400 | An error occurred while deleting the tenant metadata. | Tenant deletion property, \{Tenant.TenantDelete\} is not enabled in carbon.xml file. |
+| TM-65001 | 500 | Unable to list existing tenants | The server encountered an error while listing the tenants. |
+| TM-65002 | 500 | Unable to add tenant | The server encountered an error while adding the tenant. |
+| TM-65003 | 500 | Unable to retrieve tenant | The server encountered an error while retrieving the tenant for identifier, \{\{tenant-unique-id\}\}. |
+| TM-65004 | 500 | An error occurred while updating the tenant. | The server encountered an error while the tenant life cycle status activated: \{\{status-of-lifecycle\}\}. |
+| TM-65005 | 500 | Error building page links | An error occurred during building page links. |
+| TM-65006 | 501 | Filtering not supported | Filtering capability is not supported in this version of the API. |
+| TM-65007 | 500 | Unable to add tenant | An error occurred in validating the code. |
+| TM-65008 | 500 | Unable to check availability of domain | The server encountered an error while checking for tenant domain. |
+| TM-65009 | 500 | An error occurred while deleting the tenant metadata. | The server encountered an error while deleting the tenant metadata identified by \{\{tenant-unique-id\}\}. |
+
+## User associations errors
+
+| Error Code | HTTP Status Code | Error Message | Possible Cause |
+| --- | --- | --- | --- |
+| UAA-8500 | 400 | An error occurred while adding associations of user | A valid username and password must be provided. |
+| UAA-8501 | 500 | An error occurred while adding associations of user | An error occurred while associating the user account. |
+| UAA-8503 | 500 | An error occurred while deleting user association | A database error occurred while deleting user account association. |
+| UAA-8504 | 500 | An error occurred while adding associations of user | A database error occurred while creating user account association. |
+| UAA-8505 | 500 | An error occurred while adding associations of user | A database error occurred while updating user account association. |
+| UAA-8506 | 500 | An error occurred while deleting user association | A database error occurred while validating user association. |
+| UAA-8507 | 500 | An error occurred while deleting user association | A database error occurred while deleting user account associations. |
+| UAA-8508 | 500 | An error occurred while getting/creating/deleting associations of user | An error occurred while getting the RealmService. |
+| UAA-8509 | 500 | An error occurred while getting/creating/deleting associations of user | An error occurred while accessing the RealmService. |
+| UAA-8510 | 500 | An error occurred while getting/creating/deleting associations of user | An error occurred while getting the RealmService. |
+| UAA-8511 | 500 | An error occurred while getting associations of user | An error occurred while getting tenant name from tenant id. |
+| UAA-8512 | 500 | An error occurred while getting/creating/deleting associations of user | An error occurred while getting tenant id from tenant name. |
+| UAA-8513 | 500 | An error occurred while creating associations of user | An error occurred while authenticating user. |
+| UAA-8514 | 500 | An error occurred while deleting user association | An error occurred while deleting user account association for user, \{\{user\}\}. |
+| UAA-8517 | 500 | An error occurred while creating associations of user | An error occurred while executing pre/post user authenticators. |
+| UAA-8524 | 400 | An error occurred while getting/creating/deleting associations of user | The tenant domain is invalid or inactivated. |
+| UAA-8525 | 409 | An error occurred while adding associations of user | The provided user account is already associated to the logged in user. |
+| UAA-8526 | 400 | An error occurred while adding associations of user | The username or password you entered is incorrect. |
+| UAA-8527 | 500 | An error occurred while deleting user association | An error occurred while deleting the user account association. |
+| UAA-8528 | 500 | An error occurred while deleting user association | An error occurred while deleting the user account associations for tenant id, \{\{tenant Id\}\}. |
+| UAA-8533 | 400 | An error occurred while adding associations of user | A user cannot associate the logged in user account to itself. |
+| UAA-8535 | 500 | An error occurred while deleting user association | A database error occurred while deleting user association from the \{\{user store domain\}\} domain in the tenant, \{\{tenant\}\}. |
+| UAA-8536 | 500 | An error occurred while adding associations of user | An error occurred while updating a user domain of account associations with domain, \{\{user store domain\}\}. |
+| UAA-8537 | 500 | An error occurred while deleting user association | An error occurred while deleting user account associations with domain, \{\{user store domain\}\}. |
+| UAA-8538 | 500 | An error occurred while getting associations of user | A database error occurred while retrieving account associations of user, \{\{user\}\}. |
+| UAA-8539 | 500 | An error occurred while getting/creating/deleting associations of user | An error occurred while retrieving the tenant ID of user, \{\{user\}\}. |

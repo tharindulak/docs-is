@@ -1,0 +1,99 @@
+---
+title: Log in to Zoom using {edition.productName}
+description: This page guides you through integrating WSO2 Identity Platform for Single Sign-On (SSO) with Zoom.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Zoom
+sidebar_position: 5
+---
+
+# Log in to Zoom using {edition.productName}
+
+This page guides you through integrating {edition.productName} for Single Sign-On (SSO) with Zoom.
+
+:::note[Before you begin]
+You need to have a Zoom account that supports SSO. Refer to the [Zoom documentation](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0060673) for more details.
+:::
+
+## Create the Zoom application
+
+Follow the steps given below to register the Zoom application in {edition.productName}.
+
+1. On the {edition.productName} Console, go to **Applications**.
+
+2. Click **New Application** and under **SSO Integrations**, select **Zoom**..
+
+    <Variants><Edition only="cloud"><img src={require("../../../../assets/img/guides/authentication/sso-integrations/common/add-app.png").default} alt="Select app type in the WSO2 Identity Platform" width="600" style={{border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/img/guides/authentication/sso-integrations/common/add-app.png").default} alt="Select app type in the WSO2 Identity Server" width="600" style={{border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+3. Provide the Zoom domain name and a name for the application.
+
+    :::info[Domain Name]
+    Zoom domain name is the first part of your Zoom vanity URL. If your vanity URL is `https://myorg.zoom.us`, enter `myorg` as the Domain Name. Follow Zoom's guidelines to [request your vanity URL](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0061540)
+    :::
+
+    <Variants><Edition only="cloud"><img src={require("../../../../assets/img/guides/authentication/sso-integrations/zoom/add-zoom-app.png").default} alt="Select Zoom workspace app in the WSO2 Identity Platform" width="600" style={{border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/img/guides/authentication/sso-integrations/zoom/add-zoom-app.png").default} alt="Select Zoom workspace app in the WSO2 Identity Server" width="600" style={{border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+4. Click **Create** to complete the registration.
+
+-----
+
+## Configure Zoom
+
+Follow the steps below to configure Zoom for SSO with {edition.productName}.
+
+1. Log in to [Zoom](https://zoom.us/signin#/login).
+
+<Variants>
+
+<Edition only="cloud">
+
+2. Use the following values and configure SSO settings for Zoom. Refer to [Zoom documentation](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0060673#h_01EYXTRKFKDGMV8H0T6HHQFJWA) for more information.
+
+    - **Sign-in page URL** - `{edition.productUrlFormat}/samlsso`
+
+    - **Sign-out page URL** - `{edition.productUrlFormat}/samlsso`
+
+    - **Identity Provider Certificate** - Obtain the certificate from the `Guide` tab of the configured Zoom application in {edition.productName}.
+
+    - **Service Provider (SP) Entity ID** - {edition.productName} supports a URN-based Entity ID for service providers. Therefore, retain the default URN-based value selected for this which takes the form `<domain-name>.zoom.us`
+
+    - **Issuer (IDP Entity ID)** - `api.asgardeo.io/t/{organization_name}`
+
+    <img src={require("../../../../assets/cloud/img/guides/authentication/sso-integrations/zoom/sso-fill-zoom.png").default} alt="Sample Zoom SSO Settings Form" width="600" style={{border: "0.3px solid lightgrey"}} />
+
+</Edition>
+
+<Edition only="self-hosted">
+
+2. Use the following values and configure SSO settings for Zoom. Refer to [Zoom documentation](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0060673#h_01EYXTRKFKDGMV8H0T6HHQFJWA) for more information.
+
+    - **Sign-in page URL** - `{edition.productUrlFormat}/samlsso`
+
+    - **Sign-out page URL** - `{edition.productUrlFormat}/samlsso`
+
+    - **Identity Provider Certificate** - Obtain the certificate from the `Guide` tab of the configured Zoom application in {edition.productName}.
+
+    - **Service Provider (SP) Entity ID** - {edition.productName} supports a URN-based Entity ID for service providers. Therefore, retain the default URN-based value selected for this which takes the form `<domain-name>.zoom.us`
+
+    - **Issuer (IDP Entity ID)** - `localhost`
+
+    <img src={require("../../../../assets/self-hosted/img/guides/authentication/sso-integrations/zoom/sso-fill-zoom.png").default} alt="Sample Zoom SSO Settings Form" width="600" style={{border: "0.3px solid lightgrey"}} />
+
+</Edition>
+
+</Variants>
+
+## Try it out
+
+Now that you have integrated {edition.productName} with Zoom, follow the steps below to test it.
+
+1. Create a user in {edition.productName} and ensure the same user exists in your Zoom organization with the same email address.
+
+2. Navigate to the [Zoom SSO sign-in page](https://zoom.us/web/sso/login?en=signin#/sso) and enter the company domain. You will then be redirected to the {edition.productName} login screen.
+
+3. Enter the username and password of the user and complete the login process.
+
+---
+
+## Troubleshooting guidelines
+
+To troubleshoot SSO failures on the Zoom side, refer to the SAML response logs. Follow [Zoom documentation](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0061276) to learn more.

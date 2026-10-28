@@ -1,0 +1,35 @@
+---
+title: Configure username validation
+description: Your WSO2 Identity Platform organization could allow a user to log in with a custom alphanumeric username instead of an email address.  # generated from the first paragraph; a writer should improve it
+type: how-to
+unlisted: true
+editions: cloud
+---
+
+Your {edition.productName} organization could allow a user to log in with a custom alphanumeric username instead of an email address.
+
+Follow the steps given below to change the username type for the users.
+
+1. On the {edition.productName} Console, go to **Login & Registration**.
+2. Under **Login Identifier**, click on **Username Validation**
+3. Select **Custom** and configure the minimum and maximum length for a username.
+
+    :::info[Use special characters in usernames]
+    {edition.productName} allows the use of the following special characters for custom usernames: `! @ # $ & ' + \ = ^ . { | } ~ -`
+
+    To enable the usage of special characters uncheck the **Restrict to alphanumeric (a-z, A-Z, 0-9)** checkbox.
+
+    <img src={require("../../../../assets/cloud/img/guides/organization/account-login/username-validation/configure-username-validation.png").default} alt="Configure username validation" width="500" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+    :::
+
+4. Click **Update** to save the changes.
+
+:::warning
+If you select **Custom** as the username type, and not make the **Email** attribute mandatory for users, the following features will not be available for users who do not configure an email address.
+
+- Email Notifications
+- Password recovery
+- Authentication with Magic Link, Email OTP
+
+Learn how to [update attribute properties](../../users/attributes/user-attributes/manage-attributes.mdx).
+:::

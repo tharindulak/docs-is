@@ -1,0 +1,40 @@
+---
+title: Add MFA using app-native APIs
+description: Multi-factor authentication (MFA) is a security mechanism that requires users to provide two or more forms of verification before granting access to an…  # generated from the first paragraph; a writer should improve it
+type: how-to
+layout: complete-guide
+sidebar_position: 7
+---
+
+Multi-factor authentication (MFA) is a security mechanism that requires users to provide two or more forms of verification before granting access to an application. This adds an extra layer of security to your application and helps protect sensitive data from unauthorized access.
+
+In this guide, we will look into enabling Email OTP as an MFA factor in your Next.js application. Email OTP is a simple and effective MFA method that sends a one-time passcode to the user's email address, which they must enter to complete the login process.
+
+<Variants>
+
+<Edition only="cloud">
+
+You can configure SMTP settings in the {edition.productName} Console by navigating to the **Notification Channels** tab > **Email Provider** section. In WSO2 Identity Platform you can simply use default WSO2 Identity Platform SMTP settings available out of the box without configuring an  **Email Provider**.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+You can configure SMTP settings in the {edition.productName} Console by navigating adding the SMTP configurations in the deployment.toml file.
+
+</Edition>
+
+</Variants>
+
+First, let's set up Email OTP as an MFA factor by following the steps given below.
+
+- Navigate to the {edition.productName} Console and select your application under the **Applications** tab.
+- Click on the **Login Flow** tab.
+- Click on either the **+** button in the Visual Editor and select **Email OTP** from the pop-up prompt or click on **Username & Password -> Email OTP** button under the **Predefined Flows > Basic Login Flows > Add Multi-factor Login** section.
+
+  <img src={require("../../../../../assets/img/complete-guides/app-native/image12.png").default} alt="Visual Editor" width="800" style={{display: "block", margin: "0"}} />
+- Click on the **Update** button to save the changes.
+
+You can now test the Email OTP MFA factor in your Next.js application. When a user logs in with their email and password, they will be redirected to the Email OTP page to enter the OTP code sent to their email address. Upon successful verification, the user will be redirected to the home page.
+
+<img src={require("../../../../../assets/img/complete-guides/app-native/image13.png").default} alt="Email OTP Page" width="800" style={{display: "block", margin: "0"}} />

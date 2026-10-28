@@ -1,0 +1,150 @@
+---
+title: Configure email address as the username
+description: Set the mail attribute of the user.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_position: 6
+editions: self-hosted
+---
+
+:::warning
+Configuring the email address as the username in an **already running
+Identity Server** is not the production recommended way. Therefore,
+**make sure to configure it before you begin working with WSO2 IS**.
+:::
+
+1. Log in to the WSO2 Identity Server Console and click **User Attributes & Stores** > **Attributes**.
+
+2. Click the **Username** attribute and configure the `Mapped Attribute` as `mail`.
+
+    <img src={require("../../../../assets/self-hosted/img/guides/organization/attributes/email-as-username-attribute-mapping.png").default} alt="email-as-username-attribute-mapping" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+3. Click **Update** to save the changes.
+
+4. Open the `<IS_HOME>/repository/conf/deployment.toml` file.
+
+5. Add the following configuration to enable email authentication.
+
+    ```toml
+    [tenant_mgt]
+    enable_email_domain= true
+    ```
+
+6. Configure the following set of parameters in the userstore
+    configuration, depending on the type of userstore you are connected
+    to (LDAP/Active Directory/ JDBC).
+    <table>
+      <thead>
+        <tr>
+          <th>Parameter</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+
+            ` UserNameAttribute `
+
+            <br />
+
+          </td>
+          <td>
+
+            Set the mail attribute of the user. **LDAP/Active Directory only**
+
+            ```text
+            [user_store]user_name_attribute = "mail"
+            ```
+
+          </td>
+        </tr>
+        <tr>
+          <td>`UserNameSearchFilter`</td>
+          <td>
+
+            Use the mail attribute of the user instead of `cn` or `uid`. **LDAP/Active Directory only** <br />For example:
+
+            ```text
+             In LDAP,[user_store]user_name_search_filter = `"(&(objectClass=person)(mail=?))"`  In Active Directory, [user_store]user_name_search_filter = `"(&(objectClass=user)(mail=?))"`
+            ```
+
+          </td>
+        </tr>
+        <tr>
+          <td>`UserNameListFilter`</td>
+          <td>
+
+            Use the mail attribute of the user if necessary. **LDAP/Active Directory only** <br />For example:
+
+            ```text
+             In LDAP,[user_store]user_name_list_filter = `"(&(objectClass=person)(!(sn=Service)))"`  In Active Directory, [user_store]user_name_list_filter = `"(&(objectClass=user)(!(sn=Service)))"`
+            ```
+
+          </td>
+        </tr>
+        <tr>
+          <td>` UsernameWithEmailJavaScriptRegEx `</td>
+          <td>
+
+            Change this property that is under the relevant userstore manager tag as follows. This property validates usernames when email is used as the username and allows special characters like "@" in the username.
+
+            ```text
+            [user_store.properties]UsernameWithEmailJavaScriptRegEx = '^[a-zA-Z0-9_@.+-]{5,200}$'
+            ```
+
+          </td>
+        </tr>
+        <tr>
+          <td>` UsernameJavaRegEx `</td>
+          <td>
+
+            This is a regular expression to validate usernames. By default, strings have a length of 5 to 30. Only non-empty characters are allowed. You can provide ranges of alphabets, numbers and also ranges of ASCII values in the RegEx properties.
+
+            ```text
+            [user_store]username_java_regex = '^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}'
+            ```
+
+          </td>
+        </tr>
+        <tr>
+          <td>Realm configurations</td>
+          <td>
+
+            The username must use the email attribute of the admin user.
+
+            ```text
+            [super_admin]username = "admin@wso2.com"password = "admin"
+            ```
+
+            :::note
+            Before this configuration, the user having the username **admin** and password **admin** was considered the super administrator. The super administrator user cannot be deleted.
+
+            After this configuration, the user having the username **` admin@wso2.com `** is considered the super administrator. The user having the username admin is considered as a normal administrator.<br /> <img src={require("../../../../assets/self-hosted/img/guides/organization/attributes/super-admin.png").default} alt="super-admin" width="600" />
+            :::
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+7. Update the username claim mapping in the `<IS_HOME>/repository/conf/claim-config.xml` file.
+
+    :::warning[Important]
+    By default, the claim `http://wso2.org/claims/username` is mapped to the `uid` attribute in the userstore. When enabling email as username, this mapping must be changed to `mail` to ensure the username is correctly stored and retrieved from the userstore.
+
+    Without this change, the super admin's username will remain stored under the `uid` attribute instead of `mail`, which can cause issues.
+    :::
+
+    In the `<Dialect dialectURI="http://wso2.org/claims">` dialect, locate the `<Claim>` element with `ClaimURI` as `http://wso2.org/claims/username` and update the `AttributeID` from `uid` to `mail`:
+
+    ```xml
+    <Claim>
+        <ClaimURI>http://wso2.org/claims/username</ClaimURI>
+        <DisplayName>Username</DisplayName>
+        <AttributeID>mail</AttributeID>
+        <Description>Username</Description>
+        <SharedProfileValueResolvingMethod>FromOrigin</SharedProfileValueResolvingMethod>
+    </Claim>
+    ```
+
+8. Restart the server.

@@ -1,0 +1,93 @@
+---
+title: Cross-Origin Resource Sharing (CORS)
+description: Cross-Origin Resource Sharing (CORS) lets web services control which external origins can access their resources.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Cross-Origin resource sharing (CORS)
+sidebar_position: 4
+editions: self-hosted
+---
+
+Cross-Origin Resource Sharing (CORS) lets web services control which external origins can access their resources. {edition.productName} allows you to enforce CORS at the tenant level, ideal for connecting Single Page Applications (SPAs).
+
+:::tip[Before you begin: Enable tenant URL mode]
+{edition.productName} must be running in tenant URL mode for CORS to work. This means your URL should follow this format:
+
+```bash
+https://<IS_HOST>:<IS_PORT>/t/<TENANT_DOMAIN>/...
+```
+
+For example, for the default carbon super tenant, the URL should be:
+
+```bash
+https://localhost:9443/t/carbon.super/...
+```
+
+Tenant mode is enabled by default. If it’s disabled, enable it by editing the `<IS_HOME>/repository/conf/deployment.toml` file and adding the following configuration:
+
+```toml
+[tenant_context]
+enable_tenant_qualified_urls = true
+```
+:::
+
+## Configure CORS
+
+You can configure CORS in the following two ways:
+
+### During deployment
+
+You can configure CORS settings during server deployment from the `<IS_HOME>/repository/conf/deployment.toml` file. The following shows a sample configuration.
+
+```toml
+[cors]
+allow_generic_http_requests = true
+allow_any_origin = false
+allowed_origins = [
+    "http://wso2.is"
+]
+allow_subdomains = false
+supported_methods = [
+    "GET",
+    "POST",
+    "HEAD",
+    "OPTIONS"
+]
+support_any_header = true
+supported_headers = []
+exposed_headers = []
+supports_credentials = true
+max_age = 3600
+tag_requests = false
+```
+
+### Using REST APIs
+
+You can use the following REST APIs to view and configure CORS properties.
+
+:::note[Overriding server-level properties]
+REST APIs can override all the CORS properties defined at the server-level except for **Allowed CORS origins**.  The origins listed under this property at the server level are permanent. REST APIs can add new origins to it but can't restrict or remove server-level defined origins.
+:::
+
+- [Server Configuration API](../../reference/apis/configs-rest-api/index.mdx) - Allows overriding all server-level properties except for `Allowed CORS origins`.
+
+- [Application Management API](../../reference/apis/application-rest-api/index.mdx) - You can define the allowed CORS origins for your applications. Any origin allowed for a single application will be allowed for other applications under the same tenant.
+
+- [CORS API](../../reference/apis/cors-rest-api/index.mdx) allows you to view all the CORS origins configured per tenant and applications associated with a single origin.
+
+## Configurable properties
+
+Following are the configurable CORS properties.
+
+| Name | Description | Configuration |
+| --- | --- | --- |
+| Allow generic HTTP requests | When set to true, generic HTTP requests will be allowed to pass through to {edition.productName}. Otherwise, only valid and accepted CORS requests will be allowed. | allow_generic_http_requests |
+| Allow any origin | When set to true, the CORS valve allows requests from any origin to {edition.productName}. If false, only allows the whitelisted origins configured under `Allowed origins`. | allow_any_origin |
+| Allowed origins | A list of origins that will be allowed to make CORS requests to {edition.productName}. | allowed_origins |
+| Allow subdomains | When set to true, subdomains of the allowed CORS origins can make requests to {edition.productName}. | allow_subdomains |
+| Supported methods | List of supported HTTP methods. {edition.productName} responds with a HTTP 405 'Method not allowed' response for any methods not listed here. | supported_methods |
+| Support any header | If true, then CORS requests for any header will be supported while ignoring the 'Supported headers' property. | support_any_header |
+| Supported headers | If `Support any header` set to false, {edition.productName} only allows requests with headers listed here. | supported_headers |
+| Exposed headers | The non-simple response headers that the browser will expose to the requesting page in a cross-origin request. | exposed_headers |
+| Supports credentials | Whether to support user credentials, such as cookies, HTTP authentication or client-side certificates. | supports_credentials |
+| Max age | The duration (in seconds) that the browser can cache the preflight response. -1 means the cache duration is unspecified. | max_age |
+| Tag requests | Enables HTTP servlet request tagging to provide CORS information to downstream handlers. | tag_requests |

@@ -1,0 +1,2298 @@
+---
+title: Conditional authentication - API reference
+description: WSO2 Identity Platform provides a set of defined functions and objects to write your conditional authentication script.  # generated from the first paragraph; a writer should improve it
+type: reference
+sidebar_label: Conditional auth - API
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Edition only="cloud">
+
+{/* markdownlint-disable-file MD007 */}
+
+</Edition>
+
+{edition.productName} provides a set of defined functions and objects to write your conditional authentication script. They are grouped as follows:
+
+- [Core functions](#core-functions): These are the basic functions used in the script. These are used to identify the user who initiated the login flow, execute a step in the login flow, handle login failures, etc. Listed below are the core functions that can be used in conditional authentication scripts.
+
+    - [`onLoginRequest()`](#initial-login-request)
+    - [`executeStep()`](#execute-a-step)
+    - [`fail()`](#fail-the-login-flow)
+    - [`sendError()`](#redirect-to-error-code)
+
+<Variants>
+
+<Edition only="cloud">
+
+- [Utility functions](#utility-functions): These utility functions are used for specific scenarios. For example, checking whether the login user belongs to a specific user group. Listed below are the utility functions that can be used in conditional authentication scripts.
+
+    - [`isMemberOfAnyOfGroups()`](#check-group-membership)
+    - [`setCookie()`](#set-cookie)
+    - [`getCookieValue()`](#get-cookie-value)
+    - [`prompt()`](#prompt)
+    - [`getUserSessions()`](#get-user-sessions)
+    - [`terminateUserSession()`](#terminate-user-session)
+    - [`sendEmail()`](#send-email)
+    - [`callChoreo`](#call-a-wso2-developer-platform-api)
+    - [`getValueFromDecodedAssertion()`](#get-parameter-value-from-jwt)
+    - [`getUniqueUserWithClaimValues()`](#get-unique-user)
+    - [`getUsersWithClaimValues()`](#get-multiple-users)
+    - [`getAssociatedLocalUser()`](#get-associated-user)
+    - [`doAssociationWithLocalUser()`](#do-association-with-local-user)
+    - [`removeAssociatedLocalUser()`](#remove-associated-local-user)
+    - [`getMaskedValue()`](#get-masked-value)
+    - [`httpGet()`](#http-get)
+    - [`httpPost()`](#http-post)
+    - [`resolveMultiAttributeLoginIdentifier()`](#resolve-multi-attribute-login-identifier)
+    - [`updateUserPassword()`](#update-user-password)
+
+- [Object references](#object-reference): You can use objects to capture user behaviors and set attributes. For example, you can use the **user** and **request** objects and write the login conditions accordingly. Listed below are the object references that can be used in conditional authentication scripts.
+
+    - [`context`](#context)
+    - [`step`](#step)
+    - [`user`](#user)
+    - [`request`](#request)
+    - [`response`](#response)
+    - [`session`](#session)
+    - [`application`](#application)
+    - [`userAgent`](#user-agent)
+    - [`connectionMetadata`](#connectionmetadata)
+    - [`authConfig`](#authconfig)
+
+</Edition>
+
+<Edition only="self-hosted">
+
+- [Utility functions](#utility-functions): These utility functions are used for specific scenarios. For example, checking whether the login user belongs to a specific user group. Listed below are the utility functions that can be used in conditional authentication scripts.
+
+    - [`isMemberOfAnyOfGroups()`](#check-group-membership)
+    - [`hasAnyOfTheRolesV2()`](#has-any-of-the-roles)
+    - [`assignUserRolesV2()`](#assign-user-roles)
+    - [`removeUserRolesV2()`](#remove-user-roles)
+    - [`setCookie()`](#set-cookie)
+    - [`getCookieValue()`](#get-cookie-value)
+    - [`prompt()`](#prompt-for-user-input)
+    - [`getUserSessions()`](#get-user-sessions)
+    - [`terminateUserSession()`](#terminate-user-session)
+    - [`sendEmail()`](#send-email)
+    - [`getValueFromDecodedAssertion()`](#get-parameter-value-from-jwt)
+    - [`getUniqueUserWithClaimValues()`](#get-unique-user)
+    - [`getUsersWithClaimValues()`](#get-multiple-users)
+    - [`getAssociatedLocalUser()`](#get-associated-user)
+    - [`doAssociationWithLocalUser()`](#do-association-with-local-user)
+    - [`removeAssociatedLocalUser()`](#remove-associated-local-user)
+    - [`httpGet()`](#http-get)
+    - [`httpPost()`](#http-post)
+    - [`resolveMultiAttributeLoginIdentifier()`](#resolve-multi-attribute-login-identifier)
+    - [`updateUserPassword()`](#update-user-password)
+
+- [Object references](#object-reference): You can use objects to capture user behaviors and set attributes. For example, you can use the **user** and **request** objects and write the login conditions accordingly. Listed below are the object references that can be used in conditional authentication scripts.
+
+    - [`context`](#context)
+    - [`step`](#step)
+    - [`user`](#user)
+    - [`request`](#request)
+    - [`response`](#response)
+    - [`session`](#session)
+    - [`application`](#application)
+    - [`userAgent`](#user-agent)
+    - [`authConfig`](#authconfig)
+
+</Edition>
+
+</Variants>
+
+---
+
+## Core functions
+
+These are the basic functions that are required for defining the application login flow using an authentication script.
+
+### Initial login request
+
+`onLoginRequest()`
+
+This function is called when {edition.productName} receives the initial login request. It includes the parameters given below.
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`context`</td>
+          <td>The authentication context, which contains the context information about the request.</td>
+        </tr>
+      </tbody>
+    </table>
+
+<Variants>
+
+<Edition only="cloud">
+
+- **Example**
+
+    ```bash
+    onLoginRequest = function(context)
+    ```
+
+</Edition>
+
+<Edition only="self-hosted">
+
+- **Example**
+
+    ```bash
+    onLoginRequest(context)
+    ```
+
+</Edition>
+
+</Variants>
+
+### Execute a step
+
+`executeStep()`
+
+This function is called to execute an authentication step in the login flow. You need to [define your application's login flow](../../guides/authentication/index.mdx#design-the-login-flow) before using this function.
+
+This method accepts an object as a parameter and should include the details listed below.
+
+<Variants>
+
+<Edition only="cloud">
+
+<table>
+  <tbody>
+    <tr>
+      <td>`<stepId>`</td>
+      <td>(Mandatory) The step number in the login flow.</td>
+    </tr>
+    <tr>
+      <td>`<options>`</td>
+      <td>(Optional) A map that can configure step execution. Authentication option filtering is supported.<br /> For more information, see the example on **filtering connections in a step** given below.</td>
+    </tr>
+    <tr>
+      <td>`<eventCallbacks>`</td>
+      <td>(optional) The object that contains the callback functions, which are to be called based on the result of the step execution.<br /> Supported results are `onSuccess` and `onFail` which can have their own optional callbacks as anonymous functions. For these callbacks, the \[context\](#context) and \[data\](#data) parameters are passed.<br /> If the flow reaches the eventCallback stage and additional steps need to be executed, those steps should be included within the callback itself.</td>
+    </tr>
+  </tbody>
+</table>
+
+</Edition>
+
+<Edition only="self-hosted">
+
+<table>
+  <tbody>
+    <tr>
+      <td>`<stepId>`</td>
+      <td>(Mandatory) The step number in the login flow.</td>
+    </tr>
+    <tr>
+      <td>`<options>`</td>
+      <td>(Optional) A map that can configure step execution. Authentication option filtering is supported.<br /> For more information, see the example on **filtering connections in a step** given below.</td>
+    </tr>
+    <tr>
+      <td>`<eventCallbacks>`</td>
+      <td>(optional) The object that contains the callback functions, which are to be called based on the result of the step execution.<br /> Supported results are `onSuccess` and `onFail` which can have their own optional callbacks as anonymous functions. For these callbacks, the \[context\](#context) and \[data\](#data) parameters are passed.<br /> If the flow reaches the eventCallback stage and additional steps need to be executed, those steps should be included within the callback itself.</td>
+    </tr>
+  </tbody>
+</table>
+
+</Edition>
+
+</Variants>
+
+The following sample template shows how the above categorization can be used in a script.
+
+```javascript
+executeStep(<stepId>, 
+{
+  <options>:[
+    //The objects of the option
+  ]
+},
+{
+  <eventCallback>: function()> {
+    //eventCallback can be `onSuccess` or `onFail` 
+    //Define what should be done
+  }
+});
+```
+
+#### Parameters
+
+This section describes the **options** you can use to configure the `executeStep()` function, and the values you can use as **local authenticators** and **federated IdPs** in the function.
+
+- <b>Options</b>
+
+    You can use these options when executing an authentication step through the script. See the [examples](#examples) given below for details.
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`authenticationOptions`</td>
+          <td>List the authentication methods that will be prompted for this step.</td>
+        </tr>
+        <tr>
+          <td>`authenticationOptions.authenticator`</td>
+          <td>The name of the local authenticator used.</td>
+        </tr>
+        <tr>
+          <td>`authenticationOptions.idp`</td>
+          <td>The name of the federated identity provider used.</td>
+        </tr>
+        <tr>
+          <td>`authenticatorParams`</td>
+          <td>Pass the configuration for the step authenticators or identity providers.</td>
+        </tr>
+        <tr>
+          <td>`authenticatorParams.common`</td>
+          <td>Specify the common configurations for both local authenticators and federated identity providers.</td>
+        </tr>
+        <tr>
+          <td>`authenticatorParams.local.{authenticator-name}`</td>
+          <td>The name of the local authenticator used in the application. The configurations passed here will be available for that specific authenticator.</td>
+        </tr>
+        <tr>
+          <td>`authenticatorParams.local.{federated-identity-provider}`</td>
+          <td>The name of the federated identity provider used in the application. The configurations passed here will be available for that federated identity provider.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    :::note
+    `authenticatorParams` configure the authenticators that {edition.productName} provides. They are not sent to the external service of a [custom authenticator](../../guides/customizations/service-extensions/in-flow-extensions/custom-authentication.mdx). To pass values to such a service, list the request parameters you want to forward in **Allowed parameters** of the custom authenticator configuration.
+    :::
+
+<Variants>
+
+<Edition only="cloud">
+
+- <b> Connections: Local authenticators and federated IdPs </b>
+
+    When you want to access your configured [connections](../../guides/authentication/index.mdx#manage-connections) in an authentication step, you can use the following values through the **options** explained above.
+
+    See the example on **filtering connections in a step** given below for details.
+
+    The **local authenticators** are represented by the `authenticator` parameter. The table shows the connection names (as displayed on the {edition.productName} Console) and the corresponding authenticator name you can use in the scripts.
+
+    | Connection Name | Authenticator |
+    | --- | --- |
+    | Email OTP | email-otp-authenticator |
+    | Identifier First | IdentifierExecutor |
+    | Magic Link | MagicLinkAuthenticator |
+    | Security Key/Biometrics | FIDOAuthenticator |
+    | SMS OTP | sms-otp-authenticator |
+    | TOTP | totp |
+    | Username & Password | BasicAuthenticator |
+
+    The **external identity providers** are represented by the `idp` parameter. The federated connection names are generated based on the name you assign to the connection at registration.
+
+    :::tip[Example]
+    If you add a [federated google connection](../../guides/authentication/add-federated-login/social-login/add-google-login.mdx) with the name **bifrost google**, the value you can use in your authentication scripts is `bifrost_google`.
+    :::
+
+</Edition>
+
+<Edition only="self-hosted">
+
+- <b> Connections: Local authenticators and federated IdPs </b>
+
+    When you want to access your configured [connections](../../guides/authentication/index.mdx#manage-connections) in an authentication step, you can use the following values through the **options** explained above.
+
+    See the example on **filtering connections in a step** given below for details.
+
+    The **local authenticators** are represented by the `authenticator` parameter. The table shows the connection names (as displayed on the {edition.productName} Console) and the corresponding authenticator name you can use in the scripts.
+
+    | Connection Name | Authenticator |
+    | --- | --- |
+    | Email OTP | email-otp-authenticator |
+    | Identifier First | IdentifierExecutor |
+    | Magic Link | MagicLinkAuthenticator |
+    | Passkeys | FIDOAuthenticator |
+    | SMS OTP | sms-otp-authenticator |
+    | TOTP | totp |
+    | Username & Password | BasicAuthenticator |
+
+    The **external identity providers** are represented by the `idp` parameter. The federated connection names are generated based on the name you assign to the connection at registration.
+
+    :::tip[Example]
+    If you add a [federated google connection](../../guides/authentication/add-federated-login/social-login/add-google-login.mdx) with the name **bifrost google**, the value you can use in your authentication scripts is `bifrost_google`.
+    :::
+
+</Edition>
+
+</Variants>
+
+#### Examples
+
+Shown below are ways to define a login flow using the core functions.
+
+- <b>Example 1: Use `stepId`</b>
+
+    This example uses only the `stepId`.
+
+    ```javascript
+    executeStep(1)
+    ```
+
+- <b>Example 2: Use `stepId` and `eventCallbacks`</b>
+
+    This example uses only the `stepId` and `eventCallbacks`.
+
+    ```javascript
+    executeStep(1, {
+        onSuccess: function(context) {
+            //Do something on success
+        }
+    });
+    ```
+
+<Variants>
+
+<Edition only="cloud">
+
+- <b>Example 3: Use all parameters</b>
+
+    This example uses the `stepId`, `options`, and an empty `eventCallbacks` object. Different properties can be defined by the `options` object, such as `authenticationOptions` and `authenticatorParams`. However, you cannot write a script with only the `stepId` and `options`. See the following two examples:
+
+    ```javascript
+    executeStep(1, {
+        authenticationOptions:[{
+            authenticator: 'totp'
+        }]}, {}
+    );
+    ```
+
+    ```javascript
+    executeStep(1, {
+        authenticatorParams: {
+            local: {
+                email-otp-authenticator: {
+                      enableRetryFromAuthenticator: 'true'
+                }
+            }
+        }, {}
+    );
+    ```
+
+- <b>Example 4: Filter connections in a step</b>
+
+    The `authenticationOptions` array filters out connections (local authenticators and federated identity providers) of a step based on a condition.
+
+    This can be achieved by specifying an array named `authenticationOptions` to the `options` map.  You can have `idp` as an array item for federated connections and `authenticator` as an array item for local connections, as shown below.
+
+      ```javascript
+      executeStep(1,{
+        authenticationOptions:[{authenticator:'BasicAuthenticator'},{idp:'google'}]
+        },{
+            onSuccess: function (context) {
+                // Do something on success
+      };
+      ```
+
+</Edition>
+
+<Edition only="self-hosted">
+
+- <b>Example 3: Use all parameters</b>
+
+    This example uses the `stepId`, `options`, and an empty `eventCallbacks` object. Different properties can be
+    defined by the `options` object, such as `authenticationOptions`, `authenticatorParams` and `stepOptions`. However, you cannot write a script with only the `stepId` and `options`.
+
+    See the following examples:
+
+    ```javascript
+     executeStep(1, {
+        authenticationOptions:[{
+           authenticator: 'totp'
+        }]}, {}
+     );
+    ```
+
+    ```javascript
+    executeStep(1, {
+        authenticatorParams: {
+            local: {
+               email-otp-authenticator: {
+                    enableRetryFromAuthenticator: 'true'
+               }
+            }
+        }, {}
+    );
+    ```
+
+    ```javascript
+     executeStep(1, {
+         stepOptions: {
+             forceAuth: 'true'
+         }, {}
+     );
+    ```
+
+- <b>Example 4: Filter connections in a step</b>
+
+    The `authenticationOptions` array filters out connections (local authenticators and federated identity providers) of a step based on a condition.
+
+    This can be achieved by specifying an array named `authenticationOptions` to the `options` map.  You can have `idp` as an array item for federated connections and `authenticator` as an array item for local connections, as shown below.
+
+    ```javascript
+      executeStep(1,{
+        authenticationOptions:[{authenticator:'BasicAuthenticator'},{idp:'google'}]
+        },{
+            onSuccess: function (context) {
+                // Do something on success
+      };
+    ```
+
+- <b>Example 5: Force authentication with `stepOptions`</b>
+
+     The `stepOptions` is an optional property that can be defined in the `executeStep`. This allows the addition of
+     the `forceAuth` authentication option, which can prompt the authenticator in the steps to re-authenticate, even
+     if it was already authenticated.
+
+    ```javascript
+      executeStep(1,{
+         stepOptions: {
+            forceAuth: 'true'
+        }, {}
+      };
+    ```
+
+</Edition>
+
+</Variants>
+
+### Fail the login flow
+
+`fail()`  
+
+This function redirects the user to the redirect URI provided in the authorization request when the login flow fails.
+
+This function takes a map as an optional parameter. When a map is provided as the parameter, the redirect URL will be
+appended with the following properties (which should be contained in the map). Otherwise, the default parameters are
+passed. All the properties passed in the map are also optional.
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`errorCode`</td>
+          <td>The error code to be appended in the redirect URL.</td>
+        </tr>
+        <tr>
+          <td>`errorMessage`</td>
+          <td>The error message to be appended in the redirect URL.</td>
+        </tr>
+        <tr>
+          <td>`errorURI`</td>
+          <td>The URI of a web page that includes additional information about the error.</td>
+        </tr>
+      </tbody>
+    </table>
+
+- **Example**
+
+    ```javascript
+    var parameterMap = {'errorCode': 'access_denied', 'errorMessage': 'login could not be completed', "errorURI":'http://www.example.com/error'};
+    if (!isAuthenticated) {
+        fail(parameterMap);
+    }
+    ```
+
+### Redirect to error code
+
+`sendError()`
+
+<Variants>
+
+<Edition only="cloud">
+
+This function redirects the user to an error page.
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`url`</td>
+          <td>The URL of the error page that the user is redirected to. If the value is null, the user is redirected by default to the **retry.do** error page.<br /> Note that any relative URL is assumed to be relative to the host's root.</td>
+        </tr>
+        <tr>
+          <td>`parameters`</td>
+          <td>Key value map passed as parameters. These are converted to query parameters in the URL.</td>
+        </tr>
+      </tbody>
+    </table>
+
+- **Example**
+
+    It is recommended to use an i18n key to describe the error messages so that they can be internationalized easily on the error page.
+
+    ```javascript
+    var user = context.steps[1].subject;
+    var isAdmin = hasRole(user, 'admin');
+    if (!isAdmin) {
+        sendError('http://www.example.com/error',{'status':'000403','statusMsg':'You are not allowed to login to this app.', 'i18nkey':'not.allowed.error'});
+    }
+    ```
+
+</Edition>
+
+<Edition only="self-hosted">
+
+This function redirects the user to an error page. It includes the parameters listed below.
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td style={{whiteSpace: "nowrap"}}>`url`</td>
+          <td>The URL of the error page that the user is redirected to. If the value is null, the user is redirected by default to the **retry.do** error page.<br /> Note that any relative URL is assumed to be relative to the host's root.</td>
+        </tr>
+        <tr>
+          <td>`parameters`</td>
+          <td>Key value map passed as parameters. These are converted to query parameters in the URL.</td>
+        </tr>
+      </tbody>
+    </table>
+
+- **Example**
+
+    It is recommended to use an i18n key to describe the error messages so that they can be internationalized easily on the error page.
+
+    ```javascript
+    var isAdmin = hasAnyOfTheRolesV2(context, ['admin']);
+    if (!isAdmin) {
+        sendError('http://www.example.com/error',{'status':'000403','statusMsg':'You are not allowed to login to this app.', 'i18nkey':'not.allowed.error'});
+    }
+    ```
+
+</Edition>
+
+</Variants>
+
+## Utility functions
+
+The implementation of utility functions can be found in the [WSO2 extensions code repository](https://github.com/wso2-extensions/identity-conditional-auth-functions).
+
+### Check group membership
+
+`isMemberOfAnyOfGroups()`
+
+<Variants>
+
+<Edition only="cloud">
+
+This function returns `true` if the specified user belongs to at least one of the given groups, and returns `false` if the user does not.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+This function returns `true` if the specified user belongs to at least one of the given groups, and returns `false` if the user does not. It includes the parameters listed below.
+
+</Edition>
+
+</Variants>
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`user`</td>
+          <td>A user object representing the user details.</td>
+        </tr>
+        <tr>
+          <td>`groups`</td>
+          <td>A list of strings that contain the groups. Each string is a group name.</td>
+        </tr>
+      </tbody>
+    </table>
+
+- **Example**
+
+    ```javascript
+    var groups = ['admin', 'manager'];
+    var user = context.steps[1].subject;
+    var isMember = isMemberOfAnyOfGroups(user, groups);
+    if (isMember) {
+        executeStep(2);
+    }
+    ```
+
+<Edition only="self-hosted">
+
+### Has Any Of The Roles
+
+`hasAnyOfTheRolesV2()`
+
+This function checks if the given user has at least one of the given roles(v2). It returns `true` if the user has at least one of the given roles and returns `false` for any other case.
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`context`</td>
+          <td>The authentication context, which contains the context information about the request.</td>
+        </tr>
+        <tr>
+          <td>`roleNames`</td>
+          <td>A list of strings that contains roles that needs to be checked where each string is a role name.</td>
+        </tr>
+      </tbody>
+    </table>
+
+- **Example**
+
+    ```javascript
+    var rolesToStepUp = ['admin', 'manager'];
+    var hasRole = hasAnyOfTheRolesV2(context, rolesToStepUp);
+    if (hasRole) {
+        executeStep(2);
+    }
+    ```
+
+### Assign User Roles
+
+`assignUserRolesV2()`
+
+This function assigns each of the roles(v2) specified in the `roleListToAssign` parameter for a given user. It returns `true` if all the roles(v2) are successfully assigned and returns `false` if not.
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`context`</td>
+          <td>The authentication context, which contains the context information about the request.</td>
+        </tr>
+        <tr>
+          <td>`roleListToAssign`</td>
+          <td>A list of strings containing roles that are to be assigned where each string is a role name.</td>
+        </tr>
+      </tbody>
+    </table>
+
+- **Example**
+
+    ```javascript
+    executeStep(1, {
+        onSuccess: function (context) {
+            assignUserRolesV2(context, ['exampleRole1', 'exampleRole2']);
+        }
+    });
+    ```
+
+### Remove User Roles
+
+`removeUserRolesV2()`
+
+This function removes each of the roles(v2) specified in the `roleListToAssign` parameter to the given user. It returns `true` if all the roles(v2) are successfully removed and returns `false` if not.
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`context`</td>
+          <td>The authentication context, which contains the context information about the request.</td>
+        </tr>
+        <tr>
+          <td>`roleListToRemove`</td>
+          <td>A list of strings that contains roles that are to be removed where each string is a role name.</td>
+        </tr>
+      </tbody>
+    </table>
+
+- **Example**
+
+    ```javascript
+    executeStep(1, {
+        onSuccess: function (context) {
+            removeUserRolesV2(context, ['exampleRole1', 'exampleRole2']);
+        }
+    });
+    ```
+
+</Edition>
+
+### Set cookie
+
+`setCookie(response, name, value, properties)`
+
+<Variants>
+
+<Edition only="cloud">
+
+This function sets a new cookie.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+This function sets a new cookie. It includes the parameters listed below.
+
+</Edition>
+
+</Variants>
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`response`</td>
+          <td>The HTTP response.</td>
+        </tr>
+        <tr>
+          <td>`name`</td>
+          <td>Name of the cookie.</td>
+        </tr>
+        <tr>
+          <td>`value`</td>
+          <td>Value of the cookie.</td>
+        </tr>
+        <tr>
+          <td>`properties`</td>
+          <td>
+
+            A map that may contain optional attributes of the cookie with the two custom attributes given below.
+
+            - `sign`: The default value is `false`. If it is set to true, the value will be signed.
+            - `encrypt`: The default value is `false`. If it is set to true, the value will be encrypted.
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+- **Example**
+
+    The size of the value has to be less than the RSA key pair length if '`encrypt`' is enabled (set to true).
+
+    ```javascript
+    setCookie(context.response, "name", "test", {"max-age" : 4000,
+                                                "path" : "/",
+                                                "domain" : "localhost",
+                                                "httpOnly" : true,
+                                                "secure" : true,
+                                                'sameSite': 'LAX',
+                                                "version" : 1,
+                                                "comment" : "some comments",
+                                                "encrypt" : true,
+                                                "sign" : true})
+    ```
+
+### Get cookie value
+
+`getCookieValue(request, name, properties)`
+
+<Variants>
+
+<Edition only="cloud">
+
+This function gets the plain-text cookie value for the cookie name if it is present.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+This function gets the plain-text cookie value for the cookie name if it is present. It includes the parameters listed below.
+
+</Edition>
+
+</Variants>
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`request`</td>
+          <td>HTTP authentication request.</td>
+        </tr>
+        <tr>
+          <td>`name`</td>
+          <td>Name of the cookie.</td>
+        </tr>
+        <tr>
+          <td>`properties`</td>
+          <td>
+
+            A map that may contain optional attributes of the cookie:
+
+            - `decrypt`: The default value is `false`. If it is set to `true`, the value will be decrypted.
+            - `validateSignature`: The default value is `false`. If it is set to `true`, the signature will be validated before returning a response.
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+- **Example**
+
+    ```javascript
+    getCookieValue(context.request,"name", {"decrypt" : true,"validateSignature" : true })
+    ```
+
+<Variants>
+
+<Edition only="cloud">
+
+### Prompt
+
+`prompt(templateId, data, eventHandlers)`
+
+This function prompts the user for different interactions.
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`templateId`</td>
+          <td>Identifier of the template that needs to be prompted.</td>
+        </tr>
+        <tr>
+          <td>`data`</td>
+          <td>The data associated with the template to be sent in the prompt.</td>
+        </tr>
+        <tr>
+          <td>`eventHandlers`</td>
+          <td>The callback event handlers.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    The following table contains the supported templates and the associated data.
+        <table>
+          <thead>
+            <tr>
+              <th>Template Id</th>
+              <th>Description</th>
+              <th>Data</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>genericForm</td>
+              <td>Prompt for generic user input.</td>
+              <td>
+
+                - `username`: Username that will be used in a greeting
+                - `inputs`: A list of input field objects in the form. For example: `{id: “”, label: “”}`
+
+              </td>
+            </tr>
+            <tr>
+              <td>externalRedirect</td>
+              <td>Redirect users to an external static page.</td>
+              <td>
+
+                - `redirectURL`: The external URL to redirect the user.
+
+              </td>
+            </tr>
+            <tr>
+              <td>internalWait</td>
+              <td>Keep a user waiting for a predefined fixed time or until a status is completed.</td>
+              <td>
+
+                - `waitingType`: Waiting method. Can be one of `FIXED_DELAY` or `POLLING`. Default waitingType is `FIXED_DELAY`.
+
+                - `waitingConfigs`: Waiting page configurations.
+
+                  - `greeting`: An optional greeting. Default text is `Just a moment...`
+                  - `message`: An optional message. Default text is `We are setting things up for you.`.
+                  - `timeout`: Optional timeout period in seconds. Default timeout is 10 seconds and max timeout is 20 seconds.
+                  - `waitingType`
+                  - `POLLING`
+                  - - `pollingEndpoint`: REST endpoint to poll a status.
+                    - `pollingInterval`: Time internal in seconds to poll the polling endpoint. Default value is \`2\` seconds.
+                    - `requestMethod`: Polling request method. Can be one of `GET` or `POST`. Default value is `GET`.
+                    - `contentType`: Content type of the polling request. Default value is `application/x-www-form-urlencoded`.
+                    - `requestData`: Data to be sent to the polling endpoint. Can specify a string or an object. If the HTTP method is `GET`, the data will be appended to the URL.
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+- **Examples**
+
+<Tabs groupId="tabs">
+<TabItem value="genericform" label="genericForm">
+
+```javascript
+var onLoginRequest = function(context) {
+  executeStep(1, {
+      onSuccess: function (context) {
+          var username = context.steps[1].subject.username;
+          prompt("genericForm", {"username":username, "inputs":[{"id":"fname","label":"First Name"},{"id":"lname","label":"Last Name"}]}, {
+            onSuccess : function(context) {
+                var fname = context.request.params.fname[0];
+                var lname = context.request.params.lname[0];
+                Log.info(fname);
+                Log.info(lname);
+            }
+          });
+      }
+  });
+}
+```
+
+</TabItem>
+<TabItem value="externalredirect" label="externalRedirect">
+
+```javascript
+var onLoginRequest = function(context) {
+  executeStep(1, {
+    onSuccess: function (context) {
+      prompt("externalRedirect", {
+      "redirectURL": "{EXTERNAL_URL}"}, {
+        onSuccess : function(context) {
+          Log.info("Successfully redirected back from the external page");
+          },
+        onFail: function(context, data) {
+          Log.info("Error occurred during the prompt.");
+        } 
+      });
+     }
+  });
+}
+```
+
+</TabItem>
+<TabItem value="internalwait" label="internalWait">
+
+```javascript
+var onLoginRequest = function(context) {
+  executeStep(1, {
+    onSuccess: function (context) {
+      prompt("internalWait", {
+        "waitingType": "POLLING",
+        "waitingConfigs": {
+          "pollingEndpoint": "<POLLING_ENDPOINT>",
+          "requestData": "contextId=1234",
+          "pollingInterval": "2",
+          "timeout": "10"
+        }
+      }, {
+        onSuccess: function (context) {
+          Log.info("Successfully redirected back from waiting page.");
+        },
+        onFail: function (context, data) {
+          Log.info("Error occurred during the prompt.");
+        }
+      });
+    }
+  });
+}
+```
+
+</TabItem>
+</Tabs>
+
+</Edition>
+
+<Edition only="self-hosted">
+
+### Prompt for user input
+
+`prompt()`
+
+This function prompts user input. It includes the parameters listed below.
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`templateId`</td>
+          <td>Identifier of the template that needs to be prompted.</td>
+        </tr>
+        <tr>
+          <td>`data`</td>
+          <td>The data to send to the prompt.</td>
+        </tr>
+        <tr>
+          <td>`eventHandlers`</td>
+          <td>The callback event handlers.</td>
+        </tr>
+      </tbody>
+    </table>
+
+- **Example**
+
+    ```javascript
+    var onLoginRequest = function(context) {
+      executeStep(1, {
+          onSuccess: function (context) {
+              var username = context.steps[1].subject.username;
+              prompt("genericForm", {"username":username, "inputs":[{"id":"fname","label":"First Name"},{"id":"lname","label":"Last Name"}]}, {
+                onSuccess : function(context) {
+                    var fname = context.request.params.fname[0];
+                    var lname = context.request.params.lname[0];
+                    Log.info(fname);
+                    Log.info(lname);
+                }
+              });
+          }
+      });
+    }
+    ```
+
+</Edition>
+
+</Variants>
+
+### Get user sessions
+
+`getUserSessions()`
+
+<Variants>
+
+<Edition only="cloud">
+
+This function returns a session object  (i.e., all the active user sessions of the specified user or an empty
+array if there are no sessions).
+
+</Edition>
+
+<Edition only="self-hosted">
+
+This function returns a session object  (i.e., all the active user sessions of the specified user or an empty
+array if there are no sessions). It includes the parameters listed below.
+
+</Edition>
+
+</Variants>
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`user`</td>
+          <td>This is a user object that represents the user details.</td>
+        </tr>
+      </tbody>
+    </table>
+
+- **Example**
+
+    ```javascript
+    var user = context.currentKnownSubject;
+    var sessions = getUserSessions(user);
+    for (var key in sessions) {
+        Log.info("Session ID: " + sessions[key].id);
+    }
+    ```
+
+### Terminate user session
+
+`terminateUserSession()`
+
+<Variants>
+
+<Edition only="cloud">
+
+This function returns a session object (i.e., all the active user sessions of the specified user or an empty
+array if there are no sessions).
+
+</Edition>
+
+<Edition only="self-hosted">
+
+This function returns a session object (i.e., all the active user sessions of the specified user or an empty
+array if there are no sessions). It includes the parameters listed below.
+
+</Edition>
+
+</Variants>
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`user`</td>
+          <td>This is a user object that represents the user details.</td>
+        </tr>
+        <tr>
+          <td>`sessionId`</td>
+          <td>This is the `sessionId` string of the session that needs to be terminated.</td>
+        </tr>
+      </tbody>
+    </table>
+
+- **Example**
+
+    ```javascript
+    var user = context.currentKnownSubject;
+    var sessions = getUserSessions(user);
+    if (sessions.length > 0) {
+        var result = terminateUserSession(user, sessions[0].id);
+        Log.info("Terminate Operation Successful?: " + result);
+    }
+    ```
+
+### Send email
+
+`sendEmail()`
+
+<Variants>
+
+<Edition only="cloud">
+
+This function sends an email to the specified user.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+This function sends an email to the specified user. It includes the parameters listed below.
+
+</Edition>
+
+</Variants>
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`user`</td>
+          <td>An object representing the user details.</td>
+        </tr>
+        <tr>
+          <td>`templateId`</td>
+          <td>Identifier of the email template. The email template specifies the body of the email that is sent out.</td>
+        </tr>
+        <tr>
+          <td>`placeholderParameters`</td>
+          <td>Used to replace any placeholders in the template.</td>
+        </tr>
+      </tbody>
+    </table>
+
+- **Example**
+
+    ```javascript
+    var user = context.steps[1].subject;
+    var firstName = user.localClaims['http://wso2.org/claims/givenname'];
+    sendEmail(user, 'myTemplate', {'firstName':firstName});
+    ```
+
+<Edition only="cloud">
+
+### Call a WSO2 Developer Platform API
+
+This function invokes an API hosted in [WSO2 Developer Platform](https://wso2.com/engineering-platform/developer-platform/).
+
+:::note[Important]
+Note that to use the `callChoreo` function, the API should,
+
+- contain an endpoint that accepts `POST` requests.
+- return a status code of `2xx`.
+:::
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`connectionMetadata`</td>
+          <td>An object containing the necessary metadata to invoke the API. . See \[ConnectionMetadata\](#connectionmetadata) for more information.</td>
+        </tr>
+        <tr>
+          <td>`payloadData`</td>
+          <td>An object representing the payload that needs to be sent in the API request body.</td>
+        </tr>
+        <tr>
+          <td>`eventHandlers`</td>
+          <td>An object that contains the callback functions, which are to be called based on the result of API invocation. <br /> Supported results are `onSuccess`, `onFail`, and `onTimeout`.</td>
+        </tr>
+      </tbody>
+    </table>
+
+- **Example**
+
+    ```javascript
+    var connectionMetadata = {
+    "url": "<CWSO2 Developer Platform API URL>",
+    "consumerKey": "<Consumer key of the WSO2 Developer Platform Application>",
+    "consumerSecret": "<Consumer secret of the WSO2 Developer Platform Application>"
+    };
+
+    var requestPayload = {"example-key": "example-value"};
+
+    callChoreo(connectionMetadata, requestPayload, {
+      onSuccess: function(context, data) {
+          Log.info("Successfully invoked the WSO2 Developer Platform API.");
+      },
+      onFail: function(context, data) {
+          Log.info("Error occurred while invoking the WSO2 Developer Platform API.");
+      },
+      onTimeout: function(context, data) {
+          Log.info("Invoking WSO2 Developer Platform API timed out.");
+      }
+    });
+    ```
+
+    <details>
+    <summary>Using {edition.productName} as the key manager</summary>
+
+    If you are using {edition.productName} as the key manager in your WSO2 Developer Platform organization, append  the `asgardeoTokenEndpoint` parameter to the `connectionMetadata` variable as follows:
+        ```javascript
+        var connectionMetadata = {
+          "asgardeoTokenEndpoint": "{{ product_url_format }}/oauth2/token"
+        };
+        ```
+
+    </details>
+
+</Edition>
+
+### Get parameter value from JWT
+
+`getValueFromDecodedAssertion(jwt, parameterName, isParameterInPayload)`
+
+This function returns a string containing the parameter's value in a decoded Json Web Token (JWT). It includes the following parameters:
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`jwt`</td>
+          <td>The JWT to be decoded.</td>
+        </tr>
+        <tr>
+          <td>`parameterName`</td>
+          <td>The name of the parameter in the JWT for which the value should be retrieved.</td>
+        </tr>
+        <tr>
+          <td>`isParameterInPayload`</td>
+          <td>Indicates whether the parameter to be retrieved is in the JWT header or body. <br /> Value should be `true` if the parameter to be retrieved is in the body.</td>
+        </tr>
+      </tbody>
+    </table>
+
+- **Example**
+
+    ```javascript
+    var state = getValueFromDecodedAssertion(context.request.params.request[0],"state",true);
+    ```
+
+<Variants>
+
+<Edition only="cloud">
+
+:::note
+This function only decodes the JWT - it does not verify the signature, issuer, audience, or expiry.
+:::
+
+</Edition>
+
+<Edition only="self-hosted">
+
+:::note
+This function only decodes the JWT — it does not verify the signature, issuer, audience, or expiry.
+:::
+
+</Edition>
+
+</Variants>
+
+### Get unique user
+
+`getUniqueUserWithClaimValues(claimMap, context)`
+
+The utility function will search the underlying user stores and return a unique user with the claim values. The claim map consists of the claim and value.
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`claimMap`</td>
+          <td>A map that contains the claim URI and claim value.</td>
+        </tr>
+        <tr>
+          <td>`context`</td>
+          <td>The authentication context, which contains the context information about the request.</td>
+        </tr>
+      </tbody>
+    </table>
+
+<Variants>
+
+<Edition only="cloud">
+
+- **Example**
+
+    ```javascript
+    var claimMap = {};
+    claimMap[MAPPED_FEDERATED_USER_NAME_CLAIM] = federatedUserName;
+    claimMap[MAPPED_FEDERATED_IDP_NAME_CLAIM] = idpName;
+    var mappedUsername = getUniqueUserWithClaimValues(claimMap, context);
+    ```
+
+</Edition>
+
+<Edition only="self-hosted">
+
+- **Example**
+
+    ```javascript
+    var claimMap = {};
+    claimMap["http://wso2.org/claims/username"] = federatedUserName;
+    var mappedUsername = getUniqueUserWithClaimValues(claimMap, context);
+    ```
+
+</Edition>
+
+</Variants>
+
+### Get multiple users
+
+`getUsersWithClaimValues(claimMap, context)`
+
+This function will search the underlying user stores and return a list of users with the expected claim values. The claim map consists of the claim and value.
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`claimMap`</td>
+          <td>A map that contains the claim URI and claim value.</td>
+        </tr>
+        <tr>
+          <td>`context`</td>
+          <td>The authentication context, which contains the context information about the request.</td>
+        </tr>
+      </tbody>
+    </table>
+
+- **Example**
+
+    ```javascript
+    var claimMap = {};
+    claimMap["http://wso2.org/claims/mobile"] = "1234567890";
+    var usersList = getUsersWithClaimValues(claimMap, context);
+    for (var key in usersList) {
+        var userObj = userList[key];
+        Log.info("Username: " + userObj.username):
+    }
+    ```
+
+### Get associated user
+
+`getAssociatedLocalUser(federatedUser)`
+
+This function returns the local user associated with the federate username given as input.
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`federatedUser`</td>
+          <td>The federated user object.</td>
+        </tr>
+      </tbody>
+    </table>
+
+### Do association with local user
+
+`doAssociationWithLocalUser(federatedUser, localUsername, tenantDomain, userStoreDomain)`
+
+This function sets association to the local user with federated user. It includes the following parameters.
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`federatedUser`</td>
+          <td>The federated user object.</td>
+        </tr>
+        <tr>
+          <td>`localUsername`</td>
+          <td>The username of the local user to be associated.</td>
+        </tr>
+        <tr>
+          <td>`tenantDomain`</td>
+          <td>The tenant domain of the local user.</td>
+        </tr>
+        <tr>
+          <td>`userStoreDomain`</td>
+          <td>The user store domain of the local user.</td>
+        </tr>
+      </tbody>
+    </table>
+
+### Remove associated local user
+
+`removeAssociatedLocalUser(federatedUser)`
+
+This function removes the existing association of a federated user with the local user.
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`federatedUser`</td>
+          <td>The federated user object.</td>
+        </tr>
+      </tbody>
+    </table>
+
+<Variants>
+
+<Edition only="cloud">
+
+- **Example**
+
+    ```javascript
+    var federatedUser = context.steps[1].subject;
+    removeAssociatedLocalUser(federatedUser)
+    ```
+
+### Get masked value
+
+`getMaskedValue(value)`
+
+This utility function returns a masked value for the given input value. It can be used to mask sensitive content in logs.
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`value`</td>
+          <td>Value needs to be masked.</td>
+        </tr>
+      </tbody>
+    </table>
+
+- **Example**
+
+  If there is a requirement to add logs containing sensitive information (such as PII), those can be masked using this function as follows.
+
+  ```javascript
+  var email = context.currentKnownSubject.username;
+  Log.info("Email of the logged user : " + getMaskedValue(email));
+  ```
+
+</Edition>
+
+<Edition only="self-hosted">
+
+- **Example**
+
+    ```javascript
+    var federatedUser = context.steps[1].subject;
+    removeAssociatedLocalUser(federatedUser);
+    ```
+
+</Edition>
+
+</Variants>
+
+### HTTP GET
+
+`httpGet(url, headers, authConfig, eventHandlers)`
+
+<Variants>
+
+<Edition only="cloud">
+
+The HTTP GET function enables sending HTTP GET requests to specified endpoints as part of the adaptive authentication scripts in WSO2 Identity Platform. It's commonly used to interact with external systems or APIs to retrieve necessary data for authentication decisions.
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td style={{whiteSpace: "nowrap"}}>`url`</td>
+          <td>The URL of the endpoint to which the HTTP GET request should be sent.</td>
+        </tr>
+        <tr>
+          <td style={{whiteSpace: "nowrap"}}>`headers`</td>
+          <td>HTTP request headers to be included in the GET request (optional).</td>
+        </tr>
+        <tr>
+          <td style={{whiteSpace: "nowrap"}}>`authConfig`</td>
+          <td>An object containing the necessary authentication metadata to invoke the API. See \[AuthConfig\](#authconfig) for information.</td>
+        </tr>
+        <tr>
+          <td style={{whiteSpace: "nowrap"}}>`eventHandlers`</td>
+          <td>The object that contains the callback functions, which are to be called based on the result of the GET request.<br /> Supported results are `onSuccess` and `onFail`, which can have their own optional callbacks as anonymous functions.</td>
+        </tr>
+      </tbody>
+    </table>
+
+- **Example**
+
+    ```javascript
+    var authConfig = {
+        type: "basic",
+        properties: {
+            username: "admin",
+            password: "adminPassword"
+        }
+    };
+
+    var onLoginRequest = function(context) {
+        httpGet('https://example.com/resource', {
+            "Accept": "application/json"
+        }, authConfig, {
+            onSuccess: function(context, data) {
+                Log.info("Successfully invoked the external API.");
+                context.selectedAcr = data.status;
+                executeStep(1);
+            },
+            onFail: function(context, data) {
+                Log.info("Error occurred while invoking the external API.");
+                context.selectedAcr = 'FAILED';
+                executeStep(2);
+            },
+            onTimeout: function(context, data) {
+                Log.info("Invoking external API timed out.");
+                executeStep(2);
+            }
+        });
+    }
+    ```
+
+</Edition>
+
+<Edition only="self-hosted">
+
+The HTTP GET function enables sending HTTP GET requests to specified endpoints as part of the adaptive authentication scripts in WSO2 Identity Server. It's commonly used to interact with external systems or APIs to retrieve necessary data for authentication decisions.
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`url`</td>
+          <td>The URL of the endpoint to which the HTTP GET request should be sent.</td>
+        </tr>
+        <tr>
+          <td style={{whiteSpace: "nowrap"}}>`headers`</td>
+          <td>HTTP request headers to be included in the GET request (optional).</td>
+        </tr>
+        <tr>
+          <td style={{whiteSpace: "nowrap"}}>`authConfig`</td>
+          <td>An object containing the necessary authentication metadata to invoke the API. See \[AuthConfig\](#authconfig) for information.</td>
+        </tr>
+        <tr>
+          <td style={{whiteSpace: "nowrap"}}>`eventHandlers`</td>
+          <td>The object that contains the callback functions, which are to be called based on the result of the GET request.<br /> Supported results are `onSuccess` and `onFail`, which can have their own optional callbacks as anonymous functions.</td>
+        </tr>
+      </tbody>
+    </table>
+
+  - **Example**
+
+  ```javascript
+      var authConfig = {
+          type: "basic",
+          properties: {
+              username: "admin",
+              password: "adminPassword"
+          }
+      };
+
+      var onLoginRequest = function(context) {
+          httpGet('https://example.com/resource', {
+              "Accept": "application/json"
+          }, authConfig, {
+              onSuccess: function(context, data) {
+                  Log.info('httpGet call succeeded');
+                  context.selectedAcr = data.status;
+                  executeStep(1);
+              },
+              onFail: function(context, data) {
+                  Log.info('httpGet call failed');
+                  context.selectedAcr = 'FAILED';
+                  executeStep(2);
+              }
+          });
+      }
+  ```
+
+</Edition>
+
+</Variants>
+
+### HTTP POST
+
+`httpPost(url, body, headers, authConfig, eventHandlers)`
+
+<Variants>
+
+<Edition only="cloud">
+
+The HTTP POST function enables sending HTTP POST requests to specified endpoints as part of the adaptive authentication scripts in WSO2 Identity Platform. It's commonly used to interact with external systems or APIs to retrieve necessary data for authentication decisions.
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td style={{whiteSpace: "nowrap"}}>`url`</td>
+          <td>The URL of the endpoint to which the HTTP POST request should be sent.</td>
+        </tr>
+        <tr>
+          <td style={{whiteSpace: "nowrap"}}>`body`</td>
+          <td>HTTP request body to be included in the POST request.</td>
+        </tr>
+        <tr>
+          <td style={{whiteSpace: "nowrap"}}>`headers`</td>
+          <td>HTTP request headers to be included in the POST request (optional).</td>
+        </tr>
+        <tr>
+          <td style={{whiteSpace: "nowrap"}}>`authConfig`</td>
+          <td>An object containing the necessary authentication metadata to invoke the API. See \[AuthConfig\](#authconfig) for more information.</td>
+        </tr>
+        <tr>
+          <td style={{whiteSpace: "nowrap"}}>`eventHandlers`</td>
+          <td>The object that contains the callback functions, which are to be called based on the result of the GET request.<br /> Supported results are `onSuccess`, `onFail` and `onTimeout` which can have their own optional callbacks as anonymous functions. For these callbacks, the \[context\](#context) and \[data\](#data) parameters are passed.</td>
+        </tr>
+      </tbody>
+    </table>
+
+- **Example**
+
+    ```javascript
+    var authConfig = {
+        type: "clientcredential",
+        properties: {
+            consumerKey: "clientId",
+            consumerSecret: "clientSecret",
+            tokenEndpoint: "https://token-endpoint.com/token"
+        }
+    };
+
+    var onLoginRequest = function(context) {
+        httpPost('https://example.com/resource', {
+            "email": "test@wso2.com"
+        }, {
+            "Authorization": "Bearer token",
+            "Accept": "application/json"
+        }, authConfig, {
+            onSuccess: function(context, data) {
+                Log.info("Successfully invoked the external API.");
+                context.selectedAcr = data.status;
+                executeStep(1);
+            },
+            onFail: function(context, data) {
+                Log.info("Error occurred while invoking the external API.");
+                context.selectedAcr = 'FAILED';
+                executeStep(2);
+            },
+            onTimeout: function(context, data) {
+                Log.info("Invoking external API timed out.");
+                executeStep(2);
+            }
+        });
+    }
+    ```
+
+:::note
+WSO2 Identity Platform uses the following default connection configurations for `httpPost` requests:
+
+| Configuration | Description | Default Value |
+| --- | --- | --- |
+| **Connection timeout** | The maximum time (in milliseconds) to wait when establishing a connection to an external service. | 3000 ms |
+| **Read (socket) timeout** | The maximum time (in milliseconds) to wait for a response from an external service. | 3000 ms |
+| **Connection request timeout** | The maximum time (in milliseconds) to wait to obtain a connection from the connection pool. | 1000 ms |
+| **Retry count** | The number of retry attempts for requests. | 2 |
+:::
+
+</Edition>
+
+<Edition only="self-hosted">
+
+The HTTP POST function enables sending HTTP POST requests to specified endpoints as part of the adaptive authentication scripts in WSO2 Identity Server. It's commonly used to interact with external systems or APIs to retrieve necessary data for authentication decisions.
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`url`</td>
+          <td>The URL of the endpoint to which the HTTP POST request should be sent.</td>
+        </tr>
+        <tr>
+          <td>`body`</td>
+          <td>HTTP request body to be included in the POST request.</td>
+        </tr>
+        <tr>
+          <td>`headers`</td>
+          <td>HTTP request headers to be included in the POST request (optional).</td>
+        </tr>
+        <tr>
+          <td>`authConfig`</td>
+          <td>Authentication configuration to be included in the GET request (optional).</td>
+        </tr>
+        <tr>
+          <td>`eventHandlers`</td>
+          <td>The object that contains the callback functions, which are to be called based on the result of the GET request.<br /> Supported results are `onSuccess` and `onFail`, which can have their own optional callbacks as anonymous functions.</td>
+        </tr>
+      </tbody>
+    </table>
+
+- **Example**
+
+    ```javascript
+    var authConfig = {
+        type: "clientcredential",
+        properties: {
+            consumerKey: "clientId",
+            consumerSecret: "clientSecret",
+            tokenEndpoint: "https://token-endpoint.com/token"
+        }
+    };
+
+    var onLoginRequest = function(context) {
+        httpPost('https://example.com/resource', {
+            "email": "test@wso2.com"
+        }, {
+            "Authorization": "Bearer token",
+            "Accept": "application/json"
+        }, authConfig, {
+            onSuccess: function(context, data) {
+                Log.info('httpPost call succeeded');
+                context.selectedAcr = data.status;
+                executeStep(1);
+            },
+            onFail: function(context, data) {
+                Log.info('httpPost call failed');
+                context.selectedAcr = 'FAILED';
+                executeStep(2);
+            }
+        });
+    }
+    ```
+
+:::note
+To restrict HTTP GET requests to certain domains, for `httpGet` and `httpPost` functions in adaptive authentication scripts, update the `deployment.toml` file as follows:
+
+```toml
+[authentication.adaptive]
+http_function_allowed_domains = ["example.com", "api.example.org"]
+```
+
+To fine-tune connections initiated by WSO2 Identity Server to external services, you may add the following configurations to the `deployment.toml` file located in the `<IS_HOME>/repository/conf/` directory 
+
+| Property | Description | Default Value |
+| --- | --- | --- |
+| **http_connections.read_timeout** | The maximum time (in milliseconds) the server will wait for a response from the external service. | 3000 ms |
+| **http_connections.request_timeout** | The maximum time (in milliseconds) the server will wait to obtain a connection from the connection pool. | 1000 ms |
+| **http_connections.connection_timeout** | The maximum time (in milliseconds) the server will wait to establish a connection to the external service. | 3000 ms |
+| **http_connections.request_retry_count** | Specifies the number of retry attempts for token requests initiated for authentication from client credentials. | 2 |
+
+Sample configuration is as follows:
+
+```toml
+[authentication.adaptive]
+http_connections.read_timeout = 6000
+http_connections.request_timeout = 3000
+http_connections.connection_timeout = 3000
+http_connections.request_retry_count = 2
+```
+:::
+
+</Edition>
+
+</Variants>
+
+### Resolve multi attribute login identifier
+
+`resolveMultiAttributeLoginIdentifier(loginIdentifier, tenantDomain)`
+
+If <Edition only="cloud">[alternative login identifiers](../../guides/account-configurations/manage-login-identifiers/configure-login-identifiers.mdx)</Edition><Edition only="self-hosted">alternative login identifiers</Edition> are enabled, this function resolves the username from the provided login identifier.
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`loginIdentifier`</td>
+          <td>User provided login identifier.</td>
+        </tr>
+        <tr>
+          <td>`organization`</td>
+          <td>Organization name.</td>
+        </tr>
+      </tbody>
+    </table>
+
+- **Example**
+
+    ```javascript
+    var loginIdentifier = context.request.params.username[0];
+    var tenantDomain = context.tenantDomain;
+
+    var username = resolveMultiAttributeLoginIdentifier(loginIdentifier, tenantDomain);
+    ```
+
+### Update user password
+
+`updateUserPassword(user, newPassword, eventHandlers, skipPasswordValidation)`
+
+This function updates the user password.
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`user`</td>
+          <td>The user object.</td>
+        </tr>
+        <tr>
+          <td>`newPassword`</td>
+          <td>New user password.</td>
+        </tr>
+        <tr>
+          <td>`eventHandlers`</td>
+          <td>Optional callback event handlers.</td>
+        </tr>
+        <tr>
+          <td>`skipPasswordValidation`</td>
+          <td>Optional parameter to skip password pattern validation.</td>
+        </tr>
+      </tbody>
+    </table>
+
+- **Example**
+
+    ```javascript
+    updateUserPassword(user, "newPassword");
+
+    updateUserPassword(user, "newPassword", {
+      onSuccess: function(context) {
+        Log.info("Password updated successfully.");
+      },
+      onFail: function(context) {
+        Log.info("Password update failed.");
+      }
+    });
+
+    updateUserPassword(user, "newPassword", {
+      onSuccess: function(context) {
+        Log.info("Password updated successfully.");
+      },
+      onFail: function(context) {
+        Log.info("Password update failed.");
+      }
+    }, true);
+    ```
+
+## Object reference
+
+You can use the following objects in a conditional authentication script to read information about the login attempt and to set attributes on it.
+
+### Context
+
+Contains the authentication context information. The information can be accessed as follows:
+
+<table>
+  <tbody>
+    <tr>
+      <td>`context.steps[n]`</td>
+      <td>Access the authentication step information, where 'n' is the step number (1-based). See [step](#step) for more information.</td>
+    </tr>
+  </tbody>
+</table>
+
+The step number is the one configured at the step configuration, not the actual order in which they get executed.
+
+<table>
+  <tbody>
+    <tr>
+      <td>`context.request`</td>
+      <td>Access the HTTP authentication request information. See [request](#request) for more information.</td>
+    </tr>
+    <tr>
+      <td>`context.response`</td>
+      <td>Access the HTTP response, which will be sent back to the client. See [response](#response) for more information.</td>
+    </tr>
+    <tr>
+      <td>`context.serviceProviderName`</td>
+      <td>Get the application name.</td>
+    </tr>
+    <tr>
+      <td>`context.currentKnownSubject`</td>
+      <td>Access the authenticated user from the subject identifier step. It resolves the user from the first completed step that is configured as the subject identifier step. If no subject identifier step is completed yet, it falls back to the user from the current step. Returns a [user](#user) object or `null` if no step has been completed.</td>
+    </tr>
+    <tr>
+      <td>`context.requestedAcr`</td>
+      <td>The list of Authentication Context Class Reference (ACR) values requested by the application. For OIDC requests, these come from the `acr_values` parameter. For SAML SSO requests, these come from the `samlp:AuthnContextClassRef` elements.</td>
+    </tr>
+    <tr>
+      <td>`context.selectedAcr`</td>
+      <td>`(Read/Write)` <br /> The ACR value selected during the authentication flow. Set this to return the appropriate ACR value in the authentication response.</td>
+    </tr>
+    <tr>
+      <td>`context.tenantDomain`</td>
+      <td>The tenant domain of the application that initiated the authentication request.</td>
+    </tr>
+  </tbody>
+</table>
+
+### Step
+
+Contains the authentication step information. It may be a null or invalid step number.
+
+<table>
+  <tbody>
+    <tr>
+      <td>`step.subject`</td>
+      <td>Contains the authenticated user's information from this step. It may be null if the step is not yet executed. See [user](#user) for more information.</td>
+    </tr>
+    <tr>
+      <td>`step.idp`</td>
+      <td>Gives the name of the federated connection that is used to authenticate the user.</td>
+    </tr>
+    <tr>
+      <td>`step.authenticator`</td>
+      <td>Give the name of the authenticator that is used for authenticating te user. You can find the authenticator names from the connection names table.</td>
+    </tr>
+  </tbody>
+</table>
+
+### User
+
+<table>
+  <tbody>
+    <tr>
+      <td>`user.uniqueId`</td>
+      <td>The unique identifier of the user.</td>
+    </tr>
+    <tr>
+      <td>`user.username`</td>
+      <td>The user's username.</td>
+    </tr>
+    <tr>
+      <td>`user.userStoreDomain`</td>
+      <td>`(Read/Write)` <br />The user store domain of the local user.</td>
+    </tr>
+    <tr>
+      <td>`user.localClaims["local_claim_url"]`</td>
+      <td>`(Read/Write)` <br /> User's attribute (claim) value for the given "local_claim_url". If the user is a federated user, this will be the value of the mapped remote claim from the identity provider.</td>
+    </tr>
+    <tr>
+      <td>`user.claims["local_claim_url"]`</td>
+      <td>`(Read/Write)` <br /> Sets a temporary claim value for the session.</td>
+    </tr>
+    <tr>
+      <td>`user.localClaims["local_claim_url"]`</td>
+      <td>Updates the claim value in the user store as well. The `user.claims["local_claim_url"]` parameter is an alternative to setting a temporary claim.</td>
+    </tr>
+    <tr>
+      <td>`user.remoteClaims["remote_claim_url"]`</td>
+      <td>`(Read/Write)` <br /> User's attribute (claim) as returned by the identity provider for the given `remote_claim_url`. Applicable only for federated users.</td>
+    </tr>
+  </tbody>
+</table>
+
+### Request
+
+<table>
+  <tbody>
+    <tr>
+      <td>`request.headers["header_name"]`</td>
+      <td>The request's header value for the given header name.</td>
+    </tr>
+    <tr>
+      <td>`request.params.param_name[0]`</td>
+      <td>The request's parameter value for the given parameter name by the `param_name` index (`param_name` is an array).</td>
+    </tr>
+    <tr>
+      <td>`request.cookies["cookie_name"]`</td>
+      <td>The request's cookie value for the given cookie name.</td>
+    </tr>
+    <tr>
+      <td>`request.ip`</td>
+      <td>The client IP address of the user who initiated the request. If there are any load balancers (eg. Nginx) with connection termination, the IP is retrieved from the headers set by the load balancer.</td>
+    </tr>
+  </tbody>
+</table>
+
+### Response
+
+  <table>
+    <tbody>
+      <tr>
+        <td>`response.headers["header_name"]`</td>
+        <td>(Write) The response header value for the given header name.</td>
+      </tr>
+    </tbody>
+  </table>
+
+<Variants>
+
+<Edition only="cloud">
+
+### Session
+
+  <table>
+    <tbody>
+      <tr>
+        <td>`session.userAgent`</td>
+        <td>The user agent object of the user session. See [userAgent](#user-agent) for more information.</td>
+      </tr>
+      <tr>
+        <td>`session.ip`</td>
+        <td>The session's IP address.</td>
+      </tr>
+      <tr>
+        <td>`session.loginTime`</td>
+        <td>The session's last login time.</td>
+      </tr>
+      <tr>
+        <td>`session.lastAccessTime`</td>
+        <td>The session's last accessed time.</td>
+      </tr>
+      <tr>
+        <td>`session.id`</td>
+        <td>The session's id.</td>
+      </tr>
+      <tr>
+        <td>`session.applications`</td>
+        <td>The list of application objects in the session. See [application](#application) for more information.</td>
+      </tr>
+    </tbody>
+  </table>
+
+</Edition>
+
+<Edition only="self-hosted">
+
+### Session
+
+  <table>
+    <tbody>
+      <tr>
+        <td>`session.userAgent`</td>
+        <td>The user agent object of the user session. See [userAgent](#user-agent) for more information.</td>
+      </tr>
+      <tr>
+        <td>`session.ip`</td>
+        <td>The session's IP address.</td>
+      </tr>
+      <tr>
+        <td>`session.loginTime`</td>
+        <td>The session's last login time.</td>
+      </tr>
+      <tr>
+        <td>`session.lastAccessTime`</td>
+        <td>The session's last accessed time.</td>
+      </tr>
+      <tr>
+        <td>`session.id`</td>
+        <td>The list of application objects in the session. See [application](#application) for more information.</td>
+      </tr>
+    </tbody>
+  </table>
+
+</Edition>
+
+</Variants>
+
+### Application
+
+  <table>
+    <tbody>
+      <tr>
+        <td>`application.subject`</td>
+        <td>This is the subject of the application.</td>
+      </tr>
+      <tr>
+        <td>`application.appName`</td>
+        <td>This is the name of the application.</td>
+      </tr>
+      <tr>
+        <td>`application.appId`</td>
+        <td>This is the ID of the application.</td>
+      </tr>
+    </tbody>
+  </table>
+
+<Variants>
+
+<Edition only="cloud">
+
+### User agent
+
+  <table>
+    <tbody>
+      <tr>
+        <td>`userAgent.rawString`</td>
+        <td>This is the raw userAgent string.</td>
+      </tr>
+      <tr>
+        <td>`userAgent.browser`</td>
+        <td>This is the web browser property that is extracted from the raw userAgent string.</td>
+      </tr>
+      <tr>
+        <td>`userAgent.platform`</td>
+        <td>This is the operating system property that is extracted from the raw userAgent string.</td>
+      </tr>
+      <tr>
+        <td>`userAgent.device`</td>
+        <td>This is the device property that is extracted from the raw userAgent string.</td>
+      </tr>
+    </tbody>
+  </table>
+
+### ConnectionMetadata
+
+It contains the necessary metadata for invoking the API when calling the callChoreo function.
+
+<table>
+  <tbody>
+    <tr>
+      <td>`connectionMetadata.url`</td>
+      <td>URL of the WSO2 Developer Platform hosted API.</td>
+    </tr>
+    <tr>
+      <td>`connectionMetadata.consumerKey`</td>
+      <td>The consumer key of the WSO2 Developer Platform application.</td>
+    </tr>
+    <tr>
+      <td>`connectionMetadata.consumerSecret`</td>
+      <td>The consumer secret of the WSO2 Developer Platform application.</td>
+    </tr>
+  </tbody>
+</table>
+
+</Edition>
+
+<Edition only="self-hosted">
+
+### User agent
+
+  <table>
+    <tbody>
+      <tr>
+        <td>`userAgent.raw`</td>
+        <td>This is the raw userAgent string.</td>
+      </tr>
+      <tr>
+        <td>`userAgent.browser`</td>
+        <td>This is the web browser property that is extracted from the raw userAgent string.</td>
+      </tr>
+      <tr>
+        <td>`userAgent.platform`</td>
+        <td>This is the operating system property that is extracted from the raw userAgent string.</td>
+      </tr>
+      <tr>
+        <td>`userAgent.device`</td>
+        <td>This is the device property that is extracted from the raw userAgent string.</td>
+      </tr>
+    </tbody>
+  </table>
+
+</Edition>
+
+</Variants>
+
+You can securely store consumer keys and secrets as **secrets** in conditional authentication scripts and refer to
+them in your conditional authentication scripts using the `secrets.{secret name}` syntax. For example, to retrieve a secret value, you may use:
+
+```markup
+var consumerSecret = secrets.clientSecret;
+```
+
+For more information on adding secrets, refer to the [Add a secret to the script](../../guides/authentication/conditional-auth/configure-conditional-auth.mdx#add-a-secret-to-the-script) section in the
+documentation.
+
+<Edition only="cloud">
+
+<details>
+<summary>Change in behavior from 30th September 2024</summary>
+
+Starting from 30th September 2024, you are no longer required to set the aliases for consumer keys and consumer secrets when calling the callChoreo command. Instead, you may directly reference them using the `secrets.secretName` notation.
+However, if you prefer, you may continue using the previous method as follows.
+  <table>
+    <tbody>
+      <tr>
+        <td>`connectionMetadata.consumerKeyAlias`</td>
+        <td>The name of the secret that stores the consumer key.</td>
+      </tr>
+      <tr>
+        <td>`connectionMetadata.consumerSecretAlias`</td>
+        <td>The name of the secret that stores the consumer secret.</td>
+      </tr>
+    </tbody>
+  </table>
+
+</details>
+
+</Edition>
+
+### AuthConfig
+
+<Variants>
+
+<Edition only="cloud">
+
+When using httpGet or httpPost functions in WSO2 Identity Platform adaptive authentication scripts, the table summarizes each
+authentication type and its required properties:
+
+</Edition>
+
+<Edition only="self-hosted">
+
+When using httpGet or httpPost functions in adaptive authentication scripts, the table summarizes each
+authentication type and its required properties:
+
+</Edition>
+
+</Variants>
+
+| Authentication Type | Properties | Description |
+| --- | --- | --- |
+| basic | username, password | Uses user credentials. |
+| apikey | apiKey, headerName | Uses an API key sent as a header. |
+| clientcredential | consumerKey, consumerSecret, tokenEndpoint, scope (optional, a space separated list of scopes) | Uses client credentials to obtain an access token. |
+| bearer | token | Uses a bearer token for authentication. |
+
+You can securely store sensitive values of properties like username, password, consumerKey, consumerSecret as secrets in conditional authentication scripts and refer to them in your conditional authentication scripts using the `secrets.{secret name}` syntax. For example, to retrieve a secret value, you can use:
+
+```markup
+var consumerSecret = secrets.clientSecret;
+```
+
+For more information on adding secrets, refer to the [Add a secret to the script](../../guides/authentication/conditional-auth/configure-conditional-auth.mdx#add-a-secret-to-the-script) section in the documentation.
+
+### Data
+
+<table>
+  <tbody>
+    <tr>
+      <td>`data`</td>
+      <td>The response data is a JSON object that contains the response data from the API call.</td>
+    </tr>
+  </tbody>
+</table>

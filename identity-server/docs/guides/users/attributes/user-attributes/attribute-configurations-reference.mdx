@@ -1,0 +1,119 @@
+---
+title: Attribute configurations reference
+description: This reference provides details on all attribute data types and the input formats they can hold.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Configurations reference
+sidebar_position: 3
+---
+
+This reference provides details on all attribute data types and the input formats they can hold.
+
+The **Data Type** and **Input Format** properties of an attribute determine how the attribute gets displayed in the following UIs:
+
+- User's profile on the Console and the self-service portal.
+- User creation wizard
+
+For example, if you set data type to **Options** and select **Dropdown** as the input format, the configured values appear as a list in the user creation wizard as shown below.
+
+<img src={require("../../../../../assets/img/guides/organization/attributes/configure-attribute-input-format-user-add-view.png").default} alt="User creation wizard - dropdown input" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+## Data types
+
+An attribute supports one of the following data types:
+
+<table>
+  <tbody>
+    <tr>
+      <td>**Text**</td>
+      <td>A plain string value.</td>
+    </tr>
+    <tr>
+      <td>**Options**</td>
+      <td>A pre-defined list of selectable values.</td>
+    </tr>
+    <tr>
+      <td>**Integer**</td>
+      <td>Whole numbers (for example `1`, `42`, `-7`).</td>
+    </tr>
+    <tr>
+      <td>**Decimal**</td>
+      <td>Numbers that include decimals (for example `3.14`, `-0.5`).</td>
+    </tr>
+    <tr>
+      <td>**Boolean**</td>
+      <td>A true or false value.</td>
+    </tr>
+    <tr>
+      <td>**Object**</td>
+      <td>A structured object that can include several sub-attributes.</td>
+    </tr>
+    <tr>
+      <td>**Date**</td>
+      <td>Calendar date without time. Use ISO 8601 `YYYY-MM-DD` (for example `2025-10-01`).</td>
+    </tr>
+    <tr>
+      <td>**DateTime**</td>
+      <td>Date and time with timezone. Use ISO 8601 `YYYY-MM-DDTHH:mm:ssZ` or offset `YYYY-MM-DDTHH:mm:ss±HH:mm` (for example `2025-10-01T14:30:00+05:30`).</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>**Epoch**</td>
+      <td>Unix time since 1970-01-01 UTC. Use seconds or milliseconds as integers (for example `1730399400` or `1730399400000`).</td>
+    </tr>
+  </tbody>
+</table>
+
+- The **Options** data type allows you to define selectable values for an attribute using Label–Value pairs, where:
+
+  - **Label** is what the user sees in the UI.
+  - **Value** is what's stored internally.
+
+    <img src={require("../../../../../assets/img/guides/organization/attributes/edit-attribute-options.png").default} alt="Options for attributes" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+- The **Object** data type allows you to hold a structured object. If chosen, you need to configure its **sub-attributes**.
+
+    <img src={require("../../../../../assets/img/guides/organization/attributes/edit-addtribute-sub-attributes.png").default} alt="SubAttributes for attributes" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+:::note
+The following constraints apply if there is a mapped SCIM attribute for the attribute:
+
+1. Each sub-attribute of the mapped SCIM attribute must start with the main attribute name followed by a period (`.`) 
+            and a descriptive sub-attribute name.
+
+2. You can't assign another attribute of type **Object** as a sub-attribute.
+:::
+
+## Input formats
+
+The input format determines how attributes appear in the user interface. The available formats depend on the data type:
+
+<img src={require("../../../../../assets/img/guides/organization/attributes/configure-attribute-input-format.png").default} alt="Edit attributes" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+<table>
+  <tbody>
+    <tr>
+      <td>**Data Type**</td>
+      <td>**Available Input Formats**</td>
+    </tr>
+    <tr>
+      <td>**Boolean**</td>
+      <td>Checkbox, Toggle</td>
+    </tr>
+    <tr>
+      <td>**Options (Single)**</td>
+      <td>Dropdown, Radio Group</td>
+    </tr>
+    <tr>
+      <td>**Options (Multiple)**</td>
+      <td>Multi-select Dropdown, Checkbox Group</td>
+    </tr>
+    <tr>
+      <td>**Integer**</td>
+      <td>Text Input, Number Picker</td>
+    </tr>
+    <tr>
+      <td>**Date**</td>
+      <td>Text Input, Date Picker. Store dates in ISO 8601 \`YYYY-MM-DD\`. If the existing value uses another format, render a Text Input.</td>
+    </tr>
+  </tbody>
+</table>

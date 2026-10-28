@@ -1,0 +1,35 @@
+---
+title: API authorization for organizations
+description: WSO2 Identity Platform allows organizations to authorize user access to an application's API resources based on the API permissions, roles, and groups…  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Overview
+sidebar_position: 1
+---
+
+{edition.productName} allows organizations to authorize user access to an application's API resources based on the API permissions, roles, and groups assigned to the users. See [API authorization](../../authorization/api-authorization/api-authorization.mdx) for more information.
+
+API resources are created and authorized for applications on the organization (root). If the application consuming the API resources is shared with the organization, all application-specific configurations of API resources are inherited by the organization.
+
+<Variants>
+
+<Edition only="cloud">
+
+<img src={require("../../../../assets/img/guides/authorization/api-authorization/b2b-api-authorization.png").default} alt="The relationship between terms" width="700" style={{display: "block", margin: "0"}} />
+
+</Edition>
+
+<Edition only="self-hosted">
+
+<img src={require("../../../../assets/img/guides/authorization/api-authorization/b2b-api-authorization.png").default} alt="The relationship between terms" width="700" style={{display: "block", margin: "0"}} />
+
+</Edition>
+
+</Variants>
+
+## Prerequisites
+
+You need to configure your API resources on the organization (root):
+
+1. [Register an API resource](../../authorization/api-authorization/api-authorization.mdx)
+2. [Authorize the API resource to an app](../../authorization/api-authorization/api-authorization.mdx#authorize-apps-to-consume-api-resources)
+3. [Create roles and associate to application](../../authorization/api-authorization/api-authorization.mdx)

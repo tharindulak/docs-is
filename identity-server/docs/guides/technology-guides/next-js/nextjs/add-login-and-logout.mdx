@@ -1,0 +1,57 @@
+---
+title: Add login and logout
+description: WSO2 Identity Platform SDK provides SignInButton, SignOutButton components to handle user sign-in and sign-out.  # generated from the first paragraph; a writer should improve it
+type: how-to
+layout: complete-guide
+sidebar_position: 6
+---
+
+WSO2 Identity Platform SDK provides `SignInButton`, `SignOutButton` components to handle user sign-in and sign-out. You can use these components along side `SignedIn` and `SignedOut` components to conditionally render content based on the user's logged in state.
+
+Replace the existing content of the `app/page.tsx` file with following content.
+
+```javascript title="app/page.tsx" {1,7-12}
+import {SignInButton, SignedIn, SignOutButton, SignedOut} from '@asgardeo/nextjs';
+
+export default function Home() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen text-center gap-6">
+      <header className="flex flex-col items-center gap-2">
+        <SignedOut>
+          <SignInButton />
+        </SignedOut>
+        <SignedIn>
+          <SignOutButton />
+        </SignedIn>
+      </header>
+    </div>
+
+  );
+}
+```
+
+This code snippet adds a login button in the application that triggers the signIn function from @asgardeo/nextjs when the user clicks the "Sign in" button. The button uses an asynchronous action to securely initiate the login process with {edition.productName}. When the user clicks the button, the app redirects them to the {edition.productName} login page, and once logged in, they are returned to the app with their session established.
+
+Save the changes and re-run the application in development mode if it is not running already.
+
+```bash
+npm run dev
+```
+
+Once the application is started, you will see the homepage of the application with the changes we made.
+
+<img src={require("../../../../../assets/img/complete-guides/nextjs/image5.png").default} alt="Login screen" width="800" style={{display: "block", margin: "0"}} />
+
+## Initiate Sign In
+
+Clicking on the login button will initiate an OIDC request. You will be able to observe the authorize request in the browser devtools as follows. To see this, right click on the application and click inspect and switch to the network tab. In the filter input, type “authorize”, and click on the sign in button.
+
+<Variants><Edition only="cloud"><img src={require("../../../../../assets/cloud/img/complete-guides/nextjs/image6.png").default} alt="OIDC request" width="800" style={{display: "block", margin: "0"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../../assets/self-hosted/img/complete-guides/nextjs/image6.png").default} alt="OIDC request" width="800" style={{display: "block", margin: "0"}} /></Edition></Variants>
+
+:::tip
+The OpenID Connect specification offers several functions, known as grant types, to obtain an access token in exchange for user credentials. This example uses the authorization code grant type. In this process, the app first requests a unique code from the authentication server, which can later be used to obtain an access token. 
+:::
+
+{edition.productName} will receive this authorization request and respond by redirecting the user to a login page to enter their credentials.
+
+At this stage, you should have already created a test user in {edition.productName}, as outlined in the [prerequisite](./prerequisite.mdx) section. Now can enter the username and password of the test user to the login screen.

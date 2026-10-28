@@ -1,0 +1,157 @@
+---
+title: Configure conditional authentication
+description: Given below are the high-level steps for enabling conditional authentication in your applications.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Set up conditional authentication
+sidebar_position: 2
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Given below are the high-level steps for enabling conditional authentication in your applications.
+
+:::note
+- **ECMAScript Compliance**: Adaptive scripts currently comply with ECMAScript 2022 (ES13). 
+
+<Variants>
+
+<Edition only="cloud">
+
+- **Limitations**: Adaptive scripts do not support loops, `Log.warn` logs, or stringifying Java objects using `JSON.stringify()`.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+- **Limitations**: Adaptive scripts do not support `Log.warn` logs or stringifying Java objects using `JSON.stringify()`.
+
+</Edition>
+
+</Variants>
+
+:::
+
+## Prerequisites
+
+[Register your application](../add-login-to-apps/add-login-to-apps.mdx) on the {edition.productName} Console.
+
+## Enable conditional authentication
+
+{/* markdownlint-disable-next-line */}
+Follow the steps given below.
+
+1. On the {edition.productName} Console, click **Applications**.
+2. Select the application for which you wish to apply a conditional login flow and go to its **Login Flow** tab.
+3. Click **Start with default configuration** to define the login flow starting with the `username and password` login.
+4. Turn on **Conditional Authentication** by switching the toggle on. You can define your conditional authentication script in the editor.
+
+    <Variants><Edition only="cloud">![Enable conditional auth](../../../../assets/cloud/img/guides/conditional-auth/enable-conditional-auth.png)</Edition><Edition only="self-hosted">![Enable conditional auth](../../../../assets/self-hosted/img/guides/conditional-auth/enable-conditional-auth.png)</Edition></Variants>
+
+    :::warning
+    As a security measure, {edition.productName} does not allow the usage of two consecutive periods (`..`) in authentication scripts.
+    :::
+
+## Add conditional authentication script
+
+There are two ways to add a conditional authentication script:
+
+- Use a [predefined template](./index.mdx#script-templates).
+- Write a [new conditional auth script](./write-your-first-script.mdx).
+
+:::warning[Before you proceed]
+When working with conditional authentication scripts, <b>never log secrets</b> or <b>sensitive information</b> within your authentication flows.
+:::
+
+## Add a secret to the script
+Secrets securely store values associated with external APIs. These secret values are used in conditional authentication scripts when {edition.productName} is required to interact with an external API (service endpoint) during the authentication process.
+
+You can securely store these secret values on the {edition.productName} Console and retrieve them whenever required for conditional authentication script.
+
+### Create a new secret
+
+To add a new secret:
+
+1. On the {edition.productName} Console, go to **Applications**.
+
+2. Select your application and go to the **Login Flow** tab .
+
+3. Add a new secret from your preferred editor:
+
+    ---
+    <Tabs groupId="tabs">
+    <TabItem value="classic-editor" label="Classic Editor">
+
+    Enable conditional authentication and click the key icon above the script to create a new secret.
+
+    <Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/secret/add-secret-to-script.png").default} alt="Add secret to script" style={{display: "block", margin: "0"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/secret/add-secret-to-script.png").default} alt="Add secret to script" style={{display: "block", margin: "0"}} /></Edition></Variants>
+
+    </TabItem>
+    <TabItem value="visual-editor" label="Visual Editor">
+
+    Switch to the **Visual Editor** tab, expand the **Script Editor** and click **Add Secret**.
+
+    <Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/secret/add-secret-to-script-using-visual-editor.png").default} alt="Add secret to script using the visual editor" width="600" style={{display: "block", margin: "0"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/secret/add-secret-to-script-using-visual-editor.png").default} alt="Add secret to script using the visual editor" width="600" style={{display: "block", margin: "0"}} /></Edition></Variants>
+
+    </TabItem>
+    </Tabs>
+
+    ---
+
+4. Click **Create new secret** from the drop-down menu.
+
+5. Enter the following details:
+
+    <Variants><Edition only="cloud"><img src={require("../../../../assets/img/guides/secret/create-a-secret.png").default} alt="Create secret in WSO2 Identity Platform" width="450" style={{display: "block", margin: "0"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/img/guides/secret/create-a-secret.png").default} alt="Create secret in WSO2 Identity Server" width="450" style={{display: "block", margin: "0"}} /></Edition></Variants>
+
+    | Parameter | Description |
+    | --- | --- |
+    | Secret Name | A meaningful name for the secret. This name is not changeable and will be used in the script to reference the secret. |
+    | Secret Value | You can enter the secret value that is `1` to `2048` bits in length. |
+    | Secret Description | A short description for the secret. |
+
+6. Click **Finish** to complete the creation.
+
+### Use secret in the script
+
+You may refer to the previously added secrets in your conditional authentication scripts using the `secrets.{secret name}` syntax. For example, to retrieve a secret value, you may use:
+
+```markup
+var secretValue = secrets.secretName;
+```
+
+This allows you to securely access secret values within your authentication scripts, enhancing the security and flexibility of your authentication process.
+
+### Delete an existing secret
+
+To delete an existing secret:
+
+1. On the {edition.productName} Console, go to **Applications**.
+
+2. Select your application and go to the **Login Flow** tab .
+
+3. Delete the secret by using your preferred editor:
+
+    ---
+    <Tabs groupId="tabs">
+    <TabItem value="classic-editor" label="Classic Editor">
+
+    Enable conditional authentication and click the key icon above the script to delete a secret.
+
+    <Variants><Edition only="cloud">![Add secret to script](../../../../assets/cloud/img/guides/secret/add-secret-to-script.png)</Edition><Edition only="self-hosted">![Add secret to script](../../../../assets/self-hosted/img/guides/secret/add-secret-to-script.png)</Edition></Variants>
+
+    </TabItem>
+    <TabItem value="visual-editor" label="Visual Editor">
+
+    Switch to the **Visual Editor** tab, expand the **Script Editor** and click **Add Secret**.
+
+    <Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/secret/add-secret-to-script-using-visual-editor.png").default} alt="Add secret to script using the visual editor" width="600" style={{display: "block", margin: "0"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/secret/add-secret-to-script-using-visual-editor.png").default} alt="Add secret to script using the visual editor" width="600" style={{display: "block", margin: "0"}} /></Edition></Variants>
+
+    </TabItem>
+    </Tabs>
+
+    ---
+
+4. Click the trash icon next to the secret you wish to delete.
+
+5. Select the checkbox and confirm your action.

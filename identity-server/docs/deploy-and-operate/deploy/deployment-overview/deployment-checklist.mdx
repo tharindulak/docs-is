@@ -1,0 +1,103 @@
+---
+title: Deployment Checklist
+description: 'Guidelines for hardening the security of a WSO2 Identity Server deployment in a production environment can be discussed under three high-level categories:'  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Deployment checklist
+sidebar_position: 2
+editions: self-hosted
+---
+
+<table>
+  <thead>
+    <tr>
+      <th>**Guideline**</th>
+      <th>**Details**</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Security hardening</td>
+      <td>
+
+        Guidelines for hardening the security of a WSO2 Identity Server deployment in a production environment can be discussed under three high-level categories:
+
+        - Product-level security
+        - OS-level security
+        - Network-level security
+
+        **Related Topics**
+
+        <li>[Security Guidelines for Production Deployment](../../secure/security-guidelines/index.mdx)</li>
+
+      </td>
+    </tr>
+    <tr>
+      <td>Hostname</td>
+      <td>
+
+        By default, WSO2 Identity Server identifies the hostname of the current machine through the Java API. However, this value sometimes yields erroneous results on some environments. Therefore, users are recommended to configure the hostname by setting the relevant parameter in the `<IS_HOME>/repository/conf/deployment.toml` file. <br /> **Related Topics**
+
+        <li>[Change the hostname](./change-the-hostname.mdx)</li>
+
+      </td>
+    </tr>
+    <tr>
+      <td>Userstores</td>
+      <td>
+
+        WSO2 Identity Server offers three choices to store user details:
+
+        - Using a database
+        - Using an LDAP server
+        - Using an Active Directory service
+
+        The default is the embedded H2 database, with the userstore schema. Like in the case of the registry database, you can switch to a database like Oracle, MySQL, or MSSQL. You can point to an existing LDAP or an Active Directory to make use of existing user bases and grant access privileges based on those userstores.
+
+      </td>
+    </tr>
+    <tr>
+      <td>Tuning WSO2 products</td>
+      <td>
+
+        WSO2 Identity Server has additional guidelines for optimizing the performance of product-specific features. <br /> **Related Topics**
+
+        <li>[Performance Tuning Recommendations](../performance/performance-tuning-recommendations.mdx)</li>
+
+      </td>
+    </tr>
+    <tr>
+      <td>Firewalls</td>
+      <td>
+
+        The following ports must be accessed when operating within a firewall.
+
+        - 9443 - Used by the console and services that use the servlet transport, and is defined in the `<IS_HOME>/repository/conf/deployment.toml` file.
+
+        **Related topics**
+
+        <li>[Default Ports of WSO2 Identity Server](../../../reference/default-ports.mdx)</li>
+
+      </td>
+    </tr>
+    <tr>
+      <td>Proxy servers</td>
+      <td>
+
+        If the product is hosted behind a proxy such as ApacheHTTPD, users can configure products to use the proxy server by providing the following system properties at the start-up.<br /><br /> ` -Dhttp.proxyHost=xxxx -Dhttp.proxyPort=xxxx ` <br /><br /> Alternatively, this can be done by adding the following configurations in the `<IS_HOME>/repository/conf/deployment.toml` file.<br /><br /> ` [transport.https.properties] proxyhost : "you.proxy.host" proxyPort : "your.proxy.port" `
+
+      </td>
+    </tr>
+    <tr>
+      <td>High availability</td>
+      <td>
+
+        For high availability, WSO2 Identity Server must run on a cluster. Databases used for the repository, user management, and business activity monitoring can also be configured in a cluster or can use replication management provided by the RDBMS.
+
+      </td>
+    </tr>
+    <tr>
+      <td>Data backup and archiving</td>
+      <td>For data backup and for archiving of data, use the functionality provided by the RDBMS.</td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,84 @@
+---
+title: Request user information
+description: User information is encoded inside the ID token returned along with the access token.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_position: 4
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+User information is encoded inside the ID token returned along with the access token. In addition to that, OpenID Connect provides the userinfo endpoint {/* [userinfo endpoint](https://openid.net/specs/openid-connect-core-1_0.html#UserInfo)*/} to obtain user
+information as a payload. The application should send a request with the access token to invoke the userinfo endpoint.
+
+**Userinfo endpoint**
+
+```text
+{edition.productUrlFormat}/oauth2/userinfo
+```
+
+**Sample request**
+
+<Tabs groupId="tabs">
+<TabItem value="curl" label="cURL">
+
+```bash
+curl --location --request GET '{edition.productUrlFormat}/oauth2/userinfo' \
+--header 'Authorization: Bearer {your_access_token}'
+```
+
+</TabItem>
+<TabItem value="javascript-jquery" label="JavaScript - jQuery">
+
+```javascript
+var settings = {
+    "url": "{edition.productUrlFormat}/oauth2/userinfo",
+    "method": "GET",
+    "timeout": 0,
+    "headers": {
+        "Authorization": "Bearer {your_access_token}"
+    },
+};
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+</TabItem>
+<TabItem value="nodejs-axios" label="Nodejs - Axios">
+
+```javascript
+var axios = require('axios');
+
+var config = {
+    method: 'get',
+    url: '{edition.productUrlFormat}/oauth2/userinfo',
+    headers: {
+        'Authorization': 'Bearer {your_access_token}'
+    }
+};
+
+axios(config)
+    .then(function (response) {
+        console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+```
+
+</TabItem>
+</Tabs>
+
+**Default sample response**  
+{edition.productName} returns only the `sub` claim if there are no user attributes shared with the application.
+
+```json
+{
+  "sub": "e46ffa67-100d-4329-9460-b8251d446518"
+}
+```
+
+You can customize the user information in the response by [configuring user attributes](../../user-attributes/enable-attributes-for-oidc-app.mdx) on the registered application.
+<br />

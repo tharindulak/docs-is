@@ -1,0 +1,114 @@
+---
+title: Authentication
+description: See the topics given below to manage authentication for your applications.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_position: 1
+---
+
+See the topics given below to manage authentication for your applications.
+
+## Design the login flow
+
+When you register an application, you can customize the login flow.
+
+- Configure {edition.productName} login for [single-page applications with OIDC](./add-login-to-apps/add-login-to-single-page-app.mdx) or [web applications](./add-login-to-apps/add-login-to-web-app.mdx) with OIDC or SAML.
+
+- Add [social login](./add-federated-login/social-login/index.mdx) options such as [Google](./add-federated-login/social-login/add-google-login.mdx), [Facebook](./add-federated-login/social-login/add-facebook-login.mdx), [Apple](./add-federated-login/social-login/add-apple-login.mdx), and [Microsoft](./add-federated-login/social-login/add-microsoft-login.mdx).
+
+- Add other [enterprise identity providers](./add-federated-login/standard-based-login/index.mdx) as login options.
+
+- Configure the number of factors (2FA or MFA) in the login flow to enforce [multi-factor authentication](./mfa/index.mdx).
+
+- Enforce [conditional authentication](./conditional-auth/index.mdx) to dynamically change the login flow of a user based on the user's devices, networks, locations, or usage contexts.
+
+- Add [SSO integrations](./sso-integrations/index.mdx) using {edition.productName} to log in to applications such as [Google](./sso-integrations/add-google-workspace-template.mdx), [Salesforce](./sso-integrations/add-salesforce-template.mdx), [Microsoft](./sso-integrations/add-microsoft-365-template.mdx), [Zoom](./sso-integrations/add-zoom-template.mdx), and [Slack](./sso-integrations/add-slack-template.mdx).
+
+## Manage user attributes
+
+Manage the user attributes you want to share with your application:
+
+- [Enable user attributes for OpenID Connect apps](./user-attributes/enable-attributes-for-oidc-app.mdx)
+- [Enable user attributes for SAML apps](./user-attributes/enable-attributes-for-saml-app.mdx)
+
+## Manage connections
+
+External Identity Providers (IdPs) can be registered as connections in {edition.productName} and be used to authenticate users who log in to your applications. These IdPs authenticate users and issue identification information using security tokens based on protocols like SAML 2.0, OpenID Connect, OAuth 2.0, and WS-Trust. This process of authenticating users with external IdPs is known as **Identity Federation**.
+
+With identity federation, users can use an existing user account registered to a trusted IdP to login to your applications without having to create accounts for them in {edition.productName}.
+
+:::note
+If the IdP is configured to use [JIT user provisioning](./jit-user-provisioning.mdx), when a user signs in with an external IdP, an account will automatically be created for the user in {edition.productName}.
+:::
+
+### Supported external IdPs
+
+{edition.productName} supports a variety of external identity providers with various open-standard protocols (such as OAuth2.0, OpenID Connect, and SAML).
+
+- [Social identity providers](./add-federated-login/social-login/index.mdx)
+- [Enterprise identity providers](./add-federated-login/standard-based-login/index.mdx)
+
+You can configure any number of external connections for your application via {edition.productName}.
+
+### Map local attributes to external attributes
+
+Follow the steps below to map attributes of {edition.productName} with that of a connection.
+
+1. On the {edition.productName} Console, go to **Connections**.
+
+2. Select your connection and go to its **Attributes** tab.
+
+3. Click **Add Attribute Mapping** to add a new attribute mapping.
+
+    <img src={require("../../../assets/img/guides/idp/group-mapping/add-attribute-mappings.png").default} alt="Add attribute mappings" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+4. Enter the  **External IdP Attribute** of the connection and map it to the **Groups** attribute of {edition.productName}.
+
+    <img src={require("../../../assets/img/guides/idp/group-mapping/add-new-group-attribute-mapping.png").default} alt="Add new group attribute mapping" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+5. Click **Add Attribute Mapping** and then click **Save**.
+
+    <img src={require("../../../assets/img/guides/idp/group-mapping/stage-new-group-attribute-mapping.png").default} alt="Stage new group attribute mapping" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+6. Click **Update** to save the changes.
+
+    <img src={require("../../../assets/img/guides/idp/group-mapping/submit-attribute-mappings.png").default} alt="Submit attribute mappings" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+<Edition only="self-hosted">
+
+### Add required attributes for provisioning
+
+When provisioning users from an external identity provider (IdP), you may want to include specific attributes in the user’s profile. Follow the steps below to define the required attributes and assign default values.
+
+1. On the {edition.productName} Console, go to **Connections**.
+2. Select your connection and go to its **Attributes** tab.
+3. Under **Provisioning Attributes Selection**, click **Add Attribute**.
+4. Move the attributes that you want to include in the provisioned user's profile and click **Save**.
+
+    <img src={require("../../../assets/self-hosted/img/guides/idp/add-required-attributes-for-provisioning.png").default} alt="Add required attributes for provisioning" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+5. Add a default value to the attribute. If the federated user lacks data for it, the system adds the default to the provisioned user’s profile.
+
+    <img src={require("../../../assets/self-hosted/img/guides/idp/add-default-value-for-required-attributes.png").default} alt="Add default value for required attributes" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    :::note
+    To add default values to the provisioned user’s profile when the federated user has no value, configure the following in the `<IS_HOME>/repository/conf/deployment.toml` file.
+
+    ```toml
+    [authentication.endpoint]
+    enable_merging_custom_claim_mappings_with_default = true
+    ```
+    :::
+
+</Edition>
+
+### Add groups to connections
+
+Follow the steps below to add the groups from your connection to {edition.productName}:
+
+1. On the {edition.productName} Console, go to **Connections**.
+2. Select your connection and go to its **Groups** tab.
+3. Click **New Group** and enter the group name. Be sure to enter the exact group name that will be returned from the connection.
+
+    <img src={require("../../../assets/img/guides/idp/add-federated-group.png").default} alt="Add group" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+4. Click **Finish** to add the group information.

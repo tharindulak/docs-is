@@ -1,0 +1,31 @@
+---
+title: Provisioning patterns
+description: WSO2 Identity Server uses provisioning patterns to build the username of the user account when provisioning users to Google and Salesforce.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_position: 5
+editions: self-hosted
+---
+
+{edition.productName} uses provisioning patterns to build the username of the user account when provisioning users to [Google](./outbound-connectors/google.mdx) and [Salesforce](./outbound-connectors/salesforce.mdx).
+
+Consider two users with the same username onboarded to different user stores in {edition.productName}. During provisioning, an outbound connector may not allow duplicate usernames. Provisioning patterns resolve this limitation by using the following four attributes to create the user ID.
+
+- Username - UN
+- User Domain - UD
+- Tenant Domain - TD
+- Identity Provider - IDP
+
+You have the option to configure the **provisioning pattern** and the **provisioning separator**: the character that separates the different attributes of the provisioning pattern.
+
+:::tip[Example]
+For an outbound connector, if you set:
+
+- Provisioning pattern = `{UD, UN, TD, IDP}`
+- Provisioning separator = `-` (hyphen)
+
+{edition.productName} provisions a user created with the username `user@provisioning.com` in the `primary` user store of the `super` tenant to the external system with this username:
+
+```bash
+primary-user@provisioning.com-carbon.super-salesforce
+```
+:::

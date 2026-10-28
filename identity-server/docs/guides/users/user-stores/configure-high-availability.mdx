@@ -1,0 +1,80 @@
+---
+title: Configure high availability
+description: Remote user stores must be highly available to ensure continuous access to critical user information.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_position: 3
+editions: cloud
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Remote user stores must be highly available to ensure continuous access to critical user information. To maintain high availability, we highly recommend you to follow this guide and connect a second user store agent.
+
+## Prerequisites
+
+[Configure and connect a remote user store](./configure-a-user-store.mdx) in WSO2 Identity Platform.
+
+## Connect a second user store agent
+
+To connect a second user store agent:
+
+1. On the WSO2 Identity Platform Console, go to **User Attributes & Stores** > **User Stores**.
+2. Select your user store from the **User stores** list.
+3. In the **General** tab, a second user store agent is listed under **User Store Agent Connection(s)**.
+4. Click **Generate token** on the second user store agent.
+
+    <img src={require("../../../../assets/cloud/img/guides/user-stores/generate-second-token.png").default} alt="Generate installation token for second user store agent." width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    :::note
+    An installation token can only be used to connect to one user store agent. You cannot use the same installation token to run a second agent.
+    :::
+
+5. Run a second user store agent by navigating to its root directory. Use one of the commands below.
+
+    <Tabs groupId="tabs">
+    <TabItem value="optimized-agent" label="Optimized Agent">
+
+    Run the command corresponding to your operating system. Make sure to configure the installation token similarly to the primary agent.
+
+    <Tabs groupId="tabs">
+    <TabItem value="linux-unix" label="Linux/Unix">
+
+    ```bash
+    ./remoteagent
+    ```
+
+    </TabItem>
+    <TabItem value="windows" label="Windows">
+
+    ```bash
+    remoteagent
+    ```
+
+    </TabItem>
+    </Tabs>
+
+    </TabItem>
+    <TabItem value="classic-agent" label="Classic Agent">
+
+    Run the command corresponding to your operating system. When prompted, enter the second installation token generated in the previous step.
+
+    <Tabs groupId="tabs">
+    <TabItem value="linux-unix" label="Linux/Unix">
+
+    ```bash
+    sh wso2agent.sh
+    ```
+
+    </TabItem>
+    <TabItem value="windows" label="Windows">
+
+    ```bash
+    wso2agent.bat
+    ```
+
+    </TabItem>
+    </Tabs>
+
+    </TabItem>
+    </Tabs>

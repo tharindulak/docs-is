@@ -1,0 +1,205 @@
+---
+title: Configure outbound provisioning with Salesforce
+description: This guide explains how you can configure Salesforce for outbound provisioning in WSO2 Identity Server.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Salesforce
+sidebar_position: 2
+editions: self-hosted
+---
+
+This guide explains how you can configure Salesforce for outbound provisioning in {edition.productName}.
+
+## Configure Salesforce for provisioning
+
+Follow the steps below to learn how you can configure Salesforce for provisioning.
+
+1. Sign up to [Salesforce](https://developer.salesforce.com/).
+
+2. Create a connected app.
+
+    1. Click **Setup** on the upper-right corner.
+
+    2. From the left navigation, under **PLATFORM TOOLS**, click **Apps** > **App Manager**.
+
+    3. Click **New Connected App** and enter the following details.
+
+        <table>
+          <tbody>
+            <tr>
+              <td>Connected App Name</td>
+              <td>Name of the connected app. e.g. `IdentityServerProvisioning`.</td>
+            </tr>
+            <tr>
+              <td>API Name</td>
+              <td>Name used when referring to your app from a program. This should match the name of the connected app. This defaults to a version of the name with spaces replaced with underscores. Only letters, numbers, and underscores are allowed. If the app name contains any other characters, be sure to change them.</td>
+            </tr>
+            <tr>
+              <td>Contact Email</td>
+              <td>The email address used by the connected app.</td>
+            </tr>
+            <tr>
+              <td>Enable OAuth Settings</td>
+              <td>Select the checkbox to enable. This section controls how your app communicates with Salesforce.</td>
+            </tr>
+            <tr>
+              <td>Callback URL</td>
+              <td>The URL a user’s browser is redirected to after successful authentication. Use the following value here:`https://login.salesforce.com/services/oauth2/token`</td>
+            </tr>
+            <tr>
+              <td>Selected OAuth Scopes</td>
+              <td>
+
+                Scopes refer to the permissions the user gives to the connected app while it is running. Choose **Full access (full)** and click **Add**.
+
+                :::note[Important]
+                Full access (full) scope, while allows access to the logged-in user’s data and encompasses all other scopes, does not return a refresh token. You must explicitly request the `refresh_token` scope to get one.
+                :::
+
+              </td>
+            </tr>
+            <tr>
+              <td>Enable Client Credentials Flow</td>
+              <td>
+
+                Select the checkbox to enable. This allows token generation using the Client Credentials grant. A security warning will appear — review and accept it to proceed. <br />
+
+                :::note[Important]
+                When enabled, any app with access to the client ID and secret can obtain a token. Keep these credentials secure.
+                :::
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+    4. Click **Save** and then **Continue** to add the connected app.
+
+    5. Select an **Execution User** for the flow.
+
+        1. Under connected app detail page, click **Manage**.
+        2. Click **Edit Policies**.
+        3. Under **Client Credentials Flow** , for **Run As**, 
+        click on the magnifying glass icon, and find the user that you want to assign the client credentials flow. 
+        The execution user must have the API Only User permission.
+        4. Save your changes.
+
+    6. Take note of the following about the connected app.
+
+        1. Under **Consumer Key and Secret**, click **Manage Consumer Details** and get the,
+            - Consumer Key - A value that the client uses to identify itself
+        with Salesforce. Referred to as `client_id` in OAuth 2.0.
+
+            - Consumer Secret - A secret that the client uses to establish
+        ownership of the consumer key. Referred to as `client_secret` in
+        OAuth 2.0.
+
+        2. Callback URL
+
+3. Add your connected app to a profile.
+
+    :::note
+    Allow from 2-10 minutes for your changes to take effect on the
+    server before using the connected app.
+    :::
+
+    1. In the setup page, go to **ADMINISTRATION** > **Users** and click **Profiles**.
+
+    2. Click **Edit** on a profile and under **Connected App Address**, select the checkbox corresponding to the created app.
+
+    3. Click **Save**.
+
+    4. Make a note of the ID of the user profile.
+
+        :::tip
+        While in the profile, copy the URL and decode it to obtain the profile ID.
+
+        e.g. https://computing-force-3514.lightning.force.com/lightning/setup/Profiles/page?address=/**00eGB000003bWuc**/e?ret......
+        :::
+
+4. Get the public certificate for Salesforce.
+
+    :::info
+    For more information on generating the certificate, see the [Salesforce
+    documentation](https://help.salesforce.com/s/articleView?id=sf.security_keys_about.htm&type=5).
+    :::
+
+    1. In the setup page, go to **SETTINGS** > **Security** and click **Certificate and Key Management**.
+
+    2. For a self-signed certificate, click **Create Self-Signed Certificate**.
+
+    3. Enter the **Label** and a **Unique Name** and click **Save**.
+
+    4. Click the **Download Certificate** button to download the certificate.
+
+## Configure the Salesforce outbound connector
+
+[Set up outbound provisioning](../../../outbound-provisioning/setup-outbound-provisioning.mdx) and enter the following details to configure the Salesforce outbound connector.
+
+<table>
+  <tbody>
+    <tr>
+      <td>API version</td>
+      <td>
+
+        The version of the API you are using in Salesforce.
+
+        :::note[How to find my version?]
+        1. Log in to Salesforce and go to the setup page
+        2. Go to **PLATFORM TOOLS** \< **Integrations** and click **API**.
+        3. Generate any one of the WSDLs and you will be navigated to a page with XML syntaxes.
+        4. On the top it mentions `Salesforce.com Enterprise Web Services API Version >VERSION< " Salesforce.com Enterprise Web Services API Version 41.0 `
+        :::
+
+      </td>
+    </tr>
+    <tr>
+      <td>Domain Name</td>
+      <td>
+
+        Enter the Domain name with an HTTPS suffix so it resembles a URL.
+
+        :::note[How to create a domain?]
+        1. Log in to Salesforce and go to the setup page
+        2. Go to **SETTINGS** \> **Company Settings** and click **My Domain**.
+        3. Under **My Domain Details**, click **Edit**.
+        4. Come up with a domain name and check its availability by clicking **Check Availability**.
+        5. Click **Save**
+        6. Deploy the domain once it's ready.
+        :::
+
+      </td>
+    </tr>
+    <tr>
+      <td>Client ID</td>
+      <td>The consumer key obtained when creating the connected app.</td>
+    </tr>
+    <tr>
+      <td>Client Secret</td>
+      <td>The consumer secret obtained when creating the connected app.</td>
+    </tr>
+    <tr>
+      <td>Username</td>
+      <td>Salesforce username.</td>
+    </tr>
+    <tr>
+      <td>Password</td>
+      <td>Enable user password provisioning to a Salesforce domain.</td>
+    </tr>
+    <tr>
+      <td>OAuth2 Token Endpoint</td>
+      <td>The Salesforce token endpoint.</td>
+    </tr>
+    <tr>
+      <td>Provisioning Pattern</td>
+      <td>{edition.productName} uses this pattern to build the user ID of the provisioned user account. Learn more about [provisioning patterns](../provisioning-patterns.mdx).<br /> e.g. `{UD,UN,TD,IDP}`</td>
+    </tr>
+    <tr>
+      <td>Provisioning Separator</td>
+      <td>Used to separate provisioning pattern attributes of the user ID. Learn more about [provisioning patterns](../provisioning-patterns.mdx)<br /> e.g. `-`(hyphen).</td>
+    </tr>
+    <tr>
+      <td>Provisioning Domain</td>
+      <td>The domain where user provisioning operations occur. This will be appended to the username during outbound provisioning.<br /> e.g. `primary.com`</td>
+    </tr>
+  </tbody>
+</table>

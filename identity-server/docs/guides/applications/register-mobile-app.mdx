@@ -1,0 +1,60 @@
+---
+title: Register a mobile app
+description: To add login to your mobile application with WSO2 Identity Platform, you need to first register your app in WSO2 Identity Platform.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_position: 6
+---
+
+To add login to your mobile application with {edition.productName}, you need to first register your app in {edition.productName}.
+
+Your app will be registered as an OpenID Connect mobile app and a client ID will be issued. Note that client secrets are not issued for mobile apps since they are public clients. However, the [PKCE (Proof Key for Code Exchange)](../../reference/app-settings/oidc-settings-for-app.mdx) extension is enabled by default as a security measure.
+
+## Register the app
+
+To register the app:
+
+1. On the {edition.productName} Console, go to **Applications**.
+
+2. Click **New Application** and select **Mobile Application**.
+
+    <img src={require("../../../assets/img/guides/applications/select-app-type.png").default} alt="Select an app type" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+3. Enter the following details:
+
+    <Variants><Edition only="cloud"><img src={require("../../../assets/cloud/img/guides/applications/create-new-mobile-app.png").default} alt="Create a new Mobile" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../assets/self-hosted/img/guides/applications/create-new-mobile-app.png").default} alt="Create a new Mobile" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+    | Parameter | Description |
+    | --- | --- |
+    | Name | A unique name to identify your application. |
+    | Authorized redirect URLs | The URL to which the authorization code is sent to upon user authentication and where the user is redirected to upon logout. If wildcard support is necessary, ensure it is limited to well-defined patterns and implemented securely to meet your specific requirements. |
+    | Allow sharing with organizations | Enable this to share the new application with all or any selected B2B organizations that belong to your primary organization. |
+
+4. Click **Register** to complete the registration.
+
+    <details>
+    <summary>Sharing with selected organizations</summary>
+
+    If you have enabled **Allow sharing with organizations** while registering the application, you will see a popup window with the following options.
+
+    <img src={require("../../../assets/img/guides/applications/share-application.png").default} alt="Share the application with organizations" width="500" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    | Option | Description |
+    | --- | --- |
+    | Share with all organizations | If selected, the application will be shared with all existing organizations and any new organizations you may create in the future. |
+    | Share with only selected organizations | If selected, you can select the organizations you wish to share the application with. |
+
+    </details>
+
+5. [Enable the application](./index.mdx#enabledisable-an-application) when it is ready for use.
+
+## Get the client ID
+
+When you register your mobile application, a client ID is generated. Your mobile application will identify itself to {edition.productName} with this client ID.
+
+You can get this client ID from the **Protocol** tab of the application as shown below.
+
+<Variants><Edition only="cloud"><img src={require("../../../assets/cloud/img/guides/applications/spa-client-id.png").default} alt="Get client ID of Mobile" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../assets/self-hosted/img/guides/applications/spa-client-id.png").default} alt="Get client ID of Mobile" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+## What's next?
+
+- [Add login to your mobile app](../authentication/add-login-to-apps/add-login-to-mobile-app.mdx)
