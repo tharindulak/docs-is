@@ -11,7 +11,7 @@ editionNames:
 home: identity-platform
 owners:
   team: identity-platform-docs
-repo: wso2/docs-identity-platform
+repo: tharindulak/docs-is
 editLinks: false
 issues:
   repo: wso2/docs-is
