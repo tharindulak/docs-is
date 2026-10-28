@@ -4,7 +4,7 @@ description: This guide walks you through configuring WSO2 Identity Platform to 
 type: how-to
 sidebar_label: Verify credentials from a digital wallet
 sidebar_position: 3
-selfHostedFrom: next
+editions: cloud
 ---
 
 This guide walks you through configuring {edition.productName} to act as a verifier in an OpenID4VP flow. Users can present credentials stored in an OID4VP-compatible digital wallet to authenticate or register with your application. Any wallet that supports the [OID4VP specification](https://openid.net/specs/openid-4-verifiable-presentations-1_0.html) and the `dc+sd-jwt` credential format can present credentials to {edition.productName}.
@@ -36,7 +36,7 @@ To create a presentation definition:
     | **Credential Type** | The type of credential to request from the wallet. | `employee-identity` |
     | **Format** | The credential format the wallet must present. | `dc+sd-jwt` |
 
-    <Variants><Edition only="cloud"><img src={require("../../../assets/cloud/img/guides/verifiable-credentials/create-presentation-definition.png").default} alt="Create Presentation Definition dialog filled in for Employee ID" width="500" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../assets/self-hosted/img/guides/verifiable-credentials/create-presentation-definition.png").default} alt="Create Presentation Definition dialog filled in for Employee ID" width="500" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+    <img src={require("../../../assets/cloud/img/guides/verifiable-credentials/create-presentation-definition.png").default} alt="Create Presentation Definition dialog filled in for Employee ID" width="500" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 4. Click **Create**.
 
@@ -44,7 +44,7 @@ To create a presentation definition:
 
     For example, add the `email` claim as shown below:
 
-    <Variants><Edition only="cloud"><img src={require("../../../assets/cloud/img/guides/verifiable-credentials/pd-add-attribute.png").default} alt="Add Attribute dialog" width="400" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../assets/self-hosted/img/guides/verifiable-credentials/pd-add-attribute.png").default} alt="Add Attribute dialog" width="400" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+    <img src={require("../../../assets/cloud/img/guides/verifiable-credentials/pd-add-attribute.png").default} alt="Add Attribute dialog" width="400" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
     Repeat this for each of the following claims from the `employee-identity`:
 
@@ -73,7 +73,7 @@ To create a presentation definition:
     | **Issuer URL** | The `iss` claim value in credentials issued by this issuer. | `https://issuer.example.com/oid4vci` |
     | **JWKS URI** | URL of the issuer's JSON Web Key Set. | `https://issuer.example.com/.well-known/jwks.json` |
 
-    <img src={require("../../../assets/img/guides/verifiable-credentials/pd-add-trusted-issuer.png").default} alt="Add Trusted Issuer dialog" width="550" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+    <img src={require("../../../assets/cloud/img/guides/verifiable-credentials/pd-add-trusted-issuer.png").default} alt="Add Trusted Issuer dialog" width="550" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 3. Click **Add**.
 
@@ -98,7 +98,7 @@ A **Digital Wallet connection** links the presentation definition to an authenti
     | **Name** | A descriptive name for the connection. | `Employee Wallet` |
     | **Presentation Definition** | The presentation definition that defines what credentials to request. | `Employee ID` |
 
-    <img src={require("../../../assets/img/guides/verifiable-credentials/vp-connection-details.png").default} alt="Digital Wallet connection details filled in for Employee Wallet" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+    <img src={require("../../../assets/cloud/img/guides/verifiable-credentials/vp-connection-details.png").default} alt="Digital Wallet connection details filled in for Employee Wallet" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 4. Click **Create**.
 
@@ -118,7 +118,7 @@ Map the credential claims to the corresponding local claims in {edition.productN
     | `given_name` | `http://wso2.org/claims/givenname` |
     | `family_name` | `http://wso2.org/claims/lastname` |
 
-    <img src={require("../../../assets/img/guides/verifiable-credentials/vp-attribute-mappings.png").default} alt="Credential Attribute Mappings showing all three mapped claims" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+    <img src={require("../../../assets/cloud/img/guides/verifiable-credentials/vp-attribute-mappings.png").default} alt="Credential Attribute Mappings showing all three mapped claims" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 4. Click **Save**.
 
@@ -146,7 +146,7 @@ If no subject attribute is configured, {edition.productName} falls back to the `
 
 5. Click **Add**, then click **Update** to save the login flow.
 
-    <Variants><Edition only="cloud"><img src={require("../../../assets/cloud/img/guides/verifiable-credentials/vp-login-flow.png").default} alt="Login flow with Digital Wallet sign-in option added" width="350" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../assets/self-hosted/img/guides/verifiable-credentials/vp-login-flow.png").default} alt="Login flow with Digital Wallet sign-in option added" width="350" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+    <img src={require("../../../assets/cloud/img/guides/verifiable-credentials/vp-login-flow.png").default} alt="Login flow with Digital Wallet sign-in option added" width="350" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 Users can now select the wallet sign-in option on your application's login page. When selected, {edition.productName} generates a QR code. The user scans it with their wallet, reviews the requested claims, consents to sharing them, and {edition.productName} verifies the presentation and authenticates the user.
 
@@ -168,7 +168,7 @@ The Digital Wallet connection and its attribute mappings configured in [Authenti
 
 4. Click the **gear icon** on the **Digital Wallet** step and select your Digital Wallet connection (e.g., **Employee Wallet**) from the **Connection** dropdown.
 
-    <Variants><Edition only="cloud"><img src={require("../../../assets/cloud/img/guides/verifiable-credentials/vp-registration-wallet-step.png").default} alt="Digital Wallet step configured with the Employee Wallet connection" width="320" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../assets/self-hosted/img/guides/verifiable-credentials/vp-registration-wallet-step.png").default} alt="Digital Wallet step configured with the Employee Wallet connection" width="320" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+    <img src={require("../../../assets/cloud/img/guides/verifiable-credentials/vp-registration-wallet-step.png").default} alt="Digital Wallet step configured with the Employee Wallet connection" width="320" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 5. Optionally, in the **Flow Completion Properties** panel, enable **Auto Login** to sign the user in immediately after registration.
 
@@ -197,7 +197,7 @@ Any digital wallet that implements the [OID4VP specification](https://openid.net
 
 3. The wallet displays the claims that the verifier is requesting.
 
-    <Variants><Edition only="cloud"><img src={require("../../../assets/cloud/img/guides/verifiable-credentials/heidi-wallet-vp.png").default} alt="Heidi Wallet showing the presentation request" width="300px" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../assets/self-hosted/img/guides/verifiable-credentials/heidi-wallet-vp.png").default} alt="Heidi Wallet showing the presentation request" width="300px" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+    <img src={require("../../../assets/cloud/img/guides/verifiable-credentials/heidi-wallet-vp.png").default} alt="Heidi Wallet showing the presentation request" width="300px" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 4. Review the requested information and confirm sharing the credential (for example, by tapping **SHARE INFOS** in Heidi).
 

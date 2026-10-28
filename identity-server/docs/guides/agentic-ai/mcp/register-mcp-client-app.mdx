@@ -8,7 +8,9 @@ sidebar_position: 3
 
 The Model Context Protocol (MCP) specification defines that authorization is initiated by MCP clients. These clients handle authorization flows, manage tokens and sessions with MCP servers, and provide end-user experiences based on user permissions.
 
-<Edition selfHostedFrom="next">
+<Variants>
+
+<Edition only="cloud">
 
 {edition.productName} provides an **MCP Client Application** template with default configurations to register an MCP client with minimal effort. This template has been configured to create an OAuth application that adheres to the guidelines and best practices outlined in the [MCP authorization specification](https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization).
 
@@ -17,6 +19,14 @@ While the MCP Client Application template is optimized for MCP connections, MCP 
 :::
 
 </Edition>
+
+<Edition only="self-hosted">
+
+{edition.productName} provides an application template with default configurations to register an MCP client with minimal effort. This template has been configured to create an OAuth application that adheres to the guidelines and best practices outlined in the [MCP authorization specification](https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization).
+
+</Edition>
+
+</Variants>
 
 ## Register an MCP Client Application
 

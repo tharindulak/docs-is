@@ -42,11 +42,21 @@ Applications, by default, don't have permissions to access MCP servers. Administ
 
 :::note
 
-<Edition selfHostedFrom="next">
+<Variants>
 
-MCP servers can be authorized to all OIDC application types including Custom OIDC applications, Traditional Web applications, Single-Page applications (SPA), Mobile applications, and Machine-to-Machine (M2M) applications. The <Edition only="cloud">[MCP Client Application](./register-mcp-client-app.mdx)</Edition><Edition only="self-hosted">[MCP Client Application](../../applications/register-mcp-client-app.mdx)</Edition> template provides a pre-configured option for MCP-specific use cases. Digital Wallet applications can only access Verifiable Credential resources and cannot authorize MCP servers.
+<Edition only="cloud">
+
+MCP servers can be authorized to all OIDC application types including Custom OIDC applications, Traditional Web applications, Single-Page applications (SPA), Mobile applications, and Machine-to-Machine (M2M) applications. The [MCP Client Application](./register-mcp-client-app.mdx) template provides a pre-configured option for MCP-specific use cases. Digital Wallet applications can only access Verifiable Credential resources and cannot authorize MCP servers.
 
 </Edition>
+
+<Edition only="self-hosted">
+
+Currently MCP servers can only be authorized to applications that are created from the [MCP client Application](../../applications/register-mcp-client-app.mdx) template.
+
+</Edition>
+
+</Variants>
 
 :::
 
@@ -54,17 +64,29 @@ To authorize an application to consume an MCP server,
 
 1. On the {edition.productName} Console, go to **Applications**.
 
-<Edition selfHostedFrom="next">
+<Variants>
+
+<Edition only="cloud">
 
 2. Select your application and go to its **Authorization** tab.
 
 </Edition>
 
+<Edition only="self-hosted">
+
+2. Select the MCP client application and go to its **Authorization** tab.
+
+</Edition>
+
+</Variants>
+
 3. Click **Authorize a resource**.
 
 4. Enter the following details:
 
-    <Edition selfHostedFrom="next">
+    <Variants>
+
+    <Edition only="cloud">
 
     | Parameter | Description |
     | --- | --- |
@@ -72,6 +94,17 @@ To authorize an application to consume an MCP server,
     | **Authorized Scopes** | Select the scopes that the application should be able to request. |
 
     </Edition>
+
+    <Edition only="self-hosted">
+
+    | Parameter | Description |
+    | --- | --- |
+    | **Resource** | Select the MCP server from the list of resources |
+    | **Authorized Scopes** | Select the scopes that the MCP client should be able to request. |
+
+    </Edition>
+
+    </Variants>
 
 5. Click **Finish**.
 

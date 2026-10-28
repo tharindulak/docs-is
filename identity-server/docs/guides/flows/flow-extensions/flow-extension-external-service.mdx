@@ -4,7 +4,7 @@ description: A flow extension calls an external HTTP service that you build and 
 type: how-to
 sidebar_label: Implement an external service for flow extension
 sidebar_position: 3
-selfHostedFrom: next
+editions: cloud
 ---
 
 A flow extension calls an external HTTP service that you build and host. This service is where your custom logic runs. Use it to enrich user claims during registration, validate input against an external system, derive computed claims, or stop a flow with a business-rule failure.
@@ -232,21 +232,7 @@ If an attribute is marked as encrypted but the extension has no encryption certi
 
 ### Encrypted values in the response
 
-<Variants>
-
-<Edition only="cloud">
-
 For each **Write** attribute marked as encrypted, your service must return the value as a JWE compact string encrypted with the public key of your {edition.productName} organization. You can download the public certificate of your organization from the `{{ api_base_path }}/api/server/v1/keystores/certs/public` endpoint, which requires no authentication. {edition.productName} decrypts the value with its private key before applying the operation. Returning a plain-text value, or a value that {edition.productName} cannot decrypt, on an encrypted path aborts the flow.
-
-</Edition>
-
-<Edition only="self-hosted">
-
-For each **Write** attribute marked as encrypted, your service must return the value as a JWE compact string encrypted with the public key of your {edition.productName} organization. You can download the public certificate of your organization from the `{{ api_base_path }}/api/server/v1/keystores/certs/public` endpoint, which requires no authentication (see the [Keystore Management API](../../../reference/apis/keystore-rest-api/index.mdx#op-getPublicCertificate)). {edition.productName} decrypts the value with its private key before applying the operation. Returning a plain-text value, or a value that {edition.productName} cannot decrypt, on an encrypted path aborts the flow.
-
-</Edition>
-
-</Variants>
 
 For **multi-valued claims** on an encrypted path, join the values with commas, encrypt the joined string, and return it as a single-element array:
 
@@ -332,7 +318,7 @@ Use `FAILED` when your service decides, on business or policy grounds, that the 
 
 The end user sees the `failureReason` and `failureDescription` rendered as a flow error:
 
-<img src={require("../../../../assets/img/guides/flows/flow-extension-failed-error.png").default} alt="Flow extension failure shown to the end user" width="400" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../../assets/cloud/img/guides/flows/flow-extension-failed-error.png").default} alt="Flow extension failure shown to the end user" width="400" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 ### Error response
 

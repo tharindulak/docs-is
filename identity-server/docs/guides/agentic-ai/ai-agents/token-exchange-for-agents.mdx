@@ -16,6 +16,14 @@ This guide walks you through how an AI agent can act on behalf of a user by exch
 
 The issued token identifies the user in the `sub` claim and records the agent as the acting party in the `act` claim. A resource server can then see both identities in a single token.
 
+<Edition only="self-hosted">
+
+:::note
+This feature is available from **update level 7.3.0.18** onwards. See the instructions on [updating WSO2 products](https://updates.docs.wso2.com/en/latest/).
+:::
+
+</Edition>
+
 :::note[Agent friendly delegation mechanism]
 - This flow does **not use redirects** and needs **no new user interaction**.
 - It is suited to bringing an agent into work the user has already authorized.

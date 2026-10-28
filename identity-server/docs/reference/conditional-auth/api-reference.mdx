@@ -1,6 +1,6 @@
 ---
 title: Conditional authentication - API reference
-description: WSO2 Identity Platform provides a set of defined functions and objects to write your conditional authentication script.  # generated from the first paragraph; a writer should improve it
+description: WSO2 Identity Server provides a set of defined functions and objects to write your conditional authentication script.  # generated from the first paragraph; a writer should improve it
 type: reference
 sidebar_label: Conditional auth - API
 sidebar_position: 1
@@ -1963,6 +1963,10 @@ The step number is the one configured at the step configuration, not the actual 
 
 Contains the authentication step information. It may be a null or invalid step number.
 
+<Variants>
+
+<Edition only="cloud">
+
 <table>
   <tbody>
     <tr>
@@ -1979,6 +1983,31 @@ Contains the authentication step information. It may be a null or invalid step n
     </tr>
   </tbody>
 </table>
+
+</Edition>
+
+<Edition only="self-hosted">
+
+<table>
+  <tbody>
+    <tr>
+      <td>`step.subject`</td>
+      <td>Contains the authenticated user's information from this step. It may be null if the step is not yet executed. See [user](#user) for more information.</td>
+    </tr>
+    <tr>
+      <td>`step.idp`</td>
+      <td>Gives the name of the federated connection that is used to authenticate the user.</td>
+    </tr>
+    <tr>
+      <td>`step.authenticator`</td>
+      <td>Give the name of the authenticator that is used for authenticating the user. You can find the authenticator names from the connection names table.</td>
+    </tr>
+  </tbody>
+</table>
+
+</Edition>
+
+</Variants>
 
 ### User
 

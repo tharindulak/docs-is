@@ -1,6 +1,6 @@
 ---
 title: Authenticating AI Agents
-description: This guide walks you through how to authenticate AI agents into your applications secured by WSO2 Identity Platform.  # generated from the first paragraph; a writer should improve it
+description: This guide walks you through how to authenticate AI agents into your applications secured by WSO2 Identity Server.  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_label: Agent authentication
 sidebar_position: 5
@@ -369,6 +369,14 @@ To use OBO tokens with CIBA, agent identities must be enabled in {edition.produc
 :::
 
 ### Using token exchange for on-behalf-of delegation
+
+<Edition only="self-hosted">
+
+:::note
+This feature is available from **update level 7.3.0.18** onwards. See the instructions on [updating WSO2 products](https://updates.docs.wso2.com/en/latest/).
+:::
+
+</Edition>
 
 When an agent receives a token issued for the user, the [token exchange grant](../../authentication/configure-oidc-flows/tokens-and-validation/configure-token-exchange.mdx) can add the agent as the acting party without any new user interaction. The agent presents its own `actor_token` alongside the user's token, and {edition.productName} issues a token that carries the user in `sub` and the agent in the `act` claim. Successive exchanges nest the `act` claim, so a chain of agents remains traceable in a single token.
 

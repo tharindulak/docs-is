@@ -385,7 +385,9 @@ To register MCP Inspector as a MCP client in {edition.productName}:
     - The **authorized redirect URL** *(e.g., http://localhost:6274/oauth/callback/debug)*
 {/* markdownlint-enable MD007 */}
 
-<Edition selfHostedFrom="next">
+<Variants>
+
+<Edition only="cloud">
 
 :::info
 The authorized redirect URL determines where users are sent after sign-in, typically where the client app connecting to the MCP server is running.
@@ -395,6 +397,17 @@ While we're using the **MCP Client Application** template here for optimized MCP
 :::
 
 </Edition>
+
+<Edition only="self-hosted">
+
+:::info
+The authorized redirect URL determines where users are sent after sign-in, typically where the client app connecting to the MCP server is running.
+For this guide, we'll use ["MCP Inspector"](https://modelcontextprotocol.io/docs/tools/inspector) to test the MCP server, so we'll use `http://localhost:6274/oauth/callback/debug`, as the authorized redirect URL.
+:::
+
+</Edition>
+
+</Variants>
 
 Make a note of the **client-id** from the **Protocol** tab of the registered application. You will need it during next step.
 

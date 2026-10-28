@@ -1,6 +1,6 @@
 ---
 title: Pre-issue ID token action
-description: The pre-issue ID token action in WSO2 Identity Platform lets you execute custom logic before issuing an ID token.  # generated from the first paragraph; a writer should improve it
+description: The pre-issue ID token action in WSO2 Identity Server lets you execute custom logic before issuing an ID token.  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_label: Pre issue ID token action
 sidebar_position: 3
@@ -568,7 +568,7 @@ Configure the authentication scheme when registering the action in {edition.prod
 - **Bearer**: OAuth 2.0 Bearer token in the `Authorization` header.
 - **API Key**: API key in a header; you can define the header name (for example, `X-API-Key`).
 
-<Edition selfHostedFrom="next">
+<Edition only="cloud">
 
 - **OAuth 2.0 Client Credentials**: {edition.productName} retrieves an access token from the configured token endpoint using the OAuth 2.0 client credentials grant and uses it as a bearer token when invoking the action endpoint.
 - **OAuth 2.0 Password Grant**: {edition.productName} retrieves an access token from the configured token endpoint using the OAuth 2.0 resource owner password credentials grant and uses it as a bearer token when invoking the action endpoint.

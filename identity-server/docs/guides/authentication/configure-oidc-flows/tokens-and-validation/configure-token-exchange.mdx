@@ -1,8 +1,8 @@
 ---
 title: Configure token exchange
-description: You can exchange a token that an application already has for a new WSO2 Identity Platform token.  # generated from the first paragraph; a writer should improve it
+description: You can exchange a token that an application already has for a new WSO2 Identity Server token.  # generated from the first paragraph; a writer should improve it
 type: how-to
-sidebar_position: 6
+sidebar_position: 7
 ---
 
 You can exchange a token that an application already has for a new {edition.productName} token. Learn how to configure the OAuth 2.0 token exchange flow in your {edition.productName} organization. Refer to [Token exchange grant](../../../../reference/iam-concepts/grant-types.mdx#token-exchange-grant) for more information on how the flow works.
@@ -207,6 +207,14 @@ By default, the `username` attribute is available as a lookup attribute. Adminis
 
 #### Restrict scope issuance for federated tokens
 
+<Edition only="self-hosted">
+
+:::note
+This feature is available from **update level 7.3.0.18** onwards. See the instructions on [updating WSO2 products](https://updates.docs.wso2.com/en/latest/).
+:::
+
+</Edition>
+
 You can restrict scope issuance for a token obtained by exchanging a federated token. After enabling this configuration, {edition.productName} issues the exchanged token with no scopes.
 
 To restrict scope issuance for federated tokens:
@@ -284,8 +292,6 @@ Two applications take part in this flow.
 
 The same application can play both roles.
 
-<Variants>
-
 <Edition only="cloud">
 
 :::note[Scopes of the exchanged token]
@@ -294,17 +300,13 @@ For organizations created after **November 20, 2026**, {edition.productName} lim
 
 </Edition>
 
-<Edition only="self-hosted" selfHostedFrom="next">
+#### Configure the subject token application
 
-:::note[Scopes of the exchanged token]
-{edition.productName} limits the scopes of the exchanged token to the scopes granted to the subject token.
-:::
+<Edition only="self-hosted">
+
+The subject token should be a JWT access token that includes the token issuer of your organization in its `aud` claim.
 
 </Edition>
-
-</Variants>
-
-#### Configure the subject token application
 
 To configure the subject token application:
 
@@ -314,11 +316,27 @@ To configure the subject token application:
 
 3. Under **Access Token**, select `JWT` as the **Token type**.
 
-<Edition selfHostedFrom="next">
+<Variants>
+
+<Edition only="cloud">
 
 4. Click **Update** to save the configurations.
 
 </Edition>
+
+<Edition only="self-hosted">
+
+4. Under **ID Token**, add `{edition.productUrlFormat}/oauth2/token` as an **Audience**.
+
+    :::note
+    This step is not required from **update level 7.3.0.18** onwards. See the instructions on [updating WSO2 products](https://updates.docs.wso2.com/en/latest/).
+    :::
+
+5. Click **Update** to save the configurations.
+
+</Edition>
+
+</Variants>
 
 #### Try out locally issued token exchange
 
@@ -368,11 +386,27 @@ Upon successful execution, you will receive the exchanged token.
 
 ## Delegation
 
+<Edition only="self-hosted">
+
+:::note
+This feature is available from **update level 7.3.0.18** onwards. See the instructions on [updating WSO2 products](https://updates.docs.wso2.com/en/latest/).
+:::
+
+</Edition>
+
 The token exchange grant can also issue a token that preserves the identity of the party acting on behalf of the user. The requesting application presents an actor token along with the subject token, and {edition.productName} records the acting party in the `act` claim of the exchanged token.
 
 For instructions, see [Delegation](../../../authorization/delegation.mdx).
 
 ## Request a specific audience
+
+<Edition only="self-hosted">
+
+:::note
+This feature is available from **update level 7.3.0.18** onwards. See the instructions on [updating WSO2 products](https://updates.docs.wso2.com/en/latest/).
+:::
+
+</Edition>
 
 By default, {edition.productName} adds all the audiences registered for the requesting application to the exchanged token. To limit the audience of the exchanged token to a single value, add the `audience` parameter to the token request with the required audience.
 

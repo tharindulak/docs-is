@@ -46,7 +46,9 @@ Name : MCPInspectorApp
 Authorized redirect URL: http://localhost:6274/oauth/callback
 :::
 
-<Edition selfHostedFrom="next">
+<Variants>
+
+<Edition only="cloud">
 
 :::info
 The authorized redirect URL defines the location WSO2 Identity Platform sends users to after a successful login, typically the address of the client application that connects to the MCP server.
@@ -56,6 +58,17 @@ While we're using the **MCP Client Application** template here for optimized MCP
 :::
 
 </Edition>
+
+<Edition only="self-hosted">
+
+:::info
+The authorized redirect URL defines the location WSO2 Identity Platform sends users to after a successful login, typically the address of the client application that connects to the MCP server.
+For this guide, we will use ["MCP Inspector"](https://modelcontextprotocol.io/docs/tools/inspector) to test the MCP server, so we will use `http://localhost:6274/oauth/callback`, as the authorized redirect URL.
+:::
+
+</Edition>
+
+</Variants>
 
 Make a note of the **client-id** from the **Protocol** tab of the registered application. You will need it during the [Test the MCP server with authentication](#test-the-mcp-server-with-authentication) section of this guide.
 

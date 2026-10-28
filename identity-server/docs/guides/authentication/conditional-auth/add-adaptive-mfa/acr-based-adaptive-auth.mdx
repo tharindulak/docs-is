@@ -2,7 +2,7 @@
 title: Configure ACR-based adaptive authentication
 description: Authentication Context Class Reference (ACR) is an optional parameter that is used in SAML and OpenID Connect (OIDC) requests.  # generated from the first paragraph; a writer should improve it
 type: how-to
-sidebar_position: 8
+sidebar_position: 2
 ---
 
 import Tabs from '@theme/Tabs';
@@ -251,6 +251,10 @@ var onLoginRequest = function(context) {
 };
 ```
 
+<Variants>
+
+<Edition only="cloud">
+
 :::info[Access ACR Values from the authentication script]
 The authentiaction script is protocol-agnostic, i.e. it works for both OIDC and SAML SSO requests.
 
@@ -267,6 +271,31 @@ var acr_values = context.requestedAcr; //Assigns the list of ACR values returned
 context.selectedAcr="LOA1";  //Sets the ACR value to be returned in the response.
 ```
 :::
+
+</Edition>
+
+<Edition only="self-hosted">
+
+:::info[Access ACR Values from the authentication script]
+The authenticaction script is protocol-agnostic, i.e. it works for both OIDC and SAML SSO requests.
+
+- For OIDC requests the `acr_values` parameter is available as `context.requestedAcr`.
+
+- For SAML SSO requests, the list of `samlp:AuthnContextClassRef` is available as `context.requestedAcr`.
+
+You can also assign any string value that is returned in the authentication response, using `context.selectedAcr`.
+
+The following example explains this.
+
+```javascript
+var acr_values = context.requestedAcr; //Assigns the list of ACR values returned from the application to an array.
+context.selectedAcr="LOA1";  //Sets the ACR value to be returned in the response.
+```
+:::
+
+</Edition>
+
+</Variants>
 
 Let's look at how this script works.
 
@@ -310,7 +339,7 @@ Follow the steps given below to try out ACR-based adaptive authentication with t
     :::note
     Authentication Method Reference (AMR) value found in the access token provides information about the authentication methods that are used to assert the authenticity of the user.
 
-    The AMR values for the relevant request are `BasicAuthenticator` and `totp` which were the methods used for authenticaion.
+    The AMR values for the relevant request are `BasicAuthenticator` and `totp` which were the methods used for authentication.
     :::
 
 8. Logout from the application and try this flow with different ACR values.

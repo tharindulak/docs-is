@@ -2,7 +2,7 @@
 title: Manage consents
 description: The My Account portal lets users review and revoke the consents they have given, organized into application consents, policy consents, and communication…  # generated from the first paragraph; a writer should improve it
 type: how-to
-sidebar_position: 6
+sidebar_position: 5
 ---
 
 {/* markdownlint-disable-next-line */}
@@ -10,6 +10,19 @@ sidebar_position: 6
 The My Account portal lets users review and revoke the consents they have given, organized into application consents, policy consents, and communication preferences.
 
 ## Manage consents given to applications
+
+<Edition only="self-hosted">
+
+:::note[Prerequisite]
+This feature is available from **update level 7.3.0.12** onwards. See the instructions on [updating WSO2 products](https://updates.docs.wso2.com/en/latest/).
+
+The consent view in My Account depends on the consent management v2 API being enabled. See [Prerequisites](../../consent-management/index.mdx#prerequisites) for the required `deployment.toml` configurations.
+
+- **Enabled** — My Account shows a dedicated **Consents** section with Application Consents, Policy Consents, and Communication Preferences, as described below.
+- **Disabled** — My Account shows only **Manage Consents** (application consents only), located under the **Security** tab.
+:::
+
+</Edition>
 
 When a user logs into an application, {edition.productName} prompts the user to provide consent to the application to access user attributes.
 
