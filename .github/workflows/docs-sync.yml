@@ -1,4 +1,4 @@
-# Docs sync (optional): copied from wso2/docs-platform templates/content-repo/.
+# Docs sync (optional): copied from tharindulak/test-docs-platform templates/content-repo/.
 # Generated content (Extension points for product teams) is made upstream,
 # in the product's own CI, and committed here as data by a bot pull request;
 # the build reads only what is committed. This workflow runs the Platform's
@@ -44,7 +44,7 @@ permissions:
 jobs:
   by-hand:
     if: github.event_name == 'workflow_dispatch'
-    uses: wso2/docs-platform/.github/workflows/spec-sync.yml@v1
+    uses: tharindulak/test-docs-platform/.github/workflows/spec-sync.yml@v1
     with:
       product-repo: ${{ inputs.product-repo }}
       product-ref: ${{ inputs.product-ref }}
@@ -54,7 +54,7 @@ jobs:
 
   # nightly:
   #   if: github.event_name == 'schedule'
-  #   uses: wso2/docs-platform/.github/workflows/spec-sync.yml@v1
+  #   uses: tharindulak/test-docs-platform/.github/workflows/spec-sync.yml@v1
   #   with:
   #     product-repo: wso2/carbon-apimgt
   #     product-spec-path: components/apimgt/org.wso2.carbon.apimgt.rest.api.publisher.v1/src/main/resources/publisher-api.yaml

@@ -1,5 +1,5 @@
 # Docs: the one workflow file a Content repo carries, copied from
-# wso2/docs-platform templates/content-repo/. Content stays content-only:
+# tharindulak/test-docs-platform templates/content-repo/. Content stays content-only:
 # builds run centrally in the Platform (Platform build and deploy pipeline).
 #
 # Path-filtered. The repo holds one directory per Doc space (Repo structure
@@ -68,7 +68,7 @@ permissions:
   contents: read
 
 env:
-  # The Platform major this repo pins: v1 is a tag in wso2/docs-platform that
+  # The Platform major this repo pins: v1 is a tag in tharindulak/test-docs-platform that
   # each 1.x.y Platform release moves forward (never a branch). The `@v1` and
   # `platform-ref: v1` below name the same tag (`uses:` can't read env); a new
   # major changes all of them in one pull request.
@@ -89,10 +89,10 @@ jobs:
           persist-credentials: false
       - uses: actions/checkout@v4
         with:
-          repository: wso2/docs-platform
+          repository: tharindulak/test-docs-platform
           ref: ${{ env.PLATFORM_REF }}
           path: platform
-          # PENDING INFRA: while wso2/docs-platform is private, a read-only
+          # PENDING INFRA: while tharindulak/test-docs-platform is private, a read-only
           # token as the DOCS_PLATFORM_READ_TOKEN secret (public: none needed).
           token: ${{ secrets.DOCS_PLATFORM_READ_TOKEN || github.token }}
           persist-credentials: false
@@ -130,7 +130,7 @@ jobs:
       fail-fast: false
       matrix:
         space: ${{ fromJSON(needs.plan.outputs.spaces) }}
-    uses: wso2/docs-platform/.github/workflows/pr-preview.yml@v1
+    uses: tharindulak/test-docs-platform/.github/workflows/pr-preview.yml@v1
     with:
       platform-ref: v1
       doc-space: ${{ matrix.space.dir }}
@@ -152,7 +152,7 @@ jobs:
           persist-credentials: false
       - uses: actions/checkout@v4
         with:
-          repository: wso2/docs-platform
+          repository: tharindulak/test-docs-platform
           ref: ${{ env.PLATFORM_REF }}
           path: platform
           token: ${{ secrets.DOCS_PLATFORM_READ_TOKEN || github.token }}
@@ -197,7 +197,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-    uses: wso2/docs-platform/.github/workflows/pr-review.yml@v1
+    uses: tharindulak/test-docs-platform/.github/workflows/pr-review.yml@v1
     with:
       platform-ref: v1
     secrets: inherit
@@ -254,7 +254,7 @@ jobs:
       fail-fast: false
       matrix:
         tag: ${{ fromJSON(needs.tag.outputs.tags) }}
-    uses: wso2/docs-platform/.github/workflows/docs-bundle.yml@v1
+    uses: tharindulak/test-docs-platform/.github/workflows/docs-bundle.yml@v1
     with:
       tag: ${{ matrix.tag }}
     secrets:
@@ -268,7 +268,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-    uses: wso2/docs-platform/.github/workflows/branch-cut.yml@v1
+    uses: tharindulak/test-docs-platform/.github/workflows/branch-cut.yml@v1
     with:
       branch: ${{ github.ref_name }}
       platform-ref: v1
@@ -282,7 +282,7 @@ jobs:
       contents: write
       id-token: write
       attestations: write
-    uses: wso2/docs-platform/.github/workflows/docs-bundle.yml@v1
+    uses: tharindulak/test-docs-platform/.github/workflows/docs-bundle.yml@v1
     with:
       tag: ${{ github.ref_name }}
     secrets:
