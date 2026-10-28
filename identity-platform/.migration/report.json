@@ -1,0 +1,35 @@
+{
+  "summary": {
+    "source": "wso2/docs-is@736a3468f8bfb461e817cb1ed71407fa8a3236cc",
+    "edition": "cloud",
+    "legacyBase": "https://wso2.com/asgardeo/docs/",
+    "navPages": 0,
+    "parts": [
+      "identity-server"
+    ],
+    "stats": {
+      "pages": 1,
+      "partials": 0,
+      "apiPages": 0,
+      "images": 0,
+      "cardLinks": 17,
+      "acceptedByOverrides": 0
+    },
+    "issues": {
+      "home": 1
+    },
+    "compileFailures": 0,
+    "overrides": {
+      "patches": 0,
+      "patchesApplied": 0,
+      "accepted": 0
+    }
+  },
+  "items": [
+    {
+      "kind": "home",
+      "file": "index",
+      "message": "home page card \"SDKs and Integrations\" (Developer Tools|SDKs|Integrate WSO2 Identity Platform into your application) has no page in any Cloud part; written without a link"
+    }
+  ]
+}
