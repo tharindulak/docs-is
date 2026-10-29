@@ -4,6 +4,7 @@ description: This guide walks you through how an AI agent can act on behalf of a
 type: how-to
 sidebar_label: Token exchange for agents
 sidebar_position: 6
+editions: cloud
 ---
 
 import Tabs from '@theme/Tabs';
@@ -26,7 +27,7 @@ The issued token identifies the user in the `sub` claim and records the agent as
 
 ## How the flow works
 
-<Variants><Edition only="cloud">![Agent Delegation via Token Exchange Flow Diagram](../../../../assets/cloud/img/guides/agentic-ai/ai-agent-token-exchange-flow.png)</Edition><Edition only="self-hosted">![Agent Delegation via Token Exchange Flow Diagram](../../../../assets/self-hosted/img/guides/agentic-ai/ai-agent-token-exchange-flow.png)</Edition></Variants>
+![Agent Delegation via Token Exchange Flow Diagram](../../../../assets/cloud/img/guides/agentic-ai/ai-agent-token-exchange-flow.png)
 
 As shown in the above sequence diagram, the flow proceeds as follows.
 
@@ -57,10 +58,6 @@ As shown in the above sequence diagram, the flow proceeds as follows.
 
 Send both tokens to the token endpoint.
 
-<Variants>
-
-<Edition only="cloud">
-
 <Tabs groupId="tabs">
 <TabItem value="request-format" label="Request Format">
 
@@ -79,33 +76,6 @@ curl --location 'https://api.asgardeo.io/t/{organization_name}/oauth2/token' \
 
 </TabItem>
 </Tabs>
-
-</Edition>
-
-<Edition only="self-hosted">
-
-<Tabs groupId="tabs">
-<TabItem value="request-format" label="Request Format">
-
-```bash
-curl --location 'https://localhost:9443/t/{root_organization_handle}/oauth2/token' \
---header 'Content-Type: application/x-www-form-urlencoded' \
---header 'Authorization: Basic <base64 Encoded (clientId:clientSecret)>' \
---data-urlencode 'grant_type=urn:ietf:params:oauth:grant-type:token-exchange' \
---data-urlencode 'subject_token={user_token}' \
---data-urlencode 'subject_token_type=urn:ietf:params:oauth:token-type:jwt' \
---data-urlencode 'actor_token={agent_token}' \
---data-urlencode 'actor_token_type=urn:ietf:params:oauth:token-type:jwt' \
---data-urlencode 'requested_token_type=urn:ietf:params:oauth:token-type:access_token' \
---data-urlencode 'scope={requested_scopes}'
-```
-
-</TabItem>
-</Tabs>
-
-</Edition>
-
-</Variants>
 
 The request contains the following delegation parameters:
 

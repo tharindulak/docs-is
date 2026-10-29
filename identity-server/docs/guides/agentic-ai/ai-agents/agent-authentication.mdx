@@ -4,6 +4,7 @@ description: This guide walks you through how to authenticate AI agents into you
 type: how-to
 sidebar_label: Agent authentication
 sidebar_position: 5
+editions: cloud
 ---
 
 {/* vale off */}
@@ -34,13 +35,9 @@ In this scenario, the AI agent operates autonomously without user involvement, s
 
 When acting on its own, the AI agent uses its **Agent ID** and **Agent Secret** to authenticate with the authorization server and obtain an access token.
 
-![Agent Acting on its Own Flow Diagram](../../../../assets/img/guides/agentic-ai/ai-agent-identity-token-flow.png)
+![Agent Acting on its Own Flow Diagram](../../../../assets/cloud/img/guides/agentic-ai/ai-agent-identity-token-flow.png)
 
 * The AI agent begins the authentication flow by initiating an authorize request.
-
-<Variants>
-
-<Edition only="cloud">
 
 ```java
 curl --location 'https://api.asgardeo.io/t/{organization_name}/oauth2/authorize' \
@@ -53,26 +50,6 @@ curl --location 'https://api.asgardeo.io/t/{organization_name}/oauth2/authorize'
 --data-urlencode 'response_mode=direct' \
 --data-urlencode 'resource=booking_api'
 ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-```java
-curl --location 'https://localhost:9443/t/{root_organization_handle}/oauth2/authorize' \
---header 'Accept: application/json' \
---header 'Content-Type: application/x-www-form-urlencoded' \
---data-urlencode 'client_id=vMH8K3zdIhlSiIDmmvnebNOI_bIa' \
---data-urlencode 'response_type=code' \
---data-urlencode 'redirect_uri=https://example.com/callback' \
---data-urlencode 'scope=read_bookings write_bookings' \
---data-urlencode 'response_mode=direct' \
---data-urlencode 'resource=booking_api'
-```
-
-</Edition>
-
-</Variants>
 
 The agent receives the following response that contains key components like the **flowId** parameter that uniquely identifies the login flow and the authenticators array that contains the authentication options available for the first step.
 
@@ -135,10 +112,6 @@ The agent receives the following response that contains key components like the 
 
 * The agent makes a POST request to the `/authn` endpoint using the Authentication API. The payload of this request includes the flowId and the selectedAuthenticator object which contains credentials for the user-selected authentication option.
 
-<Variants>
-
-<Edition only="cloud">
-
 ```bash
 curl --location 'https://api.asgardeo.io/t/{organization_name}/oauth2/authn' \
 --header 'Content-Type: application/json' \
@@ -155,30 +128,6 @@ curl --location 'https://api.asgardeo.io/t/{organization_name}/oauth2/authn' \
 }'
 ```
 
-</Edition>
-
-<Edition only="self-hosted">
-
-```bash
-curl --location 'https://localhost:9443/t/{root_organization_handle}/oauth2/authn' \
---header 'Content-Type: application/json' \
---data '{
-"flowId": "3bd1f207-e5b5-4b45-8a91-13b0acfb2151",
-"selectedAuthenticator": {
-    "authenticatorId": "QmFzaWNBdXRoZW50aWNhdG9yOkxPQ0FM",
-    "params": {
-        "username": "<agent_id>",
-        "password": "<agent_secret>"
-
-    }
-}
-}'
-```
-
-</Edition>
-
-</Variants>
-
 If the request is successful, the agent will receive a response with the following format.
 
 ```javascript
@@ -191,10 +140,6 @@ If the request is successful, the agent will receive a response with the followi
 
 * As the final step, the agent sends a token request with the received authorization code to the authorization server’s token endpoint, using its own credentials (Agent ID and Secret). The server verifies these credentials, and upon successful authentication, issues an access token. The agent then includes this access token in its requests to securely access protected resources.
 
-<Variants>
-
-<Edition only="cloud">
-
 ```bash
 curl --location 'https://api.asgardeo.io/t/{organization_name}/oauth2/token' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
@@ -206,32 +151,13 @@ curl --location 'https://api.asgardeo.io/t/{organization_name}/oauth2/token' \
 --data-urlencode 'resource=booking_api'
 ```
 
-</Edition>
-
-<Edition only="self-hosted">
-
-```bash
-curl --location 'https://localhost:9443/t/{root_organization_handle}/oauth2/token' \
---header 'Content-Type: application/x-www-form-urlencoded' \
---data-urlencode 'grant_type=authorization_code' \
---data-urlencode 'client_id=vMH8K3zdIhlSiIDmmvnebNOI_bIa' \
---data-urlencode 'code=3a23a94a-3c50-3b56-92fa-f583cb63c617' \
---data-urlencode 'code_verifier=FehTNaOvDMhpP9wgdGb_AWR5Gu5KwTmF978KMRKbtgM' \
---data-urlencode 'redirect_uri=https://example.com/callback' \
---data-urlencode 'resource=booking_api'
-```
-
-</Edition>
-
-</Variants>
-
 ## AI agent acting on behalf of a user
 
 When an AI agent needs to act on behalf of a user—such as initiating a transaction, making a booking, or retrieving user-specific data—it must do so with explicit user consent. This is typically required for user-facing assistants, copilots, or delegated decision-making agents.
 
 This scenario follows an enhanced authorization code flow, adopting the [OAuth Extension for AI Agents IETF draft](https://datatracker.ietf.org/doc/draft-oauth-ai-agents-on-behalf-of-user/), which introduces a structured and dynamic delegation model.
 
-![Agent Acting on-behalf-of User Flow Diagram](../../../../assets/img/guides/agentic-ai/ai-agent-on-behalf-flow.png)
+![Agent Acting on-behalf-of User Flow Diagram](../../../../assets/cloud/img/guides/agentic-ai/ai-agent-on-behalf-flow.png)
 
 As shown in the above sequence diagram, the flow proceeds as follows.
 
@@ -266,13 +192,9 @@ As shown in the above sequence diagram, the flow proceeds as follows.
 
 For background agents that operate without direct user interaction, the [CIBA grant](../../authentication/configure-oidc-flows/grant-types/configure-ciba-grant.mdx) can be combined with OBO tokens to enable delegation. Instead of redirecting the user to a browser for consent, the agent initiates a backchannel authentication request with its `actor_token`, and the user approves the delegation asynchronously on a separate device via email, SMS, or an external notification channel.
 
-![Agent OBO via CIBA Flow Diagram](../../../../assets/img/guides/agentic-ai/ai-agent-obo-ciba-flow.png)
+![Agent OBO via CIBA Flow Diagram](../../../../assets/cloud/img/guides/agentic-ai/ai-agent-obo-ciba-flow.png)
 
 The flow proceeds as follows:
-
-<Variants>
-
-<Edition only="cloud">
 
 1. **Backchannel Authentication with Actor Token**
    The agent sends a backchannel authentication request to the `/oauth2/ciba` endpoint, including its `actor_token` alongside standard CIBA parameters.
@@ -289,35 +211,8 @@ The flow proceeds as follows:
 
     The `actor_token` is a JWT representing the AI agent’s identity, obtained through the agent’s own [authentication flow](#ai-agent-acting-on-its-own).
 
-</Edition>
-
-<Edition only="self-hosted">
-
-1. **Backchannel Authentication with Actor Token**
-   The agent sends a backchannel authentication request to the `/oauth2/ciba` endpoint, including its `actor_token` alongside standard CIBA parameters.
-
-    ```bash
-    curl -v -k -X POST https://localhost:9443/t/{root_organization_handle}/oauth2/ciba \
-    --header "Authorization: Basic <Base64Encoded(CLIENT_ID:CLIENT_SECRET)>" \
-    --header "Content-Type:application/x-www-form-urlencoded" \
-    --data-urlencode "scope=openid profile" \
-    --data-urlencode "login_hint=<username>" \
-    --data-urlencode "binding_message=Agent requesting access on your behalf" \
-    --data-urlencode "actor_token=<AGENT_ACTOR_TOKEN>"
-    ```
-
-    The `actor_token` is a JWT representing the AI agent’s identity, obtained through the agent’s own [authentication flow](#ai-agent-acting-on-its-own).
-
-</Edition>
-
-</Variants>
-
 2. **User Notification and Authentication**
    {edition.productName} validates the actor token and sends a notification to the user through the configured channel (email, SMS, or external). The user authenticates and provides consent on the separate device.
-
-<Variants>
-
-<Edition only="cloud">
 
 3. **Token Polling**
    The agent polls the token endpoint using the `auth_req_id` received in the CIBA response:
@@ -329,25 +224,6 @@ The flow proceeds as follows:
     --data-urlencode "grant_type=urn:openid:params:grant-type:ciba" \
     --data-urlencode "auth_req_id=<AUTH_REQ_ID>"
     ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-3. **Token Polling**
-   The agent polls the token endpoint using the `auth_req_id` received in the CIBA response:
-
-    ```bash
-    curl -v -k -X POST https://localhost:9443/t/{root_organization_handle}/oauth2/token \
-    --header "Authorization: Basic <Base64Encoded(CLIENT_ID:CLIENT_SECRET)>" \
-    --header "Content-Type:application/x-www-form-urlencoded" \
-    --data-urlencode "grant_type=urn:openid:params:grant-type:ciba" \
-    --data-urlencode "auth_req_id=<AUTH_REQ_ID>"
-    ```
-
-</Edition>
-
-</Variants>
 
 4. **Delegated Token Issuance**
    Once the user authenticates, the authorization server issues a delegated access token containing an `act` claim that identifies the agent:

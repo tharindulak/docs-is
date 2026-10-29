@@ -3,6 +3,7 @@ title: Delegation
 description: Delegation lets an application get a token for a user while preserving the identity of the party that acts on the user's behalf.  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_position: 4
+editions: cloud
 ---
 
 import Tabs from '@theme/Tabs';
@@ -24,10 +25,6 @@ Before you request a delegated token:
 
 To request a delegated token, send both tokens to the token endpoint.
 
-<Variants>
-
-<Edition only="cloud">
-
 <Tabs groupId="tabs">
 <TabItem value="request-format" label="Request Format">
 
@@ -46,33 +43,6 @@ curl --location 'https://api.asgardeo.io/t/{organization_name}/oauth2/token' \
 
 </TabItem>
 </Tabs>
-
-</Edition>
-
-<Edition only="self-hosted">
-
-<Tabs groupId="tabs">
-<TabItem value="request-format" label="Request Format">
-
-```bash
-curl --location 'https://localhost:9443/oauth2/token' \
---header 'Content-Type: application/x-www-form-urlencoded' \
---header 'Authorization: Basic <base64 Encoded (clientId:clientSecret)>' \
---data-urlencode 'grant_type=urn:ietf:params:oauth:grant-type:token-exchange' \
---data-urlencode 'subject_token={subject_token}' \
---data-urlencode 'subject_token_type=urn:ietf:params:oauth:token-type:jwt' \
---data-urlencode 'actor_token={actor_token}' \
---data-urlencode 'actor_token_type=urn:ietf:params:oauth:token-type:jwt' \
---data-urlencode 'requested_token_type=urn:ietf:params:oauth:token-type:access_token' \
---data-urlencode 'scope={requested_scopes}'
-```
-
-</TabItem>
-</Tabs>
-
-</Edition>
-
-</Variants>
 
 The request contains the following delegation parameters:
 
@@ -103,10 +73,6 @@ The delegated token identifies the user in the `sub` claim and the acting party 
 
 The decoded delegated token looks as follows:
 
-<Variants>
-
-<Edition only="cloud">
-
 ```json
 {
   "sub": "32bc4697-ed0f-4546-8387-dcd6403e7caa",
@@ -123,31 +89,6 @@ The decoded delegated token looks as follows:
   "jti": "0728d517-7968-474f-bd7d-12537ccbe436"
 }
 ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-```json
-{
-  "sub": "32bc4697-ed0f-4546-8387-dcd6403e7caa",
-  "iss": "https://localhost:9443/oauth2/token",
-  "client_id": "jVcW4oLn1Jjb2T94H4gtPV9z5Y0a",
-  "aud": "jVcW4oLn1Jjb2T94H4gtPV9z5Y0a",
-  "act": {
-    "sub": "2d931c9d-876e-46c0-9aba-f34501879dfc"
-  },
-  "scope": "booking:read",
-  "nbf": 1770094002,
-  "exp": 1770097602,
-  "iat": 1770094002,
-  "jti": "0728d517-7968-474f-bd7d-12537ccbe436"
-}
-```
-
-</Edition>
-
-</Variants>
 
 A resource server can use the `act` claim to record which party acted on behalf of the user, or to apply policies that depend on the acting party.
 

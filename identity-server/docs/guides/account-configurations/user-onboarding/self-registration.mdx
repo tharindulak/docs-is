@@ -2,7 +2,6 @@
 title: Self registration
 description: You can enable users to self-register to your organization from the login page of the application.  # generated from the first paragraph; a writer should improve it
 type: how-to
-sidebar_label: Self-registration
 sidebar_position: 1
 ---
 
@@ -247,15 +246,13 @@ Note the following details in the response payload:
 
 Once you have identified the `emailVerified` status of the user and the method used to onboard the user (either through self-registration or by an administrator), you can enforce any access restrictions through your application logic.
 
+<Edition only="cloud">
+
 ## Resend account verification email
 
 :::tip
 To implement this scenario, you must enforce account verification for self-registered users and activate accounts immediately without waiting for verification.<br /><br /> Learn more in [enable/disable self-registration](#enabledisable-self-registration).
 :::
-
-<Variants>
-
-<Edition only="cloud">
 
 - To resend the account verification email for the authenticated user, use the curl command shown below.
 
@@ -362,114 +359,4 @@ Ensure that the username provided is without the user store domain prefix, and t
 :::
 
 </Edition>
-
-<Edition only="self-hosted">
-
-- To resend the account verification email for the authenticated user, use the [Self Resend Code API](../../../reference/apis/use-the-self-sign-up-rest-apis/index.mdx#tag-self-register) as shown below.
-
-:::info
-<Tabs groupId="tabs">
-<TabItem value="request-format" label="Request format">
-
-```bash
-curl -X 'POST' \
-'https://{edition.hostName}/api/identity/user/v1.0/me/resend-code' \
--H 'Authorization: Bearer <access_token>' \
--H 'Content-Type: application/json' \
--d '{
-    "properties": [
-        {
-            "key": "RecoveryScenario",
-            "value": "SELF_SIGN_UP"
-        }
-    ]
-}'
-```
-
-</TabItem>
-<TabItem value="sample-request" label="Sample request">
-
-```bash
-curl -X 'POST' \
-'https://localhost:9443/api/identity/user/v1.0/me/resend-code' \
--H 'Authorization: Bearer <access_token>' \
--H 'Content-Type: application/json' \
--d '{
-    "properties": [
-        {
-            "key": "RecoveryScenario",
-            "value": "SELF_SIGN_UP"
-        }
-    ]
-}'
-```
-
-</TabItem>
-</Tabs>
-
----
-**Response**
-```text
-HTTP/1.1 201 Created
-```
-:::
-
-- To resend the account verification email for other users, use the [Resend Code API](../../../reference/apis/use-the-self-sign-up-rest-apis/index.mdx#tag-self-register) as shown below.
-
-:::info
-<Tabs groupId="tabs">
-<TabItem value="request-format" label="Request format">
-
-```bash
-curl -X 'POST' \
-'https://{edition.hostName}/api/identity/user/v1.0/resend-code' \
--H 'Authorization: Bearer <access_token>' \
--H 'Content-Type: application/json' \
--d '{
-    "user": {
-        "username": "<USERNAME>",
-        "realm": "<REALM>"
-    },
-    "properties": [{
-        "key": "RecoveryScenario",
-        "value": "SELF_SIGN_UP"
-        }]
-    }'
-```
-
-</TabItem>
-<TabItem value="sample-request" label="Sample request">
-
-```text
-curl -X 'POST' \
-'https://localhost:9443/api/identity/user/v1.0/resend-code' \
--H 'Authorization: Bearer <access_token>' \
--H 'Content-Type: application/json' \
--d '{
-    "user": {
-        "username": "bob",
-        "realm": "PRIMARY"
-    },
-    "properties": [{
-        "key": "RecoveryScenario",
-        "value": "SELF_SIGN_UP"
-        }]
-    }'
-```
-
-</TabItem>
-</Tabs>
-
-Ensure that the username provided is without the user store domain prefix, and the realm parameter specifies the relevant user store domain name.
-
----
-**Response**
-```text
-"HTTP/1.1 201 Created"
-```
-:::
-
-</Edition>
-
-</Variants>
 

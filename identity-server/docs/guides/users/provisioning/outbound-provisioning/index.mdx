@@ -1,0 +1,37 @@
+---
+title: Outbound provisioning
+description: Outbound provisioning automatically provisions user accounts from WSO2 Identity Server to external systems.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_position: 1
+editions: self-hosted
+---
+
+Outbound provisioning automatically provisions user accounts from {edition.productName} to external systems. When enabled, user lifecycle events such as creation, updates, and deletion are synchronized in real-time with connected applications.
+
+## Provisioning levels
+
+{edition.productName} lets you configure outbound provisioning at the following levels:
+
+- [Organization-level](../../outbound-provisioning/setup-outbound-provisioning.mdx): Users are automatically provisioned to the external system when:
+    - a user is provisioned in {edition.productName} over an API.
+    - an administrator onboards a user from the {edition.productName} Console.
+    - a user self-signs up from a {edition.productName} login page.
+    - a user is JIT provisioned in {edition.productName}.
+
+## Role-based provisioning
+
+In addition to provisioning levels, you can refine your provisioning criteria by managing which users are provisioned based on their assigned roles.
+
+Learn more about [role-based provisioning](./role-based-provisioning.mdx).
+
+## Outbound connectors
+
+{edition.productName} supports provisioning users via the following outbound connectors:
+
+- [Google](./outbound-connectors/google.mdx)
+- [Salesforce](./outbound-connectors/salesforce.mdx)
+- [SCIM2](../../outbound-provisioning/outbound-connectors/scim2.mdx)
+
+## Provisioning attributes
+
+When a provisioning request uses a token issued to an authorized application (other than the Console application), {edition.productName} applies attribute filtering. Only the attributes requested by that application are provisioned to the external system.

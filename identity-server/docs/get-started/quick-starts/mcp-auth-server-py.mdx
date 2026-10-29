@@ -4,22 +4,11 @@ description: Welcome to the Secure MCP server Quickstart guide!  # generated fro
 type: quick-start
 sidebar_label: Python
 sidebar_position: 2
+editions: cloud
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-
-<Variants>
-
-<Edition only="cloud">
-
-</Edition>
-
-<Edition only="self-hosted">
-
-</Edition>
-
-</Variants>
 
 Welcome to the Secure MCP server Quickstart guide! This guide shows you how to build a secure MCP (Model Context Protocol) server in Python using the [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk), and protect it with **{edition.productName}**.
 
@@ -46,16 +35,12 @@ Name : MCPInspectorApp
 Authorized redirect URL: http://localhost:6274/oauth/callback
 :::
 
-<Edition selfHostedFrom="next">
-
 :::info
 The authorized redirect URL defines the location WSO2 Identity Platform sends users to after a successful login, typically the address of the client application that connects to the MCP server.
 For this guide, we will use ["MCP Inspector"](https://modelcontextprotocol.io/docs/tools/inspector) to test the MCP server, so we will use `http://localhost:6274/oauth/callback`, as the authorized redirect URL.
 
 While we're using the **MCP Client Application** template here for optimized MCP settings, you can also use other application types (Single Page App, Traditional Web App, Mobile App, or M2M App) to access MCP servers, except Digital Wallet applications.
 :::
-
-</Edition>
 
 Make a note of the **client-id** from the **Protocol** tab of the registered application. You will need it during the [Test the MCP server with authentication](#test-the-mcp-server-with-authentication) section of this guide.
 
@@ -153,10 +138,6 @@ Stop the running server before continuing.
 
 Add environment configuration by creating a `.env` file at the project root to hold the {edition.productName} configuration:
 
-<Variants>
-
-<Edition only="cloud">
-
 ```properties title=".env"
 AUTH_ISSUER=https://api.asgardeo.io/t/<your-tenant>/oauth2/token
 CLIENT_ID=<your-client-id>
@@ -167,25 +148,6 @@ JWKS_URL=https://api.asgardeo.io/t/<your-tenant>/oauth2/jwks
 Replace `<your-tenant>` and `<your-client-id>` with the values obtained from the {edition.productName} console.
 The tenant name is visible in the console URL path (e.g., `https://console.asgardeo.io/t/<your-tenant>`) , and the client ID is found in the application's **Protocol** tab.
 :::
-
-</Edition>
-
-<Edition only="self-hosted">
-
-```properties title=".env"
-AUTH_ISSUER=https://localhost:9443/t/<your-tenant>/oauth2/token
-CLIENT_ID=<your-client-id>
-JWKS_URL=https://localhost:9443/t/<your-tenant>/oauth2/jwks
-```
-
-:::warning[Important]
-Replace `<your-tenant>` and `<your-client-id>` with the values obtained from the {edition.productName} console.
-The tenant name is visible in the console URL path  (e.g., `https://localhost:9443/t/<your-tenant>`) , and the client ID is found in the application's **Protocol** tab.
-:::
-
-</Edition>
-
-</Variants>
 
 Create a `jwt_validator.py` file in the project directory using the implementation below.
 

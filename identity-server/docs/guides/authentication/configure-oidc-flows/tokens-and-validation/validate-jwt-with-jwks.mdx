@@ -1,9 +1,9 @@
 ---
 title: Validate JWT with JSON Web Key Set (JWKS)
-description: This guide explains JSON Web Key Set (JWKS) and how to use it to validate JSON Web Tokens (JWT) with WSO2 Identity Platform.  # generated from the first paragraph; a writer should improve it
+description: This guide explains JSON Web Key Set (JWKS) and how to use it to validate JSON Web Tokens (JWT) with WSO2 Identity Server.  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_label: Validate JWT with JWKS
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 import Tabs from '@theme/Tabs';
@@ -199,40 +199,3 @@ size_limit_bytes= 51200
 </Edition>
 
 You can see JWT validation in action by following the guide and implementing the [JWT Bearer Grant type](../grant-types/configure-jwt-bearer-grant.mdx) for your application.
-
-<Edition only="self-hosted">
-
-### Additional configurations
-
-We recommend using `x5t#S256`. If your system requires the previous `x5t` support or hexifying the values, use the configuration combinations in the table below.
-
-<table>
-  <tbody>
-    <tr>
-      <th>JWT Header</th>
-      <th>JWKS Response</th>
-      <th>Configuration</th>
-      <th>Notes</th>
-    </tr>
-    <tr>
-      <td>`x5t#S256`</td>
-      <td>`x5t#S256`</td>
-      <td>This is the default configuration</td>
-      <td>**Recommended.**</td>
-    </tr>
-    <tr>
-      <td>`x5t`</td>
-      <td>`x5t`</td>
-      <td>`[oauth]`<br /> `jwt_x5t_s256_enabled=false`<br /> `jwt_x5t_enabled=true`<br /><br /> `[oauth.jwks_endpoint]`<br /> `is_x5t_required=true`</td>
-      <td>Use this to support legacy systems that require `x5t`.</td>
-    </tr>
-    <tr>
-      <td colSpan="2">Hexifying thumbprints</td>
-      <td>`[oauth]`<br /> `jwt_x5t_hexify_required=true`<br /><br /> `[oauth.jwks_endpoint]`<br /> `is_thumbprint_hexify_required=true`</td>
-      <td>When you need to hexify thumbprints, use this configuration.</td>
-    </tr>
-  </tbody>
-</table>
-
-</Edition>
-

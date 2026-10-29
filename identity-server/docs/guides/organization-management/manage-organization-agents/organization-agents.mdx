@@ -4,7 +4,7 @@ description: Organization administrators can register and manage AI agents direc
 type: how-to
 sidebar_label: Create agents
 sidebar_position: 1
-selfHostedFrom: next
+editions: cloud
 ---
 
 Organization administrators can register and manage AI agents directly within their organizations, in the same way agents are managed in the root organization. An agent created in an organization is a first-class identity of that organization. It can log in to the organization's applications, be assigned roles of the organization, and act on behalf of the organization's users.
@@ -44,27 +44,10 @@ Learn more about the role types available in an organization in [configure roles
 
 An organization agent authenticates with its **Agent ID** and **Agent Secret** against the organization's endpoints, which include the organization ID in the path.
 
-<Variants>
-
-<Edition only="cloud">
-
 ```bash
 https://api.asgardeo.io/t/{root-organization-name}/o/<ORG_ID>/oauth2/authorize
 https://api.asgardeo.io/t/{root-organization-name}/o/<ORG_ID>/oauth2/token
 ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-```bash
-https://localhost:9443/t/carbon.super/o/<ORG_ID>/oauth2/authorize
-https://localhost:9443/t/carbon.super/o/<ORG_ID>/oauth2/token
-```
-
-</Edition>
-
-</Variants>
 
 Apart from the endpoint, the flow is the same as the one described in [authenticating AI agents](../../agentic-ai/ai-agents/agent-authentication.mdx).
 

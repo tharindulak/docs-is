@@ -73,6 +73,14 @@ eyJ4NXQiOiJOVEF4Wm1NeE5ETXlaRGczTVRVMVpHTTBNekV6T0RKaFpXSTRORE5sWkRVMU9HRmtOakZp
 
     - A192CBC-HS384
 
+<Edition only="self-hosted">
+
+:::note
+From update level 54 onwards, the `A192CBC-HS384` encryption method is supported.
+:::
+
+</Edition>
+
 - **Encrypt the Content Encryption Key (CEK)** - {edition.productName} uses the registered public key of the application to encrypt the CEK using the specified asymmetric encryption algorithm, known as the **encryption algorithm**. {edition.productName} supports the following encryption algorithms:
 
     - RSA1_5
@@ -81,6 +89,20 @@ eyJ4NXQiOiJOVEF4Wm1NeE5ETXlaRGczTVRVMVpHTTBNekV6T0RKaFpXSTRORE5sWkRVMU9HRmtOakZp
     - RSA-OAEP-256
     - RSA-OAEP-384
     - RSA-OAEP-512
+
+    <Edition only="self-hosted">
+
+    - ECDH-ES+A256KW
+
+    </Edition>
+
+<Edition only="self-hosted">
+
+:::note
+From update level 57 onwards, `RSA-OAEP-256`, `RSA-OAEP-384`, `RSA-OAEP-512`, and `ECDH-ES+A256KW` encryption algorithms are supported.
+:::
+
+</Edition>
 
 <Edition only="self-hosted">
 

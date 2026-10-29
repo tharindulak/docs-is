@@ -90,10 +90,27 @@ Your SaaS platform (**root organization**) builds the application and creates **
 
 Use this table to see resource behavior across the hierarchy.
 
+<Variants>
+
+<Edition only="cloud">
+
 | | Share from parent | Organization can create | Organization inherits |
 |---|---|---|---|
 | **Definition** | Resources a parent explicitly shares with child organizations. | Resources an organization creates and manages on its own. | Resources automatically available from the immediate parent. |
 | **Resources** | Applications, Roles (with shared apps), Users | Connections (IdPs), Users, Applications, Groups, Roles, Branding, Templates, Workflows, Userstores, User attributes, Flows, Login and registration customizations, Actions, Adaptive scripts | API resources, Parent branding (when the organization doesn't configure branding), Login and registration settings, Custom claims and OIDC scopes |
+
+</Edition>
+
+<Edition only="self-hosted">
+
+| | Share from parent | Organization can create | Organization inherits |
+|---|---|---|---|
+| **Definition** | Resources a parent explicitly shares with child organizations. | Resources an organization creates and manages on its own. | Resources automatically available from the immediate parent. |
+| **Resources** | Applications, Roles (with shared apps), Users | Connections (IdPs), Users, Applications, Groups, Roles, Branding, Templates, Userstores, User attributes, Login and registration customizations, Actions, Adaptive scripts | API resources, Parent branding (when the organization doesn't configure branding) |
+
+</Edition>
+
+</Variants>
 
 :::note[Example]
 You **share** your SaaS application with a business (**shared from parent**). The business connects their enterprise IdP and configures custom branding. Their regional offices automatically **inherit** login settings and API resources.

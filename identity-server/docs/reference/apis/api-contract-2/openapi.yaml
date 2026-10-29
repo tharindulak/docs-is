@@ -1,8 +1,14 @@
-openapi: 3.0.0
+openapi: 3.0.1
 info:
-  title: API contract for custom authentication action
-  description: This API defines the REST contract for a service that extends the authentication flow of WSO2 Identity Platform with a custom authenticator.
+  title: API contract for pre-issue access token action
+  description: This API defines the REST API contract for a service that implements logic to extend the access token issuance flow of WSO2 Identity Server.
   version: v1
+  contact:
+    name: WSO2
+    url: 'https://wso2.com/identity-server/'
+  license:
+    name: Apache 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
 security:
 - BasicAuth: []
 - BearerAuth: []
@@ -11,55 +17,12 @@ security:
 paths:
   /:
     post:
-      summary: handle authentication events
+      summary: handle pre-issue access token events
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/RequestBody'
-            examples:
-              requestForAuthenticatorsOfFirstStep:
-                summary: Authentication request when executed in the first step.
-                value:
-                  actionType: AUTHENTICATION
-                  flowId: "8369510297"
-                  requestId: "5168321563"
-                  event:
-                    tenant:
-                      id: "3532056273"
-                      name: bar.com
-                    application:
-                      id: "9438473805"
-                      name: Epic
-                    currentStepIndex: 1
-                  allowedOperations:
-                    - op: redirect
-              requestForAuthenticatorsInSecondStepOrLater:
-                summary: Authentication request when executed in the second step or later.
-                value:
-                  actionType: AUTHENTICATION
-                  flowId: "8369510297"
-                  requestId: "5168321563"
-                  event:
-                    tenant:
-                      id: "3532056273"
-                      name: bar.com
-                    user:
-                      id: 9f1ab106-ce85-46b1-8f41-6a071b54eb56
-                      sub: johnd@gmail.com
-                      userIdentitySource: LOCAL
-                    userStore:
-                      id: "9438473805"
-                      name: PRIMARY
-                    organization:
-                      id: "0847967971"
-                      name: sub1.bar.com
-                    application:
-                      id: "9438473805"
-                      name: Epic
-                    currentStepIndex: 1
-                  allowedOperations:
-                    - op: redirect
         required: true
       responses:
         "200":
@@ -67,61 +30,26 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResponseFor200StatusCode'
+                oneOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - $ref: '#/components/schemas/FailedResponse'
               examples:
-                SuccessStatusExternalUserAuthenticator:
-                  summary: SUCCESS status response from authenticators implementing 'External (Federated) User Authentication' type.
+                successExample:
+                  summary: Success response
                   value:
                     actionStatus: SUCCESS
-                    data:
-                      user:
-                        id: 9f1ab106-ce85-46b1-8f41-6a071b54eb56
-                        groups:
-                        - TierGold
-                        claims:
-                        - uri: http://wso2.org/claims/username
-                          value: johnd@gmail.com
-                        - uri: http://wso2.org/claims/emailaddress
-                          value: johnd@gmail.com
-                        - uri: http://wso2.org/claims/emailAddresses
-                          value: [ "johnd@gmail.com", "deo@gmail.com" ]
-                SuccessStatusInternalUserAuthenticator:
-                  summary: SUCCESS status response from authenticators implementing 'Internal User Authentication' type.
-                  value:
-                    actionStatus: SUCCESS
-                    data:
-                      user:
-                        id: 9f1ab106-ce85-46b1-8f41-6a071b54eb56
-                        claims:
-                        - uri: http://wso2.org/claims/username
-                          value: johnd@gmail.com
-                        - uri: http://wso2.org/claims/emailaddress
-                          value: johnd@gmail.com
-                        - uri: http://wso2.org/claims/emailAddresses
-                          value: [ "johnd@gmail.com", "deo@gmail.com" ]
-                        userStore:
-                          id: UFJJTUFSWQ==
-                          name: PRIMARY
-                          
-                SuccessStatusVerificationAuthenticator:
-                  summary: SUCCESS status response from authenticators implementing '2FA Authentication' type.
-                  value:
-                    actionStatus: SUCCESS
-                    
-                IncompleteStatusWithRedirection:
-                  summary: INCOMPLETE status response with redirection.
-                  value:
-                    actionStatus: INCOMPLETE
                     operations:
-                    - op: redirect
-                      url: https://externalservice/authentication/userinput
-                      
-                FailStatus:
-                  summary: FAILED status response.
+                      - op: add
+                        path: /accessToken/claims/-
+                        value:
+                          name: customSID
+                          value: "12345"
+                failedExample:
+                  summary: Failed response
                   value:
                     actionStatus: FAILED
-                    failureReason: userNotFound
-                    failureDescription: Unable to find user for given user credentials.
+                    failureReason: invalid_scope
+                    failureDescription: "The requested scope is invalid, unknown, or malformed."
         "400":
           description: Bad Request
           content:
@@ -129,9 +57,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
               example:
-                actionStatus: ERROR
-                errorMessage: Unauthorized
-                errorDescription: Failed to authorize the request.              
+              - actionStatus: ERROR
+                errorMessage: invalid_request
+                errorDescription: SID claim is missing
         "500":
           description: Server Error
           content:
@@ -139,243 +67,269 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
               example:
-                actionStatus: ERROR
-                errorMessage: ServerError
-                errorDescription: System encounter an error.
+              - actionStatus: ERROR
+                errorMessage: server_error
+                errorDescription: Failed to process the response
 components:
   schemas:
     Event:
-      required:
-      - application 
-      - currentStepIndex
-      - tenant
       type: object
+      required:
+        - request
+        - tenant
+        - accessToken
       properties:
         request:
           $ref: '#/components/schemas/Request'
-        currentStepIndex:
-          type: integer
-          description: Indicates the current authentication step executing that invokes the custom authenticator
-        authenticatedSteps:
-          type: array
-          description: Defines the list of steps and the authenticator with which the user has already authenticated with, in each step.
-          items:
-            $ref: '#/components/schemas/AuthenticationStep'
         tenant:
           $ref: '#/components/schemas/Tenant'
-        application:
-          $ref: '#/components/schemas/Application'
         user:
           $ref: '#/components/schemas/User'
-        organization:
-          $ref: '#/components/schemas/Organization'
         userStore:
-          $ref: '#/components/schemas/UserStoreInEvent'
-      description: Contains authentication event details required for processing.
-      
+          $ref: '#/components/schemas/UserStore'
+        accessToken:
+          $ref: '#/components/schemas/AccessToken'
+      description: Defines the context data related to the pre issue access token event that needs to be shared with the custom service to process and execute.
     Request:
       type: object
+      required:
+        - grantType
+        - clientId
       properties:
+        grantType:
+          type: string
+          description: The type of OAuth2 grant used for the token request, such as authorization code, client credentials, password, or refresh token. This defines the flow that is being used to obtain the access token.
+          example:
+            authorization_code
+        clientId:
+          type: string
+          description: The unique identifier of the client (application) that is requesting the access token. 
+          example:
+            1u31N7of6gCNR9FqkG1neSlsF_Qa
+        scopes:
+          type: array
+          items:
+            type: string
+          description: The scopes requested by the client, which define the permissions associated with the access token. Scopes determine what resources the access token will grant access to.
+          example:
+            - read
+            - write
         additionalHeaders:
           type: array
-          description: HTTP headers of the authentication request being processed, limited to the header names listed as allowed headers in the custom authenticator configuration. The field is omitted when no header matches.
+          description: Any additional HTTP headers included in the access token request. These may contain custom information or metadata that the client has sent.
+            All headers in request are not incorporated specially sensitive headers like ‘Authorization’, ‘Cookie’, etc.
           items:
-            $ref: '#/components/schemas/RequestParams'
+            $ref: '#/components/schemas/RequestHeaders'
         additionalParams:
           type: array
           items:
             $ref: '#/components/schemas/RequestParams'
-          description: Request parameters of the authentication request being processed together with the parameters of the original authorization request, limited to the parameter names listed as allowed parameters in the custom authenticator configuration. The field is omitted when no parameter matches. Parameters taken from the original authorization request are URL-encoded using form encoding rather than copied from the query string, and are sent as separate entries, so the same parameter name can appear more than once.
-      description: Details of the incoming authentication request.
-      
+      description: Any additional parameters included in the access token request. These may be custom parameters defined by the client or necessary for specific flows.
+        All request parameters are not incorporated, specially sensitive parameters like client secret, username and password, etc..
     Tenant:
       type: object
+      required:
+        - id
+        - name
       properties:
         id:
           type: string
           description: The unique numeric identifier of the tenant.
-          example: 2
+          example: 
+            2
         name:
           type: string
           description: The domain name of the tenant.
-          example: bar.com
-      description: Information about the tenant initiating the authentication flow.
-      
-    Application:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique numeric identifier of the application.
-          example: 1981adcd-b759-47df-8366-b37a37b5c017
-        name:
-          type: string
-          description: Name of the application
-          example: Epic
-      description: Metadata about the application triggering the authentication request.
-      
+          example: 
+            bar.com
+      description: This property represents the tenant under which the token request is being processed. 
     User:
       type: object
+      required:
+        - id
       properties:
         id:
           type: string
           description: Defines the unique identifier of the user.
           example: e204849c-4ec2-41f1-8ff7-ec1ebff02821
-        userIdentitySource:
-          type: string
-          enum:
-            - LOCAL
-            - FEDERATED
-          description: Denotes the source managing the user’s identity (LOCAL for internally managed user identities in userstores, FEDERATED for external identity providers).
-          example: LOCAL
-        sub:
-          type: string
-          description: Subject identifier of the authenticating user.
-          example: johndoe@gmail.com
-      description: Details of the user engaged in the authentication process.
-      
-    Organization:
+      description: Contains information about the authenticated user associated with the token request.
+    UserStore:
       type: object
+      required:
+        - id
+        - name
       properties:
         id:
           type: string
-          description: Defines the unique identifier of the organization.
-          example: b64080ea-4a7f-4427-9682-86f0f2757464
-        name:
-          type: string
-          description: Defines the name of the organization.
-          example: sub1.bar.com
-      description: Metadata of the organization the user is trying to log into. Organizations represent partners/enterprise customers in Business-to-Business (B2B) use cases.
-      
-    UserStoreInEvent:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Defines the unique identifier of the user store.
+          description: The unique identifier for the user store.
           example: UFJJTUFSWQ==
         name:
           type: string
-          description: Defines the name of the user store.
+          description: User store name used to identify the user store in configuration settings, user interfaces, and administrative tasks.
           example: PRIMARY
-      description: Indicates the user store in which the user's identity or profile is being managed.
-      
-    RequestBody:
+      description: Indicates the user store in which the user's data is being managed. 
+    AccessToken:
+      type: object
       required:
-      - flowId
-      - actionType
-      - event
-      - allowedOperations
-      type: object
+        - tokenType
+        - claims
       properties:
-        flowId:
+        tokenType:
           type: string
-          description: A unique correlation identifier, used to track the login flow throughout all requests and responses.
-          example: 66af2e98-3c51-44da-8fc6-aa09283ff528
-        requestId:
-          type: string
-          description: A unique correlation identifier that associates with each request in the login flow received by WSO2 Identity Platform.
-          example: c29a5e35-935a-4992-8f1b-a4680789493b
-        actionType:
-          type: string
+          example: HASH
           enum:
-            - AUTHENTICATION
-          description: Specifies the action being triggered, which in this case is AUTHENTICATION.
-        event:
-          $ref: '#/components/schemas/Event'
-        allowedOperations:
-          $ref: '#/components/schemas/AllowedOperations'
-          
-    RequestParams:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
+            - JWT
+          description: Defines the type of token.
+        claims:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccessTokenClaims'
+          description: |
+            An array that contains both standard access token claims and any OpenID Connect (OIDC) claims configured to be included in the access token.
+            
+            Standard claims:
+            
+            - **sub**: The subject identifier for the token, typically representing the user. In M2M apps that use client credentials this represents the application.
+            - **iss**: The issuer of the token, which is the tenant of WSO2 Identity Server that acts as the authorization server.
+            - **aud**: The audience for the token.
+            - **client_id**: The identifier of the client (application) that requested the token.
+            - **aut**: The authorized user type associated with the token.
+            
+              Can have the following values:
+              - **APPLICATION**: Indicates that the token is authorized for an application.
+              - **APPLICATION_USER**: Indicates that the token is authorized for a user.
+            
+            - **expires_in**: The duration (in seconds) for which the token is valid.
+            - **binding_type**: Indicates the type of binding associated with the token, if applicable.
+            - **binding_ref**: A reference identifier for the binding, if applicable.
+            - **subject_type**: Specifies the type of subject (e.g., public or pairwise) as per OIDC specifications.
+            
+              OIDC claims are any additional claims configured in the application to be included in the access token. These claims are based on the OIDC standard and may include user profile information such as email, given-name, or custom claims specific to the application. 
+          example:
+            - name: sub
+              value: e204849c-4ec2-41f1-8ff7-ec1ebff02821
+            - name: iss
+              value: https://localhost:9443/t/foo.com/oauth2/
+            - name: client_id
+              value: 1u31N7of6gCNR9FqkG1neSlsF_Qa
+            - name: aut
+              value: APPLICATION_USER
+            - name: expires_in
+              value: 3600
+            - name: subject_type
+              value: public
+        scopes:
           type: array
           items:
             type: string
-      description: Parameters included in the authentication request.
-      
-    AuthenticationStep:
-      type: object
-      properties:
-        index:
-          type: integer
-          description: step index
-          example: 1
-        name:
-          type: string
-          description: The name of the authenticator with which the user has authenticated in the defined step.
-          example: BasicAuthenticator
-      description: Details of an authentication step completed by the user.
-      
+          description: Lists the permissions or access levels granted by the access token.
+          example:
+            - read
+      description: Represents the access token that is about to be issued. It contains claims and scopes, of the access token which can then be modified by your external service based on the logic implemented in the pre-issue access token action.
     AllowedOperations:
       type: array
-      description: List of operations permitted based on the authentication event.
+      description: Defines the set of operations that your external service is permitted to perform on the access token's claims and scopes.
       items:
-        $ref: '#/components/schemas/AllowedRedirectOperation'
-        
-    AllowedRedirectOperation:
+        anyOf:
+        - $ref: '#/components/schemas/addOperation'
+        - $ref: '#/components/schemas/replaceOperation'
+        - $ref: '#/components/schemas/removeOperation'
+    addOperation:
       type: object
+      required:
+        - op
+        - paths
       properties:
         op:
           type: string
-          enum: 
-            - redirect
-      description: Represents a redirection operation allowed during authentication.
-      
-    SuccessResponseIdentificationAuthenticator:
-      required:
-      - actionStatus
-      - data
+          enum:
+            - add
+        paths:
+          type: array
+          example:
+          - /accessToken/claims
+          - /accessToken/scopes
+          items:
+            type: string
+      description: Defines the add operation.
+    replaceOperation:
       type: object
+      required:
+        - op
+        - paths
       properties:
-        actionStatus:
+        op:
           type: string
           enum:
-          - SUCCESS
-        data:
-          type: object
-          properties:
-            user:
-              $ref: '#/components/schemas/UserData'
-          description: Authenticated user data.
-      description: Defines the SUCCESS status response expected from authenticators implementing 'External (Federated) User Authentication' or 'Internal User Authentication' type.
-      
-    SuccessResponseVerificationAuthenticator:
-      required:
-      - actionStatus
-      type: object
-      properties:
-        actionStatus:
-          type: string
-          enum:
-          - SUCCESS
-      description: Defines the SUCCESS status response expected from authenticators implementing '2FA Authentication' type.
-      
-    IncompleteResponse:
-      required:
-      - actionStatus
-      - operations
-      type: object
-      properties:
-        actionStatus:
-          type: string
-          enum:
-          - INCOMPLETE
-        operations:
+            - replace
+        paths:
           type: array
           items:
-            $ref: '#/components/schemas/RedirectOperation'
-      description: Defines the INCOMPLETE status response with redirection.
-      
-    ErrorResponse:
-      required:
-      - actionStatus
-      - errorMessage
-      - errorDescription
+            type: string
+            example: 
+            - /accessToken/claims
+            - /accessToken/scopes
+      description: Defines the replace operation.
+    removeOperation:
       type: object
+      required:
+        - op
+        - paths
+      properties:
+        op:
+          type: string
+          enum:
+            - remove
+        paths:
+          type: array
+          items:
+            type: string
+            example: 
+            - /accessToken/claims
+            - /accessToken/scopes
+      description: Defines the remove operation.
+    SuccessResponse:
+      type: object
+      required:
+        - actionStatus
+      properties:
+        actionStatus:
+          type: string
+          enum:
+          - SUCCESS
+        operations:
+          type: array
+          description: Defines the set of operations that your external service is requesting to perform on the access token's claims and scopes.
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/addOperationResponse'
+            - $ref: '#/components/schemas/replaceOperationResponse'
+            - $ref: '#/components/schemas/removeOperationResponse'
+      description: Defines the success response.
+    FailedResponse:
+      type: object
+      required:
+        - actionStatus
+        - failureReason
+        - failureDescription
+      properties:
+        actionStatus:
+          type: string
+          enum:
+          - FAILED
+          description: Indicates the outcome of the request. For a failed operation, this should be set to FAILED.
+        failureReason:
+          type: string
+          description: Provides the reason for failing to issue an access token.
+        failureDescription:
+          type: string
+          description: Offers a detailed explanation of the failure.
+    ErrorResponse:
+      type: object
+      required:
+        - actionStatus
+        - errorMessage
+        - errorDescription
       properties:
         actionStatus:
           type: string
@@ -388,77 +342,153 @@ components:
         errorDescription:
           type: string
           description: A detailed description of the error.
-      description: Response format for error scenarios.
-      
-    ResponseFor200StatusCode:
-      oneOf:
-      - $ref: '#/components/schemas/SuccessResponseIdentificationAuthenticator'
-      - $ref: '#/components/schemas/SuccessResponseVerificationAuthenticator'
-      - $ref: '#/components/schemas/IncompleteResponse'
-      description: Possible success responses for authentication requests.
-      
-    UserData:
+      description: |
+        When the external service responds with an ERROR state, it can return an HTTP status code of 400, 401, or 500, indicating either a validation failure or an issue processing the request. 
+    RequestBody:
       type: object
-      required: 
-      - id
+      required:
+        - actionType
+        - event
+        - allowedOperations
       properties:
-        id:
+        flowId:
           type: string
-          description: Unique identifier of the user. If the authenticator is of 'Internal User Authentication' type there should be a user identity managed for this defined identifier in WSO2 Identity Platform.
-        claims:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserClaim'
-          description: Claims of the authenticated user.
-        groups:
+          description: A unique identifier that associates with the token issuing flow in WSO2 Identity Server.
+          example: Ec1wMjmiG8
+        requestId:
+          type: string
+          description: A unique correlation identifier that associates with the token request received by WSO2 Identity Server.
+          example: 6783a180f817075313ea3fb01d79c221
+        actionType:
+          type: string
+          enum:
+            - PRE_ISSUE_ACCESS_TOKEN
+          description: Specifies the action being triggered, which in this case is PRE_ISSUE_ACCESS_TOKEN.
+        event:
+          $ref: '#/components/schemas/Event'
+        allowedOperations:
+          $ref: '#/components/schemas/AllowedOperations'
+    RequestHeaders:
+      type: object
+      required:
+        - name
+        - value
+      properties:
+        name:
+          type: string
+          example: "Host"
+        value:
           type: array
           items:
             type: string
-          description: Groups of the federated user. Applies if the authenticator is of 'External (Federated) User Authentication' type only.
-        userStore:
-          $ref: '#/components/schemas/UserStoreInUserData'
-          
-    UserClaim:
+          example:
+            - "example.com"
+    RequestParams:
       type: object
-      required: 
-      - uri
-      - value
+      required:
+        - name
+        - value
       properties:
-        uri:
-          type: string
-          format: uri
-          description: Claim uri defined in the 'http://wso2.org/claims' dialect
-        value:
-          type: object
-          description: Claim value. If the claim is multi-valued, it should be a list of strings (Note the ',' is not allowed in claim values as it is used internally to process data). Otherwise, it should be a single string.
-      description: User claims retrieved during authentication.
-      
-    UserStoreInUserData:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Defines the unique identifier of the user store.
-          example: UFJJTUFSWQ==
         name:
           type: string
-          description: Defines the name of the user store.
-          example: PRIMARY
-      description: Indicates the user store in which the user's identity or profile is being managed. Applies if the authenticator is of 'Internal User Authentication' type only.
-      
-    RedirectOperation:
+          example: 
+            device
+        value:
+          type: array
+          items:
+            type: string
+          example:
+            - 003ef4a768182ba1ece32cb
+    AccessTokenClaims:
       type: object
+      properties:
+        name:
+          type: string
+        value:
+          oneOf:
+            - type: string
+            - type: integer
+            - type: boolean
+            - type: array
+              items:
+                type: string
+    addOperationResponse:
+      type: object
+      required:
+        - op
+        - path
+        - value
       properties:
         op:
           type: string
           enum:
-          - redirect
-          description: Defines the operation as 'redirect'
-        url:
+            - add
+        path:
           type: string
-          format: uri
-          description: Defines the url that needs to be redirected to.
-      description: Defines the redirect operation.
+          example:
+            - /accessToken/claims/-
+            - /accessToken/scopes/0
+          description: Defines the path for the add operation. Should be one from the allowed paths of `add` operation in the allowedOperations.
+        value:
+          oneOf:
+            - type: string
+            - $ref: '#/components/schemas/CustomValue'
+          description: Defines the value for the add operation.
+      description: Defines the add operation.
+    replaceOperationResponse:
+      type: object
+      required:
+        - op
+        - path
+        - value
+      properties:
+        op:
+          type: string
+          enum:
+            - replace
+        path:
+          type: string
+          example: 
+            - /accessToken/claims/1
+            - /accessToken/scopes/-
+          description: Defines the path for the replace operation. Should be one from the allowed paths of `replace` operation in the allowedOperations. 
+        value:
+          type: string
+          description: Defines the value for the replace operation.
+      description: Defines the replace operation.
+    removeOperationResponse:
+      type: object
+      required:
+        - op
+        - path
+      properties:
+        op:
+          type: string
+          enum:
+            - remove
+        path:
+          type: string
+          example: 
+            - /accessToken/claims/0
+            - /accessToken/scopes/1
+          description: Defines the path for the remove operation. Should be one from the allowed paths of `remove` operation in the allowedOperations.
+      description: Defines the remove operation.
+    CustomValue:
+      type: object
+      required:
+        - name
+        - value
+      properties:
+        name:
+          type: string
+        value:
+          oneOf:
+            - type: string
+            - type: integer
+            - type: boolean
+            - type: array
+              items:
+                type: string  
   securitySchemes:
     BasicAuth:
       type: http

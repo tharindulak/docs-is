@@ -4,6 +4,7 @@ description: The pre-update profile action in WSO2 Identity Platform lets you ve
 type: how-to
 sidebar_label: Pre update profile action
 sidebar_position: 5
+editions: cloud
 ---
 
 import Tabs from '@theme/Tabs';
@@ -33,60 +34,11 @@ The following API contracts defines the request and response structures that you
 
 The request from {edition.productName} includes following in the JSON request payload:
 
-<Variants>
-
-<Edition only="cloud">
-
 | Property | Description |
 | --- | --- |
 | requestId | A unique correlation identifier that associates with the profile update request received by {edition.productName}. |
 | actionType | Triggers the action, which in this case is `PRE_UPDATE_PROFILE`. |
 | event | Contains context information relevant to profile update flow. Refer [event](#event) section for details. |
-
-</Edition>
-
-<Edition only="self-hosted">
-
-<table>
-  <thead>
-    <tr>
-      <th>Property</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>requestId</td>
-      <td>
-
-        A unique correlation identifier that associates with the profile update request received by {edition.productName}.
-
-        *The property appears in the request payload only when you enable [product observability](../../../../deploy-and-operate/monitor/work-with-product-observability.mdx).*
-
-      </td>
-    </tr>
-    <tr>
-      <td>actionType</td>
-      <td>
-
-        Triggers the action, which in this case is `PRE_UPDATE_PROFILE`.
-
-      </td>
-    </tr>
-    <tr>
-      <td>event</td>
-      <td>
-
-        Contains context information relevant to profile update flow. Refer [event](#event) section for details.
-
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-</Edition>
-
-</Variants>
 
 #### event
 
@@ -459,7 +411,7 @@ You can specify exact values for each field, such as an Admin initiated profile 
 
 Combine rules using logical AND/OR operators. This approach gives you flexible and precise control over when a pre-update profile action triggers.
 
-<Variants><Edition only="cloud"><img src={require("../../../../../assets/cloud/img/guides/actions/pre-update-profile-rule-configuration-in-ui.png").default} alt="pre-update-profile-rule-configuration" width="650" style={{display: "block", margin: "0", border: "0px"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../../assets/self-hosted/img/guides/actions/pre-update-profile-rule-configuration-in-ui.png").default} alt="pre-update-profile-rule-configuration" width="650" style={{display: "block", margin: "0", border: "0px"}} /></Edition></Variants>
+<img src={require("../../../../../assets/cloud/img/guides/actions/pre-update-profile-rule-configuration-in-ui.png").default} alt="pre-update-profile-rule-configuration" width="650" style={{display: "block", margin: "0", border: "0px"}} />
 
 The above rule configuration translates logically to:
 

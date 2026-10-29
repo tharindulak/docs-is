@@ -53,7 +53,7 @@ the `openid` scope. By configuring it to false, you can stop issuing ID tokens.
 **Note:** You can not turn off the process of issuing ID tokens for the `authorization_code` grant type.
 
 By configuring the `<IsRefreshTokenAllowed>` property to `true` or `false` along with the above configuration, 
-you can turn on or turn off the process of issuing refresh tokens. By default, `IsRefreshTokenAllowed` is set to 
+you can turn on or turn on the process of issuing refresh tokens. By default, `IsRefreshTokenAllowed` is set to 
 `true`, and you can allow it to issue refresh tokens for all grant types. By configuring it to `false`, you can stop 
 issuing refresh tokens.  
 **Note:** By default, issuing ID token for `client_credentials` grant type is disabled as it is logically invalid.
@@ -614,7 +614,25 @@ The following diagram shows how the password grant flow works.
 
 <Edition only="self-hosted">
 
-\{\{ password_grant_show_auth_failure_reason_note \}\}
+:::note
+From WSO2 Identity Server 7.1.0 onwards, the specific authentication failure reason is not retuned with the API response by default. The API response will only indicate that the authentication has failed.
+If you want to return the specific reason for authentication failure, you can add the below configuration to the `deployment.toml` file found in the `<IS_HOME>/repository/conf` folder.
+
+```toml
+[oauth.grant_type.password]
+show_auth_failure_reason = true
+```
+
+If you are migrating from an earlier version you would already be using the below set of configurations in the `deployment.toml` file to show the authentication failure reason for password grant based on the `show_auth_failure_reason` configuration of basic authenticator. In that case, you can use the below configurations together to show the authentication failure reason. These configurations will be given priority over the `show_auth_failure_reason` configuration of the password grant.
+
+```toml
+[oauth.password_grant]
+use_show_auth_failure_reason = true
+
+[authentication.authenticator.basic.parameters]
+showAuthFailureReason = true
+```
+:::
 
 </Edition>
 
@@ -817,7 +835,7 @@ The diagram below illustrates the device flow.
 
 The diagram below illustrates the CIBA flow.
 
-<Variants><Edition only="cloud">![How the CIBA grant works](../../../assets/cloud/img/references/grants/ciba-grant.png)</Edition><Edition only="self-hosted">![How the CIBA grant works](../../../assets/self-hosted/img/references/grants/ciba-grant.png)</Edition></Variants>
+<Variants><Edition only="cloud">![How the CIBA grant works](../../../assets/cloud/img/references/grants/ciba-grant.png)</Edition><Edition only="self-hosted"></Edition></Variants>
 
 <Variants>
 
@@ -887,7 +905,7 @@ The diagram below illustrates the CIBA flow.
     --data-urlencode "binding_message=<custom_message>"
     ```
 
-    To issue an [on-behalf-of (OBO) token](../../guides/agentic-ai/ai-agents/agent-authentication.mdx#using-ciba-for-on-behalf-of-delegation) for agent delegation, include the `actor_token` parameter:
+    To issue an on-behalf-of (OBO) token for agent delegation, include the `actor_token` parameter:
 
     ```bash
     --data-urlencode "actor_token=<AGENT_ACTOR_TOKEN>"
@@ -1101,7 +1119,7 @@ The following diagram shows how the token exchange grant flow works.
 6. The client application can now request resources from the resource server by providing the access token.
 7. As the resource server trusts {edition.productName} issued tokens, it returns the requested resources to the client application.
 
-Token exchange can be used for delegation and impersonation use cases. See [configure the token exchange flow](../../guides/authentication/configure-oidc-flows/tokens-and-validation/configure-token-exchange.mdx) for more details about delegation usecase. See  [user impersonation](../../guides/authorization/user-impersonation/via-business-application.mdx) for more details on user impersonation with token exchange grant.
+Token exchange can be used for delegation and impersonation use cases. See [configure the token exchange flow](../../guides/authentication/configure-oidc-flows/tokens-and-validation/configure-token-exchange.mdx) for more details about delegation usecase. See  <Edition only="cloud">[user impersonation](../../guides/authorization/user-impersonation/via-business-application.mdx)</Edition><Edition only="self-hosted">user impersonation</Edition> for more details on user impersonation with token exchange grant.
 
 ## JWT bearer grant
 

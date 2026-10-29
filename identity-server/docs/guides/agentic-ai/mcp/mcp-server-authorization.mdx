@@ -4,6 +4,7 @@ description: Just like APIs, MCP (Model Context Protocol) servers need fine-grai
 type: how-to
 sidebar_label: Securing MCP servers
 sidebar_position: 2
+editions: cloud
 ---
 
 Just like APIs, MCP (Model Context Protocol) servers need fine-grained access control so that only authorized users can access the tools they expose. {edition.productName} provides robust support for securing MCP servers, letting you configure access policies and monitor how users and applications interact with them.
@@ -18,7 +19,7 @@ To register an MCP server,
 
 2. Click **+ New MCP Server** to register a new MCP server.
 
-    <img src={require("../../../../assets/img/guides/authorization/mcp-authorization/create-new-mcp-server.png").default} alt="New MCP server wizard" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+    <img src={require("../../../../assets/cloud/img/guides/authorization/mcp-authorization/create-new-mcp-server.png").default} alt="New MCP server wizard" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 3. Enter the following details and click **Next**.
     | Parameter | Description |
@@ -41,38 +42,23 @@ To register an MCP server,
 Applications, by default, don't have permissions to access MCP servers. Administrators can selectively grant authorization for applications to use specific MCP servers, so that users logging into the application will have access to that MCP server, provided they're assigned to a role that grants the necessary permissions.
 
 :::note
-
-<Edition selfHostedFrom="next">
-
-MCP servers can be authorized to all OIDC application types including Custom OIDC applications, Traditional Web applications, Single-Page applications (SPA), Mobile applications, and Machine-to-Machine (M2M) applications. The <Edition only="cloud">[MCP Client Application](./register-mcp-client-app.mdx)</Edition><Edition only="self-hosted">[MCP Client Application](../../applications/register-mcp-client-app.mdx)</Edition> template provides a pre-configured option for MCP-specific use cases. Digital Wallet applications can only access Verifiable Credential resources and cannot authorize MCP servers.
-
-</Edition>
-
+MCP servers can be authorized to all OIDC application types including Custom OIDC applications, Traditional Web applications, Single-Page applications (SPA), Mobile applications, and Machine-to-Machine (M2M) applications. The [MCP Client Application](./register-mcp-client-app.mdx) template provides a pre-configured option for MCP-specific use cases. Digital Wallet applications can only access Verifiable Credential resources and cannot authorize MCP servers.
 :::
 
 To authorize an application to consume an MCP server,
 
 1. On the {edition.productName} Console, go to **Applications**.
 
-<Edition selfHostedFrom="next">
-
 2. Select your application and go to its **Authorization** tab.
-
-</Edition>
 
 3. Click **Authorize a resource**.
 
 4. Enter the following details:
-
-    <Edition selfHostedFrom="next">
-
     | Parameter | Description |
     | --- | --- |
     | **Resource** | Select the MCP server from the list of resources |
     | **Authorized Scopes** | Select the scopes that the application should be able to request. |
 
-    </Edition>
-
 5. Click **Finish**.
 
-    <img src={require("../../../../assets/img/guides/authorization/mcp-authorization/authorized-mcp-server-to-mcp-client.png").default} alt="Successfully authorized an API resource in the app" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+    <img src={require("../../../../assets/cloud/img/guides/authorization/mcp-authorization/authorized-mcp-server-to-mcp-client.png").default} alt="Successfully authorized an API resource in the app" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />

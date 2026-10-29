@@ -2,7 +2,7 @@
 title: Configure Just-in-Time user provisioning
 description: This guide explains the concept of Just-In-Time (JIT) user provisioning, why and when to use it, and also the instructions for configuring it.  # generated from the first paragraph; a writer should improve it
 type: how-to
-sidebar_position: 16
+sidebar_position: 9
 ---
 
 This guide explains the concept of Just-In-Time (JIT) user provisioning, why and when to use it, and also the instructions for configuring it.
@@ -53,33 +53,19 @@ When JIT user provisioning is disabled, the following restrictions apply:
 - If you have configured multi-factor authentication (MFA) that rely on a local user account, disabling JIT user provisioning breaks the application login flow for JIT provisioned users. Learn more about [troubleshooting sign-in flow errors with JIT](#troubleshoot-sign-in-flow-errors).
 :::
 
+<Variants>
+
+<Edition only="cloud">
+
 ## Configure JIT user provisioning settings
 
 When JIT user provisioning is enabled, you can configure the following settings to customize how {edition.productName} provisions users.
-
-<Edition only="self-hosted">
-
-### JIT provisioning scheme
-
-This setting determines whether {edition.productName} prompts users for credentials and consent when provisioning accounts through JIT. By default, {edition.productName} provisions users silently without prompting for either consent or credentials.
-
-<img src={require("../../../assets/self-hosted/img/guides/jit-provisioning/jit-provisioning-scheme.png").default} alt="JIT provisioning schemes" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
-
-- **Prompt for username, password, and consent** - Prompts the user for a username, password, and consent before account creation.
-
-- **Prompt for password and consent** - Prompts the user to provide both a password and consent. The username is automatically derived from the federated identity.
-
-- **Prompt for consent** - Prompts the user for consent before provisioning.
-
-- **Provision silently**: Provisions the user automatically without prompting for either credentials or consent. This is the default behavior.
-
-</Edition>
 
 ### Attribute synchronization methods
 
 This setting determines how {edition.productName} synchronizes user attributes between the user's account in the external IdP and the corresponding local user account.
 
-<img src={require("../../../assets/img/guides/jit-provisioning/jit-attribute-sync.png").default} alt="Attribute Sync Methods" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../assets/cloud/img/guides/jit-provisioning/jit-attribute-sync.png").default} alt="Attribute Sync Methods" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 - **Override All** - Overrides all attributes of the local user account with the attributes received from the external identity provider each time the user logs in.
 
@@ -91,7 +77,7 @@ This setting determines how {edition.productName} synchronizes user attributes b
 
 This setting allows you to link federated users to existing local user accounts based on configurable rules. The rules define how {edition.productName} identifies a match between a federated user and a local user.
 
-<img src={require("../../../assets/img/guides/jit-provisioning/jit-account-linking.png").default} alt="Account linking" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../assets/cloud/img/guides/jit-provisioning/jit-account-linking.png").default} alt="Account linking" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 - **Enable local account linking** - Enables account linking. When enabled,
     - {edition.productName} evaluates the defined account linking rules to determine whether the federated user matches an existing local user.
@@ -108,6 +94,29 @@ This setting allows you to link federated users to existing local user accounts 
     :::tip
     Ensure you select a local user attribute that is unique for each user to guarantee accurate and consistent user matching. Learn more about [configuring unique attributes](../users/attributes/configure-unique-attributes.mdx).
     :::
+
+</Edition>
+
+<Edition only="self-hosted">
+
+### Preserve locally added claims of JIT provisioned users
+
+If a user already having an account in {edition.productName} logs in using federated login with the same email address, {edition.productName} deletes any locally added claims of the user and retains only the claims provided by the federated authenticator.
+
+If you wish to change this default behavior and preserve the locally added claims of the user, go to the `deployment.toml` file found in the `<IS_HOME>/repository/conf` directory and add the following configuration.
+
+```toml
+[authentication.jit_provisioning]
+preserve_locally_added_claims = "true"
+```
+
+:::note
+If an identity provider is created using the [Identity Provider REST APIs](../../reference/apis/idp/index.mdx) with the `provisioning.jit.attributeSyncMethod` property set, this will take precedence over the above configuration.
+:::
+
+</Edition>
+
+</Variants>
 
 ## Troubleshoot sign-in flow errors
 

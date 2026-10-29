@@ -3,7 +3,7 @@ title: SCIM2 Custom User Schema Support
 description: WSO2 Identity Server allows adding custom attributes into user objects through Custom schema.  # generated from the first paragraph; a writer should improve it
 type: reference
 sidebar_label: SCIM2 custom user schema support
-sidebar_position: 2
+sidebar_position: 1
 editions: self-hosted
 ---
 
@@ -39,9 +39,12 @@ If you want to add any additional properties for the scim attribute in Custom sc
 
 | Property Name | Allowed Values |
 | --- | --- |
+| dataType | string, boolean, integer, decimal, complex, dateTime |
+| multiValued | true, false |
 | caseExact | true, false |
 | mutability | readWrite, readOnly, immutable |
 | returned | always, default, never, request |
+| subAttributes | \{sub_attribute_uri_1\} \{sub_attribute_uri_2\} |
 :::
 
 :::note
@@ -161,7 +164,8 @@ Let's see when we've a **deviceNames** simple multi-valued attribute.
 5. Go to the **Edit Attribute** of the custom attribute you just created.
 6. Select necessary options in **Attribute Configurations** to make the field visible in user profiles and click **Update**.
 
-7. Check the **Allow multiple values for this attribute**.
+7. Navigate to **Additional Properties** tab and enter following property and click **Update**.
+    - `multiValued`: `true`
 
     ![additional-properties-multi-valued-attribute](../../../../assets/self-hosted/img/references/extend/user-mgt/provisioning/additional-properties-multi-valued-attribute.png)
 
@@ -290,7 +294,8 @@ SCIM 2.0 protocol mapping in Custom schema, will be created automatically with t
 5. Go to the **Edit Attribute** of the custom attribute you just created.
 6. Select necessary options in **Attribute Configurations** to make the field visible in user profiles and click **Update**.
 
-7. Check the **Allow multiple values for this attribute**.
+7. Navigate to **Additional Properties** tab and enter following property and click **Update**.
+    - `multiValued`: `true`
 
 :::note
 SCIM 2.0 protocol mapping in Custom schema, will be created automatically with the Custom local claim creation as mentioned in the **Protocol Mapping** section in the wizard.
@@ -306,10 +311,19 @@ SCIM 2.0 protocol mapping in Custom schema, will be created automatically with t
 4. Click Finish.
 5. Go to the **Edit Attribute** of the custom attribute you just created.
 
-6. Select the **Object** data type as the attribute data type.
-7. Add the `http://wso2.org/claims/manager.address` and `http://wso2.org/claims/manager.roles` as sub-attributes.
+6. Navigate to **Additional Properties** tab and enter following property and click **Update**.
+    - `dataType`: `complex`
+    - `subAttributes`: `http://wso2.org/claims/manager.address http://wso2.org/claims/manager.roles`
 
-    ![additional-properties-complex-attribute](../../../../assets/img/references/extend/user-mgt/provisioning/complex-claim-sub-attributes.png)
+    :::note
+    The values for `subAttributes` must be **space-separated**.
+    :::
+
+    ![additional-properties-complex-attribute](../../../../assets/self-hosted/img/references/extend/user-mgt/provisioning/additional-properties-complex-attribute.png)
+
+:::note
+SCIM 2.0 protocol mapping in Custom schema, will be created automatically with the Custom local claim creation as mentioned in the **Protocol Mapping** section in the wizard.
+:::
 
 ### Try it out {#try-it-out_2}
 

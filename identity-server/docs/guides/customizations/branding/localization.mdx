@@ -1,9 +1,9 @@
 ---
 title: Localization in {edition.productName}
-description: WSO2 Identity Platform lets you pick the language for the following interfaces exposed to business users.  # generated from the first paragraph; a writer should improve it
+description: WSO2 Identity Server lets you pick the language for the following interfaces exposed to business users.  # generated from the first paragraph; a writer should improve it
 type: how-to
-sidebar_label: Localization in WSO2 Identity Platform
-sidebar_position: 8
+sidebar_label: Localization support
+sidebar_position: 7
 ---
 
 # Localization in {edition.productName}
@@ -25,7 +25,9 @@ These interfaces support i18n, allowing {edition.productName} to load text conte
 
 {edition.productName} provides i18n-supported user interfaces in the following languages.
 
-<Edition selfHostedFrom="next">
+<Variants>
+
+<Edition only="cloud">
 
 | Language | Code |
 | --- | --- |
@@ -41,6 +43,24 @@ These interfaces support i18n, allowing {edition.productName} to load text conte
 | Dutch | `nl-NL` |
 
 </Edition>
+
+<Edition only="self-hosted">
+
+| Language | Code |
+| --- | --- |
+| English | `en_US` |
+| French | `fr_FR` |
+| Spanish | `es_ES` |
+| Portuguese - Portugal | `pt_PT` |
+| Portuguese - Brazil | `pt_BR` |
+| German | `de_DE` |
+| Chinese | `zh-CN` |
+| Japanese | `ja-JP` |
+| Sinhalese | `si-LK` |
+
+</Edition>
+
+</Variants>
 
 ## Configure language settings
 
@@ -121,29 +141,13 @@ The following examples show how to set the `ui_locales` parameter in your applic
 
 <Edition only="self-hosted">
 
-## Add or remove locales
+## Configuring localization for authentication endpoints
 
-You can add or remove language support to customize the user interface for different regions and languages.
+WSO2 Identity Server provides internationalization support for its web applications (such as the authentication endpoint located in the `<IS_HOME>/repository/deployment/server/webapps/` directory). The following steps describe how you can configure this:
 
-### Authentication, recovery & accounts endpoints {#add-remove-locales-in-authentication-recovery-accounts-endpoints}
+1. Navigate to `<IS_HOME>/repository/deployment/server/webapps/authenticationendpoint/WEB-INF/classes/org/wso2/carbon/identity/application/authentication/endpoint/i18n/`
 
-Configure localization for authentication, recovery, and accounts endpoints using traditional properties files.
-
-#### Add a locale to endpoints
-
-To add a new locale to the authentication, recovery, and accounts endpoints:
-
-##### Step 1: Create locale-specific resource files
-
-1. Navigate to the following directories based on the endpoint you want to configure:
-
-    - **Authentication endpoint**: `<IS_HOME>/repository/deployment/server/webapps/authenticationendpoint/WEB-INF/classes/org/wso2/carbon/identity/application/authentication/endpoint/i18n/`
-    - **Recovery endpoint**: `<IS_HOME>/repository/deployment/server/webapps/accountrecoveryendpoint/WEB-INF/classes/org/wso2/carbon/identity/mgt/recovery/endpoint/i18n/`
-    - **Accounts endpoint**: `<IS_HOME>/repository/deployment/server/webapps/accounts/WEB-INF/classes/org/wso2/carbon/identity/application/authentication/endpoint/i18n/`
-
-2. Duplicate the `Resources.properties` file in the same location.
-
-3. Rename the duplicated file with the required locale suffix:
+2. Duplicate the `Resources.properties` file in the same location and rename it with the required locale suffix as follows:
     - For British English: `Resources_en_GB.properties`
     - For French (Standard): `Resources_fr.properties`
 
@@ -151,315 +155,61 @@ To add a new locale to the authentication, recovery, and accounts endpoints:
     Refer to [Web browser language identification codes](https://www.localeplanet.com/icu/) for more information on locale suffixes.
     :::
 
-4. Update the values for each key in the new file:
-
-    ```properties
-    login=<Value in the required locale>
-    ```
-
-5. Save the file.
-
-##### Step 2: Configure language options
-
-1. Navigate to `<IS_HOME>/repository/deployment/server/webapps/authenticationendpoint/WEB-INF/classes/`.
-
-2. Open the `LanguageOptions.properties` file.
-
-3. Add information about the new language in the following format:
-
-    ```properties
-    <language switcher name>=<language code>,<language name>,<text direction>
-    ```
-
-    :::note
-    The `<text direction>` parameter is optional. The default text direction is "ltr" (Left-to-Right).
-    :::
+3. Update the values for each key as follows:
+   ```text
+   login=<Value in the required locale>
+   ```
 
 4. Save the file.
 
-##### Step 3: Test the configuration
+5. Navigate to `<IS_HOME>/repository/deployment/server/webapps/authenticationendpoint/WEB-INF/classes/` and open the `LanguageOptions.properties` file.
 
-1. Go to your browser settings and add the language you configured above to your preferred languages list.
+6. Add information about the new language in the following format & save the file.
+   ```text
+   <language switcher name>=<language code>,<language name>,<text direction>`
+   ```
 
-2. Restart the WSO2 Identity Server.
+    :::note
+    - `<text direction>` is optional.
+    - The default text direction is set to "ltr" (Left-to-Right). To enable support for Right-to-Left (RTL) languages, refer to the documentation on [Right-to-Left (RTL) Language Support](#right-to-left-rtl-language-support) for detailed instructions.
+    :::
 
-3. Open a browser and navigate to test the endpoints:
+7. Go to the browser settings and add the language you configured above.
 
-   - **Authentication**: [https://localhost:9443/myaccount/](https://localhost:9443/myaccount/) (triggers login screen)
-   - **Recovery**: [https://localhost:9443/accountrecovery/](https://localhost:9443/accountrecovery/)
-   - **Accounts**: [https://localhost:9443/accounts/](https://localhost:9443/accounts/)
+8. Restart the server. To try out, do the following:
+    1. Open up a browser.
+    2. Type the My Account portal URL. (If you are running the server in your localhost, the URL is: [https://localhost:9443/myaccount/](https://localhost:9443/myaccount/)). You will see the login screen having the contents in the configured language.
 
-4. You should see the screens displaying content in the configured language.
+## Configuring localization for recovery endpoints
 
-#### Remove a locale from endpoints
+You can enable localization for `accountrecoveryendpoint` by applying the same steps 1 through 8 in the previous [section](#configuring-localization-for-authentication-endpoints), for the following location:
 
-To remove a language from your authentication, recovery, and accounts endpoints:
+`<IS_HOME>/repository/deployment/server/webapps/accountrecoveryendpoint/WEB-INF/classes/org/wso2/carbon/identity/mgt/recovery/endpoint/i18n/`.
 
-1. Delete the corresponding `Resources_<locale>.properties` files from authentication, recovery, and accounts endpoint directories.
+Update the LanguageOptions.properties file located at: `<IS_HOME>/repository/deployment/server/webapps/authenticationendpoint/WEB-INF/classes/LanguageOptions.properties` to include the new language options.
 
-2. Remove the language entry from the `LanguageOptions.properties` file.
+## Right-to-Left (RTL) Language Support
 
-3. Restart the server for changes to take effect.
+{edition.productName} supports Right-to-Left (RTL) languages like Arabic, Hebrew, and Persian, ensuring login and recovery screens dynamically adjust their layout and text direction for a seamless user experience. When an RTL language is selected, the interface, including text alignment and content flow, automatically mirrors to follow RTL formatting conventions.
 
-### My Account {#add-remove-locales-in-myaccount}
+If you need to enable Right-to-Left (RTL) support for a language in authentication and recovery endpoints, follow these steps:
 
-Configure localization for the My Account application.
+1. Navigate to the following directory based on the endpoint you want to configure:
 
-#### Add a locale to My Account
-
-To add a new language (for example, Arabic - `ar-SA`) to My Account:
-
-1. Navigate to `<IS_HOME>/repository/deployment/server/webapps/myaccount/extensions/i18n/`.
-
-2. Create a `meta.json` file with the following content:
-
-    ```json
-    {
-        "ar-SA": {
-            "enabled": true,
-            "code": "ar-SA",
-            "flag": "sa",
-            "name": "Arabic (Saudi Arabia)",
-            "namespaces": [
-                "common",
-                "myAccount",
-                "extensions"
-            ],
-            "paths": {
-                "common": "extensions/i18n/ar-SA/portals/common.json",
-                "myAccount": "extensions/i18n/ar-SA/portals/myAccount.json",
-                "extensions": "extensions/i18n/ar-SA/portals/extensions.json"
-            }
-        }
-    }
-    ```
-
-3. Copy the `en-US` bundle from `<IS_HOME>/repository/deployment/server/webapps/myaccount/resources/i18n/`.
-
-4. Rename the copied bundle to `ar-SA` and place it inside `<IS_HOME>/repository/deployment/server/webapps/myaccount/extensions/i18n/`.
-
-5. Translate the content in the JSON files within the new language bundle.
-
-6. The new language will now appear in the language switcher.
-
-#### Remove a locale from My Account
-
-You can remove language support using different options based on your requirements.
-
-##### Remove from all places in My Account
-
-To remove a language from language switcher, branding, email templates, and all other places:
-
-1. Navigate to `<IS_HOME>/repository/deployment/server/webapps/myaccount/extensions/i18n/`.
-
-2. Create or update the `meta.json` file with the following content:
-
-    ```json
-    {
-        "pt-PT": {
-            "enabled": false
-        }
-    }
-    ```
-
-##### Remove from language switcher only in My Account
-
-To hide a language from the language switcher while keeping it available in other places:
-
-1. Update the `meta.json` file with the following content:
-
-    ```json
-    {
-        "pt-PT": {
-            "enabled": true,
-            "showOnLanguageSwitcher": false
-        }
-    }
-    ```
-
-### Console {#add-remove-locales-in-console}
-
-Configure localization for the Console application.
-
-#### Add a locale to Console
-
-To add a new language (for example, Arabic - `ar-SA`) to Console:
-
-1. Navigate to `<IS_HOME>/repository/deployment/server/webapps/console/extensions/i18n/`.
-
-2. Create a `meta.json` file with the following content:
-
-    ```json
-    {
-        "ar-SA": {
-            "enabled": true,
-            "code": "ar-SA",
-            "flag": "sa",
-            "name": "Arabic (Saudi Arabia)",
-            "namespaces": [
-                "applications",
-                "users",
-                ...rest of the namespaces
-            ],
-            "paths": {
-                "applications": "extensions/i18n/ar-SA/portals/applications.json",
-                "users": "extensions/i18n/ar-SA/portals/users.json",
-                ...rest of the paths
-            }
-        }
-    }
-    ```
-
-3. Copy the `en-US` bundle from `<IS_HOME>/repository/deployment/server/webapps/console/resources/i18n/`.
-
-4. Rename the copied bundle to `ar-SA` and place it inside `<IS_HOME>/repository/deployment/server/webapps/console/extensions/i18n/`.
-
-5. Translate the content in the JSON files within the new language bundle.
-
-6. The new language will now appear in the language switcher.
-
-#### Remove a locale from Console
-
-You can remove language support using different options based on your requirements.
-
-##### Remove from all places in Console
-
-To remove a language from language switcher, branding, email templates, and all other places:
-
-1. Navigate to `<IS_HOME>/repository/deployment/server/webapps/console/extensions/i18n/`.
-
-2. Create or update the `meta.json` file with the following content:
-
-    ```json
-    {
-        "pt-PT": {
-            "enabled": false
-        }
-    }
-    ```
-
-##### Remove from language switcher only in Console
-
-To hide a language from the language switcher while keeping it available in other places:
-
-1. Update the `meta.json` file with the following content:
-
-    ```json
-    {
-        "pt-PT": {
-            "enabled": true,
-            "showOnLanguageSwitcher": false
-        }
-    }
-    ```
-
-## Configure Text Direction (RTL & LTR) {#configure-text-direction-rtl-ltr}
-
-WSO2 Identity Server supports both Right-to-Left (RTL) and Left-to-Right (LTR) text directions. **LTR serves as the default text direction** for most languages and doesn't require explicit configuration. RTL languages like Arabic, Hebrew, and Persian automatically adjust the interface layout and content flow when configured.
-
-:::note
-The text direction is not currently configurable for the **Console**.
-:::
-
-### Authentication, Recovery & Accounts endpoints {#configure-text-direction-in-authentication-recovery-accounts-endpoints}
-
-To configure text direction for authentication, recovery, and accounts endpoints:
-
-1. Navigate to `<IS_HOME>/repository/deployment/server/webapps/authenticationendpoint/WEB-INF/classes/`.
+    - Authentication endpoint: `<IS_HOME>/repository/deployment/server/webapps/authenticationendpoint/WEB-INF/classes/`
+    - Recovery endpoint: `<IS_HOME>/repository/deployment/server/webapps/accountrecoveryendpoint/WEB-INF/classes/`
 
 2. Open the `LanguageOptions.properties` file.
 
-3. Configure the language entry based on text direction:
+3. Add the ,rtl suffix to the language entry in the file. For example, to enable RTL for Arabic, update the entry as follows:
 
-    **For LTR languages (default):**
-
-    ```properties
-    lang.switch.en_US=en,English,ltr
-    ```
-
-    or simply (LTR is assumed if not specified):
-
-    ```properties
-    lang.switch.en_US=en,English
-    ```
-
-    **For RTL languages:**
-
-    ```properties
+    ```text
     lang.switch.ar_AE=ar,Arabic - العربية,rtl
     ```
 
-4. Save the file and restart the server for changes to take effect.
+4. Save the file and restart the server for the changes to take effect.
 
-:::note[Important: Adding language resource files]
-Updating the `LanguageOptions.properties` file alone does not enable language support for JSP portals. You must also add the corresponding language resource files to the following directory:
-
-`<IS_HOME>/repository/deployment/server/webapps/authenticationendpoint/WEB-INF/classes/org/wso2/carbon/identity/application/authentication/endpoint/i18n/`
-
-Without the language resource files, the selected language will not be functional even if configured in `LanguageOptions.properties`.
-:::
-
-:::tip
-The RTL/LTR configuration applies to all three endpoints (authentication, recovery, and accounts) since they share the same `LanguageOptions.properties` file.
-:::
-
-### My Account {#configure-text-direction-in-myaccount}
-
-To configure text direction for languages in My Account:
-
-1. Navigate to `<IS_HOME>/repository/deployment/server/webapps/myaccount/extensions/i18n/`.
-
-2. Update your `meta.json` file to include the `direction` property:
-
-    **For LTR languages (default):**
-
-    ```json
-    {
-        "en-US": {
-            "enabled": true,
-            "code": "en-US",
-            "flag": "us",
-            "name": "English (United States)",
-            "direction": "ltr",
-            "namespaces": [
-                "common",
-                "myAccount",
-                "extensions"
-            ],
-            "paths": {
-                "common": "extensions/i18n/en-US/portals/common.json",
-                "myAccount": "extensions/i18n/en-US/portals/myAccount.json",
-                "extensions": "extensions/i18n/en-US/portals/extensions.json"
-            }
-        }
-    }
-    ```
-
-    **For RTL languages:**
-
-    ```json
-    {
-        "ar-SA": {
-            "enabled": true,
-            "code": "ar-SA",
-            "flag": "sa",
-            "name": "Arabic (Saudi Arabia)",
-            "direction": "rtl",
-            "namespaces": [
-                "common",
-                "myAccount",
-                "extensions"
-            ],
-            "paths": {
-                "common": "extensions/i18n/ar-SA/portals/common.json",
-                "myAccount": "extensions/i18n/ar-SA/portals/myAccount.json",
-                "extensions": "extensions/i18n/ar-SA/portals/extensions.json"
-            }
-        }
-    }
-    ```
-
-3. Save the file and restart the server for changes to take effect.
+This will apply RTL formatting for the specified language across authentication and recovery endpoints.
 
 </Edition>
 

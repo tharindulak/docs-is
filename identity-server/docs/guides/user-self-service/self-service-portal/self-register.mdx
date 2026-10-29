@@ -3,13 +3,13 @@ title: Self-register as a user
 description: If an administrator has enabled self-registration for an organization, users can sign up and create their own accounts without the involvement of an…  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_label: Self-register
-sidebar_position: 8
+sidebar_position: 7
 ---
 
 If an administrator has enabled self-registration for an organization, users can sign up and create their own accounts without the involvement of an administrator.
 
 :::note
-Learn how administrators can [enable self-registration](../../flows/self-registration.mdx) in an organization.
+Learn how administrators can <Edition only="cloud">[enable self-registration](../../flows/self-registration.mdx)</Edition><Edition only="self-hosted">enable self-registration</Edition> in an organization.
 :::
 
 ## Self-registration methods
@@ -70,11 +70,16 @@ The user can follow the steps below to sign up using an email.
 
     <Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/organization/self-service/customer/account-verification-email.png").default} alt="Account verification email notification" width="500" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/organization/self-service/customer/account-verification-email.png").default} alt="Account verification email notification" width="500" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
 
+<Edition only="cloud">
+
 5. If **Account Verification** enabled, users can resend the account verification email if needed.
     - If **Activate Account Immediately** enabled, after successfully logging into My Account, a warning message with a resend link will appear. Click this link to resend the account verification email.
 
-        <img src={require("../../../../assets/img/guides/organization/self-service/customer/resend-account-verification-email-immediate-account-activation-enabled.png").default} alt="Immediate Activation Enabled Warning" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+        <img src={require("../../../../assets/cloud/img/guides/organization/self-service/customer/resend-account-verification-email-immediate-account-activation-enabled.png").default} alt="Immediate Activation Enabled Warning" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
     - If **Activate Account Immediately** disabled, attempting to log in to **My Account**, will display a warning message indicating the account lacks activation, along with a resend link. Click this link to resend the account verification email.
 
-        <Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/organization/self-service/customer/resend-account-verification-email-immediate-account-activation-disabled.png").default} alt="Immediate Activation Disabled Warning" width="400" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/organization/self-service/customer/resend-account-verification-email-immediate-account-activation-disabled.png").default} alt="Immediate Activation Disabled Warning" width="400" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+        <img src={require("../../../../assets/cloud/img/guides/organization/self-service/customer/resend-account-verification-email-immediate-account-activation-disabled.png").default} alt="Immediate Activation Disabled Warning" width="400" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+</Edition>
+

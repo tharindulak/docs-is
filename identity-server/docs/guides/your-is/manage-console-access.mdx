@@ -129,9 +129,11 @@ Selecting **View** or **Edit** for a given Console component assigns the role se
 <img src={require("../../../assets/self-hosted/img/guides/organization/console/console-role-permissions.png").default} alt="Scopes assigned for a given permission for a Console component" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 :::
 
-<Edition selfHostedFrom="next">
-
 #### Granular console permissions
+
+:::note
+Granular console permissions are available from **update level 7.1.0.73** onwards. See the instructions on [updating WSO2 products](https://updates.docs.wso2.com/en/latest/).
+:::
 
 By default, Console roles use the combined **View** and **Edit** permission model described above, where **Edit** grants **Create**, **Update**, and **Delete** access together.
 
@@ -180,8 +182,6 @@ Console roles created earlier with the combined **Edit** permission continue to 
 :::warning[Switching back to the default model]
 If you enable granular Console permissions and create roles with granular **Create**, **Update**, or **Delete** permissions, those role permissions will not work after you switch back to the default **View** and **Edit** permission model. Keep granular Console permissions enabled for roles created with the granular model, or review and update those roles before disabling it.
 :::
-
-</Edition>
 
 ### Create a role
 

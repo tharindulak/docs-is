@@ -1,6 +1,6 @@
 ---
 title: Pre-issue access token action
-description: The pre-issue access token action in WSO2 Identity Platform lets you execute custom logic before issuing an access token.  # generated from the first paragraph; a writer should improve it
+description: The pre-issue access token action in WSO2 Identity Server lets you execute custom logic before issuing an access token.  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_label: Pre issue access token action
 sidebar_position: 2
@@ -847,66 +847,23 @@ The above rule configuration translates logically to:
 
 </Edition>
 
-<Edition only="self-hosted" selfHostedFrom="next">
+<Edition only="self-hosted">
 
 <Tabs groupId="tabs">
 <TabItem value="v1-x" label="v1.x">
 
 The following API contracts defines the request and response structures that your service must adhere to, based on the action version.
 
-- [pre-issue access token API contract v1.0](../../../../reference/apis/pre-issue-access-token-action-v1-0/index.mdx)
-- [pre-issue access token API contract v1.1](../../../../reference/apis/pre-issue-access-token-action-v1-1/index.mdx)
-
-- [pre-issue access token API contract v1.2](../../../../reference/apis/pre-issue-access-token-action-v1-2/index.mdx)
-
-- [pre-issue access token API contract v1.3](../../../../reference/apis/pre-issue-access-token-action-v1-3/index.mdx)
+- pre-issue access token API contract v1.0
+- pre-issue access token API contract v1.1
 
 ### Request from {edition.productName}
 
-<table>
-  <thead>
-    <tr>
-      <th>Property</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>requestId</td>
-      <td>
-
-        A unique correlation identifier that associates with the token request received by {edition.productName}.
-
-        *The property appears in the request payload only when you enable [product observability](../../../../deploy-and-operate/monitor/work-with-product-observability.mdx).*
-
-      </td>
-    </tr>
-    <tr>
-      <td>actionType</td>
-      <td>
-
-        Specifies the action. In this case, `PRE_ISSUE_ACCESS_TOKEN` triggers the pre-issue access token flow.
-
-      </td>
-    </tr>
-    <tr>
-      <td>event</td>
-      <td>
-
-        Contains context information relevant to access token issue flow. Refer [event](#event) section for details.
-
-      </td>
-    </tr>
-    <tr>
-      <td>allowedOperations</td>
-      <td>
-
-        Specifies the objects within the event data that your external service can change. Refer [allowedOperations](#allowed-operations) section for details.
-
-      </td>
-    </tr>
-  </tbody>
-</table>
+| Property | Description |
+| --- | --- |
+| actionType | Specifies the action. In this case, `PRE_ISSUE_ACCESS_TOKEN` triggers the pre-issue access token flow. |
+| event | Contains context information relevant to access token issue flow. Refer [event](#event) section for details. |
+| allowedOperations | Specifies the objects within the event data that your external service can change. Refer [allowedOperations](#allowed-operations) section for details. |
 
 #### event
 
@@ -1411,7 +1368,7 @@ Content-Type: application/json
 ```
 
 </TabItem>
-<TabItem value="v1-3" label="v1.3">
+<TabItem value="v1-2" label="v1.2">
 
 ```http
 POST /token HTTP/1.1

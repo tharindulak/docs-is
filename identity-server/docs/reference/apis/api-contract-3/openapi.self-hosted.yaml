@@ -1,427 +1,283 @@
 openapi: 3.0.1
 info:
-  title: API contract for flow extension
-  description: This API defines the REST API contract for an external service that extends a flow of WSO2 Identity Server. At the flow extension step, WSO2 Identity Server sends the collected flow state to the service, and the service responds with the operations to apply before the flow continues.
+  title: API contract for pre update password action
+  description: This API defines the REST API contract for a service that implements logic to extend password update flow of WSO2 Identity Server.
+  contact:
+    name: WSO2
+    url: https://wso2.com/identity-server/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
   version: v1
 security:
 - BasicAuth: []
 - BearerAuth: []
 - ApiKeyAuth: []
+- OAuth2: []
 paths:
   /:
     post:
-      summary: handle flow extension events
-      description: |-
-        WSO2 Identity Server sends an HTTP POST request with a JSON envelope to the service at the flow extension step. The service runs its logic and responds with an `actionStatus` that determines what happens next:
-
-        - `SUCCESS`: Apply the returned operations and continue the flow.
-        - `FAILED`: Stop the flow for a business or policy reason. The reason is surfaced to the end user as a flow error.
-        - `ERROR`: The service hit a processing or server-side error. Return HTTP 400, 401, or 500; WSO2 Identity Server aborts the flow.
-
-        Values of attributes marked as encrypted in the extension's access configuration travel as JWE compact strings (RSA-OAEP-256 key encryption with A256GCM content encryption): WSO2 Identity Server encrypts exposed values with the certificate uploaded for the extension, and the service must encrypt returned values for WSO2 Identity Server.
+      summary: handle pre-update password events
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/RequestBody'
-            examples:
-              registrationRequest:
-                summary: Request sent during a self-registration flow.
-                value:
-                  actionType: FLOW_EXTENSION
-                  event:
-                    flow:
-                      flowType: REGISTRATION
-                      flowId: d6e02342-7c5b-40de-a3f9-403ae5d163a9
-                      portalUrl: https://localhost:9443/t/<your-organization-name>/accounts/register
-                      user:
-                        claims:
-                        - uri: http://wso2.org/claims/givenname
-                          value: John
-                        - uri: http://wso2.org/claims/multiValuedClaim
-                          value:
-                          - value1
-                          - value2
-                        - uri: http://wso2.org/claims/customClaim
-                          value: customValue1
-                    application:
-                      id: application-id
-                  allowedOperations:
-                  - op: replace
-                    paths:
-                    - /user/claims[uri=http://wso2.org/claims/multiValuedClaim]
-                    - /user/claims[uri=http://wso2.org/claims/customClaim]
-                  requestId: 93c2fb70-6f8c-444b-8ff8-36ff580dabb7
-              encryptedRegistrationRequest:
-                summary: Request with encrypted values and extended context.
-                value:
-                  actionType: FLOW_EXTENSION
-                  event:
-                    tenant:
-                      domain: example.com
-                    organization:
-                      id: 77084a9d-b745-4386-a44d-8dc0d44d0232
-                      name: Example Organization
-                      orgHandle: exampleorg
-                      depth: 0
-                    flow:
-                      flowType: REGISTRATION
-                      flowId: d6e02342-7c5b-40de-a3f9-403ae5d163a9
-                      portalUrl: https://localhost:9443/t/<your-organization-name>/accounts/register
-                      user:
-                        id: e5b1b0e8-0f3b-4d7a-9b6a-2f1c1a1b2c3d
-                        username: john
-                        userStoreDomain: ""
-                        claims:
-                        - uri: http://wso2.org/claims/emailaddress
-                          value: <JWE compact string>
-                        credentials:
-                          password: <JWE compact string of the typed credential object>
-                    application:
-                      id: application-id
-                  allowedOperations:
-                  - op: replace
-                    paths:
-                    - /user/claims[uri=http://wso2.org/claims/tier]
-                    - /user/credentials/password
-                  requestId: 93c2fb70-6f8c-444b-8ff8-36ff580dabb7
         required: true
       responses:
         "200":
-          description: Returned for both SUCCESS and FAILED outcomes. The `actionStatus` field in the body indicates which.
+          description: Ok
           content:
             application/json:
               schema:
                 oneOf:
-                - $ref: '#/components/schemas/SuccessResponse'
-                - $ref: '#/components/schemas/FailedResponse'
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - $ref: '#/components/schemas/FailedResponse'
               examples:
                 successExample:
                   summary: Success response
                   value:
                     actionStatus: SUCCESS
-                    operations:
-                    - op: replace
-                      path: /user/claims[uri=http://wso2.org/claims/customClaim]
-                      value: new-value1
-                    - op: replace
-                      path: /user/claims[uri=http://wso2.org/claims/multiValuedClaim]
-                      value:
-                      - multi-value1
-                      - multi-value2
-                encryptedSuccessExample:
-                  summary: Success response with encrypted values
-                  value:
-                    actionStatus: SUCCESS
-                    operations:
-                    - op: replace
-                      path: /user/claims[uri=http://wso2.org/claims/customClaim]
-                      value: <JWE compact string>
-                    - op: replace
-                      path: /user/claims[uri=http://wso2.org/claims/multiValuedClaim]
-                      value:
-                      - <JWE compact string of the comma-joined values>
                 failedExample:
                   summary: Failed response
                   value:
                     actionStatus: FAILED
-                    failureReason: User not allowed
-                    failureDescription: You are currently restricted from creating new accounts.
+                    failureReason: password_compromised
+                    failureDescription: "The provided password is compromised."
         "400":
-          description: Bad request. WSO2 Identity Server treats this as a failure to execute the action and aborts the flow.
+          description: Bad Request
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
               example:
                 actionStatus: ERROR
-                errorMessage: External service failure
-                errorDescription: The external service met with an unexpected error.
-        "401":
-          description: Unauthorized. WSO2 Identity Server treats this as a failure to execute the action and aborts the flow.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-              example:
-                actionStatus: ERROR
-                errorMessage: Authentication failed
-                errorDescription: The request could not be authenticated.
+                error: invalid_credential
+                errorDescription: Expects the encrypted credential.
         "500":
-          description: Internal server error. WSO2 Identity Server treats this as a failure to execute the action and aborts the flow.
+          description: Server Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
               example:
                 actionStatus: ERROR
-                errorMessage: External service failure
-                errorDescription: The external service met with an unexpected error.
+                error: server_error
+                errorDescription: Failed to process the response
 components:
   schemas:
-    RequestBody:
-      type: object
-      required:
-      - actionType
-      - event
-      - allowedOperations
-      - requestId
-      properties:
-        actionType:
-          type: string
-          enum:
-          - FLOW_EXTENSION
-          description: The action type being executed. Always `FLOW_EXTENSION` for this integration.
-          example: FLOW_EXTENSION
-        event:
-          $ref: '#/components/schemas/Event'
-        allowedOperations:
-          type: array
-          description: The whitelist of changes the service may emit. If the response references anything outside this whitelist, WSO2 Identity Server rejects it.
-          items:
-            $ref: '#/components/schemas/AllowedOperation'
-        requestId:
-          type: string
-          description: A unique identifier for this invocation.
-          example: 93c2fb70-6f8c-444b-8ff8-36ff580dabb7
-      description: The request envelope sent to the external service.
     Event:
       type: object
+      required:
+        - initiatorType
+        - action
+        - tenant
+        - user
+        - userStore
       properties:
-        flow:
-          $ref: '#/components/schemas/Flow'
-        application:
-          $ref: '#/components/schemas/Application'
+        initiatorType:
+          type: string
+          example: USER
+          enum:
+          - USER
+          - ADMIN
+          - APPLICATION
+          description: This indicates whether the password update was initiated by an admin, a user, or an application.
+        action:
+          type: string
+          example: RESET
+          enum:
+          - RESET
+          - UPDATE
+          - INVITE
+          description: This indicates whether the password update was initiated over a password reset flow, update flow, or an invite flow.
         tenant:
           $ref: '#/components/schemas/Tenant'
-        organization:
-          $ref: '#/components/schemas/Organization'
-      description: A snapshot of the flow state, carrying context about the flow and the organization. Each field appears only when the corresponding attribute is marked as readable in the extension's access configuration; fields with empty values are omitted.
-    Flow:
-      type: object
-      properties:
-        flowType:
-          type: string
-          description: The flow being executed.
-          enum:
-          - REGISTRATION
-          - PASSWORD_RECOVERY
-          - INVITED_USER_REGISTRATION
-          example: REGISTRATION
-        flowId:
-          type: string
-          description: The identifier for this single flow execution.
-          example: d6e02342-7c5b-40de-a3f9-403ae5d163a9
-        portalUrl:
-          type: string
-          format: uri
-          description: The URL of the WSO2 Identity Server portal page.
-          example: https://localhost:9443/t/<your-organization-name>/accounts/register
         user:
           $ref: '#/components/schemas/User'
-      description: The flow being executed.
-    User:
+        userStore:
+          $ref: '#/components/schemas/UserStore'
+      description: Defines the context data related to the pre issue access token event that needs to be shared with the custom service to process and execute.
+    Tenant:
       type: object
+      required:
+        - id
+        - name
       properties:
         id:
           type: string
-          description: The user's unique identifier.
-          example: e5b1b0e8-0f3b-4d7a-9b6a-2f1c1a1b2c3d
-        username:
+          description: The unique numeric identifier of the tenant.
+          example: "2"
+        name:
           type: string
-          description: The username, without the user store domain prefix.
-          example: john
-        userStoreDomain:
-          type: string
-          description: The user store the user belongs to. An empty string ("") denotes the primary user store.
-          example: ""
-        claims:
-          type: array
-          description: The current claims of the user.
-          items:
-            $ref: '#/components/schemas/Claim'
-        credentials:
-          type: object
-          description: The user's credentials, keyed by credential name (for example, `password`). Each value is a typed credential object, or its JWE compact string when the credential is marked as encrypted.
-          additionalProperties:
-            oneOf:
-            - $ref: '#/components/schemas/Credential'
-            - type: string
-              description: The JWE compact string of the typed credential object, sent when the credential is marked as encrypted.
-      description: The user being acted on.
-    Credential:
+          description: The domain name of the tenant.
+          example: bar.com
+      description: This property represents the tenant under which the token request is being processed.
+    User:
       type: object
+      required:
+        - id
+        - updatingCredential
+      properties:
+        id:
+          type: string
+          description: Defines the unique identifier of the user.
+          example: e204849c-4ec2-41f1-8ff7-ec1ebff02821
+        updatingCredential:
+          oneOf:
+            - $ref: '#/components/schemas/UnencryptedCredential'
+            - $ref: '#/components/schemas/EncryptedCredential'
+      description: Contains information about the user associated with the password update request.
+    UnencryptedCredential:
+      type: object
+      required:
+        - type
+        - format
+        - value
       properties:
         type:
           type: string
           enum:
+          - PASSWORD
+          description: Defines the credential type. 
+        format:
+          type: string
+          example: HASH
+          enum:
           - PLAIN_TEXT
-          description: The format of the credential value.
-          example: PLAIN_TEXT
+          - HASH
+          description: Defines the format the credential is shared.
         value:
           type: string
-          description: The credential value.
-      description: A typed credential value.
-    Tenant:
-      type: object
-      properties:
-        domain:
-          type: string
-          description: The domain of the root organization.
-          example: example.com
-      description: The root organization context.
-    Organization:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The organization UUID.
-          example: 77084a9d-b745-4386-a44d-8dc0d44d0232
-        name:
-          type: string
-          description: The organization name.
-          example: Example Organization
-        orgHandle:
-          type: string
-          description: The organization handle.
-          example: exampleorg
-        depth:
-          type: integer
-          description: The depth of the organization in the organization hierarchy.
-          example: 0
-      description: The organization context.
-    Claim:
-      type: object
-      properties:
-        uri:
-          type: string
-          description: The claim URI.
-          example: http://wso2.org/claims/givenname
-        value:
-          description: The claim value. A single-valued claim carries a string; a multi-valued claim carries an array of strings. When the claim is marked as encrypted, the value is a JWE compact string; an encrypted multi-valued claim carries a single-element array holding one JWE compact string of the comma-joined values.
-          oneOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-          example: John
-      description: A single user claim, represented as a URI and value pair.
-    Application:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The application UUID. Only available for flows initiated with the `applicationId` parameter.
-          example: application-id
-      description: The application context.
-    AllowedOperation:
+          example: cHRSHCjvmT
+          description: Defines the value.
+        additionalData:
+          $ref: '#/components/schemas/AdditionalData'
+    EncryptedCredential:
+      type: string
+      description: |
+        Represents an encrypted credential using JSON Web Encryption (JWE).
+        
+        When a public key is configured for the pre-password update action, 
+        the `updatingCredential` object is encrypted into a JWE string. 
+        The payload of this JWE follows the structure of the `UnencryptedCredential` object.
+    
+        Example JWE representation:
+        ```
+        eyJhbGciOiJSU0EtT0FFUCIsImVuYyI6IkEyNTZHQ00ifQ.OKOawDo13gRp2ojaHV7LFsQ.48V1_ALb6US04U3b.5eym8X3LNvUubV4Y0kH.XFBoMYUZodetZdvTiFvSkQ
+        ```
+    
+        Decrypted Payload Example (UnencryptedCredential structure):
+        ```
+        {
+          "type": "PASSWORD",
+          "format": "HASH",
+          "value": "cHRSHCjvmT",
+          "additionalData": {
+            "algorithm": "SHA256"
+          }
+        }
+        ```
+    
+        This ensures secure transmission of the credential while allowing validation upon decryption.
+      example: eyJhbGciOiJSU0EtT0FFUCIsImVuYyI6IkEyNTZHQ00ifQ.OKOawDo13gRp2ojaHV7LFsQ.48V1_ALb6US04U3b.5eym8X3LNvUubV4Y0kH.XFBoMYUZodetZdvTiFvSkQ
+    UserStore:
       type: object
       required:
-      - op
+        - id
+        - name
       properties:
-        op:
+        id:
+          type: string
+          description: The unique identifier for the user store.
+          example: UFJJTUFSWQ==
+        name:
+          type: string
+          description: "User store name used to identify the user store in configuration settings, user interfaces, and administrative tasks."
+          example: PRIMARY
+      description: Indicates the user store in which the user's data is being managed.
+    AdditionalData:
+      type: object
+      description: Defines the additional data related to the updating credential.
+      anyOf:
+      - $ref: '#/components/schemas/AdditionalDataForHashedPassword'
+    AdditionalDataForHashedPassword:
+      type: object
+      properties:
+        algorithm:
           type: string
           enum:
-          - replace
-          description: The permitted operation. `replace` creates or replaces a value at one of the listed paths.
-          example: replace
-        paths:
-          type: array
-          description: The paths the operation may target. The service may only target paths listed here.
-          items:
-            type: string
-          example:
-          - /user/claims[uri=http://wso2.org/claims/multiValuedClaim]
-          - /user/claims[uri=http://wso2.org/claims/customClaim]
-      description: An entry that defines a change the service is permitted to make.
+          - SHA256
+      description: Defines additional data related to hashed passwords.
     SuccessResponse:
       type: object
       required:
-      - actionStatus
+        - actionStatus
       properties:
         actionStatus:
           type: string
           enum:
           - SUCCESS
-          description: Indicates that the operations should be applied and the flow should continue.
-          example: SUCCESS
-        operations:
-          type: array
-          description: The operations to apply to the flow. Optional; omit it when there is nothing to change but the flow should still proceed.
-          items:
-            $ref: '#/components/schemas/ReplaceOperation'
-      description: Returned when the service completes successfully.
-    ReplaceOperation:
-      type: object
-      required:
-      - op
-      - path
-      - value
-      properties:
-        op:
-          type: string
-          enum:
-          - replace
-          description: The operation to perform.
-          example: replace
-        path:
-          type: string
-          description: The path to create or replace, targeting a claim or a credential. Must match one of the paths listed against the `replace` entry in `allowedOperations`.
-          example: /user/claims[uri=http://wso2.org/claims/customClaim]
-        value:
-          description: The value to set. The claim is created if absent and set to empty if the value is an empty string. When the path is marked as encrypted, the value must be a JWE compact string encrypted for WSO2 Identity Server; an encrypted multi-valued claim must be a single-element array holding one JWE compact string of the comma-joined values.
-          oneOf:
-          - type: string
-            nullable: true
-          - type: array
-            items:
-              type: string
-          example: new-value1
-      description: Creates or replaces a value at the given path.
+      description: Defines the success response.
     FailedResponse:
       type: object
       required:
-      - actionStatus
-      - failureReason
-      - failureDescription
+        - actionStatus
+        - failureReason
+        - failureDescription
       properties:
         actionStatus:
           type: string
           enum:
           - FAILED
-          description: Indicates that the flow should stop for a business or policy reason.
-          example: FAILED
+          description: Indicates the outcome of the request. For a failed operation, this should be set to FAILED.
         failureReason:
           type: string
-          description: A short, user-facing reason for the failure. You can also send an i18n key to show a localized message to the user.
-          example: User not allowed
+          description: Provides the reason for failing password update.
         failureDescription:
           type: string
-          description: A longer, user-facing description of the failure. You can also send an i18n key to show a localized message to the user.
-          example: You are currently restricted from creating new accounts.
-      description: Returned when the service decides, on business or policy grounds, that the flow should not continue.
+          description: Offers a detailed explanation of the failure
     ErrorResponse:
       type: object
       required:
-      - actionStatus
-      - errorMessage
-      - errorDescription
+        - actionStatus
+        - errorMessage
+        - errorDescription
       properties:
         actionStatus:
           type: string
           enum:
           - ERROR
-          description: Indicates that the service hit a processing or server-side error.
-          example: ERROR
+          description: Indicates the outcome of the request. For an error operation, this should be set to ERROR.
         errorMessage:
           type: string
-          description: A short error message. Published to diagnostic logs.
-          example: External service failure
+          description: The cause of the error.
         errorDescription:
           type: string
-          description: A longer description of the error. Published to diagnostic logs.
-          example: The external service met with an unexpected error.
-      description: Returned with HTTP 400, 401, or 500 when the service itself fails to process the request.
+          description: A detailed description of the error.
+      description: |
+         When the external service responds with an ERROR state, it can return an HTTP status code of 400, 401, or 500, indicating either a validation failure or an issue processing the request. 
+    RequestBody:
+      type: object
+      required:
+        - actionType
+        - event
+      properties:
+        flowId:
+          type: string
+          description: A unique identifier that associates with the password updating flow in WSO2 Identity Server.
+          example: Ec1wMjmiG8
+        requestId:
+          type: string
+          description: A unique correlation identifier that associates with the password update request received by WSO2 Identity Server.
+          example: 6783a180f817075313ea3fb01d79c221
+        actionType:
+          type: string
+          description: "Specifies the action being triggered, which in this case is PRE_UPDATE_PASSWORD."
+          enum:
+          - PRE_UPDATE_PASSWORD
+        event:
+          $ref: '#/components/schemas/Event'
   securitySchemes:
     BasicAuth:
       type: http
@@ -433,3 +289,10 @@ components:
       type: apiKey
       name: X-API-Key
       in: header
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth/token
+          scopes:
+            process: process request generate response

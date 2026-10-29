@@ -6,7 +6,24 @@ sidebar_label: Register a FAPI-compliant app
 sidebar_position: 8
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Variants>
+
+<Edition only="cloud">
+
 Financial-Grade API (FAPI) specification extends the OAuth and OIDC frameworks and defines additional technical requirements to protect high-value APIs. {edition.productName} provides full support for [FAPI 1.0 Advanced](https://openid.net/specs/openid-financial-api-part-2-1_0.html) allowing developers to build applications that meet advanced security standards.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+Financial-Grade API (FAPI) specification extends the OAuth and OIDC frameworks and defines additional technical requirements to protect high-value APIs. {edition.productName} provides full support for both [FAPI 1.0 Advanced](https://openid.net/specs/openid-financial-api-part-2-1_0.html) and [FAPI 2.0](https://openid.net/specs/fapi-security-profile-2_0-final.html) allowing developers to build applications that meet these advanced security standards.
+
+</Edition>
+
+</Variants>
 
 This guide walks you through creating and configuring a FAPI-compliant application in {edition.productName}.
 
@@ -18,11 +35,77 @@ This guide walks you through creating and configuring a FAPI-compliant applicati
 
 To configure {edition.productName} to issue FAPI-compliant tokens, open the `<IS_HOME>/repository/conf/deployment.toml` file and add the configurations specific to your FAPI version. After saving the changes, restart WSO2 Identity Server to apply the configuration.
 
+<Tabs groupId="tabs">
+<TabItem value="fapi-2-0" label="FAPI 2.0">
+
 - Limit cipher suites for TLSv1.2.
 
     ```bash
     [transport.https.sslHostConfig.properties]
-    ciphers="TLS_DHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_DHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
+    ciphers="TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
+    ```
+
+- Specify a time skew for JWT token validation.
+
+    ```bash
+    [oauth]
+    timestamp_skew = 10
+    ```
+
+- Specify supported FAPI version.
+
+    ```bash
+    [oauth.oidc]
+    fapi.version= "2"
+    ```
+
+- Specify the id-token issuer and force using entity id as the issuer in jwt tokens.
+
+    ```bash
+    [oauth.oidc]
+    id_token.issuer = "https://$ref{server.hostname}:${carbon.management.port}/oauth2/oidcdiscovery"
+    id_token.use_entityid_as_issuer = true
+    ```
+
+- Specify a FAPI 2.0 compliant signing algorithm for ID tokens (PS256).
+
+    ```bash
+    [oauth.oidc]
+    id_token.signature_algorithm="PS256"
+    ```
+
+- Specify the authorization code validity as 50 seconds.
+
+    ```bash
+    [oauth.token_validation]
+    authorization_code_validity = 50
+    ```
+
+- If your implementation involves TLS termination, specify the following MTLS header name.
+
+    ```bash
+    [oauth.mutualtls]
+    client_certificate_header = "x-wso2-mtls-cert"
+    ```
+
+- Change the well-known endpoint of the Console and MyAccount applications.
+
+    ```bash
+    [myaccount.idp_configs]
+    wellKnownEndpoint = "https://<IS_HOST>/oauth2/token/.well-known/openid-configuration"
+
+    [console.idp_configs]
+    wellKnownEndpoint = "https://<IS_HOST>/oauth2/token/.well-known/openid-configuration"
+    ```
+
+</TabItem>
+<TabItem value="fapi-1-0-advanced" label="FAPI 1.0 Advanced">
+
+- Limit cipher suites for TLSv1.2.
+
+    ```bash
+    [transport.https.sslHostConfig.properties]
+    ciphers="TLS_DHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_DHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
     ```
 
 - Specify a FAPI-compliant signing algorithm for ID tokens (PS256, ES256).
@@ -52,6 +135,9 @@ To configure {edition.productName} to issue FAPI-compliant tokens, open the `<IS
      [oauth.mutualtls]
      client_certificate_header = "x-wso2-mtls-cert"
     ```
+
+</TabItem>
+</Tabs>
 
 </Edition>
 

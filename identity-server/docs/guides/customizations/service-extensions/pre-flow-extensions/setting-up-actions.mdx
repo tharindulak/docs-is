@@ -1,6 +1,6 @@
 ---
 title: Setting up actions
-description: This guide provides a step-by-step approach to setting up actions in WSO2 Identity Platform to customize its behavior at specific extension points.  # generated from the first paragraph; a writer should improve it
+description: This guide provides a step-by-step approach to setting up actions in WSO2 Identity Server to customize its behavior at specific extension points.  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_label: Setting up an action
 sidebar_position: 1
@@ -29,7 +29,7 @@ Your external web service should have the following to successfully execute an a
     - OAuth 2.0 Bearer Tokens: Integrate OAuth 2.0 for token-based authentication.
     - API Key Header: Secure the endpoint using an API key sent in the request header.
 
-    <Edition selfHostedFrom="next">
+    <Edition only="cloud">
 
     - OAuth 2.0 Client Credentials Grant: {edition.productName} obtains an access token from your authorization server using the OAuth 2.0 client credentials grant and uses it to call the endpoint.
     - OAuth 2.0 Password Grant: {edition.productName} obtains an access token from your authorization server using the OAuth 2.0 resource owner password credentials grant and uses it to call the endpoint.
@@ -64,7 +64,7 @@ Follow the steps below to configure an action.
         - Bearer - Provide a bearer token.
         - API Key - Provide the header name and the value.
 
-        <Edition selfHostedFrom="next">
+        <Edition only="cloud">
 
         - OAuth 2.0 Client Credentials - Provide the token endpoint, client ID, client secret, and optionally a space-separated list of scopes. {edition.productName} retrieves a fresh access token from the configured token endpoint using the OAuth 2.0 client credentials grant and uses it as a bearer token when invoking the action endpoint.
         - OAuth 2.0 Password Grant - Provide the token endpoint, client ID, client secret, username, password, and optionally a space-separated list of scopes. {edition.productName} retrieves a fresh access token from the configured token endpoint using the OAuth 2.0 resource owner password credentials grant and uses it as a bearer token when invoking the action endpoint.
@@ -77,12 +77,16 @@ Follow the steps below to configure an action.
 
         - No Authentication - No authentication (recommended only for testing purposes).
 
+    <Edition only="cloud">
+
     - **Allowed headers**: Add the request headers you want to send to your external service.
     - **Allowed Parameters**: Add the request parameters you want to send to your external service.
 
         :::note
         Currently, you can add allowed headers and parameters only in the Pre-Issue Access Token action.
         :::
+
+    </Edition>
 
     Note that you may see extra properties depending on the action type.
 
@@ -115,7 +119,11 @@ You can trigger actions conditionally by configuring rules. The following action
 - [Pre-Issue ID Token](./pre-issue-id-token-action.mdx#conditional-invocation-of-pre-issue-id-token-action)
 - [Pre-Update Password](./pre-update-password-action.mdx#conditional-invocation-of-pre-update-password-action)
 
+<Edition only="cloud">
+
 - [Pre-Update Profile](./pre-update-profile-action.mdx#conditional-invocation-of-pre-update-profile-action)
+
+</Edition>
 
 ### Rule structure
 
@@ -163,6 +171,17 @@ Try these troubleshooting steps to resolve issues.
 <Edition only="self-hosted">
 
 3. If your external service uses a self-signed certificate, ensure the certificate is imported into the WSO2 Carbon truststore. By default, {edition.productName} uses the WSO2 Carbon truststore at `<IS_HOME>/repository/resources/security/client-truststore.jks`.
+
+    Add the following configuration to the `deployment.toml` file and restart the server:
+
+    ```toml
+    [actions.http_client]
+    use_carbon_truststore = true
+    ```
+
+    :::note
+    This configuration is available from the update level: **`7.1.0.60`**.
+    :::
 
 </Edition>
 

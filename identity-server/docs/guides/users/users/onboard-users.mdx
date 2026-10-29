@@ -3,6 +3,7 @@ title: Onboard users
 description: 'You can use one of the following methods to onboard users to your organization in WSO2 Identity Platform:'  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_position: 1
+editions: cloud
 ---
 
 import Tabs from '@theme/Tabs';
@@ -12,7 +13,7 @@ You can use one of the following methods to onboard users to your organization i
 
 - The user can self-register via the My Account portal or the login page of an application if self-registration is enabled in the organization. Learn how to [configure self-registration](../../account-configurations/user-onboarding/self-registration.mdx).
 
-- An administrator can onboard users from a secondary user store by <Edition only="cloud">[configuring a secondary user store in {edition.productName}](../user-stores/configure-a-user-store.mdx)</Edition><Edition only="self-hosted">configuring a secondary user store in {edition.productName}</Edition>.
+- An administrator can onboard users from a secondary user store by [configuring a secondary user store in {edition.productName}](../user-stores/configure-a-user-store.mdx).
 
     :::note
     If the secondary user store access type is read-only, you cannot update the user profiles of users onboarded from this read-only user store.
@@ -23,10 +24,6 @@ You can use one of the following methods to onboard users to your organization i
 Let's look at how administrators can onboard users from the {edition.productName} Console.
 
 ## Onboard single user
-
-<Variants>
-
-<Edition only="cloud">
 
 1. On the {edition.productName} Console, go to **User Management** > **Users**.
 2. Click **Add User** button and select **Single User** option and provide the user's details.
@@ -40,27 +37,6 @@ Let's look at how administrators can onboard users from the {edition.productName
     :::tip[Add additional fields to the user onboarding form]
     The default form requests for basic information of the user. If you wish to include additional details, such as the user's phone number, address, and other custom attributes, you need to make these attributes available in the **Administrator Console**. Learn how to do so in [attribute configurations](../attributes/user-attributes/manage-attributes.mdx#configure-attributes).
     :::
-
-</Edition>
-
-<Edition only="self-hosted">
-
-1. On the {edition.productName} Console, go to **User Management** > **Users**.
-2. Click **Add User** button and select **Single User** option and provide the user's details.
-
-    <img src={require("../../../../assets/self-hosted/img/guides/users/add-user-form.png").default} alt="Add user" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
-
-    :::note
-    - The user's username is always unique to the organization and you can't change the username once it is created.
-    :::
-
-    :::tip[Add additional fields to the user onboarding form]
-    The default form requests for basic information of the user. If you wish to include additional details, such as the user's phone number, address, and other custom attributes, you need to make these attributes available in the **Administrator Console**. Learn how to do so in [attribute configurations](../attributes/user-attributes/manage-attributes.mdx#configure-attributes).
-    :::
-
-</Edition>
-
-</Variants>
 
 3. You can either request the user to set the password or set one on the user's behalf.
 
@@ -91,7 +67,7 @@ In addition to adding a single user, you can onboard multiple users at once, eit
 You need to enable the **Invite user to set password** feature if you haven't done so already to add multiple users. Learn how to [configure invite user to set password](../../account-configurations/user-onboarding/invite-user-to-set-password.mdx).
 :::
 
-<Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/users/add-multiple-users-form.png").default} alt="Add multiple users" width="800" style={{display: "block", margin: "0", border: "0.1px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/users/add-multiple-users-form.png").default} alt="Add multiple users" width="800" style={{display: "block", margin: "0", border: "0.1px solid lightgrey"}} /></Edition></Variants>
+<img src={require("../../../../assets/cloud/img/guides/users/add-multiple-users-form.png").default} alt="Add multiple users" width="800" style={{display: "block", margin: "0", border: "0.1px solid lightgrey"}} />
 
 #### Add multiple users manually
 
@@ -104,19 +80,6 @@ You need to enable the **Invite user to set password** feature if you haven't do
 7. An email with a confirmation link will be sent to the provided email addresses, allowing the users to set their own passwords.
 
 #### Add multiple users using a CSV file
-
-<Edition only="self-hosted">
-
-:::info
-The default limit for maximum number of users that can be added per request using a CSV file is set to 100. To modify this limit, add the following configuration to the `<IS_HOME>/repository/conf/deployment.toml` file.
-
-```text
-[console.bulk_user_import]
-user_limit = 50
-```
-:::
-
-</Edition>
 
 1. On the {edition.productName} Console, go to **User Management** > **Users**.
 
@@ -144,10 +107,6 @@ user_limit = 50
 ## Onboard users with email verification
 
 During user onboarding, you can enforce email verification to confirm the provided email address. This improves security and ensures the accuracy of user data. Follow these steps to add users with email verification.
-
-<Variants>
-
-<Edition only="cloud">
 
 1. Run the following cURL command to enable email verification.
 
@@ -346,210 +305,3 @@ During user onboarding, you can enforce email verification to confirm the provid
     "HTTP/1.1 202 Accepted"
     ```
     :::
-
-</Edition>
-
-<Edition only="self-hosted">
-
-1. Run the following cURL command to enable email verification.
-
-    :::info
-    curl -X 'PATCH' \
-    'https://localhost:9443/api/server/v1/identity-governance/VXNlciBPbmJvYXJkaW5n/connectors/dXNlci1lbWFpbC12ZXJpZmljYXRpb24' \
-    -H 'Authorization: Bearer `<access_token>`' \
-    -H 'Content-Type: application/json' \
-    -d '\{
-        "operation": "UPDATE",
-        "properties": [
-            \{
-                "name": "EmailVerification.Enable",
-                "value": true
-            \}
-        ]
-    \}'
-    :::
-
-2. (Optional) By default, {edition.productName} sends a link to the user's registered email. You can change this to a one-time code (OTP).
-
-    :::info
-    curl -X 'PATCH' \
-    'https://localhost:9443/api/server/v1/identity-governance/VXNlciBPbmJvYXJkaW5n/connectors/dXNlci1lbWFpbC12ZXJpZmljYXRpb24' \
-    -H 'Authorization: Bearer `<access_token>`' \
-    -H 'Content-Type: application/json' \
-    -d '\{
-        "operation": "UPDATE",
-        "properties": [
-            \{
-                "name": "EmailVerification.OTP",
-                "value": true
-            \}
-        ]
-    \}'
-    :::
-
-3. You can now create a user with email verification enabled.
-
-    :::info
-    <Tabs groupId="tabs">
-    <TabItem value="request-format" label="Request format">
-
-    ```bash
-    curl -X 'POST' \
-    'https://localhost:9443/scim2/Users' \
-    -H 'Authorization: Bearer <access_token>' \
-    -H 'Content-Type: application/json' \
-    -d '{
-        "userName": "<USERNAME>",
-        "emails": [
-            {
-                "primary": true,
-                "value": "<EMAIL>"
-            }
-        ],
-        "password": "<PASSWORD>",
-        "urn:scim:wso2:schema": {
-            "verifyEmail": "true"
-        }
-    }'
-    ```
-
-    </TabItem>
-    <TabItem value="sample-request" label="Sample request">
-
-    ```text
-    curl -X 'POST' \
-    'https://localhost:9443/scim2/Users' \
-    -H 'Authorization: Bearer <access_token>' \
-    -H 'Content-Type: application/json' \
-    -d '{
-        "userName": "PRIMARY/bob",
-        "emails": [
-            {
-                "primary": true,
-                "value": "bob@gmail.com"
-            }
-        ],
-        "password": "P@ssw0rd",
-        "urn:scim:wso2:schema": {
-            "verifyEmail": "true"
-        }
-    }'
-    ```
-
-    </TabItem>
-    </Tabs>
-
-    ---
-    **Response**
-
-    ```text
-    "HTTP/1.1 201 Created"
-    ```
-    :::
-
-    :::note
-    Newly created users with pending email verification will remain locked until they complete the verification.
-    :::
-
-4. (Optional) The following curl command resends the verification code to the user's email if the user didn't receive it the first time or the code expired.
-
-    :::info
-    <Tabs groupId="tabs">
-    <TabItem value="request-format" label="Request format">
-
-    ```bash
-    curl -X 'POST' \
-    'https://localhost:9443/api/identity/user/v1.0/resend-code' \
-    -H 'accept: application/json' \
-    -H 'Authorization: Bearer <access_token>' \
-    -H 'Content-Type: application/json' \
-    -d '{
-        "user": {
-            "username": "<username>",
-            "realm": "<user_store_domain>"
-        },
-        "properties": [
-            {
-                "key": "RecoveryScenario",
-                "value": "EMAIL_VERIFICATION_OTP"
-            }
-        ]
-    }'
-    ```
-
-    </TabItem>
-    <TabItem value="sample-request" label="Sample request">
-
-    ```text
-    curl -X 'POST' \
-    'https://localhost:9443/api/identity/user/v1.0/resend-code' \
-    -H 'accept: application/json' \
-    -H 'Authorization: Bearer <access_token>' \
-    -H 'Content-Type: application/json' \
-    -d '{
-        "user": {
-            "username": "bob@gmail.com",
-            "realm": "PRIMARY"
-        },
-        "properties": [
-            {
-                "key": "RecoveryScenario",
-                "value": "EMAIL_VERIFICATION_OTP"
-            }
-        ]
-    }'
-    ```
-
-    </TabItem>
-    </Tabs>
-
-    ---
-    **Response**
-    ```text
-    "HTTP/1.1 201 Created"
-    ```
-    :::
-
-5. If you selected the confirmation link option, users can click the link to verify. If you configured OTP, validate it by submitting the OTP using the following API.
-
-    :::info
-    <Tabs groupId="tabs">
-    <TabItem value="request-format" label="Request format">
-
-    ```bash
-    curl -X 'POST' \
-    'https://localhost:9443/api/identity/user/v1.0/validate-code' \
-    -H 'Authorization: Bearer <access_token>' \
-    -H 'Content-Type: application/json' \
-    -d '{
-        "code": "<CODE>"
-    }'
-    ```
-
-    </TabItem>
-    <TabItem value="sample-request" label="Sample request">
-
-    ```text
-    curl -X 'POST' \
-    'https://localhost:9443/api/identity/user/v1.0/validate-code' \
-    -H 'Authorization: Bearer <access_token>' \
-    -H 'Content-Type: application/json' \
-    -d '{
-        "code": "c1KLdm"
-    }'
-    ```
-
-    </TabItem>
-    </Tabs>
-
-    ---
-    **Response**
-    ```text
-    "HTTP/1.1 202 Accepted"
-    ```
-    :::
-
-</Edition>
-
-</Variants>
-

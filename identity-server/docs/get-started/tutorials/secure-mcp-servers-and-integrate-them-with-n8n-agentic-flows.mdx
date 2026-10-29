@@ -1,9 +1,9 @@
 ---
-title: Secure MCP servers with {edition.productName} and integrate them with n8n agentic flows
+title: Secure MCP servers with WSO2 Identity Platform and integrate them with n8n agentic flows
 description: The Model Context Protocol (MCP) provides a standard way for AI agents and applications to discover and invoke tools.  # generated from the first paragraph; a writer should improve it
 type: tutorial
-sidebar_label: Secure MCP servers with WSO2 Identity Platform and integrate them with n8n agentic flows
 sidebar_position: 14
+editions: cloud
 ---
 
 # Secure MCP servers with {edition.productName} and integrate them with n8n agentic flows
@@ -12,21 +12,7 @@ The [Model Context Protocol (MCP)](https://modelcontextprotocol.io/docs/getting-
 
 At the same time, no-code and low-code platforms such as [n8n](https://n8n.io/) are rapidly increasing the number of MCP clients being built. This creates an important question: **Are these clients integrating with MCP servers using proper security standards?**
 
-<Variants>
-
-<Edition only="cloud">
-
 The good news is that secure MCP ecosystems can be built using [WSO2 Identity Platform](https://asgardeo.io/). By leveraging {edition.productName} for authentication and authorization, you can protect MCP servers and ensure that only trusted clients and users are allowed to access specific tools.
-
-</Edition>
-
-<Edition only="self-hosted">
-
-The good news is that secure MCP ecosystems can be built using [WSO2 Identity Server](https://wso2.com/products/downloads/?product=wso2is). By leveraging {edition.productName} for authentication and authorization, you can protect MCP servers and ensure that only trusted clients and users are allowed to access specific tools.
-
-</Edition>
-
-</Variants>
 
 By the end of this tutorial, you will be able to run n8n locally, configure its MCP client secured by {edition.productName}, set up a demo MCP server, and securely interact with it using OAuth 2.0 with PKCE from the n8n chat interface.
 
@@ -44,11 +30,11 @@ Follow [n8n documentation](https://community.n8n.io/t/how-to-install-n8n-locally
 2. Select **Create Workflow**.
 3. Select **Import from File**.
 
-<img src={require("../../../assets/img/tutorials/secure-mcp-servers-and-integrate-them-with-n8n-agentic-flows/import-n8n-workflow.png").default} alt="Import n8n workflow" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../assets/cloud/img/tutorials/secure-mcp-servers-and-integrate-them-with-n8n-agentic-flows/import-n8n-workflow.png").default} alt="Import n8n workflow" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 Select the `mcp-client-n8n-example.json` file from the cloned repository.
 
-<img src={require("../../../assets/img/tutorials/secure-mcp-servers-and-integrate-them-with-n8n-agentic-flows/n8n-workflow.png").default} alt="n8n workflow" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../assets/cloud/img/tutorials/secure-mcp-servers-and-integrate-them-with-n8n-agentic-flows/n8n-workflow.png").default} alt="n8n workflow" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 ## Step 2: Set up {edition.productName}
 
@@ -60,7 +46,7 @@ Register an application in {edition.productName} to represent the n8n MCP client
 2. Click on **New Application**.
 3. Select **MCP Client Application**.
 
-<img src={require("../../../assets/img/tutorials/secure-mcp-servers-and-integrate-them-with-n8n-agentic-flows/create-mcp-client-application.png").default} alt="Create MCP client application" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../assets/cloud/img/tutorials/secure-mcp-servers-and-integrate-them-with-n8n-agentic-flows/create-mcp-client-application.png").default} alt="Create MCP client application" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 Configure the application with the following values:
 
@@ -68,7 +54,7 @@ Configure the application with the following values:
 * **Redirect URL**: `http://localhost:5678/rest/oauth2-credential/callback`
 * Disable **Public Client** option, as n8n currently only supports confidential clients and expects the client secret during configuration.
 
-<img src={require("../../../assets/img/tutorials/secure-mcp-servers-and-integrate-them-with-n8n-agentic-flows/save-mcp-client-application.png").default} alt="Save MCP client application" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../assets/cloud/img/tutorials/secure-mcp-servers-and-integrate-them-with-n8n-agentic-flows/save-mcp-client-application.png").default} alt="Save MCP client application" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 Save the application.
 
@@ -86,7 +72,7 @@ After the MCP server starts, open the imported n8n MCP workflow.
 
 Double-click the **MCP Client** node.
 
-<img src={require("../../../assets/img/tutorials/secure-mcp-servers-and-integrate-them-with-n8n-agentic-flows/n8n-mcp-client-node.png").default} alt="n8n MCP client node" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../assets/cloud/img/tutorials/secure-mcp-servers-and-integrate-them-with-n8n-agentic-flows/n8n-mcp-client-node.png").default} alt="n8n MCP client node" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 1. Set the MCP server endpoint:
       * If you use Docker: `http://host.docker.internal:3000/mcp`
@@ -97,7 +83,7 @@ Double-click the **MCP Client** node.
       * Set **Grant Type** to `PKCE`.
       * Provide the **Authorization URL**, **Access Token URL**, **Client ID**, and **Client Secret**.
 
-<img src={require("../../../assets/img/tutorials/secure-mcp-servers-and-integrate-them-with-n8n-agentic-flows/n8n-mcp-client-oauth-settings.png").default} alt="n8n MCP client OAuth settings" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../assets/cloud/img/tutorials/secure-mcp-servers-and-integrate-them-with-n8n-agentic-flows/n8n-mcp-client-oauth-settings.png").default} alt="n8n MCP client OAuth settings" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 You can find these values in the **Protocol** and **Info** tabs of your {edition.productName} application.
 
@@ -107,7 +93,7 @@ You can find these values in the **Protocol** and **Info** tabs of your {edition
 2. Generate an API key from [Google AI Studio API keys](https://aistudio.google.com/api-keys).
 3. Add the API key to the node configuration.
 
-<img src={require("../../../assets/img/tutorials/secure-mcp-servers-and-integrate-them-with-n8n-agentic-flows/n8n-gemini-node-config.png").default} alt="n8n Gemini node configuration" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../assets/cloud/img/tutorials/secure-mcp-servers-and-integrate-them-with-n8n-agentic-flows/n8n-gemini-node-config.png").default} alt="n8n Gemini node configuration" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 ## Step 5: Try the workflow
 
@@ -115,7 +101,7 @@ You can find these values in the **Protocol** and **Info** tabs of your {edition
 2. Send a sample prompt from the chat interface.
 3. Verify that the MCP client authenticates and invokes tools from the secured MCP server.
 
-<img src={require("../../../assets/img/tutorials/secure-mcp-servers-and-integrate-them-with-n8n-agentic-flows/run-workflow.png").default} alt="Run workflow" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../assets/cloud/img/tutorials/secure-mcp-servers-and-integrate-them-with-n8n-agentic-flows/run-workflow.png").default} alt="Run workflow" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 ## Troubleshooting
 

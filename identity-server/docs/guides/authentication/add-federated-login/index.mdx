@@ -1,6 +1,6 @@
 ---
 title: Add federated login
-description: WSO2 Identity Platform lets you add and configure external Identity Providers (IdP) so that users can bring their identities in these external IdPs and log…  # generated from the first paragraph; a writer should improve it
+description: WSO2 Identity Server lets you add and configure external Identity Providers (IdP) so that users can bring their identities in these external IdPs and log in…  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_position: 1
 ---
@@ -15,13 +15,13 @@ You can register an external IdP in {edition.productName} by creating a connecti
 
 <Edition only="cloud">
 
-[![Facebook](../../../../assets/img/logo/facebook-logo.svg) Facebook](./social-login/add-facebook-login.mdx) [![GitHub](../../../../assets/img/logo/github-logo.svg) ![GitHub](../../../../assets/img/logo/github-logo-dark.svg) GitHub](./social-login/add-github-login.mdx) [![Google](../../../../assets/img/logo/google-logo.svg) Google](./social-login/add-google-login.mdx) [![Apple](../../../../assets/img/logo/apple-logo.svg) ![Apple](../../../../assets/img/logo/apple-logo-dark.svg) Apple](./social-login/add-apple-login.mdx) [![Microsoft](../../../../assets/img/logo/microsoft-logo.svg) Microsoft](./social-login/add-microsoft-login.mdx) [![OIDC](../../../../assets/img/logo/oidc-logo.svg) OpenID Connect](./standard-based-login/add-oidc-idp-login.mdx) [![SAML](../../../../assets/img/logo/saml-logo.svg) SAML](./standard-based-login/add-saml-idp-login.mdx) [![Ethereum](../../../../assets/cloud/img/logo/ethereum.svg)<br /> Sign-in with Ethereum](./decentralized-login/sign-in-with-ethereum.mdx)
+[![Facebook](../../../../assets/img/logo/facebook-logo.svg) Facebook](./social-login/add-facebook-login.mdx) [![GitHub](../../../../assets/img/logo/github-logo.svg) ![GitHub](../../../../assets/cloud/img/logo/github-logo-dark.svg) GitHub](./social-login/add-github-login.mdx) [![Google](../../../../assets/img/logo/google-logo.svg) Google](./social-login/add-google-login.mdx) [![Apple](../../../../assets/img/logo/apple-logo.svg) ![Apple](../../../../assets/img/logo/apple-logo-dark.svg) Apple](./social-login/add-apple-login.mdx) [![Microsoft](../../../../assets/img/logo/microsoft-logo.svg) Microsoft](./social-login/add-microsoft-login.mdx) [![OIDC](../../../../assets/img/logo/oidc-logo.svg) OpenID Connect](./standard-based-login/add-oidc-idp-login.mdx) [![SAML](../../../../assets/img/logo/saml-logo.svg) SAML](./standard-based-login/add-saml-idp-login.mdx) [![Ethereum](../../../../assets/cloud/img/logo/ethereum.svg)<br /> Sign-in with Ethereum](./decentralized-login/sign-in-with-ethereum.mdx)
 
 </Edition>
 
 <Edition only="self-hosted">
 
-[![Facebook](../../../../assets/img/logo/facebook-logo.svg) Facebook](./social-login/add-facebook-login.mdx) [![GitHub](../../../../assets/img/logo/github-logo.svg) ![GitHub](../../../../assets/img/logo/github-logo-dark.svg) GitHub](./social-login/add-github-login.mdx) [![Google](../../../../assets/img/logo/google-logo.svg) Google](./social-login/add-google-login.mdx) [![Apple](../../../../assets/img/logo/apple-logo.svg) ![Apple](../../../../assets/img/logo/apple-logo-dark.svg) Apple](./social-login/add-apple-login.mdx) [![Microsoft](../../../../assets/img/logo/microsoft-logo.svg) Microsoft](./social-login/add-microsoft-login.mdx) [![Microsoft 365](../../../../assets/img/logo/microsoft-logo.svg) Microsoft 365](./enterprise-login/add-microsoft-365-login.mdx) [![Microsoft IWA](../../../../assets/img/logo/microsoft-logo.svg)<br /> IWA](./enterprise-login/add-iwa-login.mdx) [![Microsoft AD FS](../../../../assets/img/logo/microsoft-logo.svg)<br /> AD FS](./enterprise-login/add-ad-fs-login.mdx) [![X](../../../../assets/self-hosted/img/logo/x-logo.svg)<br /> ![X](../../../../assets/self-hosted/img/logo/x-logo-dark.svg)<br /> X](./social-login/add-x-login.mdx) [![OIDC](../../../../assets/img/logo/oidc-logo.svg) OpenID Connect](./standard-based-login/add-oidc-idp-login.mdx) [![SAML](../../../../assets/img/logo/saml-logo.svg) SAML](./standard-based-login/add-saml-idp-login.mdx) [![WS-Fed](../../../../assets/img/logo/ws-fed.svg)<br /><br /><br /> WS-Federation](./standard-based-login/add-ws-federation.mdx)
+[![Facebook](../../../../assets/img/logo/facebook-logo.svg) Facebook](./social-login/add-facebook-login.mdx) [![GitHub](../../../../assets/img/logo/github-logo.svg) ![GitHub](../../../../assets/self-hosted/img/logo/github-logo-dark.svg) GitHub](./social-login/add-github-login.mdx) [![Google](../../../../assets/img/logo/google-logo.svg) Google](./social-login/add-google-login.mdx) [![Apple](../../../../assets/img/logo/apple-logo.svg) ![Apple](../../../../assets/img/logo/apple-logo-dark.svg) Apple](./social-login/add-apple-login.mdx) [![Microsoft](../../../../assets/img/logo/microsoft-logo.svg) Microsoft](./social-login/add-microsoft-login.mdx) [![Microsoft 365](../../../../assets/img/logo/microsoft-logo.svg) Microsoft 365](./enterprise-login/add-microsoft-365-login.mdx) [![Microsoft IWA](../../../../assets/img/logo/microsoft-logo.svg)<br /> IWA](./enterprise-login/add-iwa-login.mdx) [![Microsoft AD FS](../../../../assets/img/logo/microsoft-logo.svg)<br /> AD FS](./enterprise-login/add-ad-fs-login.mdx) [![X](../../../../assets/self-hosted/img/logo/x-logo.svg)<br /> ![X](../../../../assets/self-hosted/img/logo/x-logo-dark.svg)<br /> X](./social-login/add-x-login.mdx) [![OIDC](../../../../assets/img/logo/oidc-logo.svg) OpenID Connect](./standard-based-login/add-oidc-idp-login.mdx) [![SAML](../../../../assets/img/logo/saml-logo.svg) SAML](./standard-based-login/add-saml-idp-login.mdx) [![WS-Fed](../../../../assets/img/logo/ws-fed.svg)<br /><br /><br /> WS-Federation](./standard-based-login/add-ws-federation.mdx)
 
 </Edition>
 
@@ -153,6 +153,57 @@ Follow the steps below to add the groups from your connection to {edition.produc
 
 4. Click **Finish** to add the group information.
 
+<Variants>
+
+<Edition only="self-hosted">
+
+## Add connections to federation hub
+
+Federation hub is a collection of multiple IdPs configured on WSO2 Identity Server. On the federation hub, each IdP is recognized by the **home realm identifier** of the IdP.
+
+The following diagram illustrates an authentication flow involving a federated hub.
+![fed-hub-home-realm-identifier](../../../../assets/self-hosted/img/guides/federation-hub-flow.png)
+
+:::note
+On the application's login page, you can support either local and federated authentication or just federated authentication. This can be done by setting the `proxy_mode` configuration to one of the following modes:
+
+<table>
+  <tbody>
+    <tr>
+      <td>`smart`</td>
+      <td>Allow both local and federated authentication</td>
+    </tr>
+    <tr>
+      <td>`dumb`</td>
+      <td>Allow only federated authentication. The home realm identifier must be configured to operate in this mode. <br />If it is not configured, a separate screen should be displayed to get it from the user.</td>
+    </tr>
+  </tbody>
+</table>
+
+Configure the `proxy_mode` by opening the `deployment.toml` file in the `<IS_HOME>/repository/conf` directory
+and setting one of the above modes as follows.
+
+```bash
+[authentication] 
+proxy_mode="smart"
+```
+:::
+To add a connection to federation hub,
+
+1. On the {edition.productName} Console, click **Connections** and select the relevant connection.
+
+2. Go to the **Advanced** tab of the selected connection.
+
+3. Turn on the **Federation Hub** toggle to add the connection.
+
+4. Enter the **Home Realm Identifier**. This value is an identifier used when your application uses a federated IdP. If a user selects this IdP and sends an authentication request, the fidp query parameter will be populated with this value. (example: fidp = googleIdP)
+
+5. Click **Update** to save the changes.
+
+</Edition>
+
+<Edition only="cloud">
+
 ## Configure home realm identifier
 
 The home realm identifier is a unique value that identifies a connection when routing users directly to a specific external IdP during login. When a user initiates login, your application can include this identifier as the `fidp` query parameter in the authorization request, which causes {edition.productName} to skip the login page and route the user directly to the specified external IdP.
@@ -165,7 +216,7 @@ To configure the home realm identifier:
 
 3. Enter a unique identifier in the **Home Realm Identifier** field.
 
-    <Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/connections/home-realm-identifier.png").default} alt="Home realm identifier configuration" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/connections/home-realm-identifier.png").default} alt="Home realm identifier configuration" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+    <img src={require("../../../../assets/cloud/img/guides/connections/home-realm-identifier.png").default} alt="Home realm identifier configuration" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 4. Click **Update** to save the changes.
 
@@ -183,6 +234,10 @@ https://<host_name>/t/<org_name>/oauth2/authorize?
 :::note
 When the `fidp` parameter is provided, {edition.productName} bypasses the login page and directly initiates the authentication flow with the matching external IdP.
 :::
+
+</Edition>
+
+</Variants>
 
 ## Delete a connection
 

@@ -85,16 +85,12 @@ To deploy the custom local authenticator:
     enable = true
     ```
 
-<Edition selfHostedFrom="next">
-
 4. To ensure the custom local authenticator appears as a first-factor option in the {edition.productName} Console login flow UI, add the following configuration to the  `<IS_HOME>/repository/conf/deployment.toml` file.
 
     ```toml
     [console.ui]
     login_flow_custom_first_factor_authenticators = [ "SampleLocalAuthenticator" ]
     ```
-
-</Edition>
 
 ---
 

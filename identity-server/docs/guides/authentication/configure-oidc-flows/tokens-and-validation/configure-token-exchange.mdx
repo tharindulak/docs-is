@@ -1,8 +1,8 @@
 ---
 title: Configure token exchange
-description: You can exchange a token that an application already has for a new WSO2 Identity Platform token.  # generated from the first paragraph; a writer should improve it
+description: You can exchange a token that an application already has for a new WSO2 Identity Server token.  # generated from the first paragraph; a writer should improve it
 type: how-to
-sidebar_position: 6
+sidebar_position: 7
 ---
 
 You can exchange a token that an application already has for a new {edition.productName} token. Learn how to configure the OAuth 2.0 token exchange flow in your {edition.productName} organization. Refer to [Token exchange grant](../../../../reference/iam-concepts/grant-types.mdx#token-exchange-grant) for more information on how the flow works.
@@ -37,9 +37,13 @@ To enable token exchange in your application:
 
 4. Click **Update** to save the configurations.
 
+<Edition only="cloud">
+
 :::note
 To learn how token exchange can be invoked in organization applications, see [Generate tokens for organization applications](../../../organization-management/authorize-api-resources/generate-tokens-for-organization-apps.mdx).
 :::
+
+</Edition>
 
 ## Token exchange flows
 
@@ -181,6 +185,10 @@ When configuring implicit account linking, select lookup attributes (such as `em
 {edition.productName} skips implicit account linking when **Require linked local account** is disabled, even if the implicit linking option remains enabled.
 :::
 
+<Variants>
+
+<Edition only="cloud">
+
 To enable implicit account linking,
 
 1. On the {edition.productName} console, go to **Connections**.
@@ -218,6 +226,17 @@ To restrict scope issuance for federated tokens:
 3. Under **Token Exchange**, select **Restrict scope issuance for federated tokens**.
 
 4. Click **Update** to save the configurations.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+You can configure implicit account linking using the
+[Implicit Association API](../../../../reference/apis/idp/index.mdx#op-updateImplicitAssociation).
+
+</Edition>
+
+</Variants>
 
 #### Try out federated token exchange
 
@@ -284,8 +303,6 @@ Two applications take part in this flow.
 
 The same application can play both roles.
 
-<Variants>
-
 <Edition only="cloud">
 
 :::note[Scopes of the exchanged token]
@@ -294,17 +311,13 @@ For organizations created after **November 20, 2026**, {edition.productName} lim
 
 </Edition>
 
-<Edition only="self-hosted" selfHostedFrom="next">
+#### Configure the subject token application
 
-:::note[Scopes of the exchanged token]
-{edition.productName} limits the scopes of the exchanged token to the scopes granted to the subject token.
-:::
+<Edition only="self-hosted">
+
+The subject token should be a JWT access token that includes the token issuer of your organization in its `aud` claim.
 
 </Edition>
-
-</Variants>
-
-#### Configure the subject token application
 
 To configure the subject token application:
 
@@ -314,11 +327,23 @@ To configure the subject token application:
 
 3. Under **Access Token**, select `JWT` as the **Token type**.
 
-<Edition selfHostedFrom="next">
+<Variants>
+
+<Edition only="cloud">
 
 4. Click **Update** to save the configurations.
 
 </Edition>
+
+<Edition only="self-hosted">
+
+4. Under **ID Token**, add `{edition.productUrlFormat}/oauth2/token` as an **Audience**.
+
+5. Click **Update** to save the configurations.
+
+</Edition>
+
+</Variants>
 
 #### Try out locally issued token exchange
 
@@ -366,6 +391,8 @@ Follow the steps given below.
 
 Upon successful execution, you will receive the exchanged token.
 
+<Edition only="cloud">
+
 ## Delegation
 
 The token exchange grant can also issue a token that preserves the identity of the party acting on behalf of the user. The requesting application presents an actor token along with the subject token, and {edition.productName} records the acting party in the `act` claim of the exchanged token.
@@ -377,3 +404,6 @@ For instructions, see [Delegation](../../../authorization/delegation.mdx).
 By default, {edition.productName} adds all the audiences registered for the requesting application to the exchanged token. To limit the audience of the exchanged token to a single value, add the `audience` parameter to the token request with the required audience.
 
 The requested audience should be one of the audiences registered for the requesting application. {edition.productName} returns an `invalid_target` error if the request contains more than one audience value, or an audience that is not registered for the application.
+
+</Edition>
+

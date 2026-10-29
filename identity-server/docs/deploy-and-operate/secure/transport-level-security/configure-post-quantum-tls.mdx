@@ -9,62 +9,189 @@ editions: self-hosted
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-As quantum computing becomes a reality, traditional public key algorithms like RSA and ECC grow increasingly vulnerable. {edition.productName} mitigates this issue by supporting **Post-Quantum Cryptography (PQC)** through hybrid key exchange algorithms, specifically the X25519MLKEM768 ([RFC10024](https://datatracker.ietf.org/doc/rfc10024/)) hybrid key agreement algorithm.
-
-## What are hybrid key exchange algorithms?
+As quantum computing becomes a reality, traditional public key algorithms like RSA and ECC grow increasingly vulnerable. {edition.productName} mitigates this issue by supporting **Post-Quantum Cryptography (PQC)** through hybrid key exchange algorithms, specifically the [X25519MLKEM768](https://datatracker.ietf.org/doc/draft-ietf-tls-ecdhe-mlkem) hybrid key agreement algorithm.
 
 A hybrid key agreement algorithm combines a classical algorithm with a post-quantum algorithm to establish a shared secret. This approach keeps communication secure even if one algorithm is compromised, helping systems transition seamlessly to post-quantum cryptography.
 
-## Why post-quantum TLS?
+By following this guide, you will enable **post-quantum TLS** in {edition.productName} for inbound connections. An inbound connection refers to communication initiated by clients, such as browsers, applications, or APIs, connecting securely to {edition.productName} using TLS.
 
-- **Future-proof security**: Safeguards TLS communication against future quantum-based attacks.
+:::note[Post-quantum TLS requirements]
+- Post-quantum TLS is only supported over TLS 1.3.
+- {edition.productName} currently supports post-quantum security only on Linux and macOS operating systems.
+:::
 
-- **Hybrid compatibility**: Ensures compatibility with current systems while introducing quantum-resistant security.
+## Step 1: Build native libraries
 
-## Supported communication channels
+For post-quantum TLS to work, {edition.productName} requires a few native libraries. These don't come pre-packaged with the {edition.productName} distribution as native libraries depend on the system architecture.
 
-{edition.productName} supports post-quantum security for both:
+Use one of the following methods to build native libraries.
 
-- Inbound connections: Between clients (like browsers or apps) and the server.
-- Outbound connections: Between the server and other external services.
+### Method 1: Use system libraries
 
-## Enabling post-quantum TLS
+This method relies on your operating system’s existing libraries during both the build process and runtime. This results in a faster build time and minimal disk space usage.
 
-1. Shut down the {edition.productName} instance if running.
+#### Build dependencies
 
-2. Add the following configuration to the `<IS_HOME>/repository/conf/deployment.toml` file:
+{edition.productName} requires the following during the build process.
 
-    ```toml
-    [transport.https.client]
-    provider_name = "BC"
+- Build tools (`make`, `cmake`, `wget`, `tar`, `autoconf`)
+- GNU compiler (`gcc`)
+- Apache Portable Runtime (APR) library
+- OpenSSL 3.0 or higher.
 
-    [transport.https.sslHostConfig.properties]
-    protocols="TLSv1.2+TLSv1.3"
-    ```
-
-3. Restart the Server.
-
-:::note
-Some outbound TLS connections may omit the Server Name Indication (SNI) extension when the Bouncy Castle (BC) provider is enabled, causing certain servers to reject the handshake.
-
-To resolve this, add the following system property at server startup:
+To install these dependencies, follow the instructions below based on the operating system.
 
 <Tabs groupId="tabs">
-<TabItem value="linux-mac-os" label="Linux/Mac OS">
+<TabItem value="linux" label="Linux">
+
+1. Download the [source](https://www.openssl.org/source/) and follow the instructions given [here](https://github.com/openssl/openssl/blob/master/INSTALL.md#quick-installation-guide).
+
+2. Install the required build dependencies using the command for your relevant Linux distribution.
+
+    In Debian-based Linux:
+
+    ```bash
+    apt-get install make cmake autoconf wget tar gcc libapr1-dev libssl-dev
+    ```
+
+    In Red Hat Linux distributions:
+
+    ```bash
+    yum install make cmake autoconf wget tar gcc apr-devel openssl-devel perl
+    ```
+
+</TabItem>
+<TabItem value="macos" label="macOS">
+
+1. Use Homebrew to install all the required build dependencies.
+
+    ```bash
+    brew install wget cmake autoconf openssl@3 apr
+    ```
+
+2. Add the following line to your shell configuration file (e.g., `~/.bash_profile`, `~/.zshrc`, or `~/.bashrc`):
+
+    For Intel-based Macs:
+
+    ```bash
+    export PATH="/usr/local/opt/apr/bin:$PATH"
+    ```
+
+    For Apple Silicon-based Macs:
+
+    ```bash
+    export PATH="/opt/homebrew/opt/apr/bin:$PATH"
+    ```
+
+</TabItem>
+</Tabs>
+
+#### Runtime dependencies
+
+{edition.productName} requires the following during runtime.
+
+1. The OpenSSL and APR libraries installed earlier.
+
+2. Install the other dependencies by following the steps below:
+
+    1. Shut down the {edition.productName} instance if running.
+    2. Navigate to the `<IS_HOME>/bin/` folder and execute the following command:
+
+        ```bash
+        sh openssl-tls.sh --build_pqclib
+        ```
+
+        :::note
+        If you change the location of the {edition.productName} folder, you need to re-run the above command to reconfigure the runtime libraries.
+        :::
+
+### Method 2: Using self-contained libraries
+
+This method installs all dependencies into the {edition.productName} directory, ensuring isolation from the system environment and highest compatibility across different systems and configurations.
+
+#### Build dependencies {#build-dependencies_1}
+
+{edition.productName} requires the following during the build process.
+
+- Build tools (`make`, `cmake`, `wget`, `tar`, `autoconf`)
+- GNU compiler (`gcc`/`clang`)
+
+To install these dependencies, follow the instructions below based on the operating system.
+
+<Tabs groupId="tabs">
+<TabItem value="linux" label="Linux">
+
+Install the required build dependencies using the command for your relevant Linux distribution.
+
+In Debian-based Linux:
 
 ```bash
-sh wso2server.sh -Dorg.bouncycastle.jsse.client.assumeOriginalHostName=true
+apt-get install make cmake autoconf wget tar gcc git python3 autoconf libtool-bin
+```
+
+In Red Hat Linux distributions:
+
+```bash
+yum install make cmake autoconf wget tar gcc perl git python3 autoconf libtool
 ```
 
 </TabItem>
-<TabItem value="windows" label="Windows">
+<TabItem value="macos" label="macOS">
+
+Use Homebrew to install dependencies.
 
 ```bash
-wso2server.bat -Dorg.bouncycastle.jsse.client.assumeOriginalHostName=true
+brew install wget autoconf cmake git python3 autoconf libtool
 ```
 
 </TabItem>
 </Tabs>
 
-Note that this may expose connections to **man-in-the-middle (MITM) attacks** if the name service is not trustworthy.
+#### Runtime dependencies {#runtime-dependencies_1}
+
+{edition.productName} requires the following during runtime.
+
+1. Shut down the {edition.productName} instance if running.
+2. Navigate to the `<IS_HOME>/bin/` folder and execute the following command:
+
+    ```bash
+    sh openssl-tls.sh --build_openssl --build_pqclib
+    ```
+
+    :::note
+    If you change the location of the {edition.productName} folder, you need to re-run the above command to reconfigure the runtime libraries.
+    :::
+
+## Step 2: Enable post-quantum TLS
+
+Follow the steps below to enable TLS to use post-quantum cryptography.
+
+1. Shut down the {edition.productName} instance if running.
+2. Add the following configuration to the `<IS_HOME>/repository/conf/deployment.toml` file.
+
+    ```toml
+    [transport.https.openssl]
+    enabled = true
+    named_groups="X25519MLKEM768:x25519"
+
+    [transport.https.sslHostConfig.properties]
+    protocols="TLSv1+TLSv1.1+TLSv1.2+TLSv1.3"
+    ```
+
+3. Restart {edition.productName}.
+
+:::note[Disable post-quantum security]
+Make the following changes to the `<IS_HOME>/repository/conf/deployment.toml` file to disable post-quantum security.
+
+- Remove the configurations you added when enabling it and restart {edition.productName}.
+
+- You can keep using TLS 1.3 with post-quantum security disabled by adding the following configuration.
+
+    ```toml
+    [transport.https.openssl]
+    enabled = true
+
+    [transport.https.sslHostConfig.properties]
+    protocols="TLSv1+TLSv1.1+TLSv1.2+TLSv1.3"
+    ```
 :::

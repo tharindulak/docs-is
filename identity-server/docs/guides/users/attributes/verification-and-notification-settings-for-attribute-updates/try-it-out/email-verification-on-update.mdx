@@ -348,6 +348,11 @@ https://api.asgardeo.io/t/bifrost/scim2/Me \
 ```
 :::
 
+Upon receiving the response outlined above, the user will receive an email notification prompting them to verify their 
+updated email address. Once verified, the `verifiedEmailAddresses` claim (http://wso2.org/claims/verifiedEmailAddresses) 
+will be updated to reflect the new email address.  If a primary email address has not been configured, 
+the verified email address will also be set as the primary email.
+
 </Edition>
 
 <Edition only="self-hosted">
@@ -437,14 +442,13 @@ https://localhost:9443/scim2/Me \
 ```
 :::
 
+Upon receiving the response outlined above, the user will receive an email notification prompting them to verify their 
+updated email address. Once verified, the `verifiedEmailAddresses` claim (http://wso2.org/claims/verifiedEmailAddresses) 
+will be updated to reflect the new email address. 
+
 </Edition>
 
 </Variants>
-
-Upon receiving the response outlined above, the user will receive an email notification prompting them to verify their 
-updated email address. Once verified, the `verifiedEmailAddresses` claim (http://wso2.org/claims/verifiedEmailAddresses) 
-will be updated to reflect the new email address.  If a primary email address has not been configured, 
-the verified email address will also be set as the primary email.
 
 ## Resend email verification
 

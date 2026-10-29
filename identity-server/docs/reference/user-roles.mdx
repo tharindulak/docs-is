@@ -1,8 +1,8 @@
 ---
-title: WSO2 Identity Platform user roles
+title: User roles
 description: Roles assigned to a group or user determine their permissions for accessing resources in the organization.  # generated from the first paragraph; a writer should improve it
 type: reference
-sidebar_position: 7
+sidebar_position: 1
 ---
 
 <Variants>
@@ -536,12 +536,18 @@ Follow the steps below to configure a custom console role in {edition.productNam
     You can select either **View** or **Edit** permission for each resource. Selecting **Edit** will automatically inherit the **View** permission for that resource.
     :::
 
-    <img src={require("../../assets/img/references/user-management/custom-console-role-create-wizard.png").default} alt="role-wizard" width="650" style={{display: "block", margin: "0", border: "0px"}} />
+    <Variants><Edition only="cloud"><img src={require("../../assets/cloud/img/references/user-management/custom-console-role-create-wizard.png").default} alt="role-wizard" width="650" style={{display: "block", margin: "0", border: "0px"}} /></Edition><Edition only="self-hosted"><img src={require("../../assets/self-hosted/img/references/user-management/custom-console-role-create-wizard.png").default} alt="role-wizard" width="650" style={{display: "block", margin: "0", border: "0px"}} /></Edition></Variants>
 3. Click **Add** to create the custom role.
 
-<Edition selfHostedFrom="next">
-
 ### Granular console permissions
+
+<Edition only="self-hosted">
+
+:::note
+Granular console permissions are available from **update level 7.1.0.73** onwards. See the instructions on [updating WSO2 products](https://updates.docs.wso2.com/en/latest/).
+:::
+
+</Edition>
 
 <Variants>
 
@@ -599,8 +605,6 @@ Console roles created earlier with the combined **Edit** permission continue to 
 :::warning[Switching back to the default model]
 If you enable granular Console permissions and create roles with granular **Create**, **Update**, or **Delete** permissions, those role permissions will not work after you switch back to the default **View** and **Edit** permission model. Keep granular Console permissions enabled for roles created with the granular model, or review and update those roles before disabling it.
 :::
-
-</Edition>
 
 </Edition>
 

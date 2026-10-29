@@ -4,6 +4,7 @@ description: WSO2 Identity Platform supports B2B application login, allowing use
 type: how-to
 sidebar_label: Overview
 sidebar_position: 1
+editions: cloud
 ---
 
 import Tabs from '@theme/Tabs';
@@ -18,7 +19,7 @@ This guide covers the **enhanced organization authentication** model. To verify 
 2. Go to the **Shared Access** tab.
 3. Check whether **Enhanced Organization Authentication** is enabled.
 
-<img src={require("../../../../assets/img/guides/organization/organization-login/enhanced-org-authentication.png").default} alt="Enhanced Organization Authentication toggle" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../../assets/cloud/img/guides/organization/organization-login/enhanced-org-authentication.png").default} alt="Enhanced Organization Authentication toggle" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 If **Enhanced Organization Authentication** is not enabled, your application is using the legacy approach. See [Organization login - legacy approach](./organization-login/legacy-approach.mdx).
 :::
@@ -33,7 +34,7 @@ Two methods are available for starting organization login.
 
 Send the authentication request to the root organization's endpoint. {edition.productName} will prompt users to identify their organization when the **Sign in with SSO** option is selected during the login flow.
 
-<img src={require("../../../../assets/img/guides/organization/organization-login/sso-option.png").default} alt="Sign in with SSO option" width="400" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../../assets/cloud/img/guides/organization/organization-login/sso-option.png").default} alt="Sign in with SSO option" width="400" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 <Tabs groupId="tabs">
 <TabItem value="oidc" label="OIDC">

@@ -3,7 +3,7 @@ title: Add MFA with Push Notification
 description: Push notifications provide a seamless and secure MFA solution by allowing users to verify their identity with a simple tap on their registered device.  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_label: Add push notification
-sidebar_position: 5
+sidebar_position: 6
 ---
 
 Push notifications provide a seamless and secure MFA solution by allowing users to verify their identity with a simple tap on their registered device. This real-time authentication method reduces reliance on passwords and one-time passcodes, enhancing security against phishing and credential attacks.
@@ -31,7 +31,7 @@ To update the default Push Notification settings:
 1. On the {edition.productName} Console, go to **Connections** and select **Push Notification**.
 2. Update the following parameters in the **Settings** tab:
 
-    <Variants><Edition only="cloud"><img src={require("../../../../assets/img/guides/mfa/push/setup-push-auth.png").default} alt="Setup Push Notifications in WSO2 Identity Platform" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/img/guides/mfa/push/setup-push-auth.png").default} alt="Setup Push Notifications in WSO2 Identity Server" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+    <Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/mfa/push/setup-push-auth.png").default} alt="Setup Push Notifications in WSO2 Identity Platform" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/mfa/push/setup-push-auth.png").default} alt="Setup Push Notifications in WSO2 Identity Server" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
 
     | Field | Description |
     | --- | --- |
@@ -78,13 +78,15 @@ This feature allows users to enroll their push notification devices seamlessly d
 
 4. Enable the option for **Enable push notification device progressive enrollment** by checking its checkbox.
 
-    <Variants><Edition only="cloud"><img src={require("../../../../assets/img/guides/mfa/push/enable-push-progressive-enrollment.png").default} alt="Enable push notification device progressive enrollment in WSO2 Identity Platform" width="700" style={{border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/img/guides/mfa/push/enable-push-progressive-enrollment.png").default} alt="Enable push notification device progressive enrollment in WSO2 Identity Server" width="700" style={{border: "0.3px solid lightgrey"}} /></Edition></Variants>
+    <Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/mfa/push/enable-push-progressive-enrollment.png").default} alt="Enable push notification device progressive enrollment in WSO2 Identity Platform" width="700" style={{border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/mfa/push/enable-push-progressive-enrollment.png").default} alt="Enable push notification device progressive enrollment in WSO2 Identity Server" width="700" style={{border: "0.3px solid lightgrey"}} /></Edition></Variants>
 
 5. Click **Update** to save your changes.
 
 :::note
 Push notification device progressive enrollment can only be configured at the organizational level and cannot be modified at the application level.
 :::
+
+<Edition only="cloud">
 
 ## Enable progressive enrollment for multiple devices
 
@@ -103,6 +105,8 @@ Anyone who gets past the earlier authentication step can register their own devi
 :::note
 For the full walkthrough — enabling multiple device registration, registering additional devices, and device registration notifications — see [Register multiple devices for push notifications](../../../get-started/tutorials/register-multiple-devices-for-push-notifications.mdx).
 :::
+
+</Edition>
 
 ## Try out Push Notification MFA flow with a user already enrolled with a device
 

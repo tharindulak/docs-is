@@ -1,8 +1,8 @@
 ---
-title: Configure the self-service portal
+title: Configure the My Account portal
 description: Users and administrators in your organization can manage their accounts and information by accessing the My Account portal, a self-service portal offered by…  # generated from the first paragraph; a writer should improve it
 type: how-to
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 import Tabs from '@theme/Tabs';
@@ -238,23 +238,6 @@ applications.scopes.delete = []
 ```
 
 The applications feature has no sub-features.
-
-</TabItem>
-<TabItem value="approvals" label="Approvals">
-
-The Approvals section enables users to review and act on operational tasks that require their attention. From here, users can view pending approval requests, such as user creation, role creation, or user removal requests, and take the necessary actions. It can be configured as follows:
-
-```toml
-[myaccount]
-approvals.enabled = true
-approvals.disabled_features = []
-approvals.scopes.create = []
-approvals.scopes.read = ["internal_approval_task_view"]
-approvals.scopes.update = ["internal_approval_task_update"]
-approvals.scopes.delete = []
-```
-
-The approvals feature has no sub-features.
 
 </TabItem>
 </Tabs>

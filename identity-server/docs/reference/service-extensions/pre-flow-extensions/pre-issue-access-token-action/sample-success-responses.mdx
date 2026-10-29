@@ -2,7 +2,7 @@
 title: Sample success responses for pre-issue access token action
 description: In this section, you'll find examples of success responses for various scenarios involving access token modifications.  # generated from the first paragraph; a writer should improve it
 type: reference
-sidebar_label: Sample success reponses
+sidebar_label: Sample success responses
 sidebar_position: 1
 ---
 
@@ -175,6 +175,8 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
+<Edition only="cloud">
+
 ## Changing the refresh token validity period
 
 The duration for which the refresh token is valid can be changed in seconds.
@@ -196,7 +198,9 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-<Edition selfHostedFrom="next">
+</Edition>
+
+<Edition only="cloud">
 
 ## Adding a custom parameter to the token endpoint response
 

@@ -1,6 +1,6 @@
 ---
 title: Custom authentication
-description: Custom authentication allows you to extend the authentication functionality of WSO2 Identity Platform by implementing a custom authentication service.  # generated from the first paragraph; a writer should improve it
+description: Custom authentication allows you to extend the authentication functionality of WSO2 Identity Server by implementing a custom authentication service.  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_position: 1
 ---
@@ -89,7 +89,7 @@ Use the [sample custom authentication service](https://github.com/asgardeo-sampl
     - OAuth 2.0 Bearer Tokens: Use OAuth 2.0 for token-based authentication.
     - API Key Header: Secure the endpoint using an API key sent in the request header.
 
-    <Edition selfHostedFrom="next">
+    <Edition only="cloud">
 
     - OAuth 2.0 Client Credentials Grant: {edition.productName} obtains an access token from your authorization server using the OAuth 2.0 client credentials grant and uses it to call the endpoint.
     - OAuth 2.0 Password Grant: {edition.productName} obtains an access token from your authorization server using the OAuth 2.0 resource owner password credentials grant and uses it to call the endpoint.
@@ -128,7 +128,7 @@ Follow the steps below to configure a custom authenticator.
         - Bearer - Provide a bearer token.
         - API Key - Provide the header name and the value.
 
-        <Edition selfHostedFrom="next">
+        <Edition only="cloud">
 
         - OAuth 2.0 Client Credentials - Provide the token endpoint, client ID, client secret, and optionally a space-separated list of scopes. {edition.productName} retrieves a fresh access token from the configured token endpoint using the OAuth 2.0 client credentials grant and uses it as a bearer token when invoking the custom authenticator endpoint.
         - OAuth 2.0 Password Grant - Provide the token endpoint, client ID, client secret, username, password, and optionally a space-separated list of scopes. {edition.productName} retrieves a fresh access token from the configured token endpoint using the OAuth 2.0 resource owner password credentials grant and uses it as a bearer token when invoking the custom authenticator endpoint.
@@ -139,9 +139,25 @@ Follow the steps below to configure a custom authenticator.
 
 6. If you select **External (Federated) User Authentication**, configure [JIT-User Provisioning](../../../authentication/jit-user-provisioning.mdx) according to your requirements. Additionally, review and set up [role assignments for user groups](../../../users/manage-roles.mdx#assign-external-groups-to-a-role) to ensure seamless integration.
 
+<Variants>
+
+<Edition only="cloud">
+
 :::note
 By default, {edition.productName} does not send the HTTP headers or the request parameters of the login flow to your external service. To forward them, add their names in **Allowed headers** and **Allowed parameters** under the **Settings** tab in custom authenticator configuration. See [Request headers and parameters](#request-headers-and-parameters) for what your service receives and when.
 :::
+
+</Edition>
+
+<Edition only="self-hosted">
+
+:::note
+This version does not send the HTTP headers or the request parameters of the login flow to your external service. The `request` object is not part of the request payload.
+:::
+
+</Edition>
+
+</Variants>
 
 ### Add the custom authenticator to an application login flow
 
@@ -203,6 +219,17 @@ The following are some troubleshooting steps that you may take to resolve issues
 
 4. If your external service uses a self-signed certificate, ensure the certificate is imported into the WSO2 Carbon truststore. By default, {edition.productName} uses the WSO2 Carbon truststore at `<IS_HOME>/repository/resources/security/client-truststore.jks`.
 
+    Add the following configuration to the `deployment.toml` file and restart the server:
+
+    ```toml
+    [actions.http_client]
+    use_carbon_truststore = true
+    ```
+
+    :::note
+    This configuration is available from the update level: **`7.1.0.60`**.
+    :::
+
 </Edition>
 
 ## Custom authentication API deep dive
@@ -230,50 +257,11 @@ The request from {edition.productName} includes following in the JSON request pa
 
 <Edition only="self-hosted">
 
-<table>
-  <thead>
-    <tr>
-      <th>Property</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>actionType</td>
-      <td>
-
-        Specifies the action that {edition.productName} triggers. In this case, the value is `AUTHENTICATE`.
-
-      </td>
-    </tr>
-    <tr>
-      <td>flowId</td>
-      <td>
-
-        A unique correlation identifier, used to track the login flow throughout all requests and responses.
-
-      </td>
-    </tr>
-    <tr>
-      <td>requestId</td>
-      <td>
-
-        A unique correlation identifier that associates with the authentication request received by {edition.productName}.
-
-        *The property appears in the request payload only when you enable [product observability](../../../../deploy-and-operate/monitor/work-with-product-observability.mdx).*
-
-      </td>
-    </tr>
-    <tr>
-      <td>allowedOperations</td>
-      <td>
-
-        Allow redirection. for example \`\`\`json "allowedOperations": \[ \{ "op": "redirect" \} \] \`\`\`
-
-      </td>
-    </tr>
-  </tbody>
-</table>
+| Property | Description |
+| --- | --- |
+| actionType | Specifies the action that {edition.productName} triggers. In this case, the value is `AUTHENTICATE`. |
+| flowId | A unique correlation identifier, used to track the login flow throughout all requests and responses. |
+| allowedOperations | Allow redirection. for example \`\`\`json "allowedOperations": \[ \{ "op": "redirect" \} \] \`\`\` |
 
 </Edition>
 
@@ -361,6 +349,8 @@ The request from {edition.productName} includes following in the JSON request pa
   </tbody>
 </table>
 
+<Edition only="cloud">
+
 #### Request headers and parameters
 
 <Anchor id="request-headers-and-parameters" />
@@ -393,11 +383,17 @@ A name you list is matched against the headers and parameters of the request bei
 Values passed through the `authenticatorParams` option of the [`executeStep()`](../../../../reference/conditional-auth/api-reference.mdx#execute-a-step) function in a conditional authentication script are not sent to a custom authenticator service. That option configures the authenticators that {edition.productName} provides.
 :::
 
+</Edition>
+
 #### Example requests from {edition.productName}
 
 The following examples show requests sent from {edition.productName} to external services. Each example highlights a different authentication type.
 
 **Request for a custom authenticator engaged in the first step**:
+
+<Variants>
+
+<Edition only="cloud">
 
 ```http
 POST authservice/api/authenticate HTTP/1.1
@@ -428,7 +424,47 @@ Content-Type: application/json
 }
 ```
 
+</Edition>
+
+<Edition only="self-hosted">
+
+```http
+POST authservice/api/authenticate HTTP/1.1
+Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
+Content-Type: application/json
+
+{
+  "actionType": "AUTHENTICATION",
+  "flowId": "75919d4d-026b-4b7b-87e1-3f32986f6d97",
+  "requestId": "20250709T163958Z-159c6956d75ltm28hC1SINpsqs00000000p00000000009s4",
+  "event": {
+    "tenant": {
+      "id": "12",
+      "name": "example.com"
+    },
+    "application": {
+      "id": "634f9b10-5fb9-49e3-96cd-43ccaa92564c",
+      "name": "example.app"
+    },
+    "currentStepIndex": 1
+  },
+  "allowedOperations": [
+    {
+      "op": "redirect"
+    }
+  ]
+}
+```
+
+</Edition>
+
+</Variants>
+
 **Request for a custom authenticator in the second or later step**:
+
+<Variants>
+
+<Edition only="cloud">
 
 ```http
 POST authservice/api/authenticate HTTP/1.1
@@ -464,6 +500,48 @@ Content-Type: application/json
   ]
 }
 ```
+
+</Edition>
+
+<Edition only="self-hosted">
+
+```http
+POST authservice/api/authenticate HTTP/1.1
+Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
+Content-Type: application/json
+
+{
+  "actionType": "AUTHENTICATION",
+  "flowId": "8f5f25a8-1fb7-4c93-9e86-2c328beac833",
+  "requestId": "20250709T163958Z-159c6956d75ltm28hC1SINpsqs00000000p00000000009s4",
+  "event": {
+    "tenant": {
+      "id": "12",
+      "name": "example.com"
+    },
+    "user": {
+      "id": "afb93858-18c8-4c65-9d08-86609d4eeee3",
+      "userIdentitySource": "FEDERATED",
+      "sub": "johd@aol.com"
+    },
+    "userStore": {},
+    "application": {
+      "id": "57c3a037-571f-4597-97e8-91a3bb1042d7",
+      "name": "example.app"
+    },
+    "currentStepIndex": 1
+  },
+  "allowedOperations": [
+    {
+      "op": "redirect"
+    }
+  ]
+}
+```
+
+</Edition>
+
+</Variants>
 
 ### Expected Response from external service
 
@@ -684,18 +762,3 @@ Content-Type: application/json
 :::note
 Currently, the `errorMessage` or `errorDescription` from the external service’s `ERROR` response isn't directly included in the error response sent back to the application.
 :::
-
-<Edition only="self-hosted">
-
-## Custom authentication with app-native authentication
-
-You can configure custom authentication services in app-native authentication flows, which authenticate users through API-based mechanisms instead of redirecting them to a web browser.
-
-:::note
-Learn more about [app-native authentication](../../../authentication/app-native-authentication/add-app-native-authentication.mdx)
-:::
-
-Refer to the [custom authentication-based app-native authentication flow](../../../../reference/iam-concepts/app-native-authentication.mdx#scenario-9-user-logs-in-with-service-based-custom-authentication) for a detailed guidance on how to implement this.
-
-</Edition>
-

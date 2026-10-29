@@ -2,7 +2,7 @@
 title: Manage users
 description: This guide walks you through the process of managing a user account.  # generated from the first paragraph; a writer should improve it
 type: how-to
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 import Tabs from '@theme/Tabs';
@@ -13,16 +13,6 @@ import TabItem from '@theme/TabItem';
 <Edition only="cloud">
 
 This guide walks you through the process of managing a user account. An owner or an administrator can manage user accounts.
-
-</Edition>
-
-<Edition only="self-hosted">
-
-This guide walks you through how you can manage user accounts as an administrator.
-
-</Edition>
-
-</Variants>
 
 ## Onboard users
 
@@ -36,10 +26,6 @@ Administrators can filter users based on their account status from the {edition.
 
 To filter users by account status:
 
-<Variants>
-
-<Edition only="cloud">
-
 1. On the {edition.productName} Console, go to **User Management** > **Users**.
 2. Click the **Account Status** dropdown and select the relevant filter criteria:
 
@@ -50,7 +36,7 @@ To filter users by account status:
     - **Pending email verification**: Users who haven't verified their primary email addresses.
     - **Pending mobile verification**: Users who haven't verified their primary mobile numbers.
 
-    <img src={require("../../../../assets/img/guides/users/filter-users-by-account-status.png").default} alt="Filter users by account status" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+    <img src={require("../../../../assets/cloud/img/guides/users/filter-users-by-account-status.png").default} alt="Filter users by account status" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 ## Assign groups
 A user can be assigned to different [groups](../manage-groups.mdx) in the organization. Groups can be used to restrict the user's access to resources.
@@ -59,20 +45,104 @@ A user can be assigned to different [groups](../manage-groups.mdx) in the organi
 
 <Edition only="self-hosted">
 
+This guide walks you through how you can manage user accounts as an administrator.
+
+## Onboard users
+There are three ways to onboard a user:
+
+- The user can self-register via the My Account portal or the login page of an application if self-registration is enabled in the organization. Learn how to [configure self-registration](../../account-configurations/user-onboarding/self-registration.mdx).
+- An administrator can onboard users from a secondary user store by [configuring a secondary user store in WSO2 Identity Server](../user-stores/configure-secondary-user-stores.mdx).
+
+    :::note
+    If the secondary user store access type is read-only, you cannot update the user profiles of users onboarded from this read-only user store.
+    :::
+
+- An administrator can onboard users from the WSO2 Identity Server Console.
+
+Let's look at how administrators can onboard users from the {edition.productName} Console.
+
+### Onboard single user
+
 1. On the {edition.productName} Console, go to **User Management** > **Users**.
-2. Click the **Account Status** dropdown and select the relevant filter criteria:
+2. Click **Add User** button and select **Single User** option and provide the following details:
 
-    - **Locked**: Filters users with locked accounts.
-    - **Disabled**: Filters users with deactivated accounts.
-    - **Pending password reset**: Filters users for whom the administrator has initiated a forced password reset, but the users haven't yet reset their passwords.
-    - **Pending initial password setup**: Filters users an administrator invited to set their own password during initial account creation but who haven't done so yet.
-    - **Pending email verification**: Filters users who haven't yet verified their primary email addresses.
-    - **Pending mobile verification**: Filters users who haven't yet verified their primary mobile numbers.
+    <img src={require("../../../../assets/self-hosted/img/guides/users/add-user-form.png").default} alt="Add user" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
-        <img src={require("../../../../assets/img/guides/users/filter-users-by-account-status.png").default} alt="Filter users by account status" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+    :::note
+    - A username is always unique to the organization and you can't change the username once it is created.
+    - Instead of using a username to login, you can [configure email address as the username](../attributes/enable-email-as-username.mdx). Then, you will be asked to enter the email address when logging in.
+    - The user can change the password set by the administrator from the [My Account Portal](../../user-self-service/self-service-portal/configure-self-service-portal.mdx).
+    :::
+
+3. You can either request the user to set the password or set one on the user's behalf.
+
+    - **Invite user to set their own password:**
+
+        - **Invite via email:** If this option is selected, an email with a confirmation link will be sent to the provided email address. The user can use this link to set up a new password.
+
+            :::note
+            You need to enable the **Invite user to set password** feature if you haven't done so already to use this option. Learn how to [configure invite user to set password](../../account-configurations/user-onboarding/invite-user-to-set-password.mdx).
+            :::
+
+        - **Invite offline:** If this option is selected, the administrator will receive an invitation link at the end of the user registration process. This link can then be shared with the user.
+
+    - **Set a password for the user:** If this option is selected, the administrator can set a password for the user. The user will have the option to change this password from the [My Account Portal](../../user-self-service/self-service-portal/configure-self-service-portal.mdx).
+
+4. Add the user to a group in the next step. You will not see this option if you haven't created any groups in {edition.productName}.
+5. Review the summary and click **Finish**.
+
+    :::note
+    If you have selected **Invite offline** or decided to **set a password for the user**, you can copy the corresponding information at the **Summary** page of the wizard and share with the user.
+    :::
+
+### Onboard multiple users
+
+In addition to adding a single user, you can onboard multiple users at once, either manually or by using a CSV file. This is especially useful for large organizations where bulk operations can save time and reduce the effort of adding users one by one.
+
+:::note
+You need to enable the **Invite user to set password** feature if you haven't done so already to add multiple users. Learn how to [configure invite user to set password](../../account-configurations/user-onboarding/invite-user-to-set-password.mdx).
+:::
+
+<img src={require("../../../../assets/self-hosted/img/guides/users/add-multiple-users-form.png").default} alt="Add multiple users" width="800" style={{display: "block", margin: "0", border: "0.1px solid lightgrey"}} />
+
+#### Add multiple users manually
+
+1. On the {edition.productName} Console, go to **User Management** > **Users**.
+2. Click on the **Add User** button and select **Multiple Users** option.
+3. Switch to the **Manual** tab.
+4. Enter the email addresses of the users you want to invite. Press **Enter** after each email to add it to the list.
+5. Specify the groups for the users by entering the group names. Press **Enter** after each group to add it to the list.
+6. Click **Add** to send out the invitations.
+7. An email with a confirmation link will be sent to the provided email addresses, allowing the users to set their own passwords.
+
+#### Add multiple users using a CSV file
+
+:::info
+The default limit for maximum number of users that can be added per request using a CSV file is set to 100. To modify this limit, add the following configuration to the `<IS_HOME>/repository/conf/deployment.toml` file.
+
+```text
+[console.bulk_user_import]
+user_limit = 50
+```
+:::
+
+1. On the {edition.productName} Console, go to **User Management** > **Users**.
+2. Click on the **Add User** button and select **Multiple Users** option.
+3. Switch to the **File Based** tab.
+4. Click **Upload CSV File** or drag and drop a CSV file into the designated area.
+5. Ensure your CSV file is formatted correctly, with headers that correspond to user attributes. These attributes must be mapped to local attributes.
+    - A sample CSV file format would include: `username, givenname, emailaddress, groups`
+    - For example:
+      ```text
+      username,givenname,emailaddress,groups
+      user1,john,john@test.com,group1|group2
+      user2,jake,jake@test.com,group2
+      user3,jane,jane@test.com,group1
+      ```
+6. Click **Import** to add the users to the system.
+7. An email with a confirmation link will be sent to the provided email addresses, allowing the users to set their own passwords.
 
 ## Assign groups
-
 Groups are useful when you wish to assign a certain permission level to multiple users. A user can be a member of multiple groups in the organization. Learn how to [manage groups](../manage-groups.mdx).
 
 </Edition>
@@ -212,29 +282,13 @@ To update the user profile:
 
 4. Click **Update** to save.
 
-## Share user with organizations
-
-<Variants>
-
 <Edition only="cloud">
+
+## Share user with organizations
 
 An administrator can share a user with an organization or multiple organizations via the {edition.productName} Console.
 
-</Edition>
-
-<Edition only="self-hosted">
-
-An administrator can share a user with an organization (or multiple organizations) via the WSO2 Identity Server Console.
-
-</Edition>
-
-</Variants>
-
 To share a user with organizations:
-
-<Variants>
-
-<Edition only="cloud">
 
 1. On the {edition.productName} Console, go to **User Management** > **Users**.
 2. Find the user's account and click **Edit**.
@@ -244,33 +298,9 @@ To share a user with organizations:
     - **Do not share user with any organization**: The user will not be shared with any organizations.
     - **Share user with all organizations**: The user is shared with all current and future organizations. When the user is shared, administrators can also configure which roles should be assigned to the user in the shared organizations.
 
-        <img src={require("../../../../assets/img/guides/users/share-user-with-all-organizations.png").default} alt="Share user with all organizations" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+        <img src={require("../../../../assets/cloud/img/guides/users/share-user-with-all-organizations.png").default} alt="Share user with all organizations" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
     - **Share user with selected organizations**: The user is shared with a specific set of existing organizations, but not with future child organizations. Administrators can configure which roles should be assigned to the user in the shared organizations.
-
-</Edition>
-
-<Edition only="self-hosted">
-
-1. On the WSO2 Identity Server Console, go to **User Management** > **Users**.
-
-2. Find the user's account in the user list and click **Edit**.
-
-3. Navigate to the **Shared Access** tab.
-
-4. Select the appropriate sharing option.
-
-    - **Do not share user with any organization** - user will not be shared with any organizations.
-
-    - **Share user with all organizations** - user is shared with all current and future organizations. When the user is shared, administrators can also configure which roles should be assigned to the user in the shared organizations.
-
-       <img src={require("../../../../assets/img/guides/users/share-user-with-all-organizations.png").default} alt="Share user with all organizations" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
-
-    - **Share user with selected organizations** - user is shared with a specific set of existing organizations, but they are not shared with the future children organizations. Administrators can configure which roles should be assigned to the user in the shared organizations.
-
-</Edition>
-
-</Variants>
 
 5. Once selected and configured, click **Save**.
 
@@ -291,17 +321,13 @@ To resend links or codes through the Console:
 
 2. Click the **Resend** link in the warning message at the top of the user's profile.
 
-    <img src={require("../../../../assets/img/guides/users/resend-account-setup-otp.png").default} alt="Resend link" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+    <img src={require("../../../../assets/cloud/img/guides/users/resend-account-setup-otp.png").default} alt="Resend link" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
-    <img src={require("../../../../assets/img/guides/users/resend-admin-initiated-password-reset.png").default} alt="Resend link" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+    <img src={require("../../../../assets/cloud/img/guides/users/resend-admin-initiated-password-reset.png").default} alt="Resend link" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 ### Use the API
 
 You can also use the **resend-code API** to resend links or codes programmatically.
-
-<Variants>
-
-<Edition only="cloud">
 
 :::info
 <Tabs groupId="tabs">
@@ -354,65 +380,6 @@ curl -X 'POST' \
 </Tabs>
 :::
 
-</Edition>
-
-<Edition only="self-hosted">
-
-:::info
-<Tabs groupId="tabs">
-<TabItem value="request-format" label="Request format">
-
-```bash
-curl -X 'POST' \
-'https://localhost:9443/t/{root_organization_handle}/api/identity/user/v1.0/resend-code' \
--H 'accept: application/json' \
--H 'Authorization: Bearer <access_token>' \
--H 'Content-Type: application/json' \
--d '{
-    "user": {
-        "username": "<username>",
-        "realm": "<realm>"
-    },
-    "properties": [
-        {
-            "key": "RecoveryScenario",
-            "value": "<recovery_scenario>"
-        }
-    ]
-    }'
-```
-
-</TabItem>
-<TabItem value="sample-request" label="Sample request">
-
-```bash
-curl -X 'POST' \
-'https://localhost:9443/t/{root_organization_handle}/api/identity/user/v1.0/resend-code' \
--H 'accept: application/json' \
--H 'Authorization: Bearer <access_token>' \
--H 'Content-Type: application/json' \
--d '{
-    "user": {
-        "username": "jane",
-        "realm": "PRIMARY"
-    },
-    "properties": [
-        {
-            "key": "RecoveryScenario",
-            "value": "ASK_PASSWORD"
-        }
-    ]
-    }'
-```
-
-</TabItem>
-</Tabs>
-:::
-
-</Edition>
-
-</Variants>
-
 #### Recovery scenarios
 
 Specify the **recovery scenario** in the `properties` parameter of the API request:
@@ -445,17 +412,19 @@ To set the password:
 
 1. Click **Set password** at the bottom of the user's profile.
 
-    <img src={require("../../../../assets/img/guides/users/set-password.png").default} alt="Set password button" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+    <img src={require("../../../../assets/cloud/img/guides/users/set-password.png").default} alt="Set password button" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 2. Type the new password.
 
-    <img src={require("../../../../assets/img/guides/users/set-password-modal.png").default} alt="Set password" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+    <img src={require("../../../../assets/cloud/img/guides/users/set-password-modal.png").default} alt="Set password" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 3. Click **Set Password**.
 
     :::note
     Once the administrator set the password, the user's account will get unlocked.
     :::
+
+</Edition>
 
 ## Reset the user's password
 
@@ -511,11 +480,6 @@ To reset the password:
     - **Set a new password for the user:**
         If this option is selected, the owner or an administrator can set a new password for the user.
 
-        :::note
-        If the user is in pending admin forced password reset, once the admin resets the password,
-        the account will get unlocked.
-        :::
-
     - **Invite user to reset the password:**
         If this option is selected, a password reset request can be sent to the user using one of the password recovery methods you have enabled for the organization.
 
@@ -531,11 +495,11 @@ To reset the password:
 
 3. Click **Reset Password**.
 
-### Using the API
-
 <Variants>
 
 <Edition only="cloud">
+
+### Using the API
 
 You can also use WSO2 Identity Platform's [SCIM API](../../../reference/apis/scim2/index.mdx) to initiate the admin initiated password recovery flow.
 
@@ -568,6 +532,8 @@ You can also use WSO2 Identity Platform's [SCIM API](../../../reference/apis/sci
 </Edition>
 
 <Edition only="self-hosted">
+
+**Using the API**
 
 You can also use WSO2 Identity Server's [SCIM API](../../../reference/apis/scim2-users-rest-apis/index.mdx#op-patchUser) to initiate the admin initiated password recovery flow.
 
@@ -709,9 +675,6 @@ You can use {edition.productName}'s [SCIM API](../../../reference/apis/scim2-use
 </TabItem>
 </Tabs>
 
-## Delete a user
-A user account can be deleted by administrators. Once an account is deleted, the action is irreversible.
-
 </Edition>
 
 <Edition only="self-hosted">
@@ -756,13 +719,12 @@ You can use {edition.productName}'s [SCIM API](../../../reference/apis/scim2-use
 </TabItem>
 </Tabs>
 
-## Delete a user
-
-A user account can be deleted by administrators. Once an account is deleted, the action is irreversible.
-
 </Edition>
 
 </Variants>
+
+## Delete a user
+A user account can be deleted by administrators. Once an account is deleted, the action is irreversible.
 
 To delete a user account:
 

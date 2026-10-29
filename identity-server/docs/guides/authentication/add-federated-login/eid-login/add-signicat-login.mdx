@@ -4,6 +4,7 @@ description: Signicat’s eID Hub simplifies digital identity verification and a
 type: how-to
 sidebar_label: Add signicat login
 sidebar_position: 1
+editions: cloud
 ---
 
 import Tabs from '@theme/Tabs';
@@ -32,7 +33,7 @@ You can follow the [Signicat documentation](https://developer.signicat.com/docs/
 2. On the left panel, Click **Products** and select **eID Hub**.
 3. Under **eID Hub**, click **OIDC Clients**.
 
-    <img src={require("../../../../../assets/img/guides/idp/signicat-idp/signicat-register-app.png").default} alt="Register OIDC app in Signicat" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+    <img src={require("../../../../../assets/cloud/img/guides/idp/signicat-idp/signicat-register-app.png").default} alt="Register OIDC app in Signicat" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 4. Give the application a name and the following URLs:
 
@@ -41,13 +42,13 @@ You can follow the [Signicat documentation](https://developer.signicat.com/docs/
         {edition.productUrlFormat}/commonauth
         ```
 
-    <img src={require("../../../../../assets/img/guides/idp/signicat-idp/signicat-app-info.png").default} alt="Enter Signicat app details" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+    <img src={require("../../../../../assets/cloud/img/guides/idp/signicat-idp/signicat-app-info.png").default} alt="Enter Signicat app details" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 5. Click **Create**.
 6. Click **Add Secret** and Generate a new client secret.
 7. Take note of the **Client ID** and **Client secret**.
 8. To add required eIDs, Click **eIDs** in the left panel (under **eID Hub**), and click **Add new**.
-   <img src={require("../../../../../assets/img/guides/idp/signicat-idp/signicat-add-eid.png").default} alt="Add new eID" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+   <img src={require("../../../../../assets/cloud/img/guides/idp/signicat-idp/signicat-add-eid.png").default} alt="Add new eID" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 9. Select the eIDs you want to add and click **Add**.
 
@@ -59,7 +60,7 @@ Now, let's register the Signicat IdP in {edition.productName}.
 2. Click **New Connections** and select **Signicat**.
 3. Enter the following details and click **Finish**:
 
-    <Variants><Edition only="cloud"><img src={require("../../../../../assets/img/guides/idp/signicat-idp/add-signicat-idp.png").default} alt="Add Signicat Connection in WSO2 Identity Platform" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../../assets/img/guides/idp/signicat-idp/add-signicat-idp.png").default} alt="Add Signicat Connection in WSO2 Identity Server" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+    <img src={require("../../../../../assets/cloud/img/guides/idp/signicat-idp/add-signicat-idp.png").default} alt="Add Signicat Connection in WSO2 Identity Platform" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
     | Parameter | Description |
     | --- | --- |
@@ -77,10 +78,6 @@ You need to [register an application with {edition.productName}](../../../applic
 
 1. On the {edition.productName} Console, go to **Applications**.
 2. Select your application, go to the **Login Flow** tab and add Signicat login from your preferred editor:
-
-    <Variants>
-
-    <Edition only="cloud">
 
     <Tabs groupId="tabs">
     <TabItem value="classic-editor" label="Classic Editor">
@@ -105,22 +102,6 @@ You need to [register an application with {edition.productName}](../../../applic
 
     ---
 
-    </Edition>
-
-    <Edition only="self-hosted">
-
-    1. Click **Add Sign In Option** to add a new authenticator to the first step.
-
-    2. Select the Signicat connection.
-
-    3. Click **Confirm** to add login with Signicat to the sign-in flow.
-
-         <img src={require("../../../../../assets/self-hosted/img/guides/idp/signicat-idp/add-signicat-login-with-visual-editor.png").default} alt="Configuring Signicat in WSO2 Identity Server using the Visual Editor" width="500" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
-
-    </Edition>
-
-    </Variants>
-
     :::note[Recommendations]
     It is recommended to add your social and enterprise connections to the first authentication step as they are used for identifying the user.
     :::
@@ -137,7 +118,7 @@ Follow the steps given below.
 
 3. On the {edition.productName} login page, **Sign in with Signicat**.
 
-    <img src={require("../../../../../assets/img/guides/idp/signicat-idp/sign-in-with-signicat.png").default} alt="Login with Signicat" width="300" style={{border: "0.3px solid lightgrey"}} />
+    <img src={require("../../../../../assets/cloud/img/guides/idp/signicat-idp/sign-in-with-signicat.png").default} alt="Login with Signicat" width="300" style={{border: "0.3px solid lightgrey"}} />
 
 4. Log in to the eIDs configured in Signicat.
 

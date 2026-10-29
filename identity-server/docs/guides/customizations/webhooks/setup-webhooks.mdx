@@ -3,6 +3,7 @@ title: Setup webhooks
 description: This guide provides a step-by-step approach to setting up webhooks in WSO2 Identity Platform to integrate external systems.  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_position: 2
+editions: cloud
 ---
 
 This guide provides a step-by-step approach to setting up webhooks in {edition.productName} to integrate external systems.
@@ -20,23 +21,9 @@ Your external web service should do the following to receive event notifications
 
 1. Implement the service according to the [webhook event payload contract](../../../reference/apis/api-contract/index.mdx), which defines the structure of every event payload {edition.productName} delivers to your endpoint.
 
-<Variants>
-
-<Edition only="cloud">
-
 1. Expose an endpoint that accepts both HTTP GET and POST requests with JSON payloads.
     {edition.productName} sends GET requests for subscription and unsubscription verification.
     Your endpoint must respond to these GET requests with the `hub.challenge` string to confirm its readiness to receive events.
-
-</Edition>
-
-<Edition only="self-hosted">
-
-1. Expose an endpoint that accepts HTTP POST requests with JSON payloads.
-
-</Edition>
-
-</Variants>
 
     {edition.productName} sends POST requests to deliver the actual event notifications. These requests contain the event payload in JSON format.  
 
@@ -48,37 +35,15 @@ Follow the steps below to configure a webhook.
 
 1. On the {edition.productName} Console, go to **Webhooks**.
 
-<Variants>
-
-<Edition only="cloud">
-
 2. Click **Add Webhook** and provide the following:
     - **Name**: A descriptive name for the webhook.
     - **Endpoint**: The URL of your web service, where {edition.productName} will send event notifications.
     - **Secret**: A unique string for HMAC signature  (`x-hub-signature`)  header to verify event security.
     - **Events to subscribe**: Select event types for notifications (for example choosing Logins notifies of successful and failed login attempts).
 
-</Edition>
-
-<Edition only="self-hosted">
-
-2. Click **Add Webhook** and provide the following:
-    - **Name**: A descriptive name for the webhook.
-    - **Endpoint**: The URL of your web service, where {edition.productName} will send event notifications.
-    - **Secret**: A unique string for HMAC signature  (`x-wso2-event-signature`)  header to verify event security.
-    - **Events to subscribe**: Select event types for notifications (for example choosing Logins notifies of successful and failed login attempts).
-
-</Edition>
-
-</Variants>
-
 3. Click **Create** to create the webhook.
 
 4. Webhooks are inactive by default. Toggle the switch to activate it during or after creation.
-
-<Variants>
-
-<Edition only="cloud">
 
 5. {edition.productName} sends a verification call upon activation. Your endpoint must respond successfully for activation to complete. Refer to [Verify your webhook endpoint subscription](#verify-your-webhook-subscription) for detailed instructions.
 6. After creation, you can:
@@ -123,18 +88,6 @@ Content-Type: text/plain
 
 This process adheres to the [WebSub specification](https://www.w3.org/TR/2018/REC-websub-20180123/#hub-verifies-intent), which defines how hubs verify subscription intent.
 
-</Edition>
-
-<Edition only="self-hosted">
-
-6. After creation, you can:
-    - Deactivate or reactivate the webhook.
-    - Delete the webhook.
-
-</Edition>
-
-</Variants>
-
 ## Receive webhook events
 
 {edition.productName} sends an HTTP POST request to your webhook endpoint when a subscribed event is triggered. This request contains a JSON message with event details. Your service can then use this information as needed.
@@ -150,10 +103,6 @@ Webhook event payloads adhere to the [Security Event Token (SET) specification (
 - `events`: This object holds the actual event data. Its internal structure changes depending on the specific event types you've subscribed to. For instance, subscribing to **Logins** will deliver both successful and failed login events, with distinct data structures for each.
 
 **Example event payload for login success event**:
-
-<Variants>
-
-<Edition only="cloud">
 
 ```http
 POST /your-webhook-endpoint
@@ -209,109 +158,17 @@ x-hub-signature: sha256=abcdef12345... (HMAC signature)
 }
 ```
 
-</Edition>
-
-<Edition only="self-hosted">
-
-```http
-POST /your-webhook-endpoint
-Content-Type: application/json
-x-wso2-event-signature: sha256=abcdef12345... (HMAC signature)
-
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "051f0c37-b689-44d4-b7d2-29b980ece273",
-  "iat": 1751705149662,
-  "rci": "05268edb-9a87-4656-87c0-0fb674dd03b1",
-  "events": {
-    "https://schemas.identity.wso2.org/events/login/event-type/loginSuccess": {
-      "user": {
-        "id": "d4002616-f00c-49d5-b9b7-63b063819049",
-        "claims": [
-          {
-            "uri": "http://wso2.org/claims/username",
-            "value": "peter@aol.com"
-          }
-        ],
-        "organization": {
-          "id": "6f8d17ae-1ad5-441b-b9e0-c7731e739e94",
-          "name": "myorg",
-          "orgHandle": "myorg.com",
-          "depth": 0
-        },
-        "ref": "https://localhost:9443/t/myorg.com/scim2/Users/d4002616-f00c-49d5-b9b7-63b063819049"
-      },
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "6f8d17ae-1ad5-441b-b9e0-c7731e739e94",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "userStore": {
-        "id": "UFJJTUFSWQ==",
-        "name": "PRIMARY"
-      },
-      "application": {
-        "id": "40d982e5-23be-4ee1-8540-9cb696d8c321",
-        "name": "MyApp"
-      },
-      "authenticationMethods": [
-        "BasicAuthenticator"
-      ]
-    }
-  }
-}
-```
-
-</Edition>
-
-</Variants>
-
 ### Event signature using hash-based message authentication code
 
-<Variants>
-
-<Edition only="cloud">
-
 To ensure the authenticity and integrity of events, {edition.productName} includes an  `x-hub-signature`  header with each webhook payload. This header contains an hash-based message authentication code (HMAC) signature computed using the **Secret** you provided when configuring the webhook.
-
-</Edition>
-
-<Edition only="self-hosted">
-
-To ensure the authenticity and integrity of events, {edition.productName} includes an  `x-wso2-event-signature`  header with each webhook payload. This header contains an hash-based message authentication code (HMAC) signature computed using the **Secret** you provided when configuring the webhook.
-
-</Edition>
-
-</Variants>
 
 **Verifying the signature:**
 
 Verify the signature to confirm that {edition.productName} sent the event and that no one tampered with the payload.
 
-<Variants>
-
-<Edition only="cloud">
-
 1. **Retrieve the secret:** Use the same secret string you configured in {edition.productName} for the webhook.  
 2. **Compute HMAC:** Generate an HMAC-SHA256 hash of the raw request body using your secret as the key.  
 3. **Compare Signatures:** Compare the computed HMAC with the value in the  `x-hub-signature`  header. If they match, the event is authentic.
-
-</Edition>
-
-<Edition only="self-hosted">
-
-1. **Retrieve the secret:** Use the same secret string you configured in {edition.productName} for the webhook.  
-2. **Compute HMAC:** Generate an HMAC-SHA256 hash of the raw request body using your secret as the key.  
-3. **Compare Signatures:** Compare the computed HMAC with the value in the  `x-wso2-event-signature`  header. If they match, the event is authentic.
-
-</Edition>
-
-</Variants>
 
 ## Test your webhook
 
@@ -334,10 +191,6 @@ Observe the requests received by your webhook endpoint to confirm that it succes
 ## Troubleshoot issues
 
 If your webhook isn't functioning as expected, consider the following common issues and their solutions:
-
-<Variants>
-
-<Edition only="cloud">
 
 1. **Webhook verification failed**
 
@@ -387,23 +240,6 @@ If your webhook isn't functioning as expected, consider the following common iss
           - Check your endpoint's server logs for any errors during the unsubscription verification request process. Confirm that your endpoint responds with a `2xx` HTTP status code and returns the exact `hub.challenge` string in the response body.
           - If you delete your webhook, contact {edition.productName} support for assistance. You can get help from the [community help](https://discord.com/invite/wso2), send a request email to *asgardeo-help@wso2.com*, or contact {edition.productName} support through the [WSO2 cloud support portal](https://cloud-support.wso2.com/).
 
-</Edition>
-
-<Edition only="self-hosted">
-
-1. **Event signature (HMAC) mismatch**
-
-      - **Problem**: Your endpoint receives events, but the `x-wso2-event-signature` verification fails.  
-      - **Cause**: You may use an incorrect secret key for HMAC computation, or you may calculate the HMAC incorrectly in your endpoint.  
-      - **Solution**:  
-          - Make sure that the **Secret** configured in {edition.productName} for your webhook exactly matches the secret key used in your endpoint's signature verification logic.
-          - Ensure you are computing the HMAC on the raw, unmodified request body received by your endpoint, not a parsed or formatted version. Encoding issues (for example UTF-8) can also cause     mismatches.
-          - Confirm you are using HMAC-SHA256, as specified by {edition.productName}.
-
-</Edition>
-
-</Variants>
-
 ## Security best practices
 
 To maintain the security and integrity of your webhook integration, follow these best practices:
@@ -416,25 +252,9 @@ To maintain the security and integrity of your webhook integration, follow these
 
     The webhook secret verifies event authenticity. Never expose it publicly (for example, in client-side code or public repositories). Store it securely in environment variables or a dedicated secrets management service.
 
-<Variants>
-
-<Edition only="cloud">
-
 - **Verify signatures**:
 
     Always validate the  `x-hub-signature`  header for every incoming webhook event. This step protects you from spoofed or tampered events. Discard any events with invalid signatures.
-
-</Edition>
-
-<Edition only="self-hosted">
-
-- **Verify signatures**:
-
-    Always validate the  `x-wso2-event-signature`  header for every incoming webhook event. This step protects you from spoofed or tampered events. Discard any events with invalid signatures.
-
-</Edition>
-
-</Variants>
 
 - **Idempotency**:
 

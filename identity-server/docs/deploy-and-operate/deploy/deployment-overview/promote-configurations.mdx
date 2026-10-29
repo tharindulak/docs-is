@@ -40,11 +40,6 @@ IAM-CTL provides support for propagating the following resource types among root
 - SMS Templates
 - Actions
 
-- Email Providers
-- SMS Providers
-- Workflows
-- Flows
-
 ## Getting started
 
 Before using IAM-CTL, you need to register Machine-to-Machine (M2M) applications in your target environments. If you are propagating resources between root organizations, you need to create M2M apps in root organizations. These applications will be used by IAM-CTL to authenticate and perform operations on your behalf.
@@ -113,22 +108,6 @@ Follow the steps below to register an M2M application.
     <tr>
       <td>Management --\> Action Management API</td>
       <td>Create Action, Update Action, Delete Action, View Action</td>
-    </tr>
-    <tr>
-      <td>Management --\> Notification Sender Management API</td>
-      <td>Create Notification Senders, Update Notification Senders, Delete Notification Senders, View Notification Senders</td>
-    </tr>
-    <tr>
-      <td>Management --\> Workflow Management API</td>
-      <td>Create Workflow, Update Workflow, Delete Workflow, View Workflow</td>
-    </tr>
-    <tr>
-      <td>Management --\> Workflow Association Management API</td>
-      <td>Create Workflow Association, Update Workflow Association, Delete Workflow Association, View Workflow Association</td>
-    </tr>
-    <tr>
-      <td>Management --\> Flow Management API</td>
-      <td>View Flow, Update Flow</td>
     </tr>
   </tbody>
 </table>
@@ -222,7 +201,7 @@ Follow the steps below to learn how you can configure IAM-CTL.
         "CLIENT_ID" : "bsjhjlb64crOL58bKV3UQmwA9QQa",
         "CLIENT_SECRET" : "TC45TBkLaZ6kFxqZuSmhOgelSG2ZBvFYKFlUFmfhKlYa",
         "TENANT_DOMAIN" : "carbon.super",
-        "SERVER_VERSION" : "7.3"
+        "SERVER_VERSION" : "7.1"
     }
     ```
 
@@ -328,7 +307,7 @@ Open the **serverConfig.json** file and provide the details of the application s
     "CLIENT_ID" : "bsjhjlb64crOL58bKV3UQmwA9QQa",
     "CLIENT_SECRET" : "TC45TBkLaZ6kFxqZuSmhOgelSG2ZBvFYKFlUFmfhKlYa",
     "TENANT_DOMAIN" : "carbon.super",
-    "SERVER_VERSION" : "7.3",
+    "SERVER_VERSION" : "7.1",
     "ORGANIZATION": "b833d7de-264c-4c4e-8d52-61f9c57e84ca"
 }
 ```
@@ -426,15 +405,30 @@ When propagating applications, do not exclude roles. Excluding roles will preven
 
 Group-based password expiry rules of the password expiry connector are not exported by IAM-CTL. As a result, these rules will be removed from the connector on import, when **`ALLOW_DELETE`** is enabled.
 
-### Identity providers
-
-Outbound provisioning groups of outbound provisioning connectors are not exported by IAM-CTL. As a result, these groups will be removed from the identity provider on import.
-
 ### Organizations
 
 When referencing organizations in tool configurations such as **`EXCLUDE`** or keyword mappings, use the organization handle as the resource name.
 
 When IAM-CTL creates organizations using the management application credentials, no user is assigned as the creator. As a result, no user has access to the newly created organization after creation. You can [manually assign an organization admin](../../../guides/organization-management/delegate-administration/onboard-org-admins/self-service-approach.mdx#maintain-admins-within-the-organization) after IAM-CTL creates the organization.
+
+To assign a creator at import time, configure **`CREATOR_ID`** and **`CREATOR_USERNAME`** under `ORGANIZATIONS` in `toolConfig.json`.
+
+<Tabs groupId="tabs">
+<TabItem value="toolconfig-json" label="toolConfig.json">
+
+```json
+{
+    "ORGANIZATIONS": {
+        "CREATOR_ID": "<user-id>",
+        "CREATOR_USERNAME": "<username>"
+    }
+}
+```
+
+</TabItem>
+</Tabs>
+
+When both values are set, IAM-CTL assigns the specified user as the organization creator on import. IAM-CTL strips these attributes on export and does not store them in the exported files, as they are environment-specific and not portable.
 
 ### Branding
 
@@ -454,7 +448,3 @@ Branding contains two sub-resource types: **Branding Preferences** and **Custom 
 
 </TabItem>
 </Tabs>
-
-### Workflows
-
-Users included in approval steps are not exported by IAM-CTL. These users will be removed from the exported workflow, and any approval steps that contained only users will also be removed. As a result, these users and steps will be removed from the workflow on import.

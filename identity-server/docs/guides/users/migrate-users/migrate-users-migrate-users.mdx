@@ -1,6 +1,6 @@
 ---
 title: Migrate user accounts to {edition.productName}
-description: This guide explains how you may prepare and execute a user migration from another Identity Provider (IdP) to WSO2 Identity Platform.  # generated from the first paragraph; a writer should improve it
+description: This guide explains how you may prepare and execute a user migration from another Identity Provider (IdP) to WSO2 Identity Server.  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_label: Migrate user accounts
 sidebar_position: 2
@@ -62,7 +62,7 @@ Make sure to request using the email address registered with an owner account or
 
 <Edition only="self-hosted">
 
-{edition.productName} supports bulk importing multiple users, which can be used for the user migration. See how to [onboard multiple users](../users/manage-users.mdx). However this will ask users to set their own passwords for the new system.
+{edition.productName} supports bulk importing multiple users, which can be used for the user migration. See how to [onboard multiple users](../users/manage-users.mdx#onboard-multiple-users). However this will ask users to set their own passwords for the new system.
 
 If you need to migrate existing user passwords as well, {edition.productName} supports [on-demand silent password migration](./migrate-passwords.mdx#migrate-with-on-demand-silent-migration) which allows users to log in with their existing passwords and silently migrate them to the new system. For this you can use the [SCIM 2.0 Bulk API](../../../reference/apis/scim2-bulk-rest-api/index.mdx). Below is a sample request to import the users.
 

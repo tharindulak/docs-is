@@ -4,34 +4,16 @@ description: You can use the Console editor to customize the branding and layout
 type: how-to
 sidebar_label: Customize layouts
 sidebar_position: 3
+editions: cloud
 ---
-
-<Edition only="cloud">
 
 :::note[Premium feature]
 Only customers on the enterprise tier can access this feature.
 :::
 
-</Edition>
-
 {/*vale off */}
 
-<Variants>
-
-<Edition only="self-hosted">
-
-{/*vale on */}
-You can use the Console editor to customize the branding and layout of user interfaces, such as login, registration and recovery pages, without manually updating server files. This guide walks you through enabling and using the Console editor.
-
-</Edition>
-
-<Edition only="cloud">
-
 You can use the Console editor to customize the branding and layout of user interfaces, such as login, registration and recovery pages. This eliminates the need to contact WSO2 Identity Platform support for these changes. The following sections explain how to enable and use the Console editor.
-
-</Edition>
-
-</Variants>
 
 {/*vale off */}
 ## Use the Console editor
@@ -73,7 +55,7 @@ This section describes the special syntax you can use to define custom layouts.
 
 All pages in {edition.productName} share a common structure consisting of three primary layout components as shown below.
 
-<Variants><Edition only="cloud">![Login Page](../../../../assets/cloud/img/guides/branding/login-page-labelled.png)</Edition><Edition only="self-hosted">![Login Page](../../../../assets/self-hosted/img/guides/branding/login-page-labelled.png)</Edition></Variants>
+![Login Page](../../../../assets/cloud/img/guides/branding/login-page-labelled.png)
 
 When creating a custom layout, you can reference these components using specific syntax. At runtime, {edition.productName} replaces these syntax elements with the appropriate content.
 

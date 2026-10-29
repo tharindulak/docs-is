@@ -335,6 +335,11 @@ https://api.asgardeo.io/t/bifrost/scim2/Me \
 ```
 :::
 
+Upon receiving the response outlined above, the user will receive an SMS notification prompting them to verify their 
+updated mobile number. Once verified, the `Verified Mobile Numbers` claim (`http://wso2.org/claims/verifiedMobileNumbers`) 
+will be updated to reflect the new mobile number.  If a primary mobile number has not been configured, 
+the verified mobile number will also be set as the primary mobile number.
+
 </Edition>
 
 <Edition only="self-hosted">
@@ -425,14 +430,13 @@ https://localhost:9443/scim2/Me \
 ```
 :::
 
+Upon receiving the response outlined above, the user will receive an SMS notification prompting them to verify their 
+updated mobile number. Once verified, the `Verified Mobile Numbers` claim (`http://wso2.org/claims/verifiedMobileNumbers`) 
+will be updated to reflect the new mobile number. 
+
 </Edition>
 
 </Variants>
-
-Upon receiving the response outlined above, the user will receive an SMS notification prompting them to verify their 
-updated mobile number. Once verified, the `Verified Mobile Numbers` claim (`http://wso2.org/claims/verifiedMobileNumbers`) 
-will be updated to reflect the new mobile number.  If a primary mobile number has not been configured, 
-the verified mobile number will also be set as the primary mobile number.
 
 ## Validate the verification code
 

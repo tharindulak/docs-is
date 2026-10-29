@@ -1,9 +1,9 @@
-openapi: 3.0.0
+openapi: 3.1.0
 info:
-  title: SCIM 2.0 Roles V2 API
+  version: "v2"
+  title: SCIM 2.0 Roles API
   description: |
     SCIM 2.0 Roles v2 API
-  version: v2
 servers:
   - url: https://{serverUrl}/t/{tenantDomain}/scim2
     variables:
@@ -103,19 +103,7 @@ paths:
         including its unique ID.
 
 
-        <b>Scope(Permission) required:</b>
-          - `internal_role_mgt_create`
-        
-        <b>➕ Additional Scopes</b>
-        
-          To assign permissions, users, or groups to the role you create, you also need the following additional scopes:
-        
-          | Action | Scope |
-          |---------|--------|
-          | Assign permissions | `internal_role_mgt_permissions_update` |
-          | Assign users | `internal_role_mgt_users_update` |
-          | Assign groups | `internal_role_mgt_groups_update` |
-
+        <b>Scope(Permission) required:</b> `internal_role_mgt_create`
       operationId: createRoleV2
       requestBody:
         content:
@@ -318,18 +306,7 @@ paths:
         using a PUT operation.
 
 
-        <b>Scope(Permission) required:</b> 
-         - `internal_role_mgt_update`
-        
-        <b>➕ Additional Scopes</b>
-        
-          To update permissions, users, or groups assignments of the role, you also need the following additional scopes:
-        
-          | Action | Scope |
-          |---------|--------|
-          | Update permissions | `internal_role_mgt_permissions_update` |
-          | Update users | `internal_role_mgt_users_update` |
-          | Update groups | `internal_role_mgt_groups_update` |
+        <b>Scope(Permission) required:</b> `internal_role_mgt_update`
       operationId: updateRoleV2
       parameters:
         - name: id
@@ -461,19 +438,7 @@ paths:
         using a PATCH operation.
 
 
-        <b>Scope(Permission) required:</b> 
-        
-        - `internal_role_mgt_update`
-        
-        <b>➕ Additional Scopes</b>
-        
-          To update permissions, users, or groups assignments of the role, you also need the following additional scopes:
-        
-          | Action | Scope |
-          |---------|--------|
-          | Update permissions | `internal_role_mgt_permissions_update` |
-          | Update users | `internal_role_mgt_users_update` |
-          | Update groups | `internal_role_mgt_groups_update` |
+        <b>Scope(Permission) required:</b> `internal_role_mgt_update`
       operationId: patchRole
       parameters:
         - name: id
@@ -592,21 +557,21 @@ components:
       properties:
         totalResults:
           type: integer
-          example:
+          examples:
             - 3
         startIndex:
           type: integer
-          example:
+          examples:
             - 1
         itemsPerPage:
           type: integer
-          example:
+          examples:
             - 3
         schemas:
           type: array
           items:
             type: string
-            example:
+            examples:
               - urn:ietf:params:scim:api:messages:2.0:ListResponse
         Resources:
           type: array
@@ -617,41 +582,41 @@ components:
       properties:
         schemas:
           type: object
-          example:
+          examples:
             -
               - urn:ietf:params:scim:api:messages:2.0:SearchRequest
         startIndex:
           type: integer
-          example:
+          examples:
             - 1
         count:
           type: integer
-          example:
+          examples:
             - 10
         filter:
           type: string
-          example:
+          examples:
             - displayName eq loginRole
     RoleSearchResponseObjectV2:
       type: object
       properties:
         totalResults:
           type: integer
-          example:
+          examples:
             - 1
         startIndex:
           type: integer
-          example:
+          examples:
             - 1
         itemsPerPage:
           type: integer
-          example:
+          examples:
             - 3
         schemas:
           type: array
           items:
             type: string
-            example:
+            examples:
               - urn:ietf:params:scim:api:messages:2.0:ListResponse
         Resources:
           type: array
@@ -662,33 +627,33 @@ components:
       properties:
         displayName:
           type: string
-          example:
+          examples:
             - loginRole
         meta:
           type: object
           properties:
             location:
               type: string
-              example:
+              examples:
                 - https://localhost:9443/scim2/v2/Roles/4645709c-ea8c-4495-8590-e1fa0efe3de0
         id:
           type: string
-          example:
+          examples:
             - 4645709c-ea8c-4495-8590-e1fa0efe3de0
         audience:
           type: object
           properties:
             value:
               type: string
-              example:
+              examples:
                 - 3645709f-ea8d-5595-7690-e1fa0efe3df9
             display:
               type: string
-              example:
+              examples:
                 - My App
             type:
               type: string
-              example:
+              examples:
                 - application
         properties:
           type: array
@@ -697,11 +662,11 @@ components:
             properties:
               name:
                 type: string
-                example:
+                examples:
                   - isSharedRole
               value:
                 type: string
-                example:
+                examples:
                   - 'false'
     RoleCreationObjectV2:
       type: object
@@ -713,38 +678,38 @@ components:
           type: array
           items:
             type: string
-            example:
+            examples:
               - urn:ietf:params:scim:schemas:extension:2.0:Role
         displayName:
           type: string
-          example:
+          examples:
             - loginRole
         audience:
           type: object
           properties:
             value:
               type: string
-              example:
+              examples:
                 - 3645709f-ea8d-5595-7690-e1fa0efe3df9
             type:
               type: string
               enum:
                 - application
                 - organization
-              example:
+              examples:
                 - application
         users:
           type: array
           items:
             type: object
-            example:
+            examples:
               -
                 value: 008bba85-451d-414b-87de-c03b5a1f4217
         groups:
           type: array
           items:
             type: object
-            example:
+            examples:
               -
                 value: 7bac6a86-1f21-4937-9fb1-5be4a93ef469
         permissions:
@@ -754,57 +719,57 @@ components:
             properties:
               value:
                 type: string
-                example:
+                examples:
                   - internal_login
               display:
                 type: string
-                example:
+                examples:
                   - Internal Login
     RoleGetResponseObjectV2:
       type: object
       properties:
         displayName:
           type: string
-          example:
+          examples:
             - loginRole
         meta:
           type: object
           properties:
             location:
               type: string
-              example:
+              examples:
                 - https://localhost:9443/scim2/v2/Roles/4645709c-ea8c-4495-8590-e1fa0efe3de0
             resourceType:
               type: string
-              example:
+              examples:
                 - Role
         schemas:
           type: array
           items:
             type: string
-            example:
+            examples:
               - urn:ietf:params:scim:schemas:extension:2.0:Role
         id:
           type: string
-          example:
+          examples:
             - 4645709c-ea8c-4495-8590-e1fa0efe3de0
         audience:
           type: object
           properties:
             value:
               type: string
-              example:
+              examples:
                 - 3645709f-ea8d-5595-7690-e1fa0efe3df9
             display:
               type: string
-              example:
+              examples:
                 - My App
             type:
               type: string
               enum:
                 - application
                 - organization
-              example:
+              examples:
                 - application
         users:
           type: array
@@ -813,15 +778,15 @@ components:
             properties:
               $ref:
                 type: string
-                example:
+                examples:
                   - https://localhost:9443/scim2/Users/3a12bae9-4386-44be-befd-caf349297f45
               display:
                 type: string
-                example:
+                examples:
                   - kim
               value:
                 type: string
-                example:
+                examples:
                   - 008bba85-451d-414b-87de-c03b5a1f4217
         groups:
           type: array
@@ -830,15 +795,15 @@ components:
             properties:
               $ref:
                 type: string
-                example:
+                examples:
                   - https://localhost:9443/scim2/Groups/7bac6a86-1f21-4937-9fb1-5be4a93ef469
               display:
                 type: string
-                example:
+                examples:
                   - PRIMARY/manager
               value:
                 type: string
-                example:
+                examples:
                   - 7bac6a86-1f21-4937-9fb1-5be4a93ef469
         permissions:
           type: array
@@ -847,11 +812,11 @@ components:
             properties:
               value:
                 type: string
-                example:
+                examples:
                   - internal_login
               display:
                 type: string
-                example:
+                examples:
                   - Internal Login
         associatedApplications:
           type: array
@@ -862,7 +827,7 @@ components:
                 type: string
               display:
                 type: string
-          example:
+          examples:
             -
               - value: 3645709f-ea8d-5595-7690-e1fa0efe3df9
                 display: My App
@@ -873,76 +838,76 @@ components:
             properties:
               name:
                 type: string
-                example:
+                examples:
                   - isSharedRole
               value:
                 type: string
-                example:
+                examples:
                   - 'false'
     RolePostResponseObjectV2:
       type: object
       properties:
         displayName:
           type: string
-          example:
+          examples:
             - loginRole
         meta:
           type: object
           properties:
             location:
               type: string
-              example:
+              examples:
                 - https://localhost:9443/scim2/v2/Roles/4645709c-ea8c-4495-8590-e1fa0efe3de0
             resourceType:
               type: string
-              example:
+              examples:
                 - Role
         schemas:
           type: array
           items:
             type: string
-            example:
+            examples:
               - urn:ietf:params:scim:schemas:extension:2.0:Role
         id:
           type: string
-          example:
+          examples:
             - 4645709c-ea8c-4495-8590-e1fa0efe3de0
         audience:
           type: object
           properties:
             value:
               type: string
-              example:
+              examples:
                 - 3645709f-ea8d-5595-7690-e1fa0efe3df9
             display:
               type: string
-              example:
+              examples:
                 - My App
             type:
               type: string
               enum:
                 - application
                 - organization
-              example:
+              examples:
                 - application
     RolePutRequestObjectV2:
       type: object
       properties:
         displayName:
           type: string
-          example:
+          examples:
             - loginRole
         users:
           type: array
           items:
             type: object
-            example:
+            examples:
               - value: 409ca90b-2ba6-4474-9a45-2cf7376e6e43
         groups:
           type: array
           items:
             type: object
-            example:
+            examples:
               - value: 7bac6a86-1f21-4937-9fb1-5be4a93ef469
         permissions:
           type: array
@@ -951,57 +916,57 @@ components:
             properties:
               value:
                 type: string
-                example:
+                examples:
                   - internal_login
               display:
                 type: string
-                example:
+                examples:
                   - Internal Login
     RolePutResponseObjectV2:
       type: object
       properties:
         displayName:
           type: string
-          example:
+          examples:
             - loginRole
         meta:
           type: object
           properties:
             location:
               type: string
-              example:
+              examples:
                 - https://localhost:9443/scim2/v2/Roles/4645709c-ea8c-4495-8590-e1fa0efe3de0
             resourceType:
               type: string
-              example:
+              examples:
                 - Role
         schemas:
           type: array
           items:
             type: string
-            example:
+            examples:
               - urn:ietf:params:scim:schemas:extension:2.0:Role
         id:
           type: string
-          example:
+          examples:
             - 4645709c-ea8c-4495-8590-e1fa0efe3de0
         audience:
           type: object
           properties:
             value:
               type: string
-              example:
+              examples:
                 - 3645709f-ea8d-5595-7690-e1fa0efe3df9
             display:
               type: string
-              example:
+              examples:
                 - My App
             type:
               type: string
               enum:
                 - application
                 - organization
-              example:
+              examples:
                 - application
     PatchRoleOperationRequestObjectV2:
       type: object
@@ -1010,11 +975,11 @@ components:
           type: array
           items:
             type: string
-            example:
+            examples:
               - urn:ietf:params:scim:api:messages:2.0:PatchOp
         Operations:
           type: array
-          example:
+          examples:
             -
               - op: add
                 path: groups
@@ -1048,7 +1013,7 @@ components:
             properties:
               value:
                 type: string
-      example:
+      examples:
         -
           - op: add
             path: groups
@@ -1065,45 +1030,45 @@ components:
       properties:
         displayName:
           type: string
-          example:
+          examples:
             - loginRole
         meta:
           type: object
           properties:
             location:
               type: string
-              example:
+              examples:
                 - https://localhost:9443/scim2/v2/Roles/4645709c-ea8c-4495-8590-e1fa0efe3de0
             resourceType:
               type: string
-              example:
+              examples:
                 - Role
         schemas:
           type: object
-          example:
+          examples:
             -
               - urn:ietf:params:scim:schemas:extension:2.0:Role
         id:
           type: string
-          example:
+          examples:
             - 4645709c-ea8c-4495-8590-e1fa0efe3de0
         audience:
           type: object
           properties:
             value:
               type: string
-              example:
+              examples:
                 - 3645709f-ea8d-5595-7690-e1fa0efe3df9
             display:
               type: string
-              example:
+              examples:
                 - My App
             type:
               type: string
               enum:
                 - application
                 - organization
-              example:
+              examples:
                 - application
     ErrorInvalidInput:
       type: object
@@ -1114,19 +1079,19 @@ components:
       properties:
         status:
           type: string
-          example:
+          examples:
             - '400'
         schemas:
           type: string
-          example:
+          examples:
             - urn:ietf:params:scim:api:messages:2.0:Error
         scimType:
           type: string
-          example:
+          examples:
             - invalidSyntax
         detail:
           type: string
-          example:
+          examples:
             - Request is unparsable, syntactically incorrect, or violates schema.
     ErrorUnauthorized:
       type: object
@@ -1136,15 +1101,15 @@ components:
       properties:
         status:
           type: string
-          example:
+          examples:
             - '401'
         schemas:
           type: string
-          example:
+          examples:
             - urn:ietf:params:scim:api:messages:2.0:Error
         scimType:
           type: string
-          example:
+          examples:
             - Unauthorized
     ErrorNotAcceptable:
       type: object
@@ -1154,15 +1119,15 @@ components:
       properties:
         status:
           type: string
-          example:
+          examples:
             - '406'
         schemas:
           type: string
-          example:
+          examples:
             - urn:ietf:params:scim:api:messages:2.0:Error
         scimType:
           type: string
-          example:
+          examples:
             - Not Acceptable
     ErrorForbidden:
       type: object
@@ -1172,15 +1137,15 @@ components:
       properties:
         status:
           type: string
-          example:
+          examples:
             - '403'
         schemas:
           type: string
-          example:
+          examples:
             - urn:ietf:params:scim:api:messages:2.0:Error
         scimType:
           type: string
-          example:
+          examples:
             - Forbidden
     ErrorNoRoleAvailable:
       type: object
@@ -1191,17 +1156,17 @@ components:
       properties:
         status:
           type: string
-          example:
+          examples:
             - '404'
         schemas:
           type: array
           items:
             type: string
-            example:
+            examples:
               - urn:ietf:params:scim:api:messages:2.0:Error
         detail:
           type: string
-          example:
+          examples:
             - Role not found in the system.
     ErrorRoleNotAvailable:
       type: object
@@ -1212,15 +1177,15 @@ components:
       properties:
         status:
           type: string
-          example:
+          examples:
             - '404'
         schemas:
           type: string
-          example:
+          examples:
             - urn:ietf:params:scim:api:messages:2.0:Error
         detail:
           type: string
-          example:
+          examples:
             - No Role with the id : 4645709c-ea8c-4495-8590-e1fa0efe3de0 in the system.
     ErrorRoleAlreadyAvailable:
       type: object
@@ -1231,15 +1196,15 @@ components:
       properties:
         status:
           type: string
-          example:
+          examples:
             - '409'
         schemas:
           type: string
-          example:
+          examples:
             - urn:ietf:params:scim:api:messages:2.0:Error
         detail:
           type: string
-          example:
+          examples:
             - 'Role with name: Internal/loginRole already exists in the system.'
     RoleSearchErrorResponseObject:
       type: object
@@ -1251,18 +1216,18 @@ components:
       properties:
         totalResults:
           type: integer
-          example:
+          examples:
             - 0
         startIndex:
           type: integer
-          example:
+          examples:
             - 1
         itemsPerPage:
           type: integer
-          example:
+          examples:
             - 5
         schemas:
           type: array
           items:
-            example:
+            examples:
               - urn:ietf:params:scim:api:messages:2.0:ListResponse

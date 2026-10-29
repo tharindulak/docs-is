@@ -4,7 +4,7 @@ description: If an AI agent defined in your root organization needs to operate w
 type: how-to
 sidebar_label: Share agents
 sidebar_position: 2
-selfHostedFrom: next
+editions: cloud
 ---
 
 If an AI agent defined in your **root organization** needs to operate within **child organizations** lower in the hierarchy, you can share that agent with the child organization.
@@ -71,15 +71,15 @@ An administrator can share an agent with one or more organizations through the {
 
     - **Do not share agent with any organization** - the agent is not shared with any organization.
 
-    <img src={require("../../../../assets/img/guides/organization/share-agents/share-agent-do-not-share.png").default} alt="Do not share the agent with any organization" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+    <img src={require("../../../../assets/cloud/img/guides/organization/share-agents/share-agent-do-not-share.png").default} alt="Do not share the agent with any organization" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
     - **Share agent with all organizations** - the agent is shared with all current and future organizations. You can also configure which roles to assign to the agent in the shared organizations.
 
-    <img src={require("../../../../assets/img/guides/organization/share-agents/share-agent-share-with-all.png").default} alt="Share the agent with all organizations" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+    <img src={require("../../../../assets/cloud/img/guides/organization/share-agents/share-agent-share-with-all.png").default} alt="Share the agent with all organizations" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
     - **Share agent with selected organizations** - the agent is shared with a specific set of existing organizations (optionally including their child organizations). You can configure which roles to assign to the agent in each shared organization.
 
-    <img src={require("../../../../assets/img/guides/organization/share-agents/share-agent-share-with-selected.png").default} alt="Share the agent with selected organizations" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+    <img src={require("../../../../assets/cloud/img/guides/organization/share-agents/share-agent-share-with-selected.png").default} alt="Share the agent with selected organizations" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 5. Once selected and configured, click **Save**.
 
@@ -99,10 +99,6 @@ In both cases, the agent first authenticates in its home (root) organization to 
 
 To operate in a child organization, the agent exchanges the access token it obtained in the root organization for a token scoped to the child organization, using the [organization switch grant](../../../reference/iam-concepts/grant-types.mdx#organization-switch-grant).
 
-<Variants>
-
-<Edition only="cloud">
-
 ```bash
 curl --location 'https://api.asgardeo.io/t/{organization_name}/oauth2/token' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
@@ -112,24 +108,6 @@ curl --location 'https://api.asgardeo.io/t/{organization_name}/oauth2/token' \
 --data-urlencode 'switching_organization=<child_organization_id>' \
 --data-urlencode 'scope=<scopes>'
 ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-```bash
-curl --location 'https://localhost:9443/t/{root_organization_handle}/oauth2/token' \
---header 'Content-Type: application/x-www-form-urlencoded' \
---data-urlencode 'grant_type=organization_switch' \
---data-urlencode 'client_id=<client_id>' \
---data-urlencode 'token=<agent_access_token>' \
---data-urlencode 'switching_organization=<child_organization_id>' \
---data-urlencode 'scope=<scopes>'
-```
-
-</Edition>
-
-</Variants>
 
 | Parameter | Description |
 |---|---|
@@ -142,10 +120,6 @@ The returned access token is issued in the context of the child organization. Th
 ### Acting on behalf of a user
 
 To act on behalf of a user in a child organization, the agent uses the [On-Behalf-Of (OBO) flow](../../agentic-ai/ai-agents/agent-authentication.mdx#ai-agent-acting-on-behalf-of-a-user). The agent's child-organization token (obtained through the organization switch grant above) acts as the **actor token** in this flow.
-
-<Variants>
-
-<Edition only="cloud">
 
 1. Redirect the user to the authorization endpoint, including the `requested_actor` parameter set to the shared agent's ID.
 
@@ -171,39 +145,6 @@ To act on behalf of a user in a child organization, the agent uses the [On-Behal
     |---|---|
     | `actor_token` | The shared agent's access token in the child organization, obtained through the organization switch grant. |
     | `resource` | The protected resource the agent intends to access on behalf of the user. |
-
-</Edition>
-
-<Edition only="self-hosted">
-
-1. Redirect the user to the authorization endpoint, including the `requested_actor` parameter set to the shared agent's ID.
-
-    ```bash
-    https://localhost:9443/t/{root_organization_handle}/oauth2/authorize?client_id=<client_id>&response_type=code&redirect_uri=<redirect_uri>&scope=<scopes>&code_challenge=<code_challenge>&code_challenge_method=S256&requested_actor=<agent_id>&orgId=<org_id>&fidp=OrganizationSSO
-    ```
-
-2. After the user authenticates and consents, exchange the returned authorization code for a delegated (OBO) token, attaching the agent's actor token.
-
-    ```bash
-    curl --location 'https://localhost:9443/t/{root_organization_handle}/oauth2/token' \
-    --header 'Content-Type: application/x-www-form-urlencoded' \
-    --data-urlencode 'grant_type=authorization_code' \
-    --data-urlencode 'client_id=<client_id>' \
-    --data-urlencode 'code=<authorization_code>' \
-    --data-urlencode 'redirect_uri=<redirect_uri>' \
-    --data-urlencode 'code_verifier=<code_verifier>' \
-    --data-urlencode 'actor_token=<agent_actor_token>' \
-    --data-urlencode 'resource=<resource>'
-    ```
-
-    | Parameter | Description |
-    |---|---|
-    | `actor_token` | The shared agent's access token in the child organization, obtained through the organization switch grant. |
-    | `resource` | The protected resource the agent intends to access on behalf of the user. |
-
-</Edition>
-
-</Variants>
 
 The issued token represents both the user and the shared agent acting on their behalf, scoped to the child organization.
 

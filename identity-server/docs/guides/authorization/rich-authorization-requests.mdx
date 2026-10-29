@@ -3,7 +3,7 @@ title: Rich Authorization Requests
 description: Rich Authorization Requests (RAR) (RFC 9396) enhance authorization mechanisms by allowing clients to specify fine-grained authorization details in a…  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_label: Rich authorization requests
-sidebar_position: 6
+sidebar_position: 4
 editions: self-hosted
 ---
 
@@ -304,6 +304,8 @@ Once authorization details are configured, an application can request an access 
 ### Sample client credentials grant flow
 
 The following diagram shows how a sample client credentials grant flow works with rich authorization requests.
+
+![RAR client credentials grant](../../../assets/self-hosted/img/guides/authorization/rich-authorization-requests/rar-client-credentials-is.png)
 
 The request payload includes the url-encoded `payment_initiation` authorization details type and the response includes an 
 access token with the requested authorization details.

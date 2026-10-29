@@ -2,7 +2,7 @@
 title: App-native authentication
 description: Applications usually depend on external web browsers for login.  # generated from the first paragraph; a writer should improve it
 type: reference
-sidebar_position: 6
+sidebar_position: 7
 ---
 
 import Tabs from '@theme/Tabs';
@@ -2169,244 +2169,9 @@ The application goes through the following steps to complete app-native authenti
     </TabItem>
     </Tabs>
 
-</Edition>
-
-<Edition only="self-hosted">
-
-- **Step 1**: Initiate the request with the `/authorize` endpoint.
-
-    :::note
-    The response contains information on the first authentication step.
-    :::
-
-    <Tabs groupId="tabs">
-    <TabItem value="request-authorize" label="Request (`/authorize`)">
-
-    ```bash
-    curl --location 'https://localhost:9443/oauth2/authorize/'
-    --header 'Accept: application/json'
-    --header 'Content-Type: application/x-www-form-urlencoded'
-    --data-urlencode 'client_id=XWRkRNkJDeTiR5MwHdXROGiJka'
-    --data-urlencode 'response_type=code'
-    --data-urlencode 'redirect_uri=https://example.com/home'
-    --data-urlencode 'scope=openid profile'
-    --data-urlencode 'response_mode=direct'
-    ```
-
-    </TabItem>
-    <TabItem value="response-authorize" label="Response (`/authorize`)">
-
-    ```json
-    {
-      "flowId": "162b7547-e057-4c84-9237-1c7e69bdc122",
-      "flowStatus": "INCOMPLETE",
-      "flowType": "AUTHENTICATION",
-      "nextStep": {
-        "stepType": "AUTHENTICATOR_PROMPT",
-        "authenticators": [
-          {
-            "authenticatorId": "QmFzaWNBdXRoZW50aWNhdG9yOkxPQ0FM",
-            "authenticator": "Username & Password",
-            "idp": "LOCAL",
-            "metadata": {
-              "i18nKey": "authenticator.basic",
-              "promptType": "USER_PROMPT",
-              "params": [
-                {
-                  "param": "username",
-                  "type": "STRING",
-                  "order": 0,
-                  "i18nKey": "username.param",
-                  "displayName": "Username",
-                  "confidential": false
-                },
-                {
-                  "param": "password",
-                  "type": "STRING",
-                  "order": 1,
-                  "i18nKey": "password.param",
-                  "displayName": "Password",
-                  "confidential": true
-                }
-              ]
-            },
-            "requiredParams": [
-              "username",
-              "password"
-            ]
-          }
-        ]
-      },
-      "links": [
-        {
-          "name": "authentication",
-          "href": "https://localhost:9443/oauth2/authn/",
-          "method": "POST"
-        }
-      ]
-    }
-    ```
-
-    </TabItem>
-    </Tabs>
-
-- **Step 2**: Carry the `flowId` received in the above response and request the `/authn` endpoint for username & password authentication.
-
-    :::note
-    Upon successful authentication, the `/authn` endpoint returns information on the next authentication step.
-    :::
-
-    <Tabs groupId="tabs">
-    <TabItem value="request-1-authn" label="Request 1 (`/authn`)">
-
-    ```bash
-    curl --location 'https://localhost:9443/oauth2/authn/'
-    --header 'Content-Type: application/json'
-    --data '{
-      "flowId": "162b7547-e057-4c84-9237-1c7e69bdc122",
-      "selectedAuthenticator": {
-        "authenticatorId": "QmFzaWNBdXRoZW50aWNhdG9yOkxPQ0FM",
-        "params": {
-            "username": "johnd",
-            "password": "U$3r"
-        }
-      }
-    }'
-    ```
-
-    </TabItem>
-    <TabItem value="response-1-authn" label="Response 1 (`/authn`)">
-
-    ```json
-    {
-      "flowId": "162b7547-e057-4c84-9237-1c7e69bdc122",
-      "flowStatus": "INCOMPLETE",
-      "flowType": "AUTHENTICATION",
-      "nextStep": {
-        "stepType": "AUTHENTICATOR_PROMPT",
-        "authenticators": [
-          {
-            "authenticatorId": "cHVzaC1ub3RpZmljYXRpb24tYXV0aGVudGljYXRvcg",
-            "authenticator": "Push Notification Authenticator",
-            "idp": "LOCAL",
-            "metadata": {
-              "i18nKey": "authenticator.push.notification",
-              "promptType": "INTERNAL_PROMPT",
-              "additionalData": {
-                "statusEndpoint": "https://localhost:3000/push-auth/check-status?pushAuthId=2dbcf154-dcc0-4497-a087-6db477ff818e"
-              }
-            },
-            "requiredParams": [
-              "scenario"
-            ]
-          }
-        ]
-      },
-      "links": [
-        {
-          "name": "authentication",
-          "href": "https://localhost:9443/oauth2/authn/",
-          "method": "POST"
-        }
-      ]
-    }
-    ```
-
-    </TabItem>
-    </Tabs>
-
-    :::warning[Important]
-    Push notification based authentication does not require any user input like other authenticators do. If the user
-    has a device registered to receive push notifications, the notification will be sent during the execution of the
-    authenticator. Hence, If you are getting the above response for the first step, it means that the push authenticator
-    has been executed and the notification has been already sent.
-    :::
-
-- **Step 3**: Ping to the status endpoint to check the status of the ongoing push authentication request.
-
-    To complete push-based authentication, the authentication response must be sent from the registered device. The registered device will initiate a push authentication request directly to {edition.productName}.
-
-    To verify the status of the push authentication request, poll the status endpoint provided in the previous response. The possible status values are:
-
-      1. **PENDING**: The push authentication request has not yet been initiated by the registered device.
-      2. **COMPLETED**: The push authentication request has been received and successfully processed by {edition.productName}.
-
-    :::note
-    This step is only applicable for the push notification based authenticator and not part of the default app native authentication flow.
-    :::
-
-    Once the status changes to **COMPLETED**, proceed with the next /authn request as outlined in the subsequent step.
-
-    <Tabs groupId="tabs">
-    <TabItem value="request" label="Request">
-
-    ```bash
-    curl --location 'https://localhost:9443/push-auth/check-status?pushAuthId=92e0d286-e24b-471e-a2cf-6ba3a969a982' 
-    ```
-
-    </TabItem>
-    <TabItem value="response" label="Response">
-
-    ```json
-    {
-      "status": "PENDING"
-    }
-    ```
-
-    </TabItem>
-    </Tabs>
-
-- **Step 4**: Carry the same `flowId` and request the `/authn` endpoint for Push Notification authentication.
-
-    In order to continue the push notification based authentication flow, the `scenario` has to be set to **PROCEED_PUSH_AUTHENTICATION** as shown in the request below.
-
-    :::note
-    As this is the final step configured for the application, the `/authn` endpoint returns an authorization code upon successful authentication.
-    :::
-
-    <Tabs groupId="tabs">
-    <TabItem value="request-2-authn" label="Request 2 (`/authn`)">
-
-    ```bash
-    curl --location 'https://localhost:9443/oauth2/authn/'
-    --header 'Content-Type: application/json'
-    --data '{
-      "flowId": "162b7547-e057-4c84-9237-1c7e69bdc122",
-      "selectedAuthenticator": {
-        "authenticatorId": "cHVzaC1ub3RpZmljYXRpb24tYXV0aGVudGljYXRvcg",
-        "params": {
-            "scenario": "PROCEED_PUSH_AUTHENTICATION"
-        }
-      }
-    }'
-    ```
-
-    </TabItem>
-    <TabItem value="response-2-authn" label="Response 2 (`/authn`)">
-
-    ```json
-    {
-      "flowStatus": "SUCCESS_COMPLETED",
-      "authData": {
-      "code": "5f1b2c2a-1436-35a5-b8e4-942277313287"
-      }
-    }
-    ```
-
-    </TabItem>
-    </Tabs>
-
-</Edition>
-
-</Variants>
-
 ### Scenario 7: Application is configured with concurrent-sessions based access control
 
 The application goes through the following steps to complete app-native authentication for a user logging in with username & password in the first step and engages the Active Sessions Limited in the second step.
-
-<Variants>
-
-<Edition only="cloud">
 
 - **Step 1**: Initiate the request with the `/authorize` endpoint.
 
@@ -2635,248 +2400,9 @@ The application goes through the following steps to complete app-native authenti
     </TabItem>
     </Tabs>
 
-</Edition>
-
-<Edition only="self-hosted">
-
-- **Step 1**: Initiate the request with the `/authorize` endpoint.
-
-    :::note
-    The response contains information on the first authentication step.
-    :::
-
-    <Tabs groupId="tabs">
-    <TabItem value="request-authorize" label="Request (`/authorize`)">
-
-    ```bash
-    curl --location 'https://localhost:9443/oauth2/authorize/'
-    --header 'Accept: application/json'
-    --header 'Content-Type: application/x-www-form-urlencoded'
-    --data-urlencode 'client_id=XWRkRNkJDeTiR5MwHdXROGiJka'
-    --data-urlencode 'response_type=code'
-    --data-urlencode 'redirect_uri=https://example.com/home'
-    --data-urlencode 'scope=openid profile'
-    --data-urlencode 'response_mode=direct'
-    ```
-
-    </TabItem>
-    <TabItem value="response-authorize" label="Response (`/authorize`)">
-
-    ```json
-    {
-      "flowId": "162b7547-e057-4c84-9237-1c7e69bdc122",
-      "flowStatus": "INCOMPLETE",
-      "flowType": "AUTHENTICATION",
-      "nextStep": {
-        "stepType": "AUTHENTICATOR_PROMPT",
-        "authenticators": [
-          {
-            "authenticatorId": "QmFzaWNBdXRoZW50aWNhdG9yOkxPQ0FM",
-            "authenticator": "Username & Password",
-            "idp": "LOCAL",
-            "metadata": {
-              "i18nKey": "authenticator.basic",
-              "promptType": "USER_PROMPT",
-              "params": [
-                {
-                  "param": "username",
-                  "type": "STRING",
-                  "order": 0,
-                  "i18nKey": "username.param",
-                  "displayName": "Username",
-                  "confidential": false
-                },
-                {
-                  "param": "password",
-                  "type": "STRING",
-                  "order": 1,
-                  "i18nKey": "password.param",
-                  "displayName": "Password",
-                  "confidential": true
-                }
-              ]
-            },
-            "requiredParams": [
-              "username",
-              "password"
-            ]
-          }
-        ]
-      },
-      "links": [
-        {
-          "name": "authentication",
-          "href": "https://localhost:9443/oauth2/authn/",
-          "method": "POST"
-        }
-      ]
-    }
-    ```
-
-    </TabItem>
-    </Tabs>
-
-- **Step 2**: Carry the `flowId` received in the above response and request the `/authn` endpoint for username & password authentication.
-
-    :::note
-    Upon successful authentication, the `/authn` endpoint returns information on the next authentication step.
-    :::
-
-    <Tabs groupId="tabs">
-    <TabItem value="request-authn" label="Request (`/authn`)">
-
-    ```bash
-    curl --location 'https://localhost:9443/oauth2/authn/'
-    --header 'Content-Type: application/json'
-    --data '{
-      "flowId": "162b7547-e057-4c84-9237-1c7e69bdc122",
-      "selectedAuthenticator": {
-        "authenticatorId": "QmFzaWNBdXRoZW50aWNhdG9yOkxPQ0FM",
-        "params": {
-            "username": "johnd",
-            "password": "U$3r"
-        }
-      }
-    }'
-    ```
-
-    </TabItem>
-    <TabItem value="response-authn" label="Response (`/authn`)">
-
-    ```json
-    {
-        "flowId": "e4d31f92-1ffe-4dea-80ac-8a1b665bb399",
-        "flowStatus": "INCOMPLETE",
-        "flowType": "AUTHENTICATION",
-        "nextStep": {
-            "stepType": "AUTHENTICATOR_PROMPT",
-            "authenticators": [
-                {
-                    "authenticatorId": "U2Vzc2lvbkV4ZWN1dG9yOkxPQ0FM",
-                    "authenticator": "Active Sessions Limit",
-                    "idp": "LOCAL",
-                    "metadata": {
-                        "promptType": "USER_PROMPT",
-                        "params": [
-                            {
-                                "param": "promptResp",
-                                "type": "STRING",
-                                "order": 1,
-                                "i18nKey": "promptResp.param",
-                                "displayName": "Prompt Response",
-                                "confidential": false
-                            },
-                            {
-                                "param": "promptId",
-                                "type": "STRING",
-                                "order": 2,
-                                "i18nKey": "promptId.param",
-                                "displayName": "Prompt ID",
-                                "confidential": false
-                            },
-                            {
-                                "param": "ActiveSessionsLimitAction",
-                                "type": "STRING",
-                                "order": 3,
-                                "i18nKey": "activeSessionsLimitAction.param",
-                                "displayName": "Active Sessions Limit Action",
-                                "confidential": false
-                            },
-                            {
-                                "param": "sessionsToTerminate",
-                                "type": "MULTI_VALUED",
-                                "order": 4,
-                                "i18nKey": "sessionsToTerminate.param",
-                                "displayName": "Sessions to Terminate",
-                                "confidential": false
-                            }
-                        ],
-                        "additionalData": {
-                            "sessions": "[{\"lastAccessTime\":\"1741513176234\",\"browser\":\"PostmanRuntime\",\"sessionId\":\"027b638ed0388c49d1d943b914d9e1833ffb5af0a83116f225903cc91fb43727\",\"device\":\"Other\",\"platform\":\"Other\"},{\"lastAccessTime\":\"1741513261190\",\"browser\":\"Firefox\",\"sessionId\":\"2d932c1ac04c0c365ab929bb30397f64a850c1acc37db87bb24c2a686b8b9b1b\",\"device\":\"Mac\",\"platform\":\"Mac OS X\"},{\"lastAccessTime\":\"1741513275913\",\"browser\":\"Chrome\",\"sessionId\":\"d2ce34b45408e14b57578d36852bda7d5e275b1eaf3a600677d19c8e034f6fdd\",\"device\":\"Mac\",\"platform\":\"Mac OS X\"}]",
-                            "MaxSessionCount": "1",
-                            "promptId": "e4d31f92-1ffe-4dea-80ac-8a1b665bb399"
-                        }
-                    },
-                    "requiredParams": [
-                        "promptResp",
-                        "promptId",
-                        "ActiveSessionsLimitAction"
-                    ]
-                }
-            ]
-        },
-        "links": [
-            {
-                "name": "authentication",
-                "href": "https://localhost:9443/oauth2/authn/",
-                "method": "POST"
-            }
-        ]
-    }
-    ```
-
-    </TabItem>
-    </Tabs>
-
-- **Step 3**: Carry the same `flowId` and request the `/authn` endpoint for active sessions limiting.
-
-    :::note
-    As this is the final step configured for the application, the `/authn` endpoint returns an authorization code upon successful authentication.
-    :::
-
-    | Variable  | Description   | Sample values  |
-    |-----------|---------------|---------------|
-    | `promptResp` | The response to the prompt | `yes` |
-    | `promptId` | The ID of the prompt. This can be retrieved from Step 2 response. | `e4d31f92-1ffe-4dea-80ac-8a1b665bb399` |
-    | `ActiveSessionsLimitAction` | The action to be taken when the active sessions limit is reached. | `denyLimitActiveSessionsAction`, `refreshActiveSessionsAction`, `terminateActiveSessionsAction` |
-    | `sessionsToTerminate` | The session IDs to be terminated. This parameter needs to be sent when `terminateActiveSessionsAction` is selected for `ActiveSessionsLimitAction` | `["027b638ed0388c49d1d943b914d9e1833ffb5af0a83116f225903cc91fb43727", "d2ce34b45408e14b57578d36852bda7d5e275b1eaf3a600677d19c8e034f6fdd"]` |
-
-    <Tabs groupId="tabs">
-    <TabItem value="request-authn" label="Request (`/authn`)">
-
-    ```bash
-    curl --location 'https://localhost:9443/oauth2/authn/'
-    --header 'Content-Type: application/json'
-    --data '{
-      "flowId": "e4d31f92-1ffe-4dea-80ac-8a1b665bb399",
-      "selectedAuthenticator": {
-        "authenticatorId": "U2Vzc2lvbkV4ZWN1dG9yOkxPQ0FM",
-        "params": {
-            "promptResp": "yes",
-            "promptId": "e4d31f92-1ffe-4dea-80ac-8a1b665bb399",
-            "ActiveSessionsLimitAction": "terminateActiveSessionsAction",
-            "sessionsToTerminate": ["027b638ed0388c49d1d943b914d9e1833ffb5af0a83116f225903cc91fb43727", "d2ce34b45408e14b57578d36852bda7d5e275b1eaf3a600677d19c8e034f6fdd", "2d932c1ac04c0c365ab929bb30397f64a850c1acc37db87bb24c2a686b8b9b1b"]}]
-        }
-      }
-    }'
-    ```
-
-    </TabItem>
-    <TabItem value="response-authn" label="Response (`/authn`)">
-
-    ```json
-    {
-      "flowStatus": "SUCCESS_COMPLETED",
-      "authData": {
-        "code": "4dae99f3-b981-3527-237f-903a6fc92340"
-      }
-    }
-    ```
-
-    </TabItem>
-    </Tabs>
-
-</Edition>
-
-</Variants>
-
 ### Scenario 8: Device authorization flow
 
 The application goes through the following steps to complete app-native authentication using the device authorization flow.
-
-<Variants>
-
-<Edition only="cloud">
 
 - **Step 1**: Get the required codes.
 
@@ -3053,189 +2579,6 @@ The application goes through the following steps to complete app-native authenti
     </TabItem>
     </Tabs>
 
-</Edition>
-
-<Edition only="self-hosted">
-
-- **Step 1**: Get the required codes.
-
-    The app initiates a login request to the device authorization endpoint.
-
-    :::note
-    The response contains the `user_code` and `device_code` required for the client device.
-    :::
-
-    <Tabs groupId="tabs">
-    <TabItem value="request-device-authorize" label="Request (`/device_authorize`)">
-
-    ```bash
-    curl --location 'https://localhost:9443/oauth2/device_authorize/'
-    --header 'Accept: application/json'
-    --header 'Content-Type: application/x-www-form-urlencoded'
-    --data-urlencode 'client_id=XWRkRNkJDeTiR5MwHdXROGiJka'
-    --data-urlencode 'scope=openid profile'
-    ```
-
-    </TabItem>
-    <TabItem value="response-device-authorize" label="Response (`/device_authorize`)">
-
-    ```json
-    {
-        "user_code": "s2DqSNK",
-        "device_code": "d3fe0db1-2334-48fa-b7d9-821ecfad10d5",
-        "interval": 5,
-        "verification_uri": "https://localhost:9443/oauth2/authenticationendpoint/device.do",
-        "verification_uri_complete": "https://localhost:9443/oauth2/authenticationendpoint/device.do?user_code=s2DqSNK",
-        "expires_in": 600
-    }
-    ```
-
-    </TabItem>
-    </Tabs>
-
-- **Step 2**: Authorize the client device.
-
-    The app on the client device calls the device endpoint with the `user_code` to initiate authentication.
-
-    :::note
-    Set `response_mode=direct` to initiate app-native authentication.
-    :::
-
-    <Tabs groupId="tabs">
-    <TabItem value="request-device" label="Request (`/device`)">
-
-    ```bash
-    curl --location 'https://localhost:9443/oauth2/device/'
-    --header 'Accept: application/json'
-    --header 'Content-Type: application/x-www-form-urlencoded'
-    --data-urlencode 'user_code=s2DqSNK'
-    --data-urlencode 'response_mode=direct'
-    ```
-
-    </TabItem>
-    <TabItem value="response-device" label="Response (`/device`)">
-
-    ```json
-    {
-        "flowId": "95339089-72d1-4825-80fe-ab7864f4943b",
-        "flowStatus": "INCOMPLETE",
-        "flowType": "AUTHENTICATION",
-        "nextStep": {
-            "stepType": "AUTHENTICATOR_PROMPT",
-            "authenticators": [
-                {
-                    "authenticatorId": "QmFzaWNBdXRoZW50aWNhdG9yOkxPQ0FM",
-                    "authenticator": "Username & Password",
-                    "idp": "LOCAL",
-                    "metadata": {
-                        "i18nKey": "authenticator.basic",
-                        "promptType": "USER_PROMPT",
-                        "params": [
-                            {
-                                "param": "username",
-                                "type": "STRING",
-                                "order": 0,
-                                "i18nKey": "username.param",
-                                "displayName": "Username",
-                                "confidential": false
-                            },
-                            {
-                                "param": "password",
-                                "type": "STRING",
-                                "order": 1,
-                                "i18nKey": "password.param",
-                                "displayName": "Password",
-                                "confidential": true
-                            }
-                        ]
-                    },
-                    "requiredParams": [
-                        "username",
-                        "password"
-                    ]
-                }
-            ]
-        },
-        "links": [
-                {
-            "name": "authentication",
-            "href": "https://localhost:9443/oauth2/authn/",
-            "method": "POST"
-            }
-        ]
-    }
-    ```
-
-    </TabItem>
-    </Tabs>
-
-- **Step 3**: Carry the `flowId` received in the above response and request the `/authn` endpoint for username & password authentication.
-
-    <Tabs groupId="tabs">
-    <TabItem value="request-authn" label="Request (`/authn`)">
-
-    ```bash
-    curl --location 'https://localhost:9443/oauth2/authn/'
-    --header 'Content-Type: application/json'
-    --data '{
-        "flowId": "95339089-72d1-4825-80fe-ab7864f4943b",
-        "selectedAuthenticator": {
-            "authenticatorId": "QmFzaWNBdXRoZW50aWNhdG9yOkxPQ0FM",
-            "params": {
-                "username": "username",
-                "password": "password"
-            }
-        }
-    }'
-    ```
-
-    </TabItem>
-    <TabItem value="response-authn" label="Response (`/authn`)">
-
-    ```json
-    {
-        "flowStatus": "SUCCESS_COMPLETED",
-        "authData": {
-            "app_name": "Mobile App"
-        }
-    }
-    ```
-
-    </TabItem>
-    </Tabs>
-
-- **Step 4**: Once the user completes authentication, the app on the client device polls the token endpoint with the `device_code` to obtain the access token.
-
-    <Tabs groupId="tabs">
-    <TabItem value="request-token" label="Request (`/token`)">
-
-    ```bash
-    curl --location 'https://localhost:9443/oauth2/token/'
-    --header 'Content-Type: application/x-www-form-urlencoded'
-    --data-urlencode 'grant_type=urn:ietf:params:oauth:grant-type:device_code'
-    --data-urlencode 'device_code=d3fe0db1-2334-48fa-b7d9-821ecfad10d5'
-    --data-urlencode 'client_id=XWRkRNkJDeTiR5MwHdXROGiJka'
-    ```
-
-    </TabItem>
-    <TabItem value="response-token" label="Response (`/token`)">
-
-    ```json
-    {
-        "access_token": "74d610ab-7f4a-3b11-90e8-279d76644fc7",
-        "refresh_token": "fdb58069-ecc7-3803-9b8b-6f2ed85eff19",
-        "token_type": "Bearer",
-        "expires_in": 3600
-    }
-    ```
-
-    </TabItem>
-    </Tabs>
-
-</Edition>
-
-</Variants>
-
 ### Scenario 9: User logs in with service based custom authentication
 
 :::note
@@ -3243,10 +2586,6 @@ Learn more about [custom authentication](../../guides/customizations/service-ext
 :::
 
 The application goes through the following steps to complete app-native authentication for a user logging in with service based custom authentication.
-
-<Variants>
-
-<Edition only="cloud">
 
 - **Step 1**: Initiate the request with the `/authorize` endpoint.
 
@@ -3358,7 +2697,7 @@ The application goes through the following steps to complete app-native authenti
 - **Step 1**: Initiate the request with the `/authorize` endpoint.
 
     :::note
-    The response contains information on the first authentication step (the only step for this flow).
+    The response contains information on the first authentication step.
     :::
 
     <Tabs groupId="tabs">
@@ -3387,17 +2726,35 @@ The application goes through the following steps to complete app-native authenti
         "stepType": "AUTHENTICATOR_PROMPT",
         "authenticators": [
           {
-            "authenticatorId": "Y3VzdG9tLWFiY19hdXRoZW50aWNhdG9y",
-            "authenticator": "custom-abc_authenticator",
-            "idp": "ABC Authenticator",
+            "authenticatorId": "QmFzaWNBdXRoZW50aWNhdG9yOkxPQ0FM",
+            "authenticator": "Username & Password",
+            "idp": "LOCAL",
             "metadata": {
-                "i18nKey": "AbstractAuthenticatorAdapter",
-                "promptType": "INTERNAL_PROMPT",
-                "additionalData": {
-                    "endpointUrl": "https://externalservice/authentication/userinput",
-                    "state": "ec159061-2a93-415d-8786-652d4f344241"
+              "i18nKey": "authenticator.basic",
+              "promptType": "USER_PROMPT",
+              "params": [
+                {
+                  "param": "username",
+                  "type": "STRING",
+                  "order": 0,
+                  "i18nKey": "username.param",
+                  "displayName": "Username",
+                  "confidential": false
+                },
+                {
+                  "param": "password",
+                  "type": "STRING",
+                  "order": 1,
+                  "i18nKey": "password.param",
+                  "displayName": "Password",
+                  "confidential": true
                 }
-            }
+              ]
+            },
+            "requiredParams": [
+              "username",
+              "password"
+            ]
           }
         ]
       },
@@ -3413,16 +2770,119 @@ The application goes through the following steps to complete app-native authenti
 
     </TabItem>
     </Tabs>
-- **Step 2**: The application should interact with the external service, and authenticate the user.  After it's complete, proceed with the next /authn request as outlined in the subsequent step.
 
-    :::warning[Important]
-    Service-based custom authentication is categorized under the `INTERNAL_PROMPT` prompt type authenticator, which requires the application to explicitly trigger the authentication option for the user. The application is responsible for handling and processing the data received and invoking the external authenticator accordingly.
-    :::
-
-- **Step 3**: Carry the same `flowId` and request the `/authn` endpoint for custom authentication.
+- **Step 2**: Carry the `flowId` received in the above response and request the `/authn` endpoint for username & password authentication.
 
     :::note
-    The application is not required to return the state or parameters with the /authn request.
+    Upon successful authentication, the `/authn` endpoint returns information on the next authentication step.
+    :::
+
+    <Tabs groupId="tabs">
+    <TabItem value="request-1-authn" label="Request 1 (`/authn`)">
+
+    ```bash
+    curl --location 'https://localhost:9443/oauth2/authn/'
+    --header 'Content-Type: application/json'
+    --data '{
+      "flowId": "162b7547-e057-4c84-9237-1c7e69bdc122",
+      "selectedAuthenticator": {
+        "authenticatorId": "QmFzaWNBdXRoZW50aWNhdG9yOkxPQ0FM",
+        "params": {
+            "username": "johnd",
+            "password": "U$3r"
+        }
+      }
+    }'
+    ```
+
+    </TabItem>
+    <TabItem value="response-1-authn" label="Response 1 (`/authn`)">
+
+    ```json
+    {
+      "flowId": "162b7547-e057-4c84-9237-1c7e69bdc122",
+      "flowStatus": "INCOMPLETE",
+      "flowType": "AUTHENTICATION",
+      "nextStep": {
+        "stepType": "AUTHENTICATOR_PROMPT",
+        "authenticators": [
+          {
+            "authenticatorId": "cHVzaC1ub3RpZmljYXRpb24tYXV0aGVudGljYXRvcg",
+            "authenticator": "Push Notification Authenticator",
+            "idp": "LOCAL",
+            "metadata": {
+              "i18nKey": "authenticator.push.notification",
+              "promptType": "INTERNAL_PROMPT",
+              "additionalData": {
+                "statusEndpoint": "https://localhost:3000/push-auth/check-status?pushAuthId=2dbcf154-dcc0-4497-a087-6db477ff818e"
+              }
+            },
+            "requiredParams": [
+              "scenario"
+            ]
+          }
+        ]
+      },
+      "links": [
+        {
+          "name": "authentication",
+          "href": "https://localhost:9443/oauth2/authn/",
+          "method": "POST"
+        }
+      ]
+    }
+    ```
+
+    </TabItem>
+    </Tabs>
+
+    :::warning[Important]
+    Push notification based authentication does not require any user input like other authenticators do. If the user
+    has a device registered to receive push notifications, the notification will be sent during the execution of the
+    authenticator. Hence, If you are getting the above response for the first step, it means that the push authenticator
+    has been executed and the notification has been already sent.
+    :::
+
+- **Step 3**: Ping to the status endpoint to check the status of the ongoing push authentication request.
+
+    To complete push-based authentication, the authentication response must be sent from the registered device. The registered device will initiate a push authentication request directly to {edition.productName}.
+
+    To verify the status of the push authentication request, poll the status endpoint provided in the previous response. The possible status values are:
+
+      1. **PENDING**: The push authentication request has not yet been initiated by the registered device.
+      2. **COMPLETED**: The push authentication request has been received and successfully processed by {edition.productName}.
+
+    :::note
+    This step is only applicable for the push notification based authenticator and not part of the default app native authentication flow.
+    :::
+
+    Once the status changes to **COMPLETED**, proceed with the next /authn request as outlined in the subsequent step.
+
+    <Tabs groupId="tabs">
+    <TabItem value="request" label="Request">
+
+    ```bash
+    curl --location 'https://localhost:9443/push-auth/check-status?pushAuthId=92e0d286-e24b-471e-a2cf-6ba3a969a982' 
+    ```
+
+    </TabItem>
+    <TabItem value="response" label="Response">
+
+    ```json
+    {
+      "status": "PENDING"
+    }
+    ```
+
+    </TabItem>
+    </Tabs>
+
+- **Step 4**: Carry the same `flowId` and request the `/authn` endpoint for Push Notification authentication.
+
+    In order to continue the push notification based authentication flow, the `scenario` has to be set to **PROCEED_PUSH_AUTHENTICATION** as shown in the request below.
+
+    :::note
+    As this is the final step configured for the application, the `/authn` endpoint returns an authorization code upon successful authentication.
     :::
 
     <Tabs groupId="tabs">
@@ -3434,7 +2894,10 @@ The application goes through the following steps to complete app-native authenti
     --data '{
       "flowId": "162b7547-e057-4c84-9237-1c7e69bdc122",
       "selectedAuthenticator": {
-        "authenticatorId": "Y3VzdG9tLWFiY19hdXRoZW50aWNhdG9y"
+        "authenticatorId": "cHVzaC1ub3RpZmljYXRpb24tYXV0aGVudGljYXRvcg",
+        "params": {
+            "scenario": "PROCEED_PUSH_AUTHENTICATION"
+        }
       }
     }'
     ```
@@ -3453,10 +2916,6 @@ The application goes through the following steps to complete app-native authenti
 
     </TabItem>
     </Tabs>
-
-    :::note
-    As this is the only step configured for the application, the `/authn` endpoint returns an authorization code, upon successful authentication.
-    :::
 
 </Edition>
 

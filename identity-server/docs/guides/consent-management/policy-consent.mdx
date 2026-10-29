@@ -3,6 +3,7 @@ title: Policy consent
 description: Policy consent allows you to present users with legal agreements, such as a Privacy Policy or Terms of Service, and capture their explicit acceptance during…  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_position: 2
+editions: cloud
 ---
 
 Policy consent allows you to present users with legal agreements, such as a Privacy Policy or Terms of Service, and capture their explicit acceptance during registration and login flows.
@@ -35,7 +36,7 @@ To add a policy:
 4. Click **Create**. In the dialog that appears, select whether existing users should be prompted to accept this policy at their next login by checking **Prompt at next login**.
 5. Click **Confirm**.
 
-<img src={require("../../../assets/img/guides/consent-management/policy-consent/create-policy.png").default} alt="Create policy" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../assets/cloud/img/guides/consent-management/policy-consent/create-policy.png").default} alt="Create policy" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 :::note
 Policies are automatically inherited by sub-organizations.
@@ -54,7 +55,7 @@ To create a new version:
 5. Check **Prompt at next login** if existing users should be re-prompted to accept this version at their next login.
 6. Click **Confirm**.
 
-<img src={require("../../../assets/img/guides/consent-management/policy-consent/save-policy-version.png").default} alt="Save as New Version dialog" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../assets/cloud/img/guides/consent-management/policy-consent/save-policy-version.png").default} alt="Save as New Version dialog" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 The **Prompt at next login** setting controls re-prompt behavior:
 
@@ -79,7 +80,7 @@ To collect policy consent during registration or ask-password, add the **Policy 
     | **Select Policies** | Choose which policies to display in this widget. You can select one or more policies from the list. |
     | **Description** | The header text shown to users above the policy checkboxes. Supports i18n keys. |
 
-<img src={require("../../../assets/img/guides/consent-management/policy-consent/flow-builder-widget.png").default} alt="Policy consent widget in Flow Builder" width="500" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../assets/cloud/img/guides/consent-management/policy-consent/flow-builder-widget.png").default} alt="Policy consent widget in Flow Builder" width="500" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 ## Configure policies for the login flow
 
@@ -95,7 +96,7 @@ To configure the application-level setting:
 3. Go to the **Applications** tab.
 4. Click **+ Assign Application** and select the applications that should prompt users to accept this policy at login.
 
-<img src={require("../../../assets/img/guides/consent-management/policy-consent/policy-login-config.png").default} alt="Applications tab - Assign Applications" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../assets/cloud/img/guides/consent-management/policy-consent/policy-login-config.png").default} alt="Applications tab - Assign Applications" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 To remove an application, click the delete icon next to it in the list.
 
@@ -120,7 +121,7 @@ A policy cannot be deleted if any user has already given consent to it.
 
 The consent screen appearance depends on how you configure the **Policy Consent** widget in the Flow Builder. This includes which policies are shown and the header description displayed to the user. The following is a sample consent screen:
 
-<img src={require("../../../assets/img/guides/consent-management/policy-consent/user-consent-screen.png").default} alt="Sample policy consent screen during registration" width="400" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../assets/cloud/img/guides/consent-management/policy-consent/user-consent-screen.png").default} alt="Sample policy consent screen during registration" width="400" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 **During login:**
 
@@ -129,7 +130,7 @@ When a user logs in to a configured application, {edition.productName} checks fo
 - **New policies** – policies the user has never consented to.
 - **Updated policies** – policies the user already accepted but that have a newer version requiring consent.
 
-<img src={require("../../../assets/img/guides/consent-management/policy-consent/user-login-consent-screen.png").default} alt="Policy consent screen during login" width="400" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../assets/cloud/img/guides/consent-management/policy-consent/user-login-consent-screen.png").default} alt="Policy consent screen during login" width="400" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 ## What's next
 

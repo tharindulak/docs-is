@@ -1,9 +1,10 @@
 ---
-title: Integrating {edition.productName} with KONG AI Gateway for Agent Identity Management
+title: Integrating WSO2 Identity Platform with KONG AI Gateway for Agent Identity Management
 description: In this tutorial, we explore how enterprises can securely scale multi-agent AI systems using WSO2 Identity Platform and the KONG AI Gateway.  # generated from the first paragraph; a writer should improve it
 type: tutorial
 sidebar_label: Integrating WSO2 Identity Platform with Kong AI Gateway for agent Identity-Aware access control
 sidebar_position: 13
+editions: cloud
 ---
 
 # Integrating {edition.productName} with KONG AI Gateway for Agent Identity Management
@@ -31,7 +32,7 @@ Imagine a global software provider facing a **40% year-over-year increase in sup
 
 Below is a high-level conceptual overview of the architecture we plan to explore.
 
-<img src={require("../../../assets/img/tutorials/kong-ai-gateway-with-agent-identity-aware-access-control/flow.png").default} alt="Architecture" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../assets/cloud/img/tutorials/kong-ai-gateway-with-agent-identity-aware-access-control/flow.png").default} alt="Architecture" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 ## {edition.productName} configuration
 
@@ -98,7 +99,7 @@ We create a service to act as a placeholder. The AI Proxy plugin will intercept 
 4. Click **Save**.
      * **Note**: Copy the **Proxy URL** displayed; this is the endpoint your application will call.
 
-<img src={require("../../../assets/img/tutorials/kong-ai-gateway-with-agent-identity-aware-access-control/create-a-dummy-service.png").default} alt="Create_a_Dummy_Service" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../assets/cloud/img/tutorials/kong-ai-gateway-with-agent-identity-aware-access-control/create-a-dummy-service.png").default} alt="Create_a_Dummy_Service" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 ### Create two routes (header-based routing)
 
@@ -117,19 +118,15 @@ Go to the **Routes** tab in your Gateway Service:
        * **Methods**: POST
        * **Headers**: x-agent-type = Technical-Specialist
 
-<img src={require("../../../assets/img/tutorials/kong-ai-gateway-with-agent-identity-aware-access-control/create-two-routes.png").default} alt="Create_Two_Routes" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../assets/cloud/img/tutorials/kong-ai-gateway-with-agent-identity-aware-access-control/create-two-routes.png").default} alt="Create_Two_Routes" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 ### Enable the OpenID Connect plugin
 
 This plugin acts as the security guard, ensuring only the right agent enters the right route.
 
-<img src={require("../../../assets/img/tutorials/kong-ai-gateway-with-agent-identity-aware-access-control/openid-connect-plugin.png").default} alt="OpenID_Connect_Plugin" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../assets/cloud/img/tutorials/kong-ai-gateway-with-agent-identity-aware-access-control/openid-connect-plugin.png").default} alt="OpenID_Connect_Plugin" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 **For Route 1 (coordinator-route)**:
-
-<Variants>
-
-<Edition only="cloud">
 
 1. Add the **OpenID Connect plugin**.
 2. Configure the following:
@@ -138,22 +135,6 @@ This plugin acts as the security guard, ensuring only the right agent enters the
      * **Issuer**: `https://api.asgardeo.io/t/<your_org>/oauth2/token`
      * **Auth Methods**: Bearer Access Token
      * **Authorization Tab**: Set **Roles Required** to Support-Coordinator
-
-</Edition>
-
-<Edition only="self-hosted">
-
-1. Add the **OpenID Connect plugin**.
-2. Configure the following:
-     * **Name**: coordinator-OpenID
-     * **Client ID**: (From your {edition.productName} application)
-     * **Issuer**: `https://<your_domain>>/oauth2/token`
-     * **Auth Methods**: Bearer Access Token
-     * **Authorization Tab**: Set **Roles Required** to Support-Coordinator
-
-</Edition>
-
-</Variants>
 
 **For Route 2 (expert-route)**:
 
@@ -194,7 +175,7 @@ We must strip the {edition.productName} authentication token before the request 
 
 Add the **Request Transformer plugin**, and in **RemoveHeaders**, add **Authorization**.
 
-<img src={require("../../../assets/img/tutorials/kong-ai-gateway-with-agent-identity-aware-access-control/request-transformer-plugin.png").default} alt="Request_Transformer__Plugin" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../assets/cloud/img/tutorials/kong-ai-gateway-with-agent-identity-aware-access-control/request-transformer-plugin.png").default} alt="Request_Transformer__Plugin" width="800" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 ### Enable rate limiting advanced
 

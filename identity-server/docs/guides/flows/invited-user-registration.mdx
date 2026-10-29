@@ -3,6 +3,7 @@ title: Invited user registration
 description: Invited User Registration allows users to securely set their credentials after an administrator registers them in WSO2 Identity Platform.  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_position: 5
+editions: cloud
 ---
 
 Invited User Registration allows users to securely set their credentials after an administrator registers them in {edition.productName}.
@@ -25,7 +26,7 @@ Imagine you want to verify the user’s identity via Email OTP before allowing t
 
 This ensures that only the user with access to the registered email address can complete the registration, enhancing security.
 
-<img src={require("../../../assets/img/guides/flows/flow-invited-user-registration.png").default} alt="Invited user registration flow" width="auto" style={{display: "block", margin: "0"}} />
+<img src={require("../../../assets/cloud/img/guides/flows/flow-invited-user-registration.png").default} alt="Invited user registration flow" width="auto" style={{display: "block", margin: "0"}} />
 
 ## Build the flow
 
@@ -41,7 +42,7 @@ To load the template:
 2. Click on the Invited User Registration card.
 3. Click the + button next to the Invited User Registration template to load it onto the canvas.
 
-<img src={require("../../../assets/img/guides/flows/flow-invited-user-registration-step-01.png").default} alt="Step 1" width="auto" style={{display: "block", margin: "0"}} />
+<img src={require("../../../assets/cloud/img/guides/flows/flow-invited-user-registration-step-01.png").default} alt="Step 1" width="auto" style={{display: "block", margin: "0"}} />
 
 ### Step 2 - Configure Email OTP verification {#step-2-configure-email-otp-verification}
 
@@ -51,7 +52,7 @@ By default, the template uses a simple password setup link. You can easily switc
 2. In the [Confirmation Code Properties](#confirmation-code-properties) pane on the right, under Choose invitation method, select Email with OTP code.
 3. (Optional) You can further customize the OTP's format under OTP Code Configuration, such as its length or character types.
 
-<img src={require("../../../assets/img/guides/flows/flow-invited-user-registration-step-02.png").default} alt="Step 2" width="auto" style={{display: "block", margin: "0"}} />
+<img src={require("../../../assets/cloud/img/guides/flows/flow-invited-user-registration-step-02.png").default} alt="Step 2" width="auto" style={{display: "block", margin: "0"}} />
 
 ### Step 3 - Enable the flow {#step-3-enable-the-flow}
 

@@ -40,11 +40,11 @@ Follow the steps given below to enable **TOTP** as the second factor in the logi
 
 2. Select the application for which TOTP needs to be added.
 
+<Variants>
+
+<Edition only="cloud">
+
 3. Go to the **Login Flow** tab of the application and add the TOTP authenticator as follows:
-
-    <Variants>
-
-    <Edition only="cloud">
 
     <Tabs groupId="tabs">
     <TabItem value="classic-editor" label="Classic Editor">
@@ -77,9 +77,11 @@ Follow the steps given below to enable **TOTP** as the second factor in the logi
 
     ---
 
-    </Edition>
+</Edition>
 
-    <Edition only="self-hosted">
+<Edition only="self-hosted">
+
+3. Go to the **Login Flow** tab of the application and add the TOTP authenticator as follows:
 
     1. Go to **Predefined Flows** > **Add Multi-factor Login**.
 
@@ -91,15 +93,19 @@ Follow the steps given below to enable **TOTP** as the second factor in the logi
 
     4. Select **Enable backup codes** if you wish to allow users to use backup codes to log in to the application. Learn more about [configuring backup codes for users](../../user-self-service/self-service-portal/manage-backup-codes.mdx).
 
-    </Edition>
+</Edition>
 
-    </Variants>
+</Variants>
 
 4. Click **Update** to save your changes.
 
 ## Disable enrolling in TOTP during first login
 
 TOTP enrollment during the first login is enabled by default for all applications.
+
+<Variants>
+
+<Edition only="cloud">
 
 {edition.productName} provides two ways to control this enrollment behavior:
 
@@ -121,13 +127,25 @@ To configure TOTP enrollment for all applications in your organization:
     - **Enabled (default)**: Prompt users who haven't configured TOTP to enroll during login for all applications, unless overridden by [**Conditional Authentication**](#configure-at-application-level).
     - **Disabled**: {edition.productName} won't prompt users to enroll in TOTP during login for any application in the organization.
 
-    <Variants><Edition only="cloud"><img src={require("../../../../assets/img/guides/mfa/totp/totp-org-level-config.png").default} alt="TOTP organization level configuration in WSO2 Identity Platform" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/img/guides/mfa/totp/totp-org-level-config.png").default} alt="TOTP organization level configuration in WSO2 Identity Server" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+    <img src={require("../../../../assets/cloud/img/guides/mfa/totp/totp-org-level-config.png").default} alt="TOTP organization level configuration in WSO2 Identity Platform" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 4. Click **Update** to save your changes.
 
 ### Configure at application level
 
 To override the organization-level setting for a specific application:
+
+</Edition>
+
+<Edition only="self-hosted">
+
+Administrators of an organization can configure their business applications to disable TOTP enrollment during the login flow of the users.
+
+To disable TOTP enrollment during login:
+
+</Edition>
+
+</Variants>
 
 1. On the {edition.productName} Console, [enable TOTP](#enable-totp-for-an-app)  for a selected application.
 2. Turn on **Conditional Authentication** by switching the toggle.
@@ -196,3 +214,47 @@ If the QR code is deleted from the authenticator app, there is no way to recover
 
 Learn more about [enrolling TOTP from My Account](../../user-self-service/self-service-portal/enable-totp.mdx).
 :::
+
+<Edition only="self-hosted">
+
+## Additional TOTP Configurations
+
+This section lists out all the advanced configurations related to TOTP. 
+
+The following code snippet shows a sample TOTP configuration in the `<IS_HOME>/repository/conf/deployment.toml` file. 
+
+```toml
+[authentication.authenticator.totp.parameters]
+encodingMethod="Base32"
+timeStepSize="30"
+windowSize="3"
+enrolUserInAuthenticationFlow=true
+TOTPAuthenticationEndpointURL="authenticationendpoint/totp.do"
+TOTPAuthenticationEndpointErrorPage="authenticationendpoint/totp_error.do"
+TOTPAuthenticationEndpointEnableTOTPPage="authenticationendpoint/totp_enroll.do"
+Issuer="WSO2"
+UseCommonIssuer=true
+```
+
+The parameter values given above show the **default** configurations in WSO2 Identity Server. 
+
+If you wish to change a parameter value to something other than the default value, add the configuration to the `deployment.toml` file using the following format.
+
+```toml
+[authentication.authenticator.totp.parameters] 
+<Property-name> = <Property-value> 
+```
+
+| Property | Description |
+| --- | --- |
+| encodingMethod | The encoding method used to generate the TOTP. |
+| timeStepSize | The time step size used to validate the TOTP. |
+| windowSize | The window size used to validate the TOTP. |
+| enrolUserInAuthenticationFlow | If this value is \*true\*, it will ask the user to enable the TOTP authenticator in the authentication flow. |
+| TOTPAuthenticationEndpointURL | This is the endpoint of the UI which is used to gather the TOTP. |
+| TOTPAuthenticationEndpointErrorPage | This is the endpoint of the error page. |
+| TOTPAuthenticationEndpointEnableTOTPPage | This is the endpoint of the TOTPauthenticator enrollment page. |
+| Issuer | This is the issuer name that will be shown on the mobile application. If this parameter is not configured, the tenant domain will be shown. |
+| UseCommonIssuer | If set to \*true\*, the issuer name defined in the \`deployment.toml\` file will be used as the issuer for all the tenants. |
+
+</Edition>

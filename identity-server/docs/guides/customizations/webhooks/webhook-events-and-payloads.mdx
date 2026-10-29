@@ -3,6 +3,7 @@ title: Webhook events and payloads
 description: This guide details the webhook event types dispatched by WSO2 Identity Platform.  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_position: 3
+editions: cloud
 ---
 
 This guide details the webhook event types dispatched by {edition.productName}. For each event, you'll find JSON payload examples and descriptions of their properties.
@@ -11,14 +12,10 @@ This guide details the webhook event types dispatched by {edition.productName}. 
 In webhook event payloads, `initiatorIpAddress` (when present) represents the IP address of the initiator that triggered the event.
 :::
 
-<Edition only="cloud">
-
 :::note
 This feature is currently in **Preview**. Functionality and event payloads may change during development.  
 Expect updates without prior notice.
 :::
-
-</Edition>
 
 ## Login events
 
@@ -29,10 +26,6 @@ Expect updates without prior notice.
 {edition.productName} sends a `loginSuccess` event when a user successfully authenticates.
 
 **Example payload:**
-
-<Variants>
-
-<Edition only="cloud">
 
 ```json
 {
@@ -87,71 +80,6 @@ Expect updates without prior notice.
 }
 ```
 
-</Edition>
-
-<Edition only="self-hosted">
-
-<Edition selfHostedFrom="next">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "051f0c37-b689-44d4-b7d2-29b980ece273",
-  "iat": 1751705149662,
-  "rci": "05268edb-9a87-4656-87c0-0fb674dd03b1",
-  "events": {
-    "https://schemas.identity.wso2.org/events/login/event-type/loginSuccess": {
-      "initiatorType": "USER",
-      "initiatorIpAddress": "203.0.113.10",
-      "user": {
-        "id": "d4002616-f00c-49d5-b9b7-63b063819049",
-        "claims": [
-          {
-            "uri": "http://wso2.org/claims/username",
-            "value": "peter@aol.com"
-          }
-        ],
-        "organization": {
-          "id": "6f8d17ae-1ad5-441b-b9e0-c7731e739e94",
-          "name": "myorg",
-          "orgHandle": "myorg.com",
-          "depth": 0
-        },
-        "ref": "https://localhost:9443/t/myorg.com/scim2/Users/d4002616-f00c-49d5-b9b7-63b063819049"
-      },
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "6f8d17ae-1ad5-441b-b9e0-c7731e739e94",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "userStore": {
-        "id": "UFJJTUFSWQ==",
-        "name": "PRIMARY"
-      },
-      "application": {
-        "id": "40d982e5-23be-4ee1-8540-9cb696d8c321",
-        "name": "MyApp"
-      },
-      "action": "LOGIN",
-      "authenticationMethods": [
-        "BasicAuthenticator"
-      ]
-    }
-  }
-}
-```
-
-</Edition>
-
-</Edition>
-
-</Variants>
-
 The `events` object contains the actual event data for a successful login, identified by the URI `https://schemas.identity.wso2.org/events/login/event-type/loginSuccess`. This URI signifies a successful login event.
 
 The table below explains each property in the event data.
@@ -173,10 +101,6 @@ The table below explains each property in the event data.
 {edition.productName} sends a `loginFailed` event when a login attempt fails.
 
 **Example payload:**
-
-<Variants>
-
-<Edition only="cloud">
 
 ```json
 {
@@ -243,84 +167,6 @@ The table below explains each property in the event data.
   }
 }
 ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-<Edition selfHostedFrom="next">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "7ef94943-2004-4f72-b476-9baffe5623c7",
-  "iat": 1751709144508,
-  "rci": "05268edb-9a87-4656-87c0-0fb674dd03b1",
-  "events": {
-    "https://schemas.identity.wso2.org/events/login/event-type/loginFailed": {
-      "initiatorType": "USER",
-      "initiatorIpAddress": "203.0.113.10",
-      "user": {
-        "claims": [
-          {
-            "uri": "http://wso2.org/claims/username",
-            "value": "johndoe@aol.com"
-          },
-          {
-            "uri": "http://wso2.org/claims/emailaddress",
-            "value": "johndoe@aol.com"
-          },
-          {
-            "uri": "http://wso2.org/claims/lastname",
-            "value": "Doe"
-          },
-          {
-            "uri": "http://wso2.org/claims/givenname",
-            "value": "John"
-          }
-        ],
-        "organization": {
-          "id": "6f8d17ae-1ad5-441b-b9e0-c7731e739e94",
-          "name": "myorg",
-          "orgHandle": "myorg.com",
-          "depth": 0
-        }
-      },
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "6f8d17ae-1ad5-441b-b9e0-c7731e739e94",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "application": {
-        "id": "63d8a96f-ff87-4f38-a1d7-4d10ee470d9a",
-        "name": "Test App"
-      },
-      "reason": {
-        "description": "User authentication failed due to invalid credentials",
-        "context": {
-          "failedStep": {
-            "step": 1,
-            "idp": "LOCAL",
-            "authenticator": "BasicAuthenticator"
-          }
-        }
-      },
-      "action": "LOGIN"
-    }
-  }
-}
-```
-
-</Edition>
-
-</Edition>
-
-</Variants>
 
 The `events` object contains the actual event data for a failed login, identified by the URI `https://schemas.identity.wso2.org/events/login/event-type/loginFailed`. This URI signifies a successful login event.
 
@@ -427,10 +273,6 @@ The table below explains each property in the event data.
 
 **Example payload:**
 
-<Variants>
-
-<Edition only="cloud">
-
 ```json
 {
   "iss": "https://api.asgardeo.io/t/myorg",
@@ -489,76 +331,6 @@ The table below explains each property in the event data.
 }
 ```
 
-</Edition>
-
-<Edition only="self-hosted">
-
-<Edition selfHostedFrom="next">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "e558b025-58ae-4e29-8242-75d6bfdfcbda",
-  "iat": 1751709420327,
-  "rci": "05268edb-9a87-4656-87c0-0fb674dd03b1",
-  "events": {
-    "https://schemas.identity.wso2.org/events/registration/event-type/registrationSuccess": {
-      "initiatorType": "ADMIN",
-      "initiatorIpAddress": "203.0.113.10",
-      "user": {
-        "id": "3fae4858-4b26-4608-9df4-78ae75e3adda",
-        "claims": [
-          {
-            "uri": "http://wso2.org/claims/username",
-            "value": "johndoe@aol.com"
-          },
-          {
-            "uri": "http://wso2.org/claims/emailaddress",
-            "value": "johndoe@aol.com"
-          },
-          {
-            "uri": "http://wso2.org/claims/lastname",
-            "value": "Doe"
-          },
-          {
-            "uri": "http://wso2.org/claims/givenname",
-            "value": "John"
-          }
-        ],
-        "organization": {
-          "id": "6f8d17ae-1ad5-441b-b9e0-c7731e739e94",
-          "name": "myorg",
-          "orgHandle": "myorg.com",
-          "depth": 0
-        },
-        "ref": "https://localhost:9443/t/myorg.com/scim2/Users/3fae4858-4b26-4608-9df4-78ae75e3adda"
-      },
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "6f8d17ae-1ad5-441b-b9e0-c7731e739e94",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "userStore": {
-        "id": "REVGQVVMVA==",
-        "name": "DEFAULT"
-      },
-      "action": "REGISTER"
-    }
-  }
-}
-```
-
-</Edition>
-
-</Edition>
-
-</Variants>
-
 The `events` object contains the actual event data for a successful registration, identified by the URI `https://schemas.identity.wso2.org/events/registration/event-type/registrationSuccess`. This URI signifies a successful user registration event.
 
 The table below explains each property in the event data.
@@ -578,10 +350,6 @@ The table below explains each property in the event data.
 {edition.productName} sends a `registrationFailed` event when a user registration attempt fails.
 
 **Example payload:**
-
-<Variants>
-
-<Edition only="cloud">
 
 ```json
 {
@@ -634,69 +402,6 @@ The table below explains each property in the event data.
 }
 ```
 
-</Edition>
-
-<Edition only="self-hosted">
-
-<Edition selfHostedFrom="next">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "43e76a18-f3b3-400c-bf76-9761b4ec5d57",
-  "iat": 1751565405544,
-  "rci": "05268edb-9a87-4656-87c0-0fb674dd03b1",
-  "events": {
-    "https://schemas.identity.wso2.org/events/registration/event-type/registrationFailed": {
-      "initiatorType": "USER",
-      "initiatorIpAddress": "203.0.113.10",
-      "user": {
-        "claims": [
-          {
-            "uri": "http://wso2.org/claims/username",
-            "value": "peter"
-          },
-          {
-            "uri": "http://wso2.org/claims/emailaddress",
-            "value": "peter@aol.com"
-          },
-          {
-            "uri": "http://wso2.org/claims/givenname",
-            "value": "Peter"
-          }
-        ],
-        "organization": {
-          "id": "6f8d17ae-1ad5-441b-b9e0-c7731e739e94",
-          "name": "myorg",
-          "orgHandle": "myorg.com",
-          "depth": 0
-        },
-      },
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "6f8d17ae-1ad5-441b-b9e0-c7731e739e94",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "action": "REGISTER",
-      "reason": {
-        "description": "The provided username already exists in the tenant: myorg.com"
-      }
-    }
-  }
-}
-```
-
-</Edition>
-
-</Edition>
-
-</Variants>
-
 The `events` object contains the actual event data for a failed registration, identified by the URI `https://schemas.identity.wso2.org/events/registration/event-type/registrationFailed`. This URI signifies a failed user registration event.
 
 The table below explains each property in the event data.
@@ -735,10 +440,6 @@ The table below explains how these properties differ based on each flow.
 {edition.productName} sends an `accessTokenIssued` event when an access token gets successfully issued to a client application.
 
 **Example payload:**
-
-<Variants>
-
-<Edition only="cloud">
 
 ```json
 {
@@ -798,77 +499,6 @@ The table below explains how these properties differ based on each flow.
   }
 }
 ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-<Edition selfHostedFrom="next">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "f30f6807-192a-40b0-99b9-b176d3b94a94",
-  "iat": 1755541962092,
-  "rci": "05268edb-9a87-4656-87c0-0fb674dd03b1",
-  "events": {
-    "https://schemas.identity.wso2.org/events/token/event-type/accessTokenIssued": {
-      "initiatorType": "USER",
-      "initiatorIpAddress": "203.0.113.10",
-      "user": {
-        "id": "1801d35e-1339-4c16-9c53-61321cf37fb9",
-        "claims": [
-          {
-            "uri": "http://wso2.org/claims/username",
-            "value": "peter"
-          },
-          {
-            "uri": "http://wso2.org/claims/emailaddress",
-            "value": "peter@aol.com"
-          }
-        ],
-        "organization": {
-          "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-          "name": "myorg",
-          "orgHandle": "myorg.com",
-          "depth": 0
-        },
-        "ref": "https://localhost:9443/t/myorg.com/scim2/Users/1801d35e-1339-4c16-9c53-61321cf37fb9"
-      },
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "userStore": {
-        "id": "UFJJTUFSWQ==",
-        "name": "PRIMARY"
-      },
-      "application": {
-        "name": "Test App",
-        "consumerKey": "eaSbhGeDL7ek2ypVrb0h4ZYMSN0a"
-      },
-      "accessToken": {
-        "tokenType": "Opaque",
-        "iat": "1755541962069",
-        "grantType": "authorization_code"
-      },
-      "action": "TOKEN_ISSUE"
-    }
-  }
-}
-```
-
-</Edition>
-
-</Edition>
-
-</Variants>
 
 The `events` object contains the actual event data for a successful token issuance, identified by the URI `https://schemas.identity.wso2.org/events/token/event-type/accessTokenIssued`. This URI signifies a successful access token issuance event.
 
@@ -967,10 +597,6 @@ The table below explains each property in the event data.
 
 **Example payload:**
 
-<Variants>
-
-<Edition only="cloud">
-
 ```json
 {
   "iss": "https://api.asgardeo.io/t/myorg",
@@ -1027,75 +653,6 @@ The table below explains each property in the event data.
   }
 }
 ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-<Edition selfHostedFrom="next">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "d801a275-e64b-4998-90d9-2ed1601a0d19",
-  "iat": 1755541966592,
-  "rci": "48eaeb32-76c0-4af8-b04e-9ce0c00cb61f",
-  "events": {
-    "https://schemas.identity.wso2.org/events/token/event-type/accessTokenRevoked": {
-      "initiatorType": "USER",
-      "initiatorIpAddress": "203.0.113.10",
-      "user": {
-        "id": "1801d35e-1339-4c16-9c53-61321cf37fb9",
-        "claims": [
-          {
-            "uri": "http://wso2.org/claims/emailaddress",
-            "value": "peter@aol.com"
-          },
-          {
-            "uri": "http://wso2.org/claims/username",
-            "value": "peter"
-          }
-        ],
-        "organization": {
-          "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-          "name": "myorg",
-          "orgHandle": "myorg.com",
-          "depth": 0
-        },
-        "ref": "https://localhost:9443/t/myorg.com/scim2/Users/1801d35e-1339-4c16-9c53-61321cf37fb9"
-      },
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "userStore": {
-        "id": "UFJJTUFSWQ==",
-        "name": "PRIMARY"
-      },
-      "applications": [
-        {
-          "id": "eb395ddd-1280-46e9-98fb-810948c1dab4",
-          "name": "Test App",
-          "consumerKey": "eaSbhGeDL7ek2ypVrb0h4ZYMSN0a"
-        }
-      ],
-      "action": "TOKEN_REVOKE"
-    }
-  }
-}
-```
-
-</Edition>
-
-</Edition>
-
-</Variants>
 
 The `events` object contains the actual event data for a token revocation, identified by the URI `https://schemas.identity.wso2.org/events/token/event-type/accessTokenRevoked`. This URI signifies an access token revocation event.
 
@@ -1124,10 +681,6 @@ This event triggers for every new session creation during the login process. It 
 
 **Example payload:**
 
-<Variants>
-
-<Edition only="cloud">
-
 ```json
 {
   "iss": "https://api.asgardeo.io/t/myorg",
@@ -1187,78 +740,6 @@ This event triggers for every new session creation during the login process. It 
   }
 }
 ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-<Edition selfHostedFrom="next">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "1a9b7a5f-42f3-4f87-a03d-6962b32a219b",
-  "iat": 1755541960053,
-  "rci": "b8b6ccbd-69b0-47d3-b0ae-b2b0df085f7c",
-  "events": {
-    "https://schemas.identity.wso2.org/events/session/event-type/sessionEstablished": {
-      "initiatorType": "USER",
-      "initiatorIpAddress": "203.0.113.10",
-      "user": {
-        "id": "1801d35e-1339-4c16-9c53-61321cf37fb9",
-        "claims": [
-          {
-            "uri": "http://wso2.org/claims/username",
-            "value": "peter"
-          }
-        ],
-        "organization": {
-          "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-          "name": "myorg",
-          "orgHandle": "myorg.com",
-          "depth": 0
-        },
-        "ref": "https://localhost:9443/t/myorg.com/scim2/Users/1801d35e-1339-4c16-9c53-61321cf37fb9"
-      },
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "userStore": {
-        "id": "UFJJTUFSWQ==",
-        "name": "PRIMARY"
-      },
-      "application": {
-        "id": "eb395ddd-1280-46e9-98fb-810948c1dab4",
-        "name": "Test App"
-      },
-      "session": {
-        "id": "68d1f2861461c69d8e821d91839bbf8e23ef04fb96c1ac655f452d94d1fd6e4d",
-        "loginTime": 1755541960025,
-        "applications": [
-          {
-            "id": "eb395ddd-1280-46e9-98fb-810948c1dab4",
-            "name": "Test App"
-          }
-        ]
-      },
-      "action": "LOGIN"
-    }
-  }
-}
-```
-
-</Edition>
-
-</Edition>
-
-</Variants>
 
 The `events` object contains the actual event data for a session establishment, identified by the URI `https://schemas.identity.wso2.org/events/session/event-type/sessionEstablished`. This URI signifies a new session establishment event.
 
@@ -1357,10 +838,6 @@ The table below explains each property in the event data.
 
 **Example payload:**
 
-<Variants>
-
-<Edition only="cloud">
-
 ```json
 {
   "iss": "https://api.asgardeo.io/t/myorg",
@@ -1420,78 +897,6 @@ The table below explains each property in the event data.
   }
 }
 ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-<Edition selfHostedFrom="next">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "2837280b-5229-462a-afb6-dc84e97ca152",
-  "iat": 1755541961796,
-  "rci": "60f7dd4f-a791-4135-94d6-d26795629361",
-  "events": {
-    "https://schemas.identity.wso2.org/events/session/event-type/sessionPresented": {
-      "initiatorType": "USER",
-      "initiatorIpAddress": "203.0.113.10",
-      "user": {
-        "id": "1801d35e-1339-4c16-9c53-61321cf37fb9",
-        "claims": [
-          {
-            "uri": "http://wso2.org/claims/username",
-            "value": "peter"
-          }
-        ],
-        "organization": {
-          "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-          "name": "myorg",
-          "orgHandle": "myorg.com",
-          "depth": 0
-        },
-        "ref": "https://localhost:9443/t/myorg.com/scim2/Users/1801d35e-1339-4c16-9c53-61321cf37fb9"
-      },
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "userStore": {
-        "id": "UFJJTUFSWQ==",
-        "name": "PRIMARY"
-      },
-      "application": {
-        "id": "eb395ddd-1280-46e9-98fb-810948c1dab4",
-        "name": "Test App"
-      },
-      "session": {
-        "id": "68d1f2861461c69d8e821d91839bbf8e23ef04fb96c1ac655f452d94d1fd6e4d",
-        "loginTime": 1755541961792,
-        "applications": [
-          {
-            "id": "eb395ddd-1280-46e9-98fb-810948c1dab4",
-            "name": "Test App"
-          }
-        ]
-      },
-      "action": "LOGIN"
-    }
-  }
-}
-```
-
-</Edition>
-
-</Edition>
-
-</Variants>
 
 The `events` object contains the actual event data for a session presentation, identified by the URI `https://schemas.identity.wso2.org/events/session/event-type/sessionPresented`. This URI signifies a session presentation event.
 
@@ -1590,10 +995,6 @@ The table below explains each property in the event data.
 
 **Example payload:**
 
-<Variants>
-
-<Edition only="cloud">
-
 ```json
 {
   "iss": "https://api.asgardeo.io/t/myorg",
@@ -1651,76 +1052,6 @@ The table below explains each property in the event data.
   }
 }
 ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-<Edition selfHostedFrom="next">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "61503199-bdf7-4f44-8f50-60c78bf419ad",
-  "iat": 1755541966644,
-  "rci": "48eaeb32-76c0-4af8-b04e-9ce0c00cb61f",
-  "events": {
-    "https://schemas.identity.wso2.org/events/session/event-type/sessionRevoked": {
-      "initiatorType": "USER",
-      "initiatorIpAddress": "203.0.113.10",
-      "user": {
-        "id": "1801d35e-1339-4c16-9c53-61321cf37fb9",
-        "claims": [
-          {
-            "uri": "http://wso2.org/claims/username",
-            "value": "peter"
-          }
-        ],
-        "organization": {
-          "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-          "name": "myorg",
-          "orgHandle": "myorg.com",
-          "depth": 0
-        },
-        "ref": "https://localhost:9443/t/myorg.com/scim2/Users/1801d35e-1339-4c16-9c53-61321cf37fb9"
-      },
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "userStore": {
-        "id": "UFJJTUFSWQ==",
-        "name": "PRIMARY"
-      },
-      "sessions": [
-        {
-          "id": "68d1f2861461c69d8e821d91839bbf8e23ef04fb96c1ac655f452d94d1fd6e4d",
-          "loginTime": 1755541961792,
-          "applications": [
-            {
-              "id": "eb395ddd-1280-46e9-98fb-810948c1dab4",
-              "name": "Test App"
-            }
-          ]
-        }
-      ],
-      "action": "LOGOUT"
-    }
-  }
-}
-```
-
-</Edition>
-
-</Edition>
-
-</Variants>
 
 The `events` object contains the actual event data for a session revocation, identified by the URI `https://schemas.identity.wso2.org/events/session/event-type/sessionRevoked`. This URI signifies a session revocation event.
 
@@ -1787,10 +1118,6 @@ The table below explains each property in the event data.
 
 **Example payload:**
 
-<Variants>
-
-<Edition only="cloud">
-
 ```json
 {
   "iss": "https://api.asgardeo.io/t/myorg",
@@ -1838,65 +1165,6 @@ The table below explains each property in the event data.
 }
 ```
 
-</Edition>
-
-<Edition only="self-hosted">
-
-<Edition selfHostedFrom="next">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "24fc890a-41c5-4397-9cc9-b9f48102384e",
-  "iat": 1751566637663,
-  "rci": "05268edb-9a87-4656-87c0-0fb674dd03b1",
-  "events": {
-    "https://schemas.identity.wso2.org/events/credential/event-type/credentialUpdated": {
-      "initiatorType": "ADMIN",
-      "initiatorIpAddress": "203.0.113.10",
-      "user": {
-        "id": "85071750-3d1f-4ba4-b58f-991532e2742b",
-        "claims": [
-          {
-            "uri": "http://wso2.org/claims/emailaddress",
-            "value": "peter@aol.com"
-          }
-        ],
-        "organization": {
-          "id": "6f8d17ae-1ad5-441b-b9e0-c7731e739e94",
-          "name": "myorg",
-          "orgHandle": "myorg.com",
-          "depth": 0
-        },
-        "ref": "https://localhost:9443/t/myorg.com/scim2/Users/85071750-3d1f-4ba4-b58f-991532e2742b"
-      },
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "6f8d17ae-1ad5-441b-b9e0-c7731e739e94",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "userStore": {
-        "id": "UFJJTUFSWQ==",
-        "name": "PRIMARY"
-      },
-      "credentialType": "PASSWORD",
-      "action": "UPDATE"
-    }
-  }
-}
-```
-
-</Edition>
-
-</Edition>
-
-</Variants>
-
 The `events` object contains the actual event data for a credential update, identified by the URI `https://schemas.identity.wso2.org/events/credential/event-type/credentialUpdated`. This URI signifies a successful credential update event.
 
 The table below explains each property in the event data.
@@ -1920,10 +1188,6 @@ The initiatorType and the action property together show which flow triggers a pa
 
 The table below explains how these properties differ based on each flow.
 
-<Variants>
-
-<Edition only="cloud">
-
 | Flow | Value of initiatorType | Value of action | Description |
 | --- | --- | --- | --- |
 | User initiated password update | USER | UPDATE | Occurs when a user updates their password through profile settings in My Account app or via [SCIM 2.0 Me API](../../../reference/apis/scim2-me/index.mdx) . |
@@ -1932,23 +1196,6 @@ The table below explains how these properties differ based on each flow.
 | Admin initiated password reset | ADMIN | RESET | Occurs when an administrator initiates a forced password reset and the user resets the password via that request. |
 | Admin initiated user invite to set password | ADMIN | INVITE | Occurs when an administrator invites a new user to join the system. The user then sets their password. |
 | Application initiated password update | APPLICATION | UPDATE | Occurs when an application with appropriate permissions automatically updates a user's password. This happens during automated user provisioning or integration with external identity management systems via [SCIM 2.0 Users API](../../../reference/apis/scim2-users-rest-api/index.mdx). |
-
-</Edition>
-
-<Edition only="self-hosted">
-
-| Flow | Value of initiatorType | Value of action | Description |
-| --- | --- | --- | --- |
-| User initiated password update | USER | UPDATE | Occurs when a user updates their password through profile settings in My Account app or via [SCIM 2.0 Me API](../../../reference/apis/scim2-me-rest-apis/index.mdx) . |
-| User initiated password reset | USER | RESET | Occurs when a user forgets their password and initiates a reset flow to regain account access. |
-| Admin initiated password update | ADMIN | UPDATE | Occurs when an administrator updates a user's password directly via console or [SCIM 2.0 Users API](../../../reference/apis/scim2-users-rest-api/index.mdx). |
-| Admin initiated password reset | ADMIN | RESET | Occurs when an administrator initiates a forced password reset and the user resets the password via that request. |
-| Admin initiated user invite to set password | ADMIN | INVITE | Occurs when an administrator invites a new user to join the system. The user then sets their password. |
-| Application initiated password update | APPLICATION | UPDATE | Occurs when an application with appropriate permissions automatically updates a user's password. This happens during automated user provisioning or integration with external identity management systems via [SCIM 2.0 Users API](../../../reference/apis/scim2-users-rest-api/index.mdx). |
-
-</Edition>
-
-</Variants>
 
 ## User account management events
 
@@ -1961,10 +1208,6 @@ The table below explains how these properties differ based on each flow.
 This event triggers when administrators, applications, or users create accounts through various flows like direct registration, invitations, or automated provisioning.
 
 **Example payload:**
-
-<Variants>
-
-<Edition only="cloud">
 
 ```json
 {
@@ -2024,76 +1267,6 @@ This event triggers when administrators, applications, or users create accounts 
 }
 ```
 
-</Edition>
-
-<Edition only="self-hosted">
-
-<Edition selfHostedFrom="next">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "b6148a40-9e3c-45c4-b57d-85c7da482ad5",
-  "iat": 1755618921154,
-  "rci": "dca8d1d5-5a8f-4141-aac6-2abcb27fd168",
-  "events": {
-    "https://schemas.identity.wso2.org/events/user/event-type/userCreated": {
-      "initiatorType": "ADMIN",
-      "initiatorIpAddress": "203.0.113.10",
-      "user": {
-        "id": "3987d74e-8432-4f4d-b1a8-cad463af843d",
-        "claims": [
-          {
-            "uri": "http://wso2.org/claims/username",
-            "value": "johndoe@aol.com"
-          },
-          {
-            "uri": "http://wso2.org/claims/emailaddress",
-            "value": "johndoe@aol.com"
-          },
-          {
-            "uri": "http://wso2.org/claims/lastname",
-            "value": "Doe"
-          },
-          {
-            "uri": "http://wso2.org/claims/givenname",
-            "value": "John"
-          }
-        ],
-        "organization": {
-          "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-          "name": "myorg",
-          "orgHandle": "myorg.com",
-          "depth": 0
-        },
-        "ref": "https://localhost:9443/t/myorg.com/scim2/Users/3987d74e-8432-4f4d-b1a8-cad463af843d"
-      },
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "userStore": {
-        "id": "UFJJTUFSWQ==",
-        "name": "PRIMARY"
-      },
-      "action": "REGISTER"
-    }
-  }
-}
-```
-
-</Edition>
-
-</Edition>
-
-</Variants>
-
 The `events` object contains the actual event data for a user creation, identified by the URI `https://schemas.identity.wso2.org/events/user/event-type/userCreated`. This URI signifies a successful user creation event.
 
 The table below explains each property in the event data.
@@ -2113,10 +1286,6 @@ The table below explains each property in the event data.
 {edition.productName} sends a `userProfileUpdated` event when a user updates profile information.
 
 **Example payload:**
-
-<Variants>
-
-<Edition only="cloud">
 
 ```json
 {
@@ -2169,70 +1338,6 @@ The table below explains each property in the event data.
   }
 }
 ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-<Edition selfHostedFrom="next">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "2371a91d-66e8-400b-a8de-6e8ee2b8175e",
-  "iat": 1751569642578,
-  "rci": "05268edb-9a87-4656-87c0-0fb674dd03b1",
-  "events": {
-    "https://schemas.identity.wso2.org/events/user/event-type/userProfileUpdated": {
-      "initiatorType": "ADMIN",
-      "initiatorIpAddress": "203.0.113.10",
-      "user": {
-        "id": "85071750-3d1f-4ba4-b58f-991532e2742b",
-        "organization": {
-          "id": "6f8d17ae-1ad5-441b-b9e0-c7731e739e94",
-          "name": "myorg",
-          "orgHandle": "myorg.com",
-          "depth": 0
-        },
-        "ref": "https://localhost:9443/t/myorg.com/scim2/Users/85071750-3d1f-4ba4-b58f-991532e2742b",
-        "addedClaims": [
-          {
-            "uri": "http://wso2.org/claims/organization",
-            "value": "myorg"
-          }
-        ],
-        "updatedClaims": [
-          {
-            "uri": "http://wso2.org/claims/emailAddresses",
-            "value": "peter@aol.com"
-          }
-        ]
-      },
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "6f8d17ae-1ad5-441b-b9e0-c7731e739e94",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "userStore": {
-        "id": "UFJJTUFSWQ==",
-        "name": "PRIMARY"
-      },
-      "action": "UPDATE"
-    }
-  }
-}
-```
-
-</Edition>
-
-</Edition>
-
-</Variants>
 
 The `events` object contains the actual event data for a user profile update, identified by the URI `https://schemas.identity.wso2.org/events/user/event-type/userProfileUpdated`. This URI signifies a successful user profile update event.
 
@@ -2315,10 +1420,6 @@ The table below explains each property in the event data.
 
 **Example payload:**
 
-<Variants>
-
-<Edition only="cloud">
-
 ```json
 {
   "iss": "https://api.asgardeo.io/t/myorg",
@@ -2364,64 +1465,6 @@ The table below explains each property in the event data.
   }
 }
 ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-<Edition selfHostedFrom="next">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "d32b6be7-1675-4e7d-b118-7346ad53c046",
-  "iat": 1751570468806,
-  "rci": "05268edb-9a87-4656-87c0-0fb674dd03b1",
-  "events": {
-    "https://schemas.identity.wso2.org/events/user/event-type/userDisabled": {
-      "initiatorType": "ADMIN",
-      "initiatorIpAddress": "203.0.113.10",
-      "user": {
-        "id": "85071750-3d1f-4ba4-b58f-991532e2742b",
-        "claims": [
-          {
-            "uri": "http://wso2.org/claims/emailaddress",
-            "value": "peter@aol.com"
-          }
-        ],
-        "organization": {
-          "id": "6f8d17ae-1ad5-441b-b9e0-c7731e739e94",
-          "name": "myorg",
-          "orgHandle": "myorg.com",
-          "depth": 0
-        },
-        "ref": "https://localhost:9443/t/myorg.com/scim2/Users/85071750-3d1f-4ba4-b58f-991532e2742b"
-      },
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "6f8d17ae-1ad5-441b-b9e0-c7731e739e94",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "userStore": {
-        "id": "UFJJTUFSWQ==",
-        "name": "PRIMARY"
-      },
-      "action": "USER_ACCOUNT_DISABLE"
-    }
-  }
-}
-```
-
-</Edition>
-
-</Edition>
-
-</Variants>
 
 The `events` object contains the actual event data for a user disabled event, identified by the URI `https://schemas.identity.wso2.org/events/user/event-type/userDisabled`. This URI signifies a successful user account disablement.
 
@@ -2443,10 +1486,6 @@ The table below explains each property in the event data.
 
 **Example payload:**
 
-<Variants>
-
-<Edition only="cloud">
-
 ```json
 {
   "iss": "https://api.asgardeo.io/t/myorg",
@@ -2492,64 +1531,6 @@ The table below explains each property in the event data.
   }
 }
 ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-<Edition selfHostedFrom="next">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "285a876f-ea57-47b6-9a9d-fc452a04413a",
-  "iat": 1751570713348,
-  "rci": "05268edb-9a87-4656-87c0-0fb674dd03b1",
-  "events": {
-    "https://schemas.identity.wso2.org/events/user/event-type/userEnabled": {
-      "initiatorType": "ADMIN",
-      "initiatorIpAddress": "203.0.113.10",
-      "user": {
-        "id": "85071750-3d1f-4ba4-b58f-991532e2742b",
-        "claims": [
-          {
-            "uri": "http://wso2.org/claims/emailaddress",
-            "value": "peter@aol.com"
-          }
-        ],
-        "organization": {
-          "id": "6f8d17ae-1ad5-441b-b9e0-c7731e739e94",
-          "name": "myorg",
-          "orgHandle": "myorg.com",
-          "depth": 0
-        },
-        "ref": "https://localhost:9443/t/myorg.com/scim2/Users/85071750-3d1f-4ba4-b58f-991532e2742b"
-      },
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "6f8d17ae-1ad5-441b-b9e0-c7731e739e94",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "userStore": {
-        "id": "UFJJTUFSWQ==",
-        "name": "PRIMARY"
-      },
-      "action": "USER_ACCOUNT_ENABLE"
-    }
-  }
-}
-```
-
-</Edition>
-
-</Edition>
-
-</Variants>
 
 The `events` object contains the actual event data for a user enabled event, identified by the URI `https://schemas.identity.wso2.org/events/user/event-type/userEnabled`. This URI signifies a successful user account enablement.
 
@@ -2573,10 +1554,6 @@ This event triggers when accounts get locked due to failed login attempts, admin
 
 **Example payload:**
 
-<Variants>
-
-<Edition only="cloud">
-
 ```json
 {
   "iss": "https://api.asgardeo.io/t/myorg",
@@ -2622,64 +1599,6 @@ This event triggers when accounts get locked due to failed login attempts, admin
   }
 }
 ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-<Edition selfHostedFrom="next">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "5ab9d903-a718-4e71-9a16-314203f02778",
-  "iat": 1755619049121,
-  "rci": "24b22c09-ae39-4942-896f-5c14fd18b4e0",
-  "events": {
-    "https://schemas.identity.wso2.org/events/user/event-type/userAccountLocked": {
-      "initiatorType": "ADMIN",
-      "initiatorIpAddress": "203.0.113.10",
-      "user": {
-        "id": "3987d74e-8432-4f4d-b1a8-cad463af843d",
-        "claims": [
-          {
-            "uri": "http://wso2.org/claims/emailaddress",
-            "value": "johndoe@aol.com"
-          }
-        ],
-        "organization": {
-          "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-          "name": "myorg",
-          "orgHandle": "myorg.com",
-          "depth": 0
-        },
-        "ref": "https://localhost:9443/t/myorg.com/scim2/Users/3987d74e-8432-4f4d-b1a8-cad463af843d"
-      },
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "userStore": {
-        "id": "UFJJTUFSWQ==",
-        "name": "PRIMARY"
-      },
-      "action": "USER_ACCOUNT_LOCK"
-    }
-  }
-}
-```
-
-</Edition>
-
-</Edition>
-
-</Variants>
 
 The `events` object contains the actual event data for a user account locked event, identified by the URI `https://schemas.identity.wso2.org/events/user/event-type/userAccountLocked`. This URI signifies a user account lock event.
 
@@ -2703,10 +1622,6 @@ This event triggers when locked accounts get restored to normal status through a
 
 **Example payload:**
 
-<Variants>
-
-<Edition only="cloud">
-
 ```json
 {
   "iss": "https://api.asgardeo.io/t/myorg",
@@ -2753,64 +1668,6 @@ This event triggers when locked accounts get restored to normal status through a
 }
 ```
 
-</Edition>
-
-<Edition only="self-hosted">
-
-<Edition selfHostedFrom="next">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "7bf8f4ce-816e-46a2-8964-99682ece9084",
-  "iat": 1755619053135,
-  "rci": "e26aade5-ad74-4e5f-a98b-762bd218197e",
-  "events": {
-    "https://schemas.identity.wso2.org/events/user/event-type/userAccountUnlocked": {
-      "initiatorType": "ADMIN",
-      "initiatorIpAddress": "203.0.113.10",
-      "user": {
-        "id": "3987d74e-8432-4f4d-b1a8-cad463af843d",
-        "claims": [
-          {
-            "uri": "http://wso2.org/claims/emailaddress",
-            "value": "johndoe@aol.com"
-          }
-        ],
-        "organization": {
-          "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-          "name": "myorg",
-          "orgHandle": "myorg.com",
-          "depth": 0
-        },
-        "ref": "https://localhost:9443/t/myorg.com/scim2/Users/3987d74e-8432-4f4d-b1a8-cad463af843d"
-      },
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "userStore": {
-        "id": "UFJJTUFSWQ==",
-        "name": "PRIMARY"
-      },
-      "action": "USER_ACCOUNT_UNLOCK"
-    }
-  }
-}
-```
-
-</Edition>
-
-</Edition>
-
-</Variants>
-
 The `events` object contains the actual event data for a user account unlocked event, identified by the URI `https://schemas.identity.wso2.org/events/user/event-type/userAccountUnlocked`. This URI signifies a user account unlock event.
 
 The table below explains each property in the event data.
@@ -2830,10 +1687,6 @@ The table below explains each property in the event data.
 {edition.productName} sends a `userDeleted` event when a user account gets deleted.
 
 **Example Payload:**
-
-<Variants>
-
-<Edition only="cloud">
 
 ```json
 {
@@ -2881,64 +1734,6 @@ The table below explains each property in the event data.
 }
 ```
 
-</Edition>
-
-<Edition only="self-hosted">
-
-<Edition selfHostedFrom="next">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "21f03016-632d-4266-9e8b-8863001109f2",
-  "iat": 1751571143534,
-  "rci": "05268edb-9a87-4656-87c0-0fb674dd03b1",
-  "events": {
-    "https://schemas.identity.wso2.org/events/user/event-type/userDeleted": {
-      "initiatorType": "ADMIN",
-      "initiatorIpAddress": "203.0.113.10",
-      "user": {
-        "id": "0bd61ecd-e974-41e6-a962-8b712090240f",
-        "claims": [
-          {
-            "uri": "http://wso2.org/claims/username",
-            "value": "peter@aol.com"
-          }
-        ],
-        "organization": {
-          "id": "6f8d17ae-1ad5-441b-b9e0-c7731e739e94",
-          "name": "myorg",
-          "orgHandle": "myorg.com",
-          "depth": 0
-        },
-        "ref": "https://localhost:9443/t/myorg.com/scim2/Users/0bd61ecd-e974-41e6-a962-8b712090240f"
-      },
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "6f8d17ae-1ad5-441b-b9e0-c7731e739e94",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "userStore": {
-        "id": "UFJJTUFSWQ==",
-        "name": "PRIMARY"
-      },
-      "action": "USER_ACCOUNT_DELETE"
-    }
-  }
-}
-```
-
-</Edition>
-
-</Edition>
-
-</Variants>
-
 The `events` object contains the actual event data for a user deleted event, identified by the URI `https://schemas.identity.wso2.org/events/user/event-type/userDeleted`. This URI signifies a user account deletion.
 
 The table below explains each property in the event data.
@@ -2953,8 +1748,6 @@ The table below explains each property in the event data.
 | initiatorIpAddress | Indicates the IP address of the initiator that triggered the event. |
 | action | Indicates the flow that triggered the event. The value is `USER_ACCOUNT_DELETE`. |
 
-<Edition selfHostedFrom="next">
-
 ## Role management events
 
 {edition.productName} dispatches webhook events for role lifecycle changes and role assignment updates. Each event provides detailed context, helping you keep external systems in sync with your role definitions, memberships, and permissions.
@@ -2964,10 +1757,6 @@ The table below explains each property in the event data.
 {edition.productName} sends a `roleCreated` event when a new role gets created.
 
 **Example payload:**
-
-<Variants>
-
-<Edition only="cloud">
 
 ```json
 {
@@ -3026,72 +1815,6 @@ The table below explains each property in the event data.
   }
 }
 ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "9befa02f-6977-472a-8450-09c391b6ba45",
-  "iat": 1783322160021,
-  "rci": "accdbb61-d005-41ab-8760-58fd7a539bf9",
-  "events": {
-    "https://schemas.identity.wso2.org/events/role/event-type/roleCreated": {
-      "initiatorType": "ADMIN",
-      "initiatorIpAddress": "127.0.0.1",
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "action": "ROLE_CREATE",
-      "role": {
-        "id": "1fad5996-3418-4883-925d-a319e3bb8e72",
-        "name": "ROLE",
-        "audience": {
-          "type": "application",
-          "value": "6db0975b-9f7c-42d1-a8b4-895a77d23cff",
-          "display": "Sample Application"
-        },
-        "ref": "https://localhost:9443/scim2/v2/Roles/1fad5996-3418-4883-925d-a319e3bb8e72",
-        "users": [
-          {
-            "id": "6c7f23d9-8083-4bf7-ab2c-885aa9faa186",
-            "userStoreDomain": "PRIMARY",
-            "claims": [
-              {
-                "uri": "http://wso2.org/claims/username",
-                "value": "abcuser"
-              }
-            ]
-          }
-        ],
-        "groups": [
-          {
-            "id": "da2aeb94-aebf-4846-b611-1865cf85aea5",
-            "groupName": "sales",
-            "userStoreDomain": "PRIMARY"
-          }
-        ],
-        "permissions": [
-          "internal_session_view"
-        ]
-      }
-    }
-  }
-}
-```
-
-</Edition>
-
-</Variants>
 
 The `events` object contains the actual event data for a role creation, identified by the URI `https://schemas.identity.wso2.org/events/role/event-type/roleCreated`. This URI signifies a successful role creation event.
 
@@ -3170,10 +1893,6 @@ The table below explains each property in the event data.
 
 **Example payload:**
 
-<Variants>
-
-<Edition only="cloud">
-
 ```json
 {
   "iss": "https://api.asgardeo.io/t/myorg",
@@ -3209,50 +1928,6 @@ The table below explains each property in the event data.
   }
 }
 ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "cead6c7f-a38c-4752-9485-56af37c1db5f",
-  "iat": 1783322212811,
-  "rci": "ad969f38-830c-41e7-b4c1-6f5544544921",
-  "events": {
-    "https://schemas.identity.wso2.org/events/role/event-type/roleMetaUpdated": {
-      "initiatorType": "ADMIN",
-      "initiatorIpAddress": "127.0.0.1",
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "action": "ROLE_UPDATE",
-      "role": {
-        "id": "1fad5996-3418-4883-925d-a319e3bb8e72",
-        "name": "ROLE-updated",
-        "audience": {
-          "type": "application",
-          "value": "6db0975b-9f7c-42d1-a8b4-895a77d23cff",
-          "display": "Sample Application"
-        },
-        "ref": "https://localhost:9443/scim2/v2/Roles/1fad5996-3418-4883-925d-a319e3bb8e72"
-      }
-    }
-  }
-}
-```
-
-</Edition>
-
-</Variants>
 
 The `events` object contains the actual event data for a role metadata update, identified by the URI `https://schemas.identity.wso2.org/events/role/event-type/roleMetaUpdated`. This URI signifies a role metadata update event.
 
@@ -3328,10 +2003,6 @@ The table below explains each property in the event data.
 
 **Example payload:**
 
-<Variants>
-
-<Edition only="cloud">
-
 ```json
 {
   "iss": "https://api.asgardeo.io/t/myorg",
@@ -3366,49 +2037,6 @@ The table below explains each property in the event data.
   }
 }
 ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "361f4c4c-e35e-43bb-a52d-864a4b659f2f",
-  "iat": 1783322224574,
-  "rci": "90b7008c-50f5-411e-b2fe-f67b1b632d77",
-  "events": {
-    "https://schemas.identity.wso2.org/events/role/event-type/roleDeleted": {
-      "initiatorType": "ADMIN",
-      "initiatorIpAddress": "127.0.0.1",
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "action": "APPLICATION_UPDATE",
-      "role": {
-        "id": "1fad5996-3418-4883-925d-a319e3bb8e72",
-        "name": "ROLE",
-        "audience": {
-          "type": "application",
-          "value": "6db0975b-9f7c-42d1-a8b4-895a77d23cff",
-          "display": "Sample Application"
-        }
-      }
-    }
-  }
-}
-```
-
-</Edition>
-
-</Variants>
 
 The `events` object contains the actual event data for a role deletion, identified by the URI `https://schemas.identity.wso2.org/events/role/event-type/roleDeleted`. This URI signifies a role deletion event.
 
@@ -3483,10 +2111,6 @@ The table below explains each property in the event data.
 
 **Example payload:**
 
-<Variants>
-
-<Edition only="cloud">
-
 ```json
 {
   "iss": "https://api.asgardeo.io/t/myorg",
@@ -3550,78 +2174,6 @@ The table below explains each property in the event data.
   }
 }
 ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "09a24bef-04f2-407a-a061-e851d0a8d581",
-  "iat": 1783322202677,
-  "rci": "1bab73e8-d1fe-4469-89fc-41488aa718fb",
-  "events": {
-    "https://schemas.identity.wso2.org/events/role/event-type/roleUsersUpdated": {
-      "initiatorType": "ADMIN",
-      "initiatorIpAddress": "127.0.0.1",
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "action": "ROLE_UPDATE",
-      "role": {
-        "id": "1fad5996-3418-4883-925d-a319e3bb8e72",
-        "name": "ROLE",
-        "audience": {
-          "type": "application",
-          "value": "6db0975b-9f7c-42d1-a8b4-895a77d23cff",
-          "display": "Sample Application"
-        },
-        "ref": "https://localhost:9443/scim2/v2/Roles/1fad5996-3418-4883-925d-a319e3bb8e72",
-        "removedUsers": [
-          {
-            "id": "6c7f23d9-8083-4bf7-ab2c-885aa9faa186",
-            "userStoreDomain": "PRIMARY",
-            "claims": [
-              {
-                "uri": "http://wso2.org/claims/username",
-                "value": "abcuser"
-              }
-            ]
-          }
-        ],
-        "addedUsers": [
-          {
-            "id": "311b60cf-da6f-4378-8cd1-31e3e7026f4d",
-            "userStoreDomain": "AGENT",
-            "claims": [
-              {
-                "uri": "http://wso2.org/claims/username",
-                "value": "311b60cf-da6f-4378-8cd1-31e3e7026f4d"
-              },
-              {
-                "uri": "http://wso2.org/claims/agent/Name",
-                "value": "NewAgent"
-              }
-            ]
-          }
-        ]
-      }
-    }
-  }
-}
-```
-
-</Edition>
-
-</Variants>
 
 The `events` object contains the actual event data for a role user assignment update, identified by the URI `https://schemas.identity.wso2.org/events/role/event-type/roleUsersUpdated`. This URI signifies a role user assignment update event.
 
@@ -3699,10 +2251,6 @@ The table below explains each property in the event data.
 
 **Example payload:**
 
-<Variants>
-
-<Edition only="cloud">
-
 ```json
 {
   "iss": "https://api.asgardeo.io/t/myorg",
@@ -3752,64 +2300,6 @@ The table below explains each property in the event data.
   }
 }
 ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "be85978e-5ac6-48a1-ae54-24c292f1f3c3",
-  "iat": 1783322195097,
-  "rci": "fd338a56-569b-4b1f-a9e3-9bffade3b481",
-  "events": {
-    "https://schemas.identity.wso2.org/events/role/event-type/roleGroupsUpdated": {
-      "initiatorType": "ADMIN",
-      "initiatorIpAddress": "127.0.0.1",
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "action": "ROLE_UPDATE",
-      "role": {
-        "id": "1fad5996-3418-4883-925d-a319e3bb8e72",
-        "name": "ROLE",
-        "audience": {
-          "type": "application",
-          "value": "6db0975b-9f7c-42d1-a8b4-895a77d23cff",
-          "display": "Sample Application"
-        },
-        "ref": "https://localhost:9443/scim2/v2/Roles/1fad5996-3418-4883-925d-a319e3bb8e72",
-        "removedGroups": [
-          {
-            "id": "da2aeb94-aebf-4846-b611-1865cf85aea5",
-            "groupName": "sales",
-            "userStoreDomain": "PRIMARY"
-          }
-        ],
-        "addedGroups": [
-          {
-            "id": "da2aeb94-aebf-4846-b611-1865cf85aea5",
-            "groupName": "sales",
-            "userStoreDomain": "PRIMARY"
-          }
-        ]
-      }
-    }
-  }
-}
-```
-
-</Edition>
-
-</Variants>
 
 The `events` object contains the actual event data for a role group assignment update, identified by the URI `https://schemas.identity.wso2.org/events/role/event-type/roleGroupsUpdated`. This URI signifies a role group assignment update event.
 
@@ -3887,10 +2377,6 @@ The table below explains each property in the event data.
 
 **Example payload:**
 
-<Variants>
-
-<Edition only="cloud">
-
 ```json
 {
   "iss": "https://api.asgardeo.io/t/myorg",
@@ -3934,58 +2420,6 @@ The table below explains each property in the event data.
   }
 }
 ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "d443cbd9-82c5-4397-8d2d-b1b143f13905",
-  "iat": 1783322195104,
-  "rci": "fd338a56-569b-4b1f-a9e3-9bffade3b481",
-  "events": {
-    "https://schemas.identity.wso2.org/events/role/event-type/roleIdpGroupsUpdated": {
-      "initiatorType": "ADMIN",
-      "initiatorIpAddress": "127.0.0.1",
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "action": "ROLE_UPDATE",
-      "role": {
-        "id": "1fad5996-3418-4883-925d-a319e3bb8e72",
-        "name": "ROLE",
-        "audience": {
-          "type": "application",
-          "value": "6db0975b-9f7c-42d1-a8b4-895a77d23cff",
-          "display": "Sample Application"
-        },
-        "ref": "https://localhost:9443/scim2/v2/Roles/1fad5996-3418-4883-925d-a319e3bb8e72",
-        "addedIdpGroups": [
-          {
-            "groupId": "7ae41d10-e4a1-4ed8-adc2-8644872b8783",
-            "groupName": "idpgroup1",
-            "idpId": "8ef35e33-b4dc-444f-8d71-3ff32e44cca9",
-            "idpName": "IDP"
-          }
-        ]
-      }
-    }
-  }
-}
-```
-
-</Edition>
-
-</Variants>
 
 The `events` object contains the actual event data for a role IdP group assignment update, identified by the URI `https://schemas.identity.wso2.org/events/role/event-type/roleIdpGroupsUpdated`. This URI signifies a role IdP group assignment update event.
 
@@ -4063,10 +2497,6 @@ The table below explains each property in the event data.
 
 **Example payload:**
 
-<Variants>
-
-<Edition only="cloud">
-
 ```json
 {
   "iss": "https://api.asgardeo.io/t/myorg",
@@ -4108,56 +2538,6 @@ The table below explains each property in the event data.
   }
 }
 ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "99ea2226-328e-4b60-bc8d-4d72028267e8",
-  "iat": 1783322187274,
-  "rci": "c607ec61-8bcc-4f2c-8b21-064f3774fdd4",
-  "events": {
-    "https://schemas.identity.wso2.org/events/role/event-type/rolePermissionsUpdated": {
-      "initiatorType": "ADMIN",
-      "initiatorIpAddress": "127.0.0.1",
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "action": "ROLE_UPDATE",
-      "role": {
-        "id": "1fad5996-3418-4883-925d-a319e3bb8e72",
-        "name": "ROLE",
-        "audience": {
-          "type": "application",
-          "value": "6db0975b-9f7c-42d1-a8b4-895a77d23cff",
-          "display": "Sample Application"
-        },
-        "ref": "https://localhost:9443/scim2/v2/Roles/1fad5996-3418-4883-925d-a319e3bb8e72",
-        "addedPermissions": [
-          "internal_session_delete"
-        ],
-        "removedPermissions": [
-          "internal_session_view"
-        ]
-      }
-    }
-  }
-}
-```
-
-</Edition>
-
-</Variants>
 
 The `events` object contains the actual event data for a role permission update, identified by the URI `https://schemas.identity.wso2.org/events/role/event-type/rolePermissionsUpdated`. This URI signifies a role permission update event.
 
@@ -4428,10 +2808,6 @@ The table below explains how these properties differ based on each flow.
   </tbody>
 </table>
 
-</Edition>
-
-<Edition selfHostedFrom="next">
-
 ## Consent events
 
 {edition.productName} dispatches webhook events when users add or revoke consents for purposes. These events allow third-party providers (TPPs) and downstream systems to react to consent state changes in real time.
@@ -4441,10 +2817,6 @@ The table below explains how these properties differ based on each flow.
 {edition.productName} sends a `consentAdded` event when a user approves a consent for a purpose. This can occur during user registration or during the login flow.
 
 **Example payload:**
-
-<Variants>
-
-<Edition only="cloud">
 
 ```json
 {
@@ -4501,70 +2873,6 @@ The table below explains how these properties differ based on each flow.
   }
 }
 ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "8c695b00-d165-466d-ab20-770aa43ec4da",
-  "iat": 1782900901608,
-  "rci": "8cccc58f-ecb1-46da-a825-707f6740b8ea",
-  "events": {
-    "https://schemas.identity.wso2.org/events/consent/event-type/consentAdded": {
-      "initiatorType": "USER",
-      "initiatorIpAddress": "127.0.0.1",
-      "user": {
-        "id": "60ed468b-a357-405c-aad2-2ce6960ec2aa",
-        "claims": [
-          {
-            "uri": "http://wso2.org/claims/emailaddress",
-            "value": "peter@aol.com"
-          }
-        ],
-        "ref": "https://localhost:9443/t/myorg.com/scim2/Users/60ed468b-a357-405c-aad2-2ce6960ec2aa"
-      },
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "userStore": {
-        "id": "UFJJTUFSWQ==",
-        "name": "PRIMARY"
-      },
-      "action": "REGISTER",
-      "consent": {
-        "id": "501a6ba7-0b15-4ae6-9642-03b5267ab996",
-        "subjectId": "peter",
-        "state": "APPROVED",
-        "serviceId": "Resident IDP",
-        "purpose": {
-          "id": "909eea3e-5bf1-4106-a5b8-44580fc4ae74",
-          "name": "Marketing Consent",
-          "version": "12a53d28-4536-4201-939e-5e5c00eadf7b",
-          "elements": [
-            {
-              "name": "Policy"
-            }
-          ]
-        }
-      }
-    }
-  }
-}
-```
-
-</Edition>
-
-</Variants>
 
 The `events` object contains the actual event data for a consent addition, identified by the URI `https://schemas.identity.wso2.org/events/consent/event-type/consentAdded`. This URI signifies a user consent approval event.
 
@@ -4666,10 +2974,6 @@ The table below explains each property in the event data.
 
 **Example payload:**
 
-<Variants>
-
-<Edition only="cloud">
-
 ```json
 {
   "iss": "https://api.asgardeo.io/t/myorg",
@@ -4725,70 +3029,6 @@ The table below explains each property in the event data.
   }
 }
 ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "6d43b40a-18f6-48ee-8592-d85d9f005452",
-  "iat": 1782901275789,
-  "rci": "7dadc7c2-9584-48e1-92e5-afa64a2630a6",
-  "events": {
-    "https://schemas.identity.wso2.org/events/consent/event-type/consentRevoked": {
-      "initiatorType": "USER",
-      "initiatorIpAddress": "127.0.0.1",
-      "user": {
-        "id": "60ed468b-a357-405c-aad2-2ce6960ec2aa",
-        "claims": [
-          {
-            "uri": "http://wso2.org/claims/emailaddress",
-            "value": "peter@aol.com"
-          }
-        ],
-        "ref": "https://localhost:9443/t/myorg.com/scim2/Users/60ed468b-a357-405c-aad2-2ce6960ec2aa"
-      },
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "userStore": {
-        "id": "UFJJTUFSWQ==",
-        "name": "PRIMARY"
-      },
-      "action": "CONSENT_REVOKE",
-      "consent": {
-        "id": "501a6ba7-0b15-4ae6-9642-03b5267ab996",
-        "subjectId": "peter",
-        "state": "REVOKED",
-        "serviceId": "Resident IDP",
-        "purpose": {
-          "id": "909eea3e-5bf1-4106-a5b8-44580fc4ae74",
-          "name": "Marketing Consent",
-          "version": "12a53d28-4536-4201-939e-5e5c00eadf7b",
-          "elements": [
-            {
-              "name": "Policy"
-            }
-          ]
-        }
-      }
-    }
-  }
-}
-```
-
-</Edition>
-
-</Variants>
 
 The `events` object contains the actual event data for a consent revocation, identified by the URI `https://schemas.identity.wso2.org/events/consent/event-type/consentRevoked`. This URI signifies a user consent revocation event.
 
@@ -4976,10 +3216,6 @@ The `initiatorType` and `action` properties together identify the flow that trig
 
 **Example payload:**
 
-<Variants>
-
-<Edition only="cloud">
-
 ```json
 {
   "iss": "https://api.asgardeo.io/t/myorg",
@@ -5019,54 +3255,6 @@ The `initiatorType` and `action` properties together identify the flow that trig
   }
 }
 ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-```json
-{
-  "iss": "https://localhost:9443/t/myorg.com",
-  "jti": "8745b363-ed05-4c24-a202-3d2c062bec6b",
-  "iat": 1782900735216,
-  "rci": "5e62a3ec-96ac-472b-824c-3def154c5edc",
-  "events": {
-    "https://schemas.identity.wso2.org/events/consent-purpose/event-type/purposeVersionAdded": {
-      "initiatorType": "ADMIN",
-      "initiatorIpAddress": "127.0.0.1",
-      "tenant": {
-        "id": "12402",
-        "name": "myorg.com"
-      },
-      "organization": {
-        "id": "10084a8d-113f-4211-a0d5-efe36b082211",
-        "name": "myorg",
-        "orgHandle": "myorg.com",
-        "depth": 0
-      },
-      "action": "PURPOSE_UPDATE",
-      "purpose": {
-        "id": "909eea3e-5bf1-4106-a5b8-44580fc4ae74",
-        "name": "Marketing Consent",
-        "version": {
-          "version": "2",
-          "setAsLatest": true,
-          "elements": [
-            {
-              "name": "Policy",
-              "mandatory": false
-            }
-          ]
-        }
-      }
-    }
-  }
-}
-```
-
-</Edition>
-
-</Variants>
 
 The `events` object contains the actual event data for a purpose version addition, identified by the URI `https://schemas.identity.wso2.org/events/consent-purpose/event-type/purposeVersionAdded`. This URI signifies that a new version has been added to a consent purpose.
 
@@ -5140,6 +3328,3 @@ The table below explains each property in the event data.
     </tr>
   </tbody>
 </table>
-
-</Edition>
-

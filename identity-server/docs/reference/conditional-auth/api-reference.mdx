@@ -1,6 +1,6 @@
 ---
 title: Conditional authentication - API reference
-description: WSO2 Identity Platform provides a set of defined functions and objects to write your conditional authentication script.  # generated from the first paragraph; a writer should improve it
+description: WSO2 Identity Server provides a set of defined functions and objects to write your conditional authentication script.  # generated from the first paragraph; a writer should improve it
 type: reference
 sidebar_label: Conditional auth - API
 sidebar_position: 1
@@ -81,14 +81,10 @@ import TabItem from '@theme/TabItem';
     - [`sendEmail()`](#send-email)
     - [`getValueFromDecodedAssertion()`](#get-parameter-value-from-jwt)
     - [`getUniqueUserWithClaimValues()`](#get-unique-user)
-    - [`getUsersWithClaimValues()`](#get-multiple-users)
     - [`getAssociatedLocalUser()`](#get-associated-user)
     - [`doAssociationWithLocalUser()`](#do-association-with-local-user)
-    - [`removeAssociatedLocalUser()`](#remove-associated-local-user)
     - [`httpGet()`](#http-get)
     - [`httpPost()`](#http-post)
-    - [`resolveMultiAttributeLoginIdentifier()`](#resolve-multi-attribute-login-identifier)
-    - [`updateUserPassword()`](#update-user-password)
 
 - [Object references](#object-reference): You can use objects to capture user behaviors and set attributes. For example, you can use the **user** and **request** objects and write the login conditions accordingly. Listed below are the object references that can be used in conditional authentication scripts.
 
@@ -228,6 +224,10 @@ executeStep(<stepId>,
 
 This section describes the **options** you can use to configure the `executeStep()` function, and the values you can use as **local authenticators** and **federated IdPs** in the function.
 
+<Variants>
+
+<Edition only="cloud">
+
 - <b>Options</b>
 
     You can use these options when executing an authentication step through the script. See the [examples](#examples) given below for details.
@@ -269,10 +269,6 @@ This section describes the **options** you can use to configure the `executeStep
     `authenticatorParams` configure the authenticators that {edition.productName} provides. They are not sent to the external service of a [custom authenticator](../../guides/customizations/service-extensions/in-flow-extensions/custom-authentication.mdx). To pass values to such a service, list the request parameters you want to forward in **Allowed parameters** of the custom authenticator configuration.
     :::
 
-<Variants>
-
-<Edition only="cloud">
-
 - <b> Connections: Local authenticators and federated IdPs </b>
 
     When you want to access your configured [connections](../../guides/authentication/index.mdx#manage-connections) in an authentication step, you can use the following values through the **options** explained above.
@@ -300,6 +296,47 @@ This section describes the **options** you can use to configure the `executeStep
 </Edition>
 
 <Edition only="self-hosted">
+
+- <b>Options</b>
+
+    You can use these options when executing an authentication step through the script. See the [examples](#examples) given below for details.
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`authenticationOptions`</td>
+          <td>List the authentication methods that will be prompted for this step.</td>
+        </tr>
+        <tr>
+          <td>`authenticationOptions.authenticator`</td>
+          <td>The name of the local authenticator used.</td>
+        </tr>
+        <tr>
+          <td>`authenticationOptions.idp`</td>
+          <td>The name of the federated identity provider used.</td>
+        </tr>
+        <tr>
+          <td>`authenticatorParams`</td>
+          <td>Pass the configuration for the step authenticators or identity providers.</td>
+        </tr>
+        <tr>
+          <td>`authenticatorParams.common`</td>
+          <td>Specify the common configurations for both local authenticators and federated identity providers.</td>
+        </tr>
+        <tr>
+          <td>`authenticatorParams.local.{authenticator-name}`</td>
+          <td>The name of the local authenticator used in the application. The configurations passed here will be available for that specific authenticator.</td>
+        </tr>
+        <tr>
+          <td>`authenticatorParams.local.{federated-identity-provider}`</td>
+          <td>The name of the federated identity provider used in the application. The configurations passed here will be available for that federated identity provider.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    :::note
+    `authenticatorParams` configure the authenticators that {edition.productName} provides. They are not sent to the external service of a [custom authenticator](../../guides/customizations/service-extensions/in-flow-extensions/custom-authentication.mdx).
+    :::
 
 - <b> Connections: Local authenticators and federated IdPs </b>
 
@@ -1295,8 +1332,6 @@ This function returns a string containing the parameter's value in a decoded Jso
     var state = getValueFromDecodedAssertion(context.request.params.request[0],"state",true);
     ```
 
-<Variants>
-
 <Edition only="cloud">
 
 :::note
@@ -1304,16 +1339,6 @@ This function only decodes the JWT - it does not verify the signature, issuer, a
 :::
 
 </Edition>
-
-<Edition only="self-hosted">
-
-:::note
-This function only decodes the JWT — it does not verify the signature, issuer, audience, or expiry.
-:::
-
-</Edition>
-
-</Variants>
 
 ### Get unique user
 
@@ -1349,22 +1374,6 @@ The utility function will search the underlying user stores and return a unique 
     var mappedUsername = getUniqueUserWithClaimValues(claimMap, context);
     ```
 
-</Edition>
-
-<Edition only="self-hosted">
-
-- **Example**
-
-    ```javascript
-    var claimMap = {};
-    claimMap["http://wso2.org/claims/username"] = federatedUserName;
-    var mappedUsername = getUniqueUserWithClaimValues(claimMap, context);
-    ```
-
-</Edition>
-
-</Variants>
-
 ### Get multiple users
 
 `getUsersWithClaimValues(claimMap, context)`
@@ -1398,6 +1407,22 @@ This function will search the underlying user stores and return a list of users 
     }
     ```
 
+</Edition>
+
+<Edition only="self-hosted">
+
+- **Example**
+
+    ```javascript
+    var claimMap = {};
+    claimMap["http://wso2.org/claims/username"] = federatedUserName;
+    var mappedUsername = getUniqueUserWithClaimValues(claimMap, context);
+    ```
+
+</Edition>
+
+</Variants>
+
 ### Get associated user
 
 `getAssociatedLocalUser(federatedUser)`
@@ -1417,9 +1442,27 @@ This function returns the local user associated with the federate username given
 
 ### Do association with local user
 
+<Variants>
+
+<Edition only="cloud">
+
 `doAssociationWithLocalUser(federatedUser, localUsername, tenantDomain, userStoreDomain)`
 
+</Edition>
+
+<Edition only="self-hosted">
+
+`doAssociationWithLocalUser()`
+
+</Edition>
+
+</Variants>
+
 This function sets association to the local user with federated user. It includes the following parameters.
+
+<Variants>
+
+<Edition only="cloud">
 
 - **Parameters**
 
@@ -1461,10 +1504,6 @@ This function removes the existing association of a federated user with the loca
       </tbody>
     </table>
 
-<Variants>
-
-<Edition only="cloud">
-
 - **Example**
 
     ```javascript
@@ -1502,12 +1541,28 @@ This utility function returns a masked value for the given input value. It can b
 
 <Edition only="self-hosted">
 
-- **Example**
+- **Parameters**
 
-    ```javascript
-    var federatedUser = context.steps[1].subject;
-    removeAssociatedLocalUser(federatedUser);
-    ```
+    <table>
+      <tbody>
+        <tr>
+          <td>`federatedUser`</td>
+          <td>The federated user object.</td>
+        </tr>
+        <tr>
+          <td>`localUsername`</td>
+          <td>The username of the local user to be associated.</td>
+        </tr>
+        <tr>
+          <td>`tenantDomain`</td>
+          <td>The tenant domain of the local user..</td>
+        </tr>
+        <tr>
+          <td>`userStoreDomain`</td>
+          <td>The user store domain of the local user.</td>
+        </tr>
+      </tbody>
+    </table>
 
 </Edition>
 
@@ -1726,6 +1781,89 @@ WSO2 Identity Platform uses the following default connection configurations for 
 | **Retry count** | The number of retry attempts for requests. | 2 |
 :::
 
+### Resolve multi attribute login identifier
+
+`resolveMultiAttributeLoginIdentifier(loginIdentifier, tenantDomain)`
+
+If [alternative login identifiers](../../guides/account-configurations/manage-login-identifiers/configure-login-identifiers.mdx) are enabled, this function resolves the username from the provided login identifier.
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`loginIdentifier`</td>
+          <td>User provided login identifier.</td>
+        </tr>
+        <tr>
+          <td>`organization`</td>
+          <td>Organization name.</td>
+        </tr>
+      </tbody>
+    </table>
+
+- **Example**
+
+    ```javascript
+    var loginIdentifier = context.request.params.username[0];
+    var tenantDomain = context.tenantDomain;
+
+    var username = resolveMultiAttributeLoginIdentifier(loginIdentifier, tenantDomain);
+    ```
+
+### Update user password
+
+`updateUserPassword(user, newPassword, eventHandlers, skipPasswordValidation)`
+
+This function updates the user password.
+
+- **Parameters**
+
+    <table>
+      <tbody>
+        <tr>
+          <td>`user`</td>
+          <td>The user object.</td>
+        </tr>
+        <tr>
+          <td>`newPassword`</td>
+          <td>New user password.</td>
+        </tr>
+        <tr>
+          <td>`eventHandlers`</td>
+          <td>Optional callback event handlers.</td>
+        </tr>
+        <tr>
+          <td>`skipPasswordValidation`</td>
+          <td>Optional parameter to skip password pattern validation.</td>
+        </tr>
+      </tbody>
+    </table>
+
+- **Example**
+
+    ```javascript
+    updateUserPassword(user, "newPassword");
+
+    updateUserPassword(user, "newPassword", {
+      onSuccess: function(context) {
+        Log.info("Password updated successfully.");
+      },
+      onFail: function(context) {
+        Log.info("Password update failed.");
+      }
+    });
+
+    updateUserPassword(user, "newPassword", {
+      onSuccess: function(context) {
+        Log.info("Password updated successfully.");
+      },
+      onFail: function(context) {
+        Log.info("Password update failed.");
+      }
+    }, true);
+    ```
+
 </Edition>
 
 <Edition only="self-hosted">
@@ -1824,89 +1962,6 @@ http_connections.request_retry_count = 2
 
 </Variants>
 
-### Resolve multi attribute login identifier
-
-`resolveMultiAttributeLoginIdentifier(loginIdentifier, tenantDomain)`
-
-If <Edition only="cloud">[alternative login identifiers](../../guides/account-configurations/manage-login-identifiers/configure-login-identifiers.mdx)</Edition><Edition only="self-hosted">alternative login identifiers</Edition> are enabled, this function resolves the username from the provided login identifier.
-
-- **Parameters**
-
-    <table>
-      <tbody>
-        <tr>
-          <td>`loginIdentifier`</td>
-          <td>User provided login identifier.</td>
-        </tr>
-        <tr>
-          <td>`organization`</td>
-          <td>Organization name.</td>
-        </tr>
-      </tbody>
-    </table>
-
-- **Example**
-
-    ```javascript
-    var loginIdentifier = context.request.params.username[0];
-    var tenantDomain = context.tenantDomain;
-
-    var username = resolveMultiAttributeLoginIdentifier(loginIdentifier, tenantDomain);
-    ```
-
-### Update user password
-
-`updateUserPassword(user, newPassword, eventHandlers, skipPasswordValidation)`
-
-This function updates the user password.
-
-- **Parameters**
-
-    <table>
-      <tbody>
-        <tr>
-          <td>`user`</td>
-          <td>The user object.</td>
-        </tr>
-        <tr>
-          <td>`newPassword`</td>
-          <td>New user password.</td>
-        </tr>
-        <tr>
-          <td>`eventHandlers`</td>
-          <td>Optional callback event handlers.</td>
-        </tr>
-        <tr>
-          <td>`skipPasswordValidation`</td>
-          <td>Optional parameter to skip password pattern validation.</td>
-        </tr>
-      </tbody>
-    </table>
-
-- **Example**
-
-    ```javascript
-    updateUserPassword(user, "newPassword");
-
-    updateUserPassword(user, "newPassword", {
-      onSuccess: function(context) {
-        Log.info("Password updated successfully.");
-      },
-      onFail: function(context) {
-        Log.info("Password update failed.");
-      }
-    });
-
-    updateUserPassword(user, "newPassword", {
-      onSuccess: function(context) {
-        Log.info("Password updated successfully.");
-      },
-      onFail: function(context) {
-        Log.info("Password update failed.");
-      }
-    }, true);
-    ```
-
 ## Object reference
 
 You can use the following objects in a conditional authentication script to read information about the login attempt and to set attributes on it.
@@ -1925,6 +1980,10 @@ Contains the authentication context information. The information can be accessed
 </table>
 
 The step number is the one configured at the step configuration, not the actual order in which they get executed.
+
+<Variants>
+
+<Edition only="cloud">
 
 <table>
   <tbody>
@@ -1958,6 +2017,31 @@ The step number is the one configured at the step configuration, not the actual 
     </tr>
   </tbody>
 </table>
+
+</Edition>
+
+<Edition only="self-hosted">
+
+<table>
+  <tbody>
+    <tr>
+      <td>`context.request`</td>
+      <td>Access the HTTP authentication request information. See [request](#request) for more information.</td>
+    </tr>
+    <tr>
+      <td>`context.response`</td>
+      <td>Access the HTTP response, which will be sent back to the client. See [response](#response) for more information.</td>
+    </tr>
+    <tr>
+      <td>`context.serviceProviderName`</td>
+      <td>Get the application name.</td>
+    </tr>
+  </tbody>
+</table>
+
+</Edition>
+
+</Variants>
 
 ### Step
 

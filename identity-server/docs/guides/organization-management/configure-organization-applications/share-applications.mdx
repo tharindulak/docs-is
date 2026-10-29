@@ -78,7 +78,7 @@ Once you have shared the application with an organization, check if the followin
 
 Enable sharing for **all existing and future organizations**. New organizations automatically inherit shared access.
 
-<img src={require("../../../../assets/img/guides/organization/manage-organizations/share-with-all-organizations.png").default} alt="Share with all organizations" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/organization/manage-organizations/share-with-all-organizations.png").default} alt="Share with all organizations" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"></Edition></Variants>
 
 **Why use this option?** When application's access is needed for all organizations without any restrictions.
 
@@ -90,7 +90,7 @@ Share **specific roles only** with all organizations:
 
 2. Select the roles you want to share
 
-<img src={require("../../../../assets/img/guides/organization/manage-organizations/share-a-subset-of-roles-with-all-organizations.png").default} alt="Share a subset of roles with all organizations" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/organization/manage-organizations/share-a-subset-of-roles-with-all-organizations.png").default} alt="Share a subset of roles with all organizations" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"></Edition></Variants>
 
 **Why use advanced mode?** This gives you precise control over application access. You select which roles to share initially, and these become the default for all organizations. Later, you can customize access by adding or removing specific roles for individual organizations.
 
@@ -98,7 +98,7 @@ Share **specific roles only** with all organizations:
 
 Enable sharing for **specific organizations only**. This gives you granular control over application access.
 
-<img src={require("../../../../assets/img/guides/organization/manage-organizations/share-with-selected-organizations.png").default} alt="Share with selected organizations" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/organization/manage-organizations/share-with-selected-organizations.png").default} alt="Share with selected organizations" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"></Edition></Variants>
 
 **Why use this option?** Control exactly which organizations access your application and which roles they receive.
 
@@ -119,7 +119,7 @@ Click **Share All Roles** to automatically share every role with selected organi
 
 Enable **Share application and roles with future child organizations** to automatically share with new child organizations under your selected organization.
 
-<img src={require("../../../../assets/img/guides/organization/manage-organizations/share-with-selected-and-all-organizations.png").default} alt="Share application and roles with future child organizations" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/organization/manage-organizations/share-with-selected-and-all-organizations.png").default} alt="Share application and roles with future child organizations" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"></Edition></Variants>
 
 **Why use inheritance?** New child organizations get access without manual configuration.
 
@@ -184,7 +184,7 @@ To share the My Account portal with organizations,
 
     By default, {edition.productName} shares the **Console application with all organizations** using all available roles.
 
-    <Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/organization/manage-organizations/share-console-application.png").default} alt="Share Console application" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/organization/manage-organizations/share-console-application.png").default} alt="Share Console application" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+    <Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/organization/manage-organizations/share-console-application.png").default} alt="Share Console application" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"></Edition></Variants>
 
     **Why use this default?** All organizations get consistent access to Console features without any restriction
 
@@ -196,7 +196,7 @@ To share the My Account portal with organizations,
 
     2. Choose which roles to share across organizations
 
-    <Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/organization/manage-organizations/share-console-application-roles-selectively.png").default} alt="Share Console application roles selectively" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/organization/manage-organizations/share-console-application-roles-selectively.png").default} alt="Share Console application roles selectively" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+    <Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/organization/manage-organizations/share-console-application-roles-selectively.png").default} alt="Share Console application roles selectively" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"></Edition></Variants>
 
     **Why use advanced mode?** Control which Console features organizations can access through specific roles. Selected roles share with all organizations by default. Later, you can customize access by adding or removing specific roles for individual organizations.
 

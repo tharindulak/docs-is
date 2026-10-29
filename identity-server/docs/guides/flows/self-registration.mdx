@@ -3,6 +3,7 @@ title: Self registration
 description: Self-registration allows new users to create an account within an organization without needing admin intervention.  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_position: 3
+editions: cloud
 ---
 
 Self-registration allows new users to create an account within an organization without needing admin intervention. The flow can include steps to collect user details, verify identity, and set credentials before the account becomes active.
@@ -26,7 +27,7 @@ The flow works as follows:
 
 This ensures that only users with a valid email address can self-register, helping to prevent fake or fraudulent sign-ups.
 
-<img src={require("../../../assets/img/guides/flows/flow-registration.png").default} alt="Final Flow" width="auto" style={{display: "block", margin: "0"}} />
+<img src={require("../../../assets/cloud/img/guides/flows/flow-registration.png").default} alt="Final Flow" width="auto" style={{display: "block", margin: "0"}} />
 
 ## Build the flow
 
@@ -42,13 +43,13 @@ To load the template,
 
 2. Click on the **Self Registration** card. This loads the Basic Details template onto the canvas by default.
 
-<img src={require("../../../assets/img/guides/flows/flow-registration-step-01.gif").default} alt="Step 1" width="auto" style={{display: "block", margin: "0"}} />
+<img src={require("../../../assets/cloud/img/guides/flows/flow-registration-step-01.gif").default} alt="Step 1" width="auto" style={{display: "block", margin: "0"}} />
 
 ### Step 2 – Load the template {#step-2-load-the-template}
 
 If the template isn't loaded automatically, click the `+` button next to the **Basic Details** template to load it onto the canvas.
 
-<img src={require("../../../assets/img/guides/flows/flow-registration-step-02.gif").default} alt="Step 2" width="auto" style={{display: "block", margin: "0"}} />
+<img src={require("../../../assets/cloud/img/guides/flows/flow-registration-step-02.gif").default} alt="Step 2" width="auto" style={{display: "block", margin: "0"}} />
 
 ### Step 3 – Tidy the form {#step-3-tidy-the-form}
 
@@ -58,7 +59,7 @@ Simplify the form to collect only the essentials for this registration flow.
 
 - Remove the Email OTP view.
 
-<img src={require("../../../assets/img/guides/flows/flow-registration-step-03.png").default} alt="Step 3" width="auto" style={{display: "block", margin: "0"}} />
+<img src={require("../../../assets/cloud/img/guides/flows/flow-registration-step-03.png").default} alt="Step 3" width="auto" style={{display: "block", margin: "0"}} />
 
 ### Step 4 – Insert the Magic Link verification step {#step-4-insert-the-magic-link-verification-step}
 
@@ -69,7 +70,7 @@ Insert the Magic Link verification step between the initial sign-up and the succ
 3. Draw a new connection from the Sign Up button to the Magic Link View. The button's action will automatically update to Navigation.
 4. Draw a final connection from the Verify button (inside the Magic Link step) to the End node.
 
-<img src={require("../../../assets/img/guides/flows/flow-registration-step-04.png").default} alt="Step 4" width="auto" style={{display: "block", margin: "0"}} />
+<img src={require("../../../assets/cloud/img/guides/flows/flow-registration-step-04.png").default} alt="Step 4" width="auto" style={{display: "block", margin: "0"}} />
 
 ### Step 5 – Configure the flow completion {#step-5-configure-the-flow-completion}
 
@@ -85,7 +86,7 @@ The **End** node determines what the user experiences upon successful registrati
 2. Configure the desired outcomes:
    - **Auto Login:** Immediately logs the user in once the flow is completed, without requiring them to enter their credentials again.
 
-<img src={require("../../../assets/img/guides/flows/flow-registration-step-05.png").default} alt="Step 5" width="auto" style={{display: "block", margin: "0"}} />
+<img src={require("../../../assets/cloud/img/guides/flows/flow-registration-step-05.png").default} alt="Step 5" width="auto" style={{display: "block", margin: "0"}} />
 
 ### Step 6 – Enable the flow {#step-6-enable-the-flow}
 
@@ -112,21 +113,7 @@ To add a connection to the self-registration flow:
 
 1. Register the connection under **Console** > **Connections** by following the setup guide linked above for the provider you want to use.
 
-<Variants>
-
-<Edition only="cloud">
-
 2. In the connection settings, set the authorized redirect URL to: `https://accounts.asgardeo.io/t/{tenant-domain}/accounts/register`
-
-</Edition>
-
-<Edition only="self-hosted">
-
-2. In the connection settings, set the authorized redirect URL to: `https://{is_host}/t/{tenant-domain}/accounts/register`
-
-</Edition>
-
-</Variants>
 
 3. Open the **Self Registration** flow in the Flow Builder.
 

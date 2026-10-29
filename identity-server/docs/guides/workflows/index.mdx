@@ -3,6 +3,7 @@ title: Workflows
 description: The new workflow framework supports long-running approval workflows for critical user management operations.  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_position: 1
+editions: cloud
 ---
 
 The new workflow framework supports long-running approval workflows for critical user management operations.
@@ -13,20 +14,6 @@ should be configured by the administrators by defining the steps and the approve
 This new implementation enables organizations to design multi-step approval processes, where approvers can be assigned
 based on roles or users, reflecting their permission levels and responsibilities. Administrators can configure these
 workflows through the Console, while approvers can review and act on approval requests seamlessly from the My Account portal.
-
-<Edition only="self-hosted">
-
-:::note[Legacy BPS-based workflow connector]
-{edition.productName} previously used a BPS (Business Process Server)-based approval workflow implementation. This implementation is still available as an [external connector](https://store.wso2.com/connector/identity-workflow-impl-bps).
-
-**Key differences:**
-
-- The new workflow feature and the BPS-based implementation run independently.
-- Approval requests from the new workflow feature appear in **My Account** for review.
-- Approval requests from the BPS-based implementation remain accessible via the legacy approval API.
-:::
-
-</Edition>
 
 ## Workflow support in organizations
 

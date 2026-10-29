@@ -1,111 +1,112 @@
 {
   "summary": {
     "source": "wso2/docs-is@736a3468f8bfb461e817cb1ed71407fa8a3236cc",
-    "edition": "cloud",
-    "legacyBase": "https://wso2.com/asgardeo/docs/",
-    "navPages": 659,
+    "edition": "7.1.0",
+    "legacyBase": "https://is.docs.wso2.com/en/7.1.0/",
+    "navPages": 689,
     "navPagesByTree": {
       "cloud": 659,
-      "next": 804
+      "7.1.0": 689
     },
     "contexts": [
       "cloud",
-      "next",
-      "7.3.0"
+      "7.1.0"
     ],
-    "sourceFiles": 1572,
+    "sourceFiles": 1437,
     "stats": {
-      "pages": 1015,
+      "pages": 998,
       "partials": 0,
-      "apiPages": 173,
-      "placeholders": 52,
-      "images": 1576,
+      "apiPages": 170,
+      "placeholders": 50,
+      "images": 1526,
       "attachments": 4,
-      "missingImages": 2,
-      "links": 3881,
-      "externalLinks": 1169,
-      "legacyHostLinks": 41,
-      "otherVersionLinks": 67,
-      "crossProductLinks": 51,
-      "linksViaRedirect": 169,
-      "droppedLinks": 11,
-      "droppedAnchors": 202,
-      "placeholdersWrapped": 52,
-      "admonitions": 2002,
-      "details": 253,
-      "tabSets": 528,
-      "codeBlocks": 3656,
-      "indentedCode": 5,
-      "htmlBlocks": 748,
-      "explicitIds": 115,
+      "missingImages": 9,
+      "links": 3784,
+      "externalLinks": 1111,
+      "legacyHostLinks": 44,
+      "otherVersionLinks": 31,
+      "crossProductLinks": 24,
+      "linksViaRedirect": 110,
+      "droppedLinks": 26,
+      "droppedAnchors": 124,
+      "placeholdersWrapped": 50,
+      "admonitions": 1957,
+      "details": 247,
+      "tabSets": 491,
+      "codeBlocks": 3444,
+      "indentedCode": 15,
+      "htmlBlocks": 760,
+      "explicitIds": 137,
       "basePathInCode": 3,
       "basePathInText": 2,
-      "unknownElements": 40,
+      "unknownElements": 37,
       "unknownLanguages": [],
-      "generatedDescriptions": 1015,
-      "sidebarLabels": 489,
-      "relativeFallback": 31,
-      "unlisted": 62,
-      "placeholders_": 1,
-      "sharedPages": 544,
-      "cloudOnlyPages": 157,
-      "selfHostedOnlyPages": 314,
-      "markedPages": 286,
-      "markers": 1900,
-      "flatMerged": 1,
+      "generatedDescriptions": 998,
+      "sidebarLabels": 493,
+      "relativeFallback": 15,
+      "unlisted": 57,
+      "placeholders_": 0,
+      "sharedPages": 426,
+      "cloudOnlyPages": 275,
+      "selfHostedOnlyPages": 297,
+      "markedPages": 231,
+      "markers": 1517,
+      "flatMerged": 3,
       "editionCheckFailures": 0,
-      "imageVariants": 289,
-      "linkVariants": 26,
-      "includesExpanded": 2927,
-      "includeFrontMatter": 9,
+      "imageVariants": 234,
+      "linkVariants": 25,
+      "includesExpanded": 1697,
+      "includeFrontMatter": 6,
       "flaggedOffPages": 0,
-      "specsFixed": 29,
-      "titlesVarying": 16,
-      "variants": 861,
+      "specsFixed": 22,
+      "titlesVarying": 11,
+      "variants": 686,
       "adjacentAlternatives": 0,
-      "cloudCounterparts": 2,
+      "cloudCounterparts": 1,
       "ambiguousCounterparts": 0,
-      "possibleCounterparts": 5,
+      "possibleCounterparts": 9,
       "templateMetaDropped": 179,
-      "catalogItems": 13,
+      "catalogItems": 2,
       "overviewPages": 1,
-      "cloudOnlyAssets": 507,
-      "selfHostedOnlyAssets": 555,
+      "cloudOnlyAssets": 700,
+      "selfHostedOnlyAssets": 505,
       "attributeVariables": 18,
       "exportSingleFolders": 16,
       "legacyRedirectsExternal": 0,
-      "legacyRedirectsUnresolved": 0,
-      "legacyRedirects": 1526,
-      "legacyRedirectsSource": 69,
-      "acceptedByOverrides": 224
+      "legacyRedirectsUnresolved": 9,
+      "legacyRedirects": 1017,
+      "legacyRedirectsSource": 292,
+      "acceptedByOverrides": 138
     },
     "issues": {
-      "layout": 2,
-      "nav": 21,
+      "layout": 4,
+      "nav": 16,
       "merged": 3,
-      "cloud-counterpart": 5,
-      "api-spec": 139,
-      "api": 20,
-      "not-in-nav": 62,
+      "cloud-counterpart": 9,
+      "api-spec": 93,
+      "api": 19,
+      "not-in-nav": 57,
+      "broken-link": 16,
       "include-front-matter": 3,
-      "html": 31,
+      "html": 30,
       "text": 1,
-      "missing-image": 2,
-      "heading": 2,
+      "missing-image": 9,
       "placeholder-link": 6,
-      "placeholder": 1,
-      "indented-code": 4,
-      "code": 3
+      "indented-code": 7,
+      "code": 3,
+      "broken-anchor": 4,
+      "redirect": 20,
+      "override": 6
     },
     "compileFailures": 0,
     "overrides": {
       "file": "identity-server.overrides.yaml",
-      "patches": 32,
-      "patchesApplied": 32,
-      "accepted": 110
+      "patches": 29,
+      "patchesApplied": 29,
+      "accepted": 106
     },
     "jinja": {
-      "conditionsUsed": 107,
+      "conditionsUsed": 103,
       "conditionsInTable": 109,
       "variablesUsed": 121,
       "variablesInTable": 142
@@ -164,83 +165,78 @@
     },
     {
       "kind": "layout",
-      "file": "next:guides/users/migrate-users/migrate-users.md",
+      "file": "7.1.0:guides/users/migrate-users/migrate-users.md",
       "message": "would share the route /guides/users/migrate-users/ with guides/users/migrate-users/index.md; renamed"
     },
     {
       "kind": "nav",
-      "file": "next:references/tutorials/connect-with-ms-entra.md",
-      "message": "listed in the nav more than once; only the first entry (Tutorials > Verifiable credentials with Microsoft Entra Verified ID) is kept"
-    },
-    {
-      "kind": "nav",
-      "file": "next:references/tutorials/connect-with-mattr.md",
-      "message": "listed in the nav more than once; only the first entry (Tutorials > Verifiable credentials with MATTR) is kept"
-    },
-    {
-      "kind": "nav",
-      "file": "next:references/tutorials/send-notification-external-schedular.md",
-      "message": "listed in the nav more than once; only the first entry (Tutorials > Send notifications through an external scheduled task) is kept"
-    },
-    {
-      "kind": "nav",
-      "file": "next:references/tutorials/configure-choreo-for-password-migration.md",
-      "message": "listed in the nav more than once; only the first entry (Tutorials > Configure Choreo for silent password migration) is kept"
-    },
-    {
-      "kind": "nav",
-      "file": "next:references/tutorials/build-your-own-push-authenticator-app.md",
-      "message": "listed in the nav more than once; only the first entry (Tutorials > Build your own push authenticator app) is kept"
-    },
-    {
-      "kind": "nav",
-      "file": "next:complete-guides/react/introduction.md",
+      "file": "7.1.0:complete-guides/react/introduction.md",
       "message": "listed in the nav more than once; only the first entry (Get started > Connect App > React > Complete Guide) is kept"
     },
     {
       "kind": "nav",
-      "file": "next:complete-guides/nextjs/introduction.md",
+      "file": "7.1.0:complete-guides/nextjs/introduction.md",
       "message": "listed in the nav more than once; only the first entry (Get started > Connect App > Next.js > Complete Guide (Redirect)) is kept"
     },
     {
       "kind": "nav",
-      "file": "next:complete-guides/app-native/introduction.md",
+      "file": "7.1.0:complete-guides/app-native/introduction.md",
       "message": "listed in the nav more than once; only the first entry (Get started > Connect App > Next.js > Complete Guide (App-Native)) is kept"
     },
     {
       "kind": "nav",
-      "file": "next:complete-guides/angular/introduction.md",
+      "file": "7.1.0:complete-guides/angular/introduction.md",
       "message": "listed in the nav more than once; only the first entry (Get started > Connect App > Angular > Complete Guide) is kept"
     },
     {
       "kind": "nav",
-      "file": "next:complete-guides/javascript/introduction.md",
+      "file": "7.1.0:complete-guides/javascript/introduction.md",
       "message": "listed in the nav more than once; only the first entry (Get started > Connect App > Javascript > Complete Guide) is kept"
     },
     {
       "kind": "nav",
-      "file": "next:complete-guides/expressjs/introduction.md",
+      "file": "7.1.0:complete-guides/expressjs/introduction.md",
       "message": "listed in the nav more than once; only the first entry (Get started > Connect App > Express.js > Complete Guide) is kept"
     },
     {
       "kind": "nav",
-      "file": "next:complete-guides/dotnet/introduction.md",
+      "file": "7.1.0:complete-guides/dotnet/introduction.md",
       "message": "listed in the nav more than once; only the first entry (Get started > Connect App > .NET Guide) is kept"
     },
     {
       "kind": "merged",
-      "file": "next:apis/organization-apis/user-store.md",
+      "file": "7.1.0:apis/organization-apis/user-store.md",
       "message": "same place as cloud:apis/organization-apis/org-user-store.md; merged into one page"
     },
     {
-      "kind": "merged",
-      "file": "next:references/concepts/oid4vci.md",
-      "message": "same place as cloud:references/oid4vci.md; merged into one page"
+      "kind": "layout",
+      "file": "7.1.0:guides/authorization/user-impersonation.md",
+      "message": "would share the route /guides/authorization/user-impersonation/ with another tree's page; renamed to guides/authorization/user-impersonation-2"
     },
     {
       "kind": "merged",
-      "file": "next:references/concepts/push-notification-based-authentication.md",
+      "file": "7.1.0:references/concepts/push-notification-based-authentication.md",
       "message": "same place as cloud:references/push-notification-based-authentication.md; merged into one page"
+    },
+    {
+      "kind": "layout",
+      "file": "7.1.0:references/service-extensions/pre-flow-extensions/pre-issue-access-token-action/api-contract.md",
+      "message": "would share the route /reference/apis/api-contract-2/ with another tree's page; renamed to reference/apis/api-contract-2/index-2"
+    },
+    {
+      "kind": "merged",
+      "file": "7.1.0:references/service-extensions/pre-flow-extensions/pre-update-password-action/api-contract.md",
+      "message": "same place as cloud:references/service-extensions/in-flow-extensions/flow-extension/api-contract.md; merged into one page"
+    },
+    {
+      "kind": "cloud-counterpart",
+      "file": "guides/authorization/user-impersonation-2",
+      "message": "the same nav label in different navigation slots: Self-hosted-only guides/authorization/user-impersonation-2, Cloud-only guides/authorization/user-impersonation/index; set cloudCounterpart by hand if one covers the other"
+    },
+    {
+      "kind": "cloud-counterpart",
+      "file": "reference/apis/management-apis/server-management/consent-management/use-the-consent-management-rest-apis, guides/connectors/onfido/overview, guides/connectors/sift/overview, deploy-and-operate/monitor/monitor-logs/mask-sensitive-info/mask-sensitive-information-in-logs, deploy-and-operate/monitor/monitor-logs/monitor-logs, guides/users/sync-user-accounts/sync-account-overview",
+      "message": "the same nav label in different navigation slots: Self-hosted-only reference/apis/management-apis/server-management/consent-management/use-the-consent-management-rest-apis, guides/connectors/onfido/overview, guides/connectors/sift/overview, deploy-and-operate/monitor/monitor-logs/mask-sensitive-info/mask-sensitive-information-in-logs, deploy-and-operate/monitor/monitor-logs/monitor-logs, guides/users/sync-user-accounts/sync-account-overview, Cloud-only guides/organization-management/organization-based-login/organization-login/legacy-approach, guides/organization-management/organization-based-login/organization-login-overview, guides/users/outbound-provisioning/outbound-provisioning-overview, guides/verifiable-credentials/index; set cloudCounterpart by hand if one covers the other"
     },
     {
       "kind": "cloud-counterpart",
@@ -251,6 +247,16 @@
       "kind": "cloud-counterpart",
       "file": "deploy-and-operate/deploy/deployment-overview/promote-configurations",
       "message": "the same nav label in different navigation slots: Self-hosted-only deploy-and-operate/deploy/deployment-overview/promote-configurations, Cloud-only guides/your-identity-platform/manage-environments/promote-configurations; set cloudCounterpart by hand if one covers the other"
+    },
+    {
+      "kind": "cloud-counterpart",
+      "file": "guides/your-is/recover-password",
+      "message": "the same nav label in different navigation slots: Self-hosted-only guides/your-is/recover-password, Cloud-only guides/your-identity-platform/recover-password; set cloudCounterpart by hand if one covers the other"
+    },
+    {
+      "kind": "cloud-counterpart",
+      "file": "get-started/connect-app/express-js/expressjs",
+      "message": "the same nav label in different navigation slots: Self-hosted-only get-started/connect-app/express-js/expressjs, Cloud-only get-started/connect-app/nuxt/nuxt, get-started/connect-app/quick-starts/vue; set cloudCounterpart by hand if one covers the other"
     },
     {
       "kind": "cloud-counterpart",
@@ -270,7 +276,7 @@
     {
       "kind": "api-spec",
       "file": "apis/action-management-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api-spec",
@@ -290,7 +296,7 @@
     {
       "kind": "api-spec",
       "file": "apis/admin-identity-verification.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api",
@@ -309,23 +315,23 @@
     },
     {
       "kind": "api-spec",
-      "file": "apis/agent-share-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
-      "kind": "api-spec",
       "file": "apis/api-resource-management-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api-spec",
       "file": "apis/app-native-authentication-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api-spec",
       "file": "apis/approvals-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
+    },
+    {
+      "kind": "not-in-nav",
+      "file": "apis/approvals-rest-api.md",
+      "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
     },
     {
       "kind": "api-spec",
@@ -390,47 +396,17 @@
     {
       "kind": "api-spec",
       "file": "apis/association-rest-api.md",
-      "message": "openapi.yaml: $ref #/definitions/Error → #/components/schemas/Error (×8)"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/association-rest-api.md",
-      "message": "openapi.yaml: $ref #/definitions/BulkFederatedAssociationRequest → #/components/schemas/BulkFederatedAssociationRequest"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/association-rest-api.md",
-      "message": "openapi.yaml: $ref #/definitions/BulkFederatedAssociationResponse → #/components/schemas/BulkFederatedAssociationResponse"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/association-rest-api.md",
-      "message": "openapi.yaml: $ref #/definitions/BulkFederatedAssociationOperation → #/components/schemas/BulkFederatedAssociationOperation"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/association-rest-api.md",
-      "message": "openapi.yaml: $ref #/definitions/UserFederatedAssociationData → #/components/schemas/UserFederatedAssociationData"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/association-rest-api.md",
-      "message": "openapi.yaml: $ref #/definitions/BulkAssociationOperationResponse → #/components/schemas/BulkAssociationOperationResponse"
+      "message": "openapi.yaml: $ref #/definitions/Error → #/components/schemas/Error (×4)"
     },
     {
       "kind": "api-spec",
       "file": "apis/association-rest-api.md",
       "message": "openapi.yaml: body parameter of POST /{user-id}/federated-associations (Swagger 2.0 style) moved to requestBody"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/association-rest-api.md",
-      "message": "openapi.yaml: body parameter of POST /federated-associations/bulk (Swagger 2.0 style) moved to requestBody"
     },
     {
       "kind": "api-spec",
       "file": "apis/branding-preference-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api-spec",
@@ -449,28 +425,18 @@
     },
     {
       "kind": "api-spec",
-      "file": "apis/consent-management-v2-api-definition.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
-      "kind": "api-spec",
       "file": "apis/dynamic-client-registration-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/end-user-credential-management-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api-spec",
       "file": "apis/identity-verification-providers.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api-spec",
       "file": "apis/idp.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api-spec",
@@ -490,52 +456,22 @@
     {
       "kind": "api-spec",
       "file": "apis/notification-sender-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
-      "kind": "not-in-nav",
-      "file": "apis/notification-sender-rest-api.md",
-      "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/notification-sender-v2-rest-api.md",
-      "message": "openapi.cloud.yaml: duplicate operationId createSMSSender (POST /notification-senders/push) renamed to createSMSSender2"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/notification-sender-v2-rest-api.md",
-      "message": "openapi.self-hosted.yaml: duplicate operationId createSMSSender (POST /notification-senders/push) renamed to createSMSSender2"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api-spec",
       "file": "apis/notification-sender-v2-rest-api.md",
       "message": "openapi.yaml: duplicate operationId createSMSSender (POST /notification-senders/push) renamed to createSMSSender2"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/notification-sender-v2-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
     },
     {
       "kind": "api-spec",
       "file": "apis/notification-templates.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/organization-apis/action-management-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api-spec",
       "file": "apis/organization-apis/api-resource-management-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/organization-apis/end-user-credential-management-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "broken-link",
@@ -564,22 +500,7 @@
     {
       "kind": "api-spec",
       "file": "apis/organization-apis/notification-sender-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
-      "kind": "not-in-nav",
-      "file": "apis/organization-apis/notification-sender-rest-api.md",
-      "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/organization-apis/notification-sender-v2-rest-api.md",
-      "message": "openapi.cloud.yaml: duplicate operationId createSMSSender (POST /notification-senders/push) renamed to createSMSSender2"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/organization-apis/notification-sender-v2-rest-api.md",
-      "message": "openapi.self-hosted.yaml: duplicate operationId createSMSSender (POST /notification-senders/push) renamed to createSMSSender2"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api-spec",
@@ -588,13 +509,8 @@
     },
     {
       "kind": "api-spec",
-      "file": "apis/organization-apis/notification-sender-v2-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
-      "kind": "api-spec",
       "file": "apis/organization-apis/org-account-recovery.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api-spec",
@@ -659,42 +575,12 @@
     {
       "kind": "api-spec",
       "file": "apis/organization-apis/org-association-rest-api.md",
-      "message": "openapi.self-hosted.yaml: $ref #/definitions/Error → #/components/schemas/Error (×8)"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/organization-apis/org-association-rest-api.md",
-      "message": "openapi.self-hosted.yaml: $ref #/definitions/BulkFederatedAssociationRequest → #/components/schemas/BulkFederatedAssociationRequest"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/organization-apis/org-association-rest-api.md",
-      "message": "openapi.self-hosted.yaml: $ref #/definitions/BulkFederatedAssociationResponse → #/components/schemas/BulkFederatedAssociationResponse"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/organization-apis/org-association-rest-api.md",
-      "message": "openapi.self-hosted.yaml: $ref #/definitions/BulkFederatedAssociationOperation → #/components/schemas/BulkFederatedAssociationOperation"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/organization-apis/org-association-rest-api.md",
-      "message": "openapi.self-hosted.yaml: $ref #/definitions/UserFederatedAssociationData → #/components/schemas/UserFederatedAssociationData"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/organization-apis/org-association-rest-api.md",
-      "message": "openapi.self-hosted.yaml: $ref #/definitions/BulkAssociationOperationResponse → #/components/schemas/BulkAssociationOperationResponse"
+      "message": "openapi.self-hosted.yaml: $ref #/definitions/Error → #/components/schemas/Error (×4)"
     },
     {
       "kind": "api-spec",
       "file": "apis/organization-apis/org-association-rest-api.md",
       "message": "openapi.self-hosted.yaml: body parameter of POST /{user-id}/federated-associations (Swagger 2.0 style) moved to requestBody"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/organization-apis/org-association-rest-api.md",
-      "message": "openapi.self-hosted.yaml: body parameter of POST /federated-associations/bulk (Swagger 2.0 style) moved to requestBody"
     },
     {
       "kind": "api-spec",
@@ -749,12 +635,12 @@
     {
       "kind": "api-spec",
       "file": "apis/organization-apis/org-association-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api-spec",
       "file": "apis/organization-apis/org-authenticators.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "not-in-nav",
@@ -764,22 +650,7 @@
     {
       "kind": "api-spec",
       "file": "apis/organization-apis/org-role-mgt.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
-      "kind": "api",
-      "file": "apis/organization-apis/org-role-v3-mgt.md",
-      "message": "next: spec apis/organization-apis/restapis/role-v3-management.yaml not found; skipped"
-    },
-    {
-      "kind": "api",
-      "file": "apis/organization-apis/org-role-v3-mgt.md",
-      "message": "no spec for this API in any tree; written as a page without a reference"
-    },
-    {
-      "kind": "not-in-nav",
-      "file": "apis/organization-apis/org-role-v3-mgt.md",
-      "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "not-in-nav",
@@ -788,13 +659,8 @@
     },
     {
       "kind": "api-spec",
-      "file": "apis/organization-apis/org-user-store.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
-      "kind": "api-spec",
       "file": "apis/organization-apis/organization-application-mgt.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api",
@@ -814,47 +680,37 @@
     {
       "kind": "api-spec",
       "file": "apis/organization-apis/organization-user-invitation.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/organization-apis/organization-user-share-v2.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api-spec",
       "file": "apis/organization-apis/organization-user-share.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api-spec",
       "file": "apis/organization-apis/scim2/scim2-org-group-mgt.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api-spec",
       "file": "apis/organization-apis/scim2/scim2-org-user-mgt.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api-spec",
-      "file": "apis/organization-apis/verification-code-management-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "file": "apis/organization-apis/user-store.md",
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api-spec",
       "file": "apis/organization-discovery-config-mgt-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api-spec",
       "file": "apis/organization-user-share-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/organization-user-share-v2-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "not-in-nav",
@@ -864,7 +720,7 @@
     {
       "kind": "api-spec",
       "file": "apis/push-notification-device-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api-spec",
@@ -874,17 +730,7 @@
     {
       "kind": "api-spec",
       "file": "apis/rule-metadata-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
-      "kind": "not-in-nav",
-      "file": "apis/scim-1.1-apis.md",
-      "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/scim2-agents-rest-apis.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "broken-link",
@@ -950,44 +796,35 @@
       "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
     },
     {
+      "kind": "broken-link",
+      "file": "apis/scim2/scim2-batch-operations.md",
+      "message": "link to /develop/scim2-patch-operations/#patch-users has no target in this version; link removed, text kept",
+      "detail": {
+        "href": "/develop/scim2-patch-operations/#patch-users"
+      }
+    },
+    {
+      "kind": "broken-link",
+      "file": "apis/scim2/scim2-batch-operations.md",
+      "message": "link to /develop/scim2-patch-operations/#patch-user-groups has no target in this version; link removed, text kept",
+      "detail": {
+        "href": "/develop/scim2-patch-operations/#patch-user-groups"
+      }
+    },
+    {
       "kind": "api-spec",
       "file": "apis/scim2/scim2-bulk-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api-spec",
       "file": "apis/scim2/scim2-groups-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/scim2/scim2-schema-rest-api.md",
-      "message": "openapi.self-hosted.yaml: converted from Swagger 2.0 to OpenAPI 3.0.3"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/scim2/scim2-schema-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api-spec",
       "file": "apis/scim2/scim2-users-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/self-password-update-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/user-consent-rest-api.md",
-      "message": "openapi.cloud.yaml: converted from Swagger 2.0 to OpenAPI 3.0.3"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/user-consent-rest-api.md",
-      "message": "openapi.self-hosted.yaml: converted from Swagger 2.0 to OpenAPI 3.0.3"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api-spec",
@@ -996,13 +833,8 @@
     },
     {
       "kind": "api-spec",
-      "file": "apis/user-consent-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
-      "kind": "api-spec",
       "file": "apis/user-discoverable-applications.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api-spec",
@@ -1022,37 +854,12 @@
     {
       "kind": "api-spec",
       "file": "apis/user-identity-verification.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api-spec",
       "file": "apis/user-organization-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/vc-template-management-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/verification-code-management-me-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/verification-code-management-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/webhook-management-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
-      "kind": "api-spec",
-      "file": "apis/webhook-metadata-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "not-in-nav",
@@ -1060,14 +867,9 @@
       "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
     },
     {
-      "kind": "api-spec",
-      "file": "apis/workflow-rest-api.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
       "kind": "broken-link",
       "file": "complete-guides/angular/next-steps.md",
-      "message": "link to {{base_path}}/guides/user-accounts/configure-self-registration/ has no target in next, 7.3.0; link removed there, text kept",
+      "message": "link to {{base_path}}/guides/user-accounts/configure-self-registration/ has no target in 7.1.0; link removed there, text kept",
       "detail": {
         "href": "{{base_path}}/guides/user-accounts/configure-self-registration/"
       },
@@ -1076,7 +878,7 @@
     {
       "kind": "broken-link",
       "file": "complete-guides/dotnet/next-steps.md",
-      "message": "link to {{base_path}}/guides/user-accounts/configure-self-registration/ has no target in next, 7.3.0; link removed there, text kept",
+      "message": "link to {{base_path}}/guides/user-accounts/configure-self-registration/ has no target in 7.1.0; link removed there, text kept",
       "detail": {
         "href": "{{base_path}}/guides/user-accounts/configure-self-registration/"
       },
@@ -1085,7 +887,7 @@
     {
       "kind": "broken-link",
       "file": "complete-guides/expressjs/next-steps.md",
-      "message": "link to {{base_path}}/guides/user-accounts/configure-self-registration/ has no target in next, 7.3.0; link removed there, text kept",
+      "message": "link to {{base_path}}/guides/user-accounts/configure-self-registration/ has no target in 7.1.0; link removed there, text kept",
       "detail": {
         "href": "{{base_path}}/guides/user-accounts/configure-self-registration/"
       },
@@ -1094,7 +896,7 @@
     {
       "kind": "broken-link",
       "file": "complete-guides/fesecurity/next-steps.md",
-      "message": "link to {{base_path}}/guides/user-accounts/configure-self-registration/ has no target in next, 7.3.0; link removed there, text kept",
+      "message": "link to {{base_path}}/guides/user-accounts/configure-self-registration/ has no target in 7.1.0; link removed there, text kept",
       "detail": {
         "href": "{{base_path}}/guides/user-accounts/configure-self-registration/"
       },
@@ -1118,7 +920,7 @@
     {
       "kind": "broken-link",
       "file": "complete-guides/javascript/next-steps.md",
-      "message": "link to {{base_path}}/guides/user-accounts/configure-self-registration/ has no target in next, 7.3.0; link removed there, text kept",
+      "message": "link to {{base_path}}/guides/user-accounts/configure-self-registration/ has no target in 7.1.0; link removed there, text kept",
       "detail": {
         "href": "{{base_path}}/guides/user-accounts/configure-self-registration/"
       },
@@ -1127,7 +929,7 @@
     {
       "kind": "broken-link",
       "file": "complete-guides/react/next-steps.md",
-      "message": "link to {{base_path}}/guides/user-accounts/configure-self-registration/ has no target in next, 7.3.0; link removed there, text kept",
+      "message": "link to {{base_path}}/guides/user-accounts/configure-self-registration/ has no target in 7.1.0; link removed there, text kept",
       "detail": {
         "href": "{{base_path}}/guides/user-accounts/configure-self-registration/"
       },
@@ -1191,14 +993,9 @@
       "accepted": "the legacy site has no page there either"
     },
     {
-      "kind": "not-in-nav",
+      "kind": "html",
       "file": "deploy/configure/email-sending-module.md",
-      "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
-    },
-    {
-      "kind": "not-in-nav",
-      "file": "deploy/configure/user-stores/secure-userstore-using-pbkdf2.md",
-      "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
+      "message": "unknown element <mail@address.tld> inside raw HTML kept as the text `<mail@address.tld>`"
     },
     {
       "kind": "html",
@@ -1209,6 +1006,14 @@
       "kind": "html",
       "file": "deploy/deployment-guide.md",
       "message": "unbalanced inline </ul> removed"
+    },
+    {
+      "kind": "broken-link",
+      "file": "deploy/security/keystores/index.md",
+      "message": "link to {{base_path}}/deploy/security/keystores/configure-custom-keystores has no target in this version; link removed, text kept",
+      "detail": {
+        "href": "{{base_path}}/deploy/security/keystores/configure-custom-keystores"
+      }
     },
     {
       "kind": "broken-link",
@@ -1291,12 +1096,12 @@
     },
     {
       "kind": "not-in-nav",
-      "file": "guides/analytics/opensearch.md",
+      "file": "guides/api-security/aws/securing-aws-http-apis.md",
       "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
     },
     {
       "kind": "not-in-nav",
-      "file": "guides/api-security/aws/securing-aws-http-apis.md",
+      "file": "guides/authentication/add-identifier-first-login.md",
       "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
     },
     {
@@ -1310,13 +1115,13 @@
       "message": "unknown element <specify> inside raw HTML kept as the text `<specify>`"
     },
     {
-      "kind": "html",
-      "file": "guides/authentication/eid-login/add-swiss-id-login.md",
-      "message": "unknown element <swissid_env> inside raw HTML kept as the text `<swissid_env>`"
+      "kind": "not-in-nav",
+      "file": "guides/authentication/conditional-auth/sign-in-option-based-template.md",
+      "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
     },
     {
       "kind": "html",
-      "file": "guides/authentication/eid-login/add-swissid-login.md",
+      "file": "guides/authentication/eid-login/add-swiss-id-login.md",
       "message": "unknown element <swissid_env> inside raw HTML kept as the text `<swissid_env>`"
     },
     {
@@ -1326,11 +1131,7 @@
       "detail": {
         "href": "../../users/manage-users.md/#onboard-single-user",
         "suggest": {
-          "next": {
-            "page": "guides/users/users/manage-users",
-            "oldUrl": "guides/users/manage-users/"
-          },
-          "7.3.0": {
+          "7.1.0": {
             "page": "guides/users/users/manage-users",
             "oldUrl": "guides/users/manage-users/"
           }
@@ -1339,8 +1140,29 @@
       "accepted": "the legacy site has no page there either"
     },
     {
+      "kind": "broken-link",
+      "file": "guides/authentication/oidc/oidc-token-decryption.md",
+      "message": "link to {{base_path}}/references/concepts/authentication/id-token/ has no target in this version; link removed, text kept",
+      "detail": {
+        "href": "{{base_path}}/references/concepts/authentication/id-token/"
+      }
+    },
+    {
       "kind": "not-in-nav",
-      "file": "guides/authentication/oidc/implement-device-flow.md",
+      "file": "guides/authentication/oidc/oidc-token-decryption.md",
+      "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
+    },
+    {
+      "kind": "broken-link",
+      "file": "guides/authentication/oidc/oidc-token-encryption.md",
+      "message": "link to {{base_path}}/references/concepts/authentication/id-token/ has no target in this version; link removed, text kept",
+      "detail": {
+        "href": "{{base_path}}/references/concepts/authentication/id-token/"
+      }
+    },
+    {
+      "kind": "not-in-nav",
+      "file": "guides/authentication/oidc/oidc-token-encryption.md",
       "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
     },
     {
@@ -1364,9 +1186,17 @@
       "message": "unknown element <tr\"> inside raw HTML kept as the text `<tr\">`"
     },
     {
+      "kind": "broken-link",
+      "file": "guides/authentication/sso-integrations/index.md",
+      "message": "link to {{base_path}}/guides/authentication/sso-integrations/add-aws-iam-identity-center has no target in 7.1.0; link removed there, text kept",
+      "detail": {
+        "href": "{{base_path}}/guides/authentication/sso-integrations/add-aws-iam-identity-center"
+      }
+    },
+    {
       "kind": "missing-image",
-      "file": "guides/authorization/rich-authorization-requests.md",
-      "message": "image {{base_path}}/assets/img/guides/authorization/rich-authorization-requests/rar-client-credentials-is.png does not exist in the source; removed (alt: \"RAR client credentials grant\")"
+      "file": "guides/authentication/sso-integrations/index.md",
+      "message": "image {{base_path}}/assets/img/logo/amazon-logo.png does not exist in 7.1.0; removed there"
     },
     {
       "kind": "html",
@@ -1384,14 +1214,19 @@
       "message": "unknown element <domain> inside raw HTML kept as the text `<domain>`"
     },
     {
-      "kind": "html",
-      "file": "guides/notification-channels/configure-email-provider.md",
-      "message": "unknown element <mail@address.tld> inside raw HTML kept as the text `<mail@address.tld>`"
+      "kind": "not-in-nav",
+      "file": "guides/notification-channels/configure-push-provider.md",
+      "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
+    },
+    {
+      "kind": "not-in-nav",
+      "file": "guides/notification-channels/configure-sms-provider.md",
+      "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
     },
     {
       "kind": "broken-link",
       "file": "guides/organization-management/manage-b2b-administration.md",
-      "message": "link to {{base_path}}/apis/organization-apis/org-idp/ has no target in next, 7.3.0; link removed there, text kept",
+      "message": "link to {{base_path}}/apis/organization-apis/org-idp/ has no target in 7.1.0; link removed there, text kept",
       "detail": {
         "href": "{{base_path}}/apis/organization-apis/org-idp/"
       },
@@ -1400,7 +1235,7 @@
     {
       "kind": "broken-link",
       "file": "guides/organization-management/manage-b2b-administration.md",
-      "message": "link to {{base_path}}/apis/organization-apis/org-application-management/ has no target in next, 7.3.0; link removed there, text kept",
+      "message": "link to {{base_path}}/apis/organization-apis/org-application-management/ has no target in 7.1.0; link removed there, text kept",
       "detail": {
         "href": "{{base_path}}/apis/organization-apis/org-application-management/"
       },
@@ -1422,9 +1257,34 @@
       "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
     },
     {
-      "kind": "not-in-nav",
-      "file": "guides/organization-management/organization-login/index.md",
-      "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
+      "kind": "missing-image",
+      "file": "guides/organization-management/share-applications.md",
+      "message": "image {{base_path}}/assets/img/guides/organization/manage-organizations/share-with-all-organizations.png does not exist in 7.1.0; removed there"
+    },
+    {
+      "kind": "missing-image",
+      "file": "guides/organization-management/share-applications.md",
+      "message": "image {{base_path}}/assets/img/guides/organization/manage-organizations/share-a-subset-of-roles-with-all-organizations.png does not exist in 7.1.0; removed there"
+    },
+    {
+      "kind": "missing-image",
+      "file": "guides/organization-management/share-applications.md",
+      "message": "image {{base_path}}/assets/img/guides/organization/manage-organizations/share-with-selected-organizations.png does not exist in 7.1.0; removed there"
+    },
+    {
+      "kind": "missing-image",
+      "file": "guides/organization-management/share-applications.md",
+      "message": "image {{base_path}}/assets/img/guides/organization/manage-organizations/share-with-selected-and-all-organizations.png does not exist in 7.1.0; removed there"
+    },
+    {
+      "kind": "missing-image",
+      "file": "guides/organization-management/share-applications.md",
+      "message": "image {{base_path}}/assets/img/guides/organization/manage-organizations/share-console-application.png does not exist in 7.1.0; removed there"
+    },
+    {
+      "kind": "missing-image",
+      "file": "guides/organization-management/share-applications.md",
+      "message": "image {{base_path}}/assets/img/guides/organization/manage-organizations/share-console-application-roles-selectively.png does not exist in 7.1.0; removed there"
     },
     {
       "kind": "html",
@@ -1437,14 +1297,44 @@
       "message": "unbalanced inline </table> removed"
     },
     {
-      "kind": "heading",
-      "file": "guides/service-extensions/pre-flow-extensions/pre-update-password-action.md",
-      "message": "heading \"Request from WSO2 Identity Platform\" has a different id in each Edition; written once per Edition"
+      "kind": "broken-link",
+      "file": "guides/service-extensions/pre-flow-extensions/pre-issue-access-token-action.md",
+      "message": "link to {{base_path}}/references/service-extensions/pre-flow-extensions/pre-issue-access-token-action/pre-issue-access-token-action-v1.0/ has no target in this version; link removed, text kept",
+      "detail": {
+        "href": "{{base_path}}/references/service-extensions/pre-flow-extensions/pre-issue-access-token-action/pre-issue-access-token-action-v1.0/"
+      }
     },
     {
-      "kind": "heading",
+      "kind": "broken-link",
+      "file": "guides/service-extensions/pre-flow-extensions/pre-issue-access-token-action.md",
+      "message": "link to {{base_path}}/references/service-extensions/pre-flow-extensions/pre-issue-access-token-action/pre-issue-access-token-action-v1.1/ has no target in this version; link removed, text kept",
+      "detail": {
+        "href": "{{base_path}}/references/service-extensions/pre-flow-extensions/pre-issue-access-token-action/pre-issue-access-token-action-v1.1/"
+      }
+    },
+    {
+      "kind": "broken-link",
       "file": "guides/service-extensions/pre-flow-extensions/pre-update-password-action.md",
-      "message": "heading \"Example request from WSO2 Identity Platform\" has a different id in each Edition; written once per Edition"
+      "message": "link to {{base_path}}/references/service-extensions/pre-flow-extensions/pre-update-password-action/pre-update-password-action-v1.0/ has no target in this version; link removed, text kept",
+      "detail": {
+        "href": "{{base_path}}/references/service-extensions/pre-flow-extensions/pre-update-password-action/pre-update-password-action-v1.0/"
+      }
+    },
+    {
+      "kind": "broken-link",
+      "file": "guides/service-extensions/pre-flow-extensions/pre-update-password-action.md",
+      "message": "link to {{base_path}}/references/service-extensions/pre-flow-extensions/pre-update-password-action/pre-update-password-action-v1.1/ has no target in this version; link removed, text kept",
+      "detail": {
+        "href": "{{base_path}}/references/service-extensions/pre-flow-extensions/pre-update-password-action/pre-update-password-action-v1.1/"
+      }
+    },
+    {
+      "kind": "broken-link",
+      "file": "guides/service-extensions/pre-flow-extensions/pre-update-password-action.md",
+      "message": "link to {{base_path}}/references/service-extensions/pre-flow-extensions/pre-update-password-action/pre-update-password-action-v2.0/ has no target in this version; link removed, text kept",
+      "detail": {
+        "href": "{{base_path}}/references/service-extensions/pre-flow-extensions/pre-update-password-action/pre-update-password-action-v2.0/"
+      }
     },
     {
       "kind": "not-in-nav",
@@ -1477,107 +1367,119 @@
       "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
     },
     {
-      "kind": "not-in-nav",
-      "file": "guides/user-self-service/account-confirmation-for-self-register.md",
-      "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
-    },
-    {
-      "kind": "not-in-nav",
+      "kind": "broken-link",
       "file": "guides/user-self-service/overview.md",
-      "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
+      "message": "link to {{base_path}}/guides/user-self-service/manage-approvals/ has no target in 7.1.0; link removed there, text kept",
+      "detail": {
+        "href": "{{base_path}}/guides/user-self-service/manage-approvals/"
+      }
     },
     {
       "kind": "broken-link",
-      "file": "guides/users/onboard-users.md",
-      "message": "link to {{base_path}}/guides/users/user-stores/configure-a-user-store/ has no target in next, 7.3.0; link removed there, text kept",
+      "file": "guides/user-self-service/self-register.md",
+      "message": "link to {{base_path}}/guides/flows/self-registration/ has no target in 7.1.0; link removed there, text kept",
       "detail": {
-        "href": "{{base_path}}/guides/users/user-stores/configure-a-user-store/"
-      },
-      "accepted": "the legacy site has no page there either"
+        "href": "{{base_path}}/guides/flows/self-registration/",
+        "suggest": {
+          "7.1.0": {
+            "page": "guides/account-configurations/user-onboarding/self-registration",
+            "oldUrl": "guides/account-configurations/user-onboarding/self-registration/"
+          }
+        }
+      }
     },
     {
-      "kind": "html",
-      "file": "guides/users/user-stores/user-store-properties/properties-read-only-ldap-user-store.md",
-      "message": "unbalanced inline </thead> removed"
-    },
-    {
-      "kind": "placeholder-link",
-      "file": "guides/users/user-stores/user-store-properties/properties-read-only-ldap-user-store.md",
-      "message": "link to the example URL ldap://10.100.1.100:389 removed, text kept"
-    },
-    {
-      "kind": "placeholder-link",
-      "file": "guides/users/user-stores/user-store-properties/properties-read-only-ldap-user-store.md",
-      "message": "link to the example URL ldaps://10.100.1.102:639 removed, text kept"
-    },
-    {
-      "kind": "html",
-      "file": "guides/users/user-stores/user-store-properties/properties-read-only-ldap-user-store.md",
-      "message": "unknown element <tr class=\"odd\"> inside raw HTML kept as the text `<tr class=\"odd\">`"
-    },
-    {
-      "kind": "html",
-      "file": "guides/users/user-stores/user-store-properties/properties-read-only-ldap-user-store.md",
-      "message": "unknown element <br > inside raw HTML kept as the text `<br >`"
-    },
-    {
-      "kind": "placeholder-link",
-      "file": "guides/users/user-stores/user-store-properties/properties-read-write-active-directory-user-store.md",
-      "message": "link to the example URL ldap://10.100.1.100:389 removed, text kept"
-    },
-    {
-      "kind": "placeholder-link",
-      "file": "guides/users/user-stores/user-store-properties/properties-read-write-active-directory-user-store.md",
-      "message": "link to the example URL ldaps://10.100.1.102:639 removed, text kept"
-    },
-    {
-      "kind": "html",
-      "file": "guides/users/user-stores/user-store-properties/properties-read-write-active-directory-user-store.md",
-      "message": "unknown element <tr class=\"odd\"> inside raw HTML kept as the text `<tr class=\"odd\">`"
-    },
-    {
-      "kind": "html",
-      "file": "guides/users/user-stores/user-store-properties/properties-read-write-active-directory-user-store.md",
-      "message": "unknown element <br > inside raw HTML kept as the text `<br >`"
-    },
-    {
-      "kind": "html",
-      "file": "guides/users/user-stores/user-store-properties/properties-read-write-ldap-user-store.md",
-      "message": "unbalanced inline </thead> removed"
-    },
-    {
-      "kind": "placeholder-link",
-      "file": "guides/users/user-stores/user-store-properties/properties-read-write-ldap-user-store.md",
-      "message": "link to the example URL ldap://10.100.1.100:389 removed, text kept"
-    },
-    {
-      "kind": "placeholder-link",
-      "file": "guides/users/user-stores/user-store-properties/properties-read-write-ldap-user-store.md",
-      "message": "link to the example URL ldaps://10.100.1.102:639 removed, text kept"
-    },
-    {
-      "kind": "html",
-      "file": "guides/users/user-stores/user-store-properties/properties-read-write-ldap-user-store.md",
-      "message": "unknown element <tr class=\"odd\"> inside raw HTML kept as the text `<tr class=\"odd\">`"
-    },
-    {
-      "kind": "html",
-      "file": "guides/users/user-stores/user-store-properties/properties-read-write-ldap-user-store.md",
-      "message": "unknown element <br > inside raw HTML kept as the text `<br >`"
+      "kind": "broken-link",
+      "file": "guides/user-self-service/user-password-recovery.md",
+      "message": "link to {{base_path}}/guides/flows/password-recovery/ has no target in 7.1.0; link removed there, text kept",
+      "detail": {
+        "href": "{{base_path}}/guides/flows/password-recovery/",
+        "suggest": {
+          "7.1.0": {
+            "page": "guides/account-configurations/account-recovery/password-recovery",
+            "oldUrl": "guides/account-configurations/account-recovery/password-recovery/"
+          }
+        }
+      }
     },
     {
       "kind": "not-in-nav",
-      "file": "guides/verifiable-credentials/oid4vci.md",
+      "file": "guides/users/outbound-provisioning/provisioning-levels/idp-level.md",
       "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
+    },
+    {
+      "kind": "html",
+      "file": "guides/users/user-stores/user-store-properties/properties-read-only-ldap-user-store.md",
+      "message": "unbalanced inline </thead> removed"
+    },
+    {
+      "kind": "placeholder-link",
+      "file": "guides/users/user-stores/user-store-properties/properties-read-only-ldap-user-store.md",
+      "message": "link to the example URL ldap://10.100.1.100:389 removed, text kept"
+    },
+    {
+      "kind": "placeholder-link",
+      "file": "guides/users/user-stores/user-store-properties/properties-read-only-ldap-user-store.md",
+      "message": "link to the example URL ldaps://10.100.1.102:639 removed, text kept"
+    },
+    {
+      "kind": "html",
+      "file": "guides/users/user-stores/user-store-properties/properties-read-only-ldap-user-store.md",
+      "message": "unknown element <tr class=\"odd\"> inside raw HTML kept as the text `<tr class=\"odd\">`"
+    },
+    {
+      "kind": "html",
+      "file": "guides/users/user-stores/user-store-properties/properties-read-only-ldap-user-store.md",
+      "message": "unknown element <br > inside raw HTML kept as the text `<br >`"
+    },
+    {
+      "kind": "placeholder-link",
+      "file": "guides/users/user-stores/user-store-properties/properties-read-write-active-directory-user-store.md",
+      "message": "link to the example URL ldap://10.100.1.100:389 removed, text kept"
+    },
+    {
+      "kind": "placeholder-link",
+      "file": "guides/users/user-stores/user-store-properties/properties-read-write-active-directory-user-store.md",
+      "message": "link to the example URL ldaps://10.100.1.102:639 removed, text kept"
+    },
+    {
+      "kind": "html",
+      "file": "guides/users/user-stores/user-store-properties/properties-read-write-active-directory-user-store.md",
+      "message": "unknown element <tr class=\"odd\"> inside raw HTML kept as the text `<tr class=\"odd\">`"
+    },
+    {
+      "kind": "html",
+      "file": "guides/users/user-stores/user-store-properties/properties-read-write-active-directory-user-store.md",
+      "message": "unknown element <br > inside raw HTML kept as the text `<br >`"
+    },
+    {
+      "kind": "html",
+      "file": "guides/users/user-stores/user-store-properties/properties-read-write-ldap-user-store.md",
+      "message": "unbalanced inline </thead> removed"
+    },
+    {
+      "kind": "placeholder-link",
+      "file": "guides/users/user-stores/user-store-properties/properties-read-write-ldap-user-store.md",
+      "message": "link to the example URL ldap://10.100.1.100:389 removed, text kept"
+    },
+    {
+      "kind": "placeholder-link",
+      "file": "guides/users/user-stores/user-store-properties/properties-read-write-ldap-user-store.md",
+      "message": "link to the example URL ldaps://10.100.1.102:639 removed, text kept"
+    },
+    {
+      "kind": "html",
+      "file": "guides/users/user-stores/user-store-properties/properties-read-write-ldap-user-store.md",
+      "message": "unknown element <tr class=\"odd\"> inside raw HTML kept as the text `<tr class=\"odd\">`"
+    },
+    {
+      "kind": "html",
+      "file": "guides/users/user-stores/user-store-properties/properties-read-write-ldap-user-store.md",
+      "message": "unknown element <br > inside raw HTML kept as the text `<br >`"
     },
     {
       "kind": "not-in-nav",
       "file": "guides/your-is/delete-your-user-account.md",
-      "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
-    },
-    {
-      "kind": "not-in-nav",
-      "file": "guides/your-is/recover-password.md",
       "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
     },
     {
@@ -1620,25 +1522,6 @@
       "accepted": "the legacy site has no page there either"
     },
     {
-      "kind": "not-in-nav",
-      "file": "references/app-settings/ws-federation-settings-for-app.md",
-      "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
-    },
-    {
-      "kind": "broken-link",
-      "file": "references/conditional-auth/api-reference.md",
-      "message": "link to {{base_path}}/guides/user-accounts/account-login/configure-login-identifiers/ has no target in next, 7.3.0; link removed there, text kept",
-      "detail": {
-        "href": "{{base_path}}/guides/user-accounts/account-login/configure-login-identifiers/"
-      },
-      "accepted": "the legacy site has no page there either"
-    },
-    {
-      "kind": "placeholder",
-      "file": "references/configuration-catalog.md",
-      "message": "generated from docs/_data/configuration_catalog.yaml by a theme template; becomes a data-driven Platform component later; a placeholder links to https://is.docs.wso2.com/en/next/references/configuration-catalog/"
-    },
-    {
       "kind": "missing-image",
       "file": "references/extend/authentication/customize-the-authentication-endpoint.md",
       "message": "image {{base_path}}/assets/img/references/`add-access-url-to-app`.png does not exist in the source; removed (alt: \"service provider access url\")"
@@ -1649,9 +1532,30 @@
       "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
     },
     {
+      "kind": "missing-image",
+      "file": "references/grant-types.md",
+      "message": "image {{base_path}}/assets/img/references/grants/ciba-grant.png does not exist in 7.1.0; removed there"
+    },
+    {
+      "kind": "broken-link",
+      "file": "references/grant-types.md",
+      "message": "link to {{base_path}}/guides/agentic-ai/ai-agents/agent-authentication/#using-ciba-for-on-behalf-of-delegation has no target in this version; link removed, text kept",
+      "detail": {
+        "href": "{{base_path}}/guides/agentic-ai/ai-agents/agent-authentication/#using-ciba-for-on-behalf-of-delegation"
+      }
+    },
+    {
+      "kind": "broken-link",
+      "file": "references/grant-types.md",
+      "message": "link to {{base_path}}/guides/authorization/user-impersonation/via-business-application has no target in 7.1.0; link removed there, text kept",
+      "detail": {
+        "href": "{{base_path}}/guides/authorization/user-impersonation/via-business-application"
+      }
+    },
+    {
       "kind": "api-spec",
       "file": "references/service-extensions/in-flow-extensions/custom-authentication/api-contract.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api",
@@ -1659,19 +1563,9 @@
       "message": "API api-contract-2 has no area in the product's apiAreas table"
     },
     {
-      "kind": "api-spec",
-      "file": "references/service-extensions/in-flow-extensions/flow-extension/api-contract.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
       "kind": "api",
-      "file": "references/service-extensions/in-flow-extensions/flow-extension/api-contract.md",
-      "message": "API api-contract-3 has no area in the product's apiAreas table"
-    },
-    {
-      "kind": "api-spec",
-      "file": "references/service-extensions/pre-flow-extensions/pre-issue-access-token-action/pre-issue-access-token-action-v1.0.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "file": "references/service-extensions/pre-flow-extensions/pre-issue-access-token-action/api-contract.md",
+      "message": "API api-contract-2 has no area in the product's apiAreas table"
     },
     {
       "kind": "api",
@@ -1679,29 +1573,14 @@
       "message": "API pre-issue-access-token-action-v1-0 has no area in the product's apiAreas table"
     },
     {
-      "kind": "api-spec",
-      "file": "references/service-extensions/pre-flow-extensions/pre-issue-access-token-action/pre-issue-access-token-action-v1.1.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
       "kind": "api",
       "file": "references/service-extensions/pre-flow-extensions/pre-issue-access-token-action/pre-issue-access-token-action-v1.1.md",
       "message": "API pre-issue-access-token-action-v1-1 has no area in the product's apiAreas table"
     },
     {
-      "kind": "api-spec",
-      "file": "references/service-extensions/pre-flow-extensions/pre-issue-access-token-action/pre-issue-access-token-action-v1.2.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
-    },
-    {
       "kind": "api",
       "file": "references/service-extensions/pre-flow-extensions/pre-issue-access-token-action/pre-issue-access-token-action-v1.2.md",
       "message": "API pre-issue-access-token-action-v1-2 has no area in the product's apiAreas table"
-    },
-    {
-      "kind": "api-spec",
-      "file": "references/service-extensions/pre-flow-extensions/pre-issue-access-token-action/pre-issue-access-token-action-v1.3.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
     },
     {
       "kind": "api",
@@ -1711,7 +1590,7 @@
     {
       "kind": "api-spec",
       "file": "references/service-extensions/pre-flow-extensions/pre-issue-id-token-action/pre-issue-id-token-action-v1.0.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
     },
     {
       "kind": "api",
@@ -1720,8 +1599,13 @@
     },
     {
       "kind": "api-spec",
-      "file": "references/service-extensions/pre-flow-extensions/pre-update-password-action/pre-update-password-action-v1.0.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
+      "file": "references/service-extensions/pre-flow-extensions/pre-update-password-action/api-contract.md",
+      "message": "the spec differs between cloud and 7.1.0; one file per Edition"
+    },
+    {
+      "kind": "api",
+      "file": "references/service-extensions/pre-flow-extensions/pre-update-password-action/api-contract.md",
+      "message": "API api-contract-3 has no area in the product's apiAreas table"
     },
     {
       "kind": "api",
@@ -1732,11 +1616,6 @@
       "kind": "api",
       "file": "references/service-extensions/pre-flow-extensions/pre-update-password-action/pre-update-password-action-v1.1.md",
       "message": "API pre-update-password-action-v1-1 has no area in the product's apiAreas table"
-    },
-    {
-      "kind": "api-spec",
-      "file": "references/service-extensions/pre-flow-extensions/pre-update-password-action/pre-update-password-action-v2.0.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
     },
     {
       "kind": "api",
@@ -1784,6 +1663,21 @@
       "message": "indented block \"https://localhost:9443/o/{organization-id}/api/use\" became a code block (Python-Markdown read it as code too)"
     },
     {
+      "kind": "indented-code",
+      "file": "references/tutorials/build-your-own-push-authenticator-app.md",
+      "message": "indented block \"{\" became a code block (Python-Markdown read it as code too)"
+    },
+    {
+      "kind": "indented-code",
+      "file": "references/tutorials/build-your-own-push-authenticator-app.md",
+      "message": "indented block \"https://localhost:9443/t/{tenant-domain}/push-auth\" became a code block (Python-Markdown read it as code too)"
+    },
+    {
+      "kind": "indented-code",
+      "file": "references/tutorials/build-your-own-push-authenticator-app.md",
+      "message": "indented block \"https://localhost:9443/o/{organization-id}/push-au\" became a code block (Python-Markdown read it as code too)"
+    },
+    {
       "kind": "broken-link",
       "file": "references/tutorials/send-notification-external-schedular.md",
       "message": "link to {{base_path}}/apis/password-expiring-users-identification-rest-api/ has no target in this version; link removed, text kept",
@@ -1791,11 +1685,6 @@
         "href": "{{base_path}}/apis/password-expiring-users-identification-rest-api/"
       },
       "accepted": "the legacy site has no page there either"
-    },
-    {
-      "kind": "api-spec",
-      "file": "references/webhooks/api-contract.md",
-      "message": "the spec differs between cloud and next; one file per Edition"
     },
     {
       "kind": "api",
@@ -1806,6 +1695,11 @@
       "kind": "code",
       "file": "sdks/asgardeo-mcp-server.md",
       "message": "code fence \"```\" never closes; kept as text, as on the legacy site"
+    },
+    {
+      "kind": "not-in-nav",
+      "file": "sdks/nextjs/components/authentication/sign-up.md",
+      "message": "not in the legacy nav; published unlisted (no sidebar entry, as before)"
     },
     {
       "kind": "code",
@@ -1842,52 +1736,13 @@
     },
     {
       "kind": "broken-anchor",
-      "file": "apis/scim2/scim2-batch-operations.md",
-      "message": "anchor #patch-user-groups does not exist on reference/apis/management-apis/user-management/scim2/scim2-patch-operations.mdx in next; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/apis/scim2/scim2-patch-operations/#patch-user-groups",
-        "anchor": "patch-user-groups",
-        "target": "docs/reference/apis/management-apis/user-management/scim2/scim2-patch-operations.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "apis/scim2/scim2-batch-operations.md",
-      "message": "anchor #patch-user-groups does not exist on reference/apis/management-apis/user-management/scim2/scim2-patch-operations.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/apis/scim2/scim2-patch-operations/#patch-user-groups",
-        "anchor": "patch-user-groups",
-        "target": "docs/reference/apis/management-apis/user-management/scim2/scim2-patch-operations.mdx",
-        "context": "7.3.0",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
       "file": "deploy/change-the-hostname.md",
-      "message": "anchor #step-2-import-certificates-to-the-keystore does not exist on deploy-and-operate/secure/encryption/keystores/create-new-keystores.mdx in next; anchor removed",
+      "message": "anchor #step-2-import-certificates-to-the-keystore does not exist on deploy-and-operate/secure/encryption/keystores/create-new-keystores.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/deploy/security/asymmetric-encryption/create-new-keystores/#step-2-import-certificates-to-the-keystore",
         "anchor": "step-2-import-certificates-to-the-keystore",
         "target": "docs/deploy-and-operate/secure/encryption/keystores/create-new-keystores.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "deploy/change-the-hostname.md",
-      "message": "anchor #step-2-import-certificates-to-the-keystore does not exist on deploy-and-operate/secure/encryption/keystores/create-new-keystores.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/deploy/security/asymmetric-encryption/create-new-keystores/#step-2-import-certificates-to-the-keystore",
-        "anchor": "step-2-import-certificates-to-the-keystore",
-        "target": "docs/deploy-and-operate/secure/encryption/keystores/create-new-keystores.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -1895,51 +1750,40 @@
     {
       "kind": "broken-anchor",
       "file": "deploy/configure/databases/remove-references-to-deleted-user-identities.md",
-      "message": "anchor #configuring-the-master-configuration-file does not exist on this page in next; anchor removed",
+      "message": "anchor #configuring-the-master-configuration-file does not exist on this page in 7.1.0; anchor removed",
       "detail": {
         "href": "#configuring-the-master-configuration-file",
         "anchor": "configuring-the-master-configuration-file",
         "target": "docs/deploy-and-operate/configure/databases/remove-references-to-deleted-user-identities.mdx",
-        "context": "next",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
     },
     {
       "kind": "broken-anchor",
-      "file": "deploy/configure/databases/remove-references-to-deleted-user-identities.md",
-      "message": "anchor #configuring-the-master-configuration-file does not exist on this page in 7.3.0; anchor removed",
+      "file": "deploy/deployment-guide.md",
+      "message": "anchor #tested-operating-systems-and-jdks does not exist on deploy-and-operate/deploy/deployment-overview/product-compatibility.mdx in 7.1.0; anchor removed",
       "detail": {
-        "href": "#configuring-the-master-configuration-file",
-        "anchor": "configuring-the-master-configuration-file",
-        "target": "docs/deploy-and-operate/configure/databases/remove-references-to-deleted-user-identities.mdx",
-        "context": "7.3.0",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "deploy/security/enable-java-security-manager.md",
-      "message": "anchor #about-keystores-and-truststores does not exist on deploy-and-operate/secure/encryption/keystores/index.mdx in next; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/deploy/security/asymmetric-encryption/use-asymmetric-encryption#about-keystores-and-truststores",
-        "anchor": "about-keystores-and-truststores",
-        "target": "docs/deploy-and-operate/secure/encryption/keystores/index.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
+        "href": "{{base_path}}/deploy/environment-compatibility/#tested-operating-systems-and-jdks",
+        "anchor": "tested-operating-systems-and-jdks",
+        "target": "docs/deploy-and-operate/deploy/deployment-overview/product-compatibility.mdx",
+        "context": "7.1.0",
+        "suggest": {
+          "anchor": "tested-operating-systems",
+          "score": 0.75
+        }
+      }
     },
     {
       "kind": "broken-anchor",
       "file": "deploy/security/enable-java-security-manager.md",
-      "message": "anchor #about-keystores-and-truststores does not exist on deploy-and-operate/secure/encryption/keystores/index.mdx in 7.3.0; anchor removed",
+      "message": "anchor #about-keystores-and-truststores does not exist on deploy-and-operate/secure/encryption/keystores/index.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/deploy/security/asymmetric-encryption/use-asymmetric-encryption#about-keystores-and-truststores",
         "anchor": "about-keystores-and-truststores",
         "target": "docs/deploy-and-operate/secure/encryption/keystores/index.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -1947,28 +1791,27 @@
     {
       "kind": "broken-anchor",
       "file": "deploy/security/keystores/create-new-keystores.md",
-      "message": "anchor #add-ca-signed-certificates-to-keystores does not exist on this page in next; anchor removed",
+      "message": "anchor #add-ca-signed-certificates-to-keystores does not exist on this page in 7.1.0; anchor removed",
       "detail": {
         "href": "#add-ca-signed-certificates-to-keystores",
         "anchor": "add-ca-signed-certificates-to-keystores",
         "target": "docs/deploy-and-operate/secure/encryption/keystores/create-new-keystores.mdx",
-        "context": "next",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
     },
     {
       "kind": "broken-anchor",
-      "file": "deploy/security/keystores/create-new-keystores.md",
-      "message": "anchor #add-ca-signed-certificates-to-keystores does not exist on this page in 7.3.0; anchor removed",
+      "file": "get-started/about-this-release.md",
+      "message": "anchor #assign-multiple-email-addresses-and-mobile-numbers-to-a-user does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.1.0; anchor removed",
       "detail": {
-        "href": "#add-ca-signed-certificates-to-keystores",
-        "anchor": "add-ca-signed-certificates-to-keystores",
-        "target": "docs/deploy-and-operate/secure/encryption/keystores/create-new-keystores.mdx",
-        "context": "7.3.0",
+        "href": "{{base_path}}/guides/users/attributes/manage-attributes/#assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
+        "anchor": "assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
+        "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
+        "context": "7.1.0",
         "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
+      }
     },
     {
       "kind": "broken-anchor",
@@ -1986,25 +1829,12 @@
     {
       "kind": "broken-anchor",
       "file": "get-started/try-your-own-app/javascript.md",
-      "message": "anchor #obtain-client-id-of-the-app does not exist on guides/authentication/configure-oidc-flows/discover-oidc-configs.mdx in next; anchor removed",
+      "message": "anchor #obtain-client-id-of-the-app does not exist on guides/authentication/configure-oidc-flows/discover-oidc-configs.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/authentication/oidc/discover-oidc-configs/#obtain-client-id-of-the-app",
         "anchor": "obtain-client-id-of-the-app",
         "target": "docs/guides/authentication/configure-oidc-flows/discover-oidc-configs.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "get-started/try-your-own-app/javascript.md",
-      "message": "anchor #obtain-client-id-of-the-app does not exist on guides/authentication/configure-oidc-flows/discover-oidc-configs.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/authentication/oidc/discover-oidc-configs/#obtain-client-id-of-the-app",
-        "anchor": "obtain-client-id-of-the-app",
-        "target": "docs/guides/authentication/configure-oidc-flows/discover-oidc-configs.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -2038,51 +1868,40 @@
     {
       "kind": "broken-anchor",
       "file": "guides/applications/register-mobile-app.md",
-      "message": "anchor #proof-key-for-code-exchange-pkce does not exist on reference/app-settings/oidc-settings-for-app.mdx in next; anchor removed",
+      "message": "anchor #proof-key-for-code-exchange-pkce does not exist on reference/app-settings/oidc-settings-for-app.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/references/app-settings/oidc-settings-for-app/#proof-key-for-code-exchange-pkce",
         "anchor": "proof-key-for-code-exchange-pkce",
         "target": "docs/reference/app-settings/oidc-settings-for-app.mdx",
-        "context": "next",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
     },
     {
       "kind": "broken-anchor",
-      "file": "guides/applications/register-mobile-app.md",
-      "message": "anchor #proof-key-for-code-exchange-pkce does not exist on reference/app-settings/oidc-settings-for-app.mdx in 7.3.0; anchor removed",
+      "file": "guides/authentication/conditional-auth/role-based-template.md",
+      "message": "anchor #onboard-a-user does not exist on guides/users/users/manage-users.mdx in 7.1.0; anchor removed",
       "detail": {
-        "href": "{{base_path}}/references/app-settings/oidc-settings-for-app/#proof-key-for-code-exchange-pkce",
-        "anchor": "proof-key-for-code-exchange-pkce",
-        "target": "docs/reference/app-settings/oidc-settings-for-app.mdx",
-        "context": "7.3.0",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/authentication/mfa/add-x509-login.md",
-      "message": "anchor #work-with-certificates does not exist on this page in next; anchor removed",
-      "detail": {
-        "href": "#work-with-certificates",
-        "anchor": "work-with-certificates",
-        "target": "docs/guides/authentication/mfa/add-x509-login.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
+        "href": "{{base_path}}/guides/users/manage-users/#onboard-a-user",
+        "anchor": "onboard-a-user",
+        "target": "docs/guides/users/users/manage-users.mdx",
+        "context": "7.1.0",
+        "suggest": {
+          "anchor": "onboard-users",
+          "score": 1
+        }
+      }
     },
     {
       "kind": "broken-anchor",
       "file": "guides/authentication/mfa/add-x509-login.md",
-      "message": "anchor #work-with-certificates does not exist on this page in 7.3.0; anchor removed",
+      "message": "anchor #work-with-certificates does not exist on this page in 7.1.0; anchor removed",
       "detail": {
         "href": "#work-with-certificates",
         "anchor": "work-with-certificates",
         "target": "docs/guides/authentication/mfa/add-x509-login.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -2103,12 +1922,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/authorization/api-authorization/api-authorization.md",
-      "message": "anchor #validate-opaque-tokens does not exist on guides/authentication/configure-oidc-flows/tokens-and-validation/token-validation-resource-server.mdx in next; anchor removed",
+      "message": "anchor #validate-opaque-tokens does not exist on guides/authentication/configure-oidc-flows/tokens-and-validation/token-validation-resource-server.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/authentication/oidc/token-validation-resource-server/#validate-opaque-tokens",
         "anchor": "validate-opaque-tokens",
         "target": "docs/guides/authentication/configure-oidc-flows/tokens-and-validation/token-validation-resource-server.mdx",
-        "context": "next",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -2116,51 +1935,15 @@
     {
       "kind": "broken-anchor",
       "file": "guides/authorization/api-authorization/api-authorization.md",
-      "message": "anchor #validate-opaque-tokens does not exist on guides/authentication/configure-oidc-flows/tokens-and-validation/token-validation-resource-server.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/authentication/oidc/token-validation-resource-server/#validate-opaque-tokens",
-        "anchor": "validate-opaque-tokens",
-        "target": "docs/guides/authentication/configure-oidc-flows/tokens-and-validation/token-validation-resource-server.mdx",
-        "context": "7.3.0",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/authorization/api-authorization/api-authorization.md",
-      "message": "anchor #validate-jwt-tokens does not exist on guides/authentication/configure-oidc-flows/tokens-and-validation/token-validation-resource-server.mdx in next; anchor removed",
+      "message": "anchor #validate-jwt-tokens does not exist on guides/authentication/configure-oidc-flows/tokens-and-validation/token-validation-resource-server.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/authentication/oidc/token-validation-resource-server/#validate-jwt-tokens",
         "anchor": "validate-jwt-tokens",
         "target": "docs/guides/authentication/configure-oidc-flows/tokens-and-validation/token-validation-resource-server.mdx",
-        "context": "next",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/authorization/api-authorization/api-authorization.md",
-      "message": "anchor #validate-jwt-tokens does not exist on guides/authentication/configure-oidc-flows/tokens-and-validation/token-validation-resource-server.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/authentication/oidc/token-validation-resource-server/#validate-jwt-tokens",
-        "anchor": "validate-jwt-tokens",
-        "target": "docs/guides/authentication/configure-oidc-flows/tokens-and-validation/token-validation-resource-server.mdx",
-        "context": "7.3.0",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-link",
-      "file": "guides/authorization/user-impersonation/index.md",
-      "message": "link to guides/organization-management/manage-organization-users/shared-users/shared-user-impersonation.mdx, which 7.3.0 does not have; link removed there, text kept",
-      "detail": {
-        "href": "{{base_path}}/guides/organization-management/shared-user-impersonation",
-        "context": "7.3.0"
-      },
-      "accepted": "the legacy site has no page there either"
     },
     {
       "kind": "broken-anchor",
@@ -2178,25 +1961,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/branding/configure-ui-branding.md",
-      "message": "anchor #configure-email-templates does not exist on guides/customizations/branding/customize-email-templates.mdx in next; anchor removed",
+      "message": "anchor #configure-email-templates does not exist on guides/customizations/branding/customize-email-templates.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/branding/customize-email-templates/#configure-email-templates",
         "anchor": "configure-email-templates",
         "target": "docs/guides/customizations/branding/customize-email-templates.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/branding/configure-ui-branding.md",
-      "message": "anchor #configure-email-templates does not exist on guides/customizations/branding/customize-email-templates.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/branding/customize-email-templates/#configure-email-templates",
-        "anchor": "configure-email-templates",
-        "target": "docs/guides/customizations/branding/customize-email-templates.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -2217,25 +1987,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/branding/customize-email-templates.md",
-      "message": "anchor #update-attributes does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in next; anchor removed",
+      "message": "anchor #update-attributes does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/users/attributes/manage-attributes/#update-attributes",
         "anchor": "update-attributes",
         "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/branding/customize-email-templates.md",
-      "message": "anchor #update-attributes does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/attributes/manage-attributes/#update-attributes",
-        "anchor": "update-attributes",
-        "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -2256,42 +2013,15 @@
     {
       "kind": "broken-anchor",
       "file": "guides/branding/customize-sms-templates.md",
-      "message": "anchor #update-attributes does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in next; anchor removed",
+      "message": "anchor #update-attributes does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/users/attributes/manage-attributes/#update-attributes",
         "anchor": "update-attributes",
         "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "next",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/branding/customize-sms-templates.md",
-      "message": "anchor #update-attributes does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/attributes/manage-attributes/#update-attributes",
-        "anchor": "update-attributes",
-        "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "7.3.0",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/flows/flow-extension-configuration.md",
-      "message": "anchor #flow-extension-action does not exist on reference/configuration-catalog.mdx in next; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/references/configuration-catalog/#flow-extension-action",
-        "anchor": "flow-extension-action",
-        "target": "docs/reference/configuration-catalog.mdx",
-        "context": "next",
-        "suggest": null,
-        "placeholder": true
-      },
-      "accepted": "the target is a placeholder page until it is migrated; the link goes to the page without the anchor"
     },
     {
       "kind": "broken-anchor",
@@ -2309,25 +2039,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/organization-management/api-authorization-overview.md",
-      "message": "anchor #register-an-api-resource does not exist on guides/authorization/api-authorization/api-authorization.mdx in next; anchor removed",
+      "message": "anchor #register-an-api-resource does not exist on guides/authorization/api-authorization/api-authorization.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/api-authorization/#register-an-api-resource",
         "anchor": "register-an-api-resource",
         "target": "docs/guides/authorization/api-authorization/api-authorization.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/organization-management/api-authorization-overview.md",
-      "message": "anchor #register-an-api-resource does not exist on guides/authorization/api-authorization/api-authorization.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/api-authorization/#register-an-api-resource",
-        "anchor": "register-an-api-resource",
-        "target": "docs/guides/authorization/api-authorization/api-authorization.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -2348,25 +2065,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/organization-management/api-authorization-overview.md",
-      "message": "anchor #associate-roles-to-the-application does not exist on guides/authorization/api-authorization/api-authorization.mdx in next; anchor removed",
+      "message": "anchor #associate-roles-to-the-application does not exist on guides/authorization/api-authorization/api-authorization.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/api-authorization/#associate-roles-to-the-application",
         "anchor": "associate-roles-to-the-application",
         "target": "docs/guides/authorization/api-authorization/api-authorization.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/organization-management/api-authorization-overview.md",
-      "message": "anchor #associate-roles-to-the-application does not exist on guides/authorization/api-authorization/api-authorization.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/api-authorization/#associate-roles-to-the-application",
-        "anchor": "associate-roles-to-the-application",
-        "target": "docs/guides/authorization/api-authorization/api-authorization.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -2387,25 +2091,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/organization-management/manage-b2b-administration.md",
-      "message": "anchor #/ does not exist on reference/apis/org-user-mgt/index.mdx in next; anchor removed",
+      "message": "anchor #/ does not exist on reference/apis/org-user-mgt/index.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/apis/organization-apis/org-user-mgt/#/",
         "anchor": "/",
         "target": "docs/reference/apis/org-user-mgt/index.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/organization-management/manage-b2b-administration.md",
-      "message": "anchor #/ does not exist on reference/apis/org-user-mgt/index.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/apis/organization-apis/org-user-mgt/#/",
-        "anchor": "/",
-        "target": "docs/reference/apis/org-user-mgt/index.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -2426,25 +2117,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/organization-management/manage-b2b-administration.md",
-      "message": "anchor #/ does not exist on reference/apis/org-group-mgt/index.mdx in next; anchor removed",
+      "message": "anchor #/ does not exist on reference/apis/org-group-mgt/index.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/apis/organization-apis/org-group-mgt/#/",
         "anchor": "/",
         "target": "docs/reference/apis/org-group-mgt/index.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/organization-management/manage-b2b-administration.md",
-      "message": "anchor #/ does not exist on reference/apis/org-group-mgt/index.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/apis/organization-apis/org-group-mgt/#/",
-        "anchor": "/",
-        "target": "docs/reference/apis/org-group-mgt/index.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -2465,25 +2143,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/organization-management/manage-b2b-administration.md",
-      "message": "anchor #/ does not exist on reference/apis/org-group-mgt/index.mdx in next; anchor removed",
+      "message": "anchor #/ does not exist on reference/apis/org-group-mgt/index.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/apis/organization-apis/org-group-mgt/#/",
         "anchor": "/",
         "target": "docs/reference/apis/org-group-mgt/index.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/organization-management/manage-b2b-administration.md",
-      "message": "anchor #/ does not exist on reference/apis/org-group-mgt/index.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/apis/organization-apis/org-group-mgt/#/",
-        "anchor": "/",
-        "target": "docs/reference/apis/org-group-mgt/index.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -2504,64 +2169,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/organization-management/onboard-users.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in next; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/organization-management/onboard-users.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "7.3.0",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/organization-management/onboard-users.md",
       "message": "anchor #onboard-multiple-users does not exist on guides/users/users/manage-users.mdx in cloud; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/users/manage-users/#onboard-multiple-users",
         "anchor": "onboard-multiple-users",
         "target": "docs/guides/users/users/manage-users.mdx",
         "context": "cloud",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/organization-management/onboard-users.md",
-      "message": "anchor #onboard-multiple-users does not exist on guides/users/users/manage-users.mdx in next; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-multiple-users",
-        "anchor": "onboard-multiple-users",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/organization-management/onboard-users.md",
-      "message": "anchor #onboard-multiple-users does not exist on guides/users/users/manage-users.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-multiple-users",
-        "anchor": "onboard-multiple-users",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "7.3.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -2582,25 +2195,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/organization-management/onboard-users.md",
-      "message": "anchor #switch-between-organizations does not exist on guides/organization-management/manage-organizations.mdx in next; anchor removed",
+      "message": "anchor #switch-between-organizations does not exist on guides/organization-management/manage-organizations.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/organization-management/manage-organizations/#switch-between-organizations",
         "anchor": "switch-between-organizations",
         "target": "docs/guides/organization-management/manage-organizations.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/organization-management/onboard-users.md",
-      "message": "anchor #switch-between-organizations does not exist on guides/organization-management/manage-organizations.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/organization-management/manage-organizations/#switch-between-organizations",
-        "anchor": "switch-between-organizations",
-        "target": "docs/guides/organization-management/manage-organizations.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -2660,25 +2260,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/organization-management/organization-discovery/email-domain-based-organization-discovery.md",
-      "message": "anchor #set-up-the-business-application does not exist on guides/organization-management/try-a-b2b-use-case.mdx in next; anchor removed",
+      "message": "anchor #set-up-the-business-application does not exist on guides/organization-management/try-a-b2b-use-case.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/organization-management/try-a-b2b-use-case/#set-up-the-business-application",
         "anchor": "set-up-the-business-application",
         "target": "docs/guides/organization-management/try-a-b2b-use-case.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/organization-management/organization-discovery/email-domain-based-organization-discovery.md",
-      "message": "anchor #set-up-the-business-application does not exist on guides/organization-management/try-a-b2b-use-case.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/organization-management/try-a-b2b-use-case/#set-up-the-business-application",
-        "anchor": "set-up-the-business-application",
-        "target": "docs/guides/organization-management/try-a-b2b-use-case.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -2699,12 +2286,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/organization-management/organization-discovery/email-domain-based-organization-discovery.md",
-      "message": "anchor #switch-between-organizations does not exist on guides/organization-management/manage-organizations.mdx in next; anchor removed",
+      "message": "anchor #switch-between-organizations does not exist on guides/organization-management/manage-organizations.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/organization-management/manage-organizations/#switch-between-organizations",
         "anchor": "switch-between-organizations",
         "target": "docs/guides/organization-management/manage-organizations.mdx",
-        "context": "next",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -2712,38 +2299,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/organization-management/organization-discovery/email-domain-based-organization-discovery.md",
-      "message": "anchor #switch-between-organizations does not exist on guides/organization-management/manage-organizations.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/organization-management/manage-organizations/#switch-between-organizations",
-        "anchor": "switch-between-organizations",
-        "target": "docs/guides/organization-management/manage-organizations.mdx",
-        "context": "7.3.0",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/organization-management/organization-discovery/email-domain-based-organization-discovery.md",
-      "message": "anchor #set-up-the-business-application does not exist on guides/organization-management/try-a-b2b-use-case.mdx in next; anchor removed",
+      "message": "anchor #set-up-the-business-application does not exist on guides/organization-management/try-a-b2b-use-case.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/organization-management/try-a-b2b-use-case/#set-up-the-business-application",
         "anchor": "set-up-the-business-application",
         "target": "docs/guides/organization-management/try-a-b2b-use-case.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/organization-management/organization-discovery/email-domain-based-organization-discovery.md",
-      "message": "anchor #set-up-the-business-application does not exist on guides/organization-management/try-a-b2b-use-case.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/organization-management/try-a-b2b-use-case/#set-up-the-business-application",
-        "anchor": "set-up-the-business-application",
-        "target": "docs/guides/organization-management/try-a-b2b-use-case.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -2764,25 +2325,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/organization-management/organization-roles.md",
-      "message": "anchor #switch-between-organizations does not exist on guides/organization-management/manage-organizations.mdx in next; anchor removed",
+      "message": "anchor #switch-between-organizations does not exist on guides/organization-management/manage-organizations.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/organization-management/manage-organizations/#switch-between-organizations",
         "anchor": "switch-between-organizations",
         "target": "docs/guides/organization-management/manage-organizations.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/organization-management/organization-roles.md",
-      "message": "anchor #switch-between-organizations does not exist on guides/organization-management/manage-organizations.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/organization-management/manage-organizations/#switch-between-organizations",
-        "anchor": "switch-between-organizations",
-        "target": "docs/guides/organization-management/manage-organizations.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -2803,25 +2351,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/organization-management/organization-roles.md",
-      "message": "anchor #switch-between-organizations does not exist on guides/organization-management/manage-organizations.mdx in next; anchor removed",
+      "message": "anchor #switch-between-organizations does not exist on guides/organization-management/manage-organizations.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/organization-management/manage-organizations/#switch-between-organizations",
         "anchor": "switch-between-organizations",
         "target": "docs/guides/organization-management/manage-organizations.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/organization-management/organization-roles.md",
-      "message": "anchor #switch-between-organizations does not exist on guides/organization-management/manage-organizations.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/organization-management/manage-organizations/#switch-between-organizations",
-        "anchor": "switch-between-organizations",
-        "target": "docs/guides/organization-management/manage-organizations.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -2842,25 +2377,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/organization-management/organization-roles.md",
-      "message": "anchor #switch-between-organizations does not exist on guides/organization-management/manage-organizations.mdx in next; anchor removed",
+      "message": "anchor #switch-between-organizations does not exist on guides/organization-management/manage-organizations.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/organization-management/manage-organizations/#switch-between-organizations",
         "anchor": "switch-between-organizations",
         "target": "docs/guides/organization-management/manage-organizations.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/organization-management/organization-roles.md",
-      "message": "anchor #switch-between-organizations does not exist on guides/organization-management/manage-organizations.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/organization-management/manage-organizations/#switch-between-organizations",
-        "anchor": "switch-between-organizations",
-        "target": "docs/guides/organization-management/manage-organizations.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -2877,6 +2399,18 @@
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
+    },
+    {
+      "kind": "broken-anchor",
+      "file": "guides/user-self-service/account-confirmation-for-self-register.md",
+      "message": "anchor #configuring-sms-providers does not exist on guides/authentication/mfa/add-smsotp-login.mdx in 7.1.0; anchor removed",
+      "detail": {
+        "href": "{{base_path}}/guides/authentication/mfa/add-smsotp-login/#configuring-sms-providers",
+        "anchor": "configuring-sms-providers",
+        "target": "docs/guides/authentication/mfa/add-smsotp-login.mdx",
+        "context": "7.1.0",
+        "suggest": null
+      }
     },
     {
       "kind": "broken-anchor",
@@ -2933,25 +2467,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/user-self-service/self-register.md",
-      "message": "anchor #update-attributes does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in next; anchor removed",
+      "message": "anchor #update-attributes does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/users/attributes/manage-attributes/#update-attributes",
         "anchor": "update-attributes",
         "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/user-self-service/self-register.md",
-      "message": "anchor #update-attributes does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/attributes/manage-attributes/#update-attributes",
-        "anchor": "update-attributes",
-        "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -2972,25 +2493,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/user-self-service/update-profile-info.md",
-      "message": "anchor #update-attributes does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in next; anchor removed",
+      "message": "anchor #update-attributes does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/users/attributes/manage-attributes/#update-attributes",
         "anchor": "update-attributes",
         "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/user-self-service/update-profile-info.md",
-      "message": "anchor #update-attributes does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/attributes/manage-attributes/#update-attributes",
-        "anchor": "update-attributes",
-        "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -3011,25 +2519,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/users/attributes/email-verification-on-update.md",
-      "message": "anchor #assign-multiple-email-addresses-and-mobile-numbers-to-a-user does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in next; anchor removed",
+      "message": "anchor #assign-multiple-email-addresses-and-mobile-numbers-to-a-user does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/users/attributes/manage-attributes/#assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
         "anchor": "assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
         "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/users/attributes/email-verification-on-update.md",
-      "message": "anchor #assign-multiple-email-addresses-and-mobile-numbers-to-a-user does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/attributes/manage-attributes/#assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
-        "anchor": "assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
-        "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -3050,25 +2545,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/users/attributes/email-verification-on-update.md",
-      "message": "anchor #assign-multiple-email-addresses-and-mobile-numbers-to-a-user does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in next; anchor removed",
+      "message": "anchor #assign-multiple-email-addresses-and-mobile-numbers-to-a-user does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/users/attributes/manage-attributes/#assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
         "anchor": "assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
         "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/users/attributes/email-verification-on-update.md",
-      "message": "anchor #assign-multiple-email-addresses-and-mobile-numbers-to-a-user does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/attributes/manage-attributes/#assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
-        "anchor": "assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
-        "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -3089,25 +2571,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/users/attributes/mobile-verification-on-update.md",
-      "message": "anchor #assign-multiple-email-addresses-and-mobile-numbers-to-a-user does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in next; anchor removed",
+      "message": "anchor #assign-multiple-email-addresses-and-mobile-numbers-to-a-user does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/users/attributes/manage-attributes/#assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
         "anchor": "assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
         "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/users/attributes/mobile-verification-on-update.md",
-      "message": "anchor #assign-multiple-email-addresses-and-mobile-numbers-to-a-user does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/attributes/manage-attributes/#assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
-        "anchor": "assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
-        "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -3128,26 +2597,29 @@
     {
       "kind": "broken-anchor",
       "file": "guides/users/attributes/mobile-verification-on-update.md",
-      "message": "anchor #assign-multiple-email-addresses-and-mobile-numbers-to-a-user does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in next; anchor removed",
+      "message": "anchor #assign-multiple-email-addresses-and-mobile-numbers-to-a-user does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/users/attributes/manage-attributes/#assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
         "anchor": "assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
         "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "next",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
     },
     {
       "kind": "broken-anchor",
-      "file": "guides/users/attributes/mobile-verification-on-update.md",
-      "message": "anchor #assign-multiple-email-addresses-and-mobile-numbers-to-a-user does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.3.0; anchor removed",
+      "file": "guides/users/attributes/user-attributes/configure-attributes.md",
+      "message": "anchor #onboard-a-single-user does not exist on guides/users/users/manage-users.mdx in 7.1.0; anchor removed",
       "detail": {
-        "href": "{{base_path}}/guides/users/attributes/manage-attributes/#assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
-        "anchor": "assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
-        "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "7.3.0",
-        "suggest": null
+        "href": "{{base_path}}/guides/users/manage-users/#onboard-a-single-user",
+        "anchor": "onboard-a-single-user",
+        "target": "docs/guides/users/users/manage-users.mdx",
+        "context": "7.1.0",
+        "suggest": {
+          "anchor": "onboard-single-user",
+          "score": 1
+        }
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
     },
@@ -3160,32 +2632,6 @@
         "anchor": "onboard-a-single-user",
         "target": "docs/guides/users/users/manage-users.mdx",
         "context": "cloud",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/users/attributes/user-attributes/configure-attributes.md",
-      "message": "anchor #onboard-a-single-user does not exist on guides/users/users/manage-users.mdx in next; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-a-single-user",
-        "anchor": "onboard-a-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/users/attributes/user-attributes/configure-attributes.md",
-      "message": "anchor #onboard-a-single-user does not exist on guides/users/users/manage-users.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-a-single-user",
-        "anchor": "onboard-a-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "7.3.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -3206,25 +2652,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/users/manage-roles.md",
-      "message": "anchor #register-an-api-resource does not exist on guides/authorization/api-authorization/api-authorization.mdx in next; anchor removed",
+      "message": "anchor #register-an-api-resource does not exist on guides/authorization/api-authorization/api-authorization.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/authorization/api-authorization/api-authorization/#register-an-api-resource",
         "anchor": "register-an-api-resource",
         "target": "docs/guides/authorization/api-authorization/api-authorization.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/users/manage-roles.md",
-      "message": "anchor #register-an-api-resource does not exist on guides/authorization/api-authorization/api-authorization.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/authorization/api-authorization/api-authorization/#register-an-api-resource",
-        "anchor": "register-an-api-resource",
-        "target": "docs/guides/authorization/api-authorization/api-authorization.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -3283,32 +2716,6 @@
     },
     {
       "kind": "broken-anchor",
-      "file": "guides/users/migrate-users/migrate-users.md",
-      "message": "anchor #onboard-multiple-users/ does not exist on guides/users/users/manage-users.mdx in next; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-multiple-users/",
-        "anchor": "onboard-multiple-users/",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/users/migrate-users/migrate-users.md",
-      "message": "anchor #onboard-multiple-users/ does not exist on guides/users/users/manage-users.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-multiple-users/",
-        "anchor": "onboard-multiple-users/",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "7.3.0",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
       "file": "guides/users/outbound-provisioning/group-based-provisioning.md",
       "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in cloud; anchor removed",
       "detail": {
@@ -3322,32 +2729,6 @@
     },
     {
       "kind": "broken-anchor",
-      "file": "guides/users/outbound-provisioning/group-based-provisioning.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in next; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/users/outbound-provisioning/group-based-provisioning.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "7.3.0",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
       "file": "guides/users/outbound-provisioning/setup-outbound-provisioning.md",
       "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in cloud; anchor removed",
       "detail": {
@@ -3355,32 +2736,6 @@
         "anchor": "onboard-single-user",
         "target": "docs/guides/users/users/manage-users.mdx",
         "context": "cloud",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/users/outbound-provisioning/setup-outbound-provisioning.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in next; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/users/outbound-provisioning/setup-outbound-provisioning.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "7.3.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -3414,25 +2769,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/users/user-stores/configure-active-directory-user-stores-for-scim2.md",
-      "message": "anchor #update-attributes does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in next; anchor removed",
+      "message": "anchor #update-attributes does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/users/attributes/manage-attributes/#update-attributes",
         "anchor": "update-attributes",
         "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/users/user-stores/configure-active-directory-user-stores-for-scim2.md",
-      "message": "anchor #update-attributes does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/attributes/manage-attributes/#update-attributes",
-        "anchor": "update-attributes",
-        "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -3440,12 +2782,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/users/user-stores/primary-user-store/configure-a-read-only-ldap-user-store.md",
-      "message": "anchor #update-attributes does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in next; anchor removed",
+      "message": "anchor #update-attributes does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/users/attributes/manage-attributes/#update-attributes",
         "anchor": "update-attributes",
         "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "next",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -3453,38 +2795,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/users/user-stores/primary-user-store/configure-a-read-only-ldap-user-store.md",
-      "message": "anchor #update-attributes does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/attributes/manage-attributes/#update-attributes",
-        "anchor": "update-attributes",
-        "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "7.3.0",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/users/user-stores/primary-user-store/configure-a-read-only-ldap-user-store.md",
-      "message": "anchor #assign-multiple-email-addresses-and-mobile-numbers-to-a-user does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in next; anchor removed",
+      "message": "anchor #assign-multiple-email-addresses-and-mobile-numbers-to-a-user does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/users/attributes/manage-attributes/#assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
         "anchor": "assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
         "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/users/user-stores/primary-user-store/configure-a-read-only-ldap-user-store.md",
-      "message": "anchor #assign-multiple-email-addresses-and-mobile-numbers-to-a-user does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/attributes/manage-attributes/#assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
-        "anchor": "assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
-        "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -3492,12 +2808,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/users/user-stores/primary-user-store/configure-a-read-write-active-directory-user-store.md",
-      "message": "anchor #update-attributes does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in next; anchor removed",
+      "message": "anchor #update-attributes does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/users/attributes/manage-attributes/#update-attributes",
         "anchor": "update-attributes",
         "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "next",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -3505,38 +2821,25 @@
     {
       "kind": "broken-anchor",
       "file": "guides/users/user-stores/primary-user-store/configure-a-read-write-active-directory-user-store.md",
-      "message": "anchor #update-attributes does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.3.0; anchor removed",
+      "message": "anchor #assign-multiple-email-addresses-and-mobile-numbers-to-a-user does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.1.0; anchor removed",
+      "detail": {
+        "href": "{{base_path}}/guides/users/attributes/manage-attributes/#assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
+        "anchor": "assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
+        "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
+        "context": "7.1.0",
+        "suggest": null
+      },
+      "accepted": "the anchor is not on the target page on the legacy site either"
+    },
+    {
+      "kind": "broken-anchor",
+      "file": "guides/users/user-stores/primary-user-store/configure-a-read-write-ldap-user-store.md",
+      "message": "anchor #update-attributes does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/users/attributes/manage-attributes/#update-attributes",
         "anchor": "update-attributes",
         "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "7.3.0",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/users/user-stores/primary-user-store/configure-a-read-write-active-directory-user-store.md",
-      "message": "anchor #assign-multiple-email-addresses-and-mobile-numbers-to-a-user does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in next; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/attributes/manage-attributes/#assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
-        "anchor": "assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
-        "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/users/user-stores/primary-user-store/configure-a-read-write-active-directory-user-store.md",
-      "message": "anchor #assign-multiple-email-addresses-and-mobile-numbers-to-a-user does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/attributes/manage-attributes/#assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
-        "anchor": "assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
-        "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -3544,51 +2847,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/users/user-stores/primary-user-store/configure-a-read-write-ldap-user-store.md",
-      "message": "anchor #update-attributes does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in next; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/attributes/manage-attributes/#update-attributes",
-        "anchor": "update-attributes",
-        "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/users/user-stores/primary-user-store/configure-a-read-write-ldap-user-store.md",
-      "message": "anchor #update-attributes does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/attributes/manage-attributes/#update-attributes",
-        "anchor": "update-attributes",
-        "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "7.3.0",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/users/user-stores/primary-user-store/configure-a-read-write-ldap-user-store.md",
-      "message": "anchor #assign-multiple-email-addresses-and-mobile-numbers-to-a-user does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in next; anchor removed",
+      "message": "anchor #assign-multiple-email-addresses-and-mobile-numbers-to-a-user does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/users/attributes/manage-attributes/#assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
         "anchor": "assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
         "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/users/user-stores/primary-user-store/configure-a-read-write-ldap-user-store.md",
-      "message": "anchor #assign-multiple-email-addresses-and-mobile-numbers-to-a-user does not exist on guides/users/attributes/user-attributes/manage-attributes.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/attributes/manage-attributes/#assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
-        "anchor": "assign-multiple-email-addresses-and-mobile-numbers-to-a-user",
-        "target": "docs/guides/users/attributes/user-attributes/manage-attributes.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -3596,25 +2860,12 @@
     {
       "kind": "broken-anchor",
       "file": "guides/users/user-stores/user-store-properties/properties-read-write-active-directory-user-store.md",
-      "message": "anchor #performance-tuning-ldaps-pooling does not exist on deploy-and-operate/deploy/performance/performance-tuning-recommendations.mdx in next; anchor removed",
+      "message": "anchor #performance-tuning-ldaps-pooling does not exist on deploy-and-operate/deploy/performance/performance-tuning-recommendations.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/deploy/performance/performance-tuning-recommendations#performance-tuning-ldaps-pooling",
         "anchor": "performance-tuning-ldaps-pooling",
         "target": "docs/deploy-and-operate/deploy/performance/performance-tuning-recommendations.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/users/user-stores/user-store-properties/properties-read-write-active-directory-user-store.md",
-      "message": "anchor #performance-tuning-ldaps-pooling does not exist on deploy-and-operate/deploy/performance/performance-tuning-recommendations.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/deploy/performance/performance-tuning-recommendations#performance-tuning-ldaps-pooling",
-        "anchor": "performance-tuning-ldaps-pooling",
-        "target": "docs/deploy-and-operate/deploy/performance/performance-tuning-recommendations.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -3622,38 +2873,15 @@
     {
       "kind": "broken-anchor",
       "file": "guides/users/user-stores/user-store-properties/properties-read-write-ldap-user-store.md",
-      "message": "anchor #performance-tuning-ldaps-pooling does not exist on deploy-and-operate/deploy/performance/performance-tuning-recommendations.mdx in next; anchor removed",
+      "message": "anchor #performance-tuning-ldaps-pooling does not exist on deploy-and-operate/deploy/performance/performance-tuning-recommendations.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/deploy/performance/performance-tuning-recommendations#performance-tuning-ldaps-pooling",
         "anchor": "performance-tuning-ldaps-pooling",
         "target": "docs/deploy-and-operate/deploy/performance/performance-tuning-recommendations.mdx",
-        "context": "next",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "guides/users/user-stores/user-store-properties/properties-read-write-ldap-user-store.md",
-      "message": "anchor #performance-tuning-ldaps-pooling does not exist on deploy-and-operate/deploy/performance/performance-tuning-recommendations.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/deploy/performance/performance-tuning-recommendations#performance-tuning-ldaps-pooling",
-        "anchor": "performance-tuning-ldaps-pooling",
-        "target": "docs/deploy-and-operate/deploy/performance/performance-tuning-recommendations.mdx",
-        "context": "7.3.0",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-link",
-      "file": "guides/verifiable-credentials/index.md",
-      "message": "link to guides/verifiable-credentials/verify-vc.mdx, which 7.3.0 does not have; link removed there, text kept",
-      "detail": {
-        "href": "{{base_path}}/guides/verifiable-credentials/verify-vc/",
-        "context": "7.3.0"
-      },
-      "accepted": "the legacy site has no page there either"
     },
     {
       "kind": "broken-anchor",
@@ -3683,32 +2911,6 @@
     },
     {
       "kind": "broken-anchor",
-      "file": "quick-starts/agent-auth-py.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in next; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "quick-starts/agent-auth-py.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "7.3.0",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
       "file": "quick-starts/agent-auth-ts.md",
       "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in cloud; anchor removed",
       "detail": {
@@ -3722,32 +2924,6 @@
     },
     {
       "kind": "broken-anchor",
-      "file": "quick-starts/agent-auth-ts.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in next; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "quick-starts/agent-auth-ts.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "7.3.0",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
       "file": "quick-starts/angular.md",
       "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in cloud; anchor removed",
       "detail": {
@@ -3755,32 +2931,6 @@
         "anchor": "onboard-single-user",
         "target": "docs/guides/users/users/manage-users.mdx",
         "context": "cloud",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "quick-starts/angular.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in next; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "quick-starts/angular.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "7.3.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -3826,32 +2976,6 @@
     },
     {
       "kind": "broken-anchor",
-      "file": "quick-starts/expressjs.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in next; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "quick-starts/expressjs.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "7.3.0",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
       "file": "quick-starts/google-adk-py.md",
       "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in cloud; anchor removed",
       "detail": {
@@ -3885,32 +3009,6 @@
         "anchor": "onboard-single-user",
         "target": "docs/guides/users/users/manage-users.mdx",
         "context": "cloud",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "quick-starts/javascript.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in next; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "quick-starts/javascript.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "7.3.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -3995,32 +3093,6 @@
     },
     {
       "kind": "broken-anchor",
-      "file": "quick-starts/mcp-auth-server-py.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in next; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "quick-starts/mcp-auth-server-py.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "7.3.0",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
       "file": "quick-starts/mcp-auth-server.md",
       "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in cloud; anchor removed",
       "detail": {
@@ -4034,32 +3106,6 @@
     },
     {
       "kind": "broken-anchor",
-      "file": "quick-starts/mcp-auth-server.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in next; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "quick-starts/mcp-auth-server.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "7.3.0",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
       "file": "quick-starts/nextjs.md",
       "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in cloud; anchor removed",
       "detail": {
@@ -4067,32 +3113,6 @@
         "anchor": "onboard-single-user",
         "target": "docs/guides/users/users/manage-users.mdx",
         "context": "cloud",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "quick-starts/nextjs.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in next; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "quick-starts/nextjs.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "7.3.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -4125,32 +3145,6 @@
     },
     {
       "kind": "broken-anchor",
-      "file": "quick-starts/nuxt.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in next; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "quick-starts/nuxt.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "7.3.0",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
       "file": "quick-starts/react.md",
       "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in cloud; anchor removed",
       "detail": {
@@ -4158,32 +3152,6 @@
         "anchor": "onboard-single-user",
         "target": "docs/guides/users/users/manage-users.mdx",
         "context": "cloud",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "quick-starts/react.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in next; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "quick-starts/react.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "7.3.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -4229,58 +3197,6 @@
     },
     {
       "kind": "broken-anchor",
-      "file": "quick-starts/vue.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in next; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "quick-starts/vue.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "7.3.0",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "references/app-settings/oidc-settings-for-app.md",
-      "message": "anchor #tag/Inbound-Protocols-OAuth-OIDC does not exist on reference/apis/application-rest-api/index.mdx in next; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/apis/application-rest-api/#tag/Inbound-Protocols-OAuth-OIDC",
-        "anchor": "tag/Inbound-Protocols-OAuth-OIDC",
-        "target": "docs/reference/apis/application-rest-api/index.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "references/app-settings/oidc-settings-for-app.md",
-      "message": "anchor #tag/Inbound-Protocols-OAuth-OIDC does not exist on reference/apis/organization-application-mgt/index.mdx in next; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/apis/organization-apis/organization-application-mgt/#tag/Inbound-Protocols-OAuth-OIDC",
-        "anchor": "tag/Inbound-Protocols-OAuth-OIDC",
-        "target": "docs/reference/apis/organization-application-mgt/index.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
       "file": "references/conditional-auth/api-reference.md",
       "message": "anchor #authenticatorNames does not exist on this page in cloud; anchor removed",
       "detail": {
@@ -4295,25 +3211,12 @@
     {
       "kind": "broken-anchor",
       "file": "references/conditional-auth/api-reference.md",
-      "message": "anchor #authenticatorNames does not exist on this page in next; anchor removed",
+      "message": "anchor #authenticatorNames does not exist on this page in 7.1.0; anchor removed",
       "detail": {
         "href": "#authenticatorNames",
         "anchor": "authenticatorNames",
         "target": "docs/reference/conditional-auth/api-reference.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "references/conditional-auth/api-reference.md",
-      "message": "anchor #authenticatorNames does not exist on this page in 7.3.0; anchor removed",
-      "detail": {
-        "href": "#authenticatorNames",
-        "anchor": "authenticatorNames",
-        "target": "docs/reference/conditional-auth/api-reference.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -4360,51 +3263,12 @@
     {
       "kind": "broken-anchor",
       "file": "references/sms-templates.md",
-      "message": "anchor #customize-sms-content does not exist on guides/customizations/branding/customize-sms-templates.mdx in next; anchor removed",
+      "message": "anchor #customize-sms-content does not exist on guides/customizations/branding/customize-sms-templates.mdx in 7.1.0; anchor removed",
       "detail": {
         "href": "{{base_path}}/guides/branding/customize-sms-templates/#customize-sms-content",
         "anchor": "customize-sms-content",
         "target": "docs/guides/customizations/branding/customize-sms-templates.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "references/sms-templates.md",
-      "message": "anchor #customize-sms-content does not exist on guides/customizations/branding/customize-sms-templates.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/branding/customize-sms-templates/#customize-sms-content",
-        "anchor": "customize-sms-content",
-        "target": "docs/guides/customizations/branding/customize-sms-templates.mdx",
-        "context": "7.3.0",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "references/tutorials/send-notification-external-schedular.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in next; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "next",
-        "suggest": null
-      },
-      "accepted": "the anchor is not on the target page on the legacy site either"
-    },
-    {
-      "kind": "broken-anchor",
-      "file": "references/tutorials/send-notification-external-schedular.md",
-      "message": "anchor #onboard-single-user does not exist on guides/users/users/manage-users.mdx in 7.3.0; anchor removed",
-      "detail": {
-        "href": "{{base_path}}/guides/users/manage-users/#onboard-single-user",
-        "anchor": "onboard-single-user",
-        "target": "docs/guides/users/users/manage-users.mdx",
-        "context": "7.3.0",
+        "context": "7.1.0",
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
@@ -4473,6 +3337,136 @@
         "suggest": null
       },
       "accepted": "the anchor is not on the target page on the legacy site either"
+    },
+    {
+      "kind": "redirect",
+      "file": null,
+      "message": "legacy redirect guides/passwordless/overview.md → guides/authentication/passwordless-login.md has no target page in 7.1.0; sent to /guides/authentication/"
+    },
+    {
+      "kind": "redirect",
+      "file": null,
+      "message": "legacy redirect guides/access-delegation/oauth-dynamic-client-registration.md → apis/use-the-openid-connect-dynamic-client-registration-rest-apis.md has no target page in 7.1.0; sent to /reference/apis/"
+    },
+    {
+      "kind": "redirect",
+      "file": null,
+      "message": "legacy redirect guides/authentication/conditional-auth/ai-loginflow.md → guides/authentication/ai-loginflow.md has no target page in 7.1.0; sent to /guides/authentication/"
+    },
+    {
+      "kind": "redirect",
+      "file": null,
+      "message": "legacy redirect deploy/security/asymmetric-encryption/add-multiple-keys-to-the-primary-keystore.md → deploy/security/keystores/configure-keystores.md.md has no target page in 7.1.0; sent to /deploy-and-operate/secure/encryption/keystores/"
+    },
+    {
+      "kind": "redirect",
+      "file": null,
+      "message": "legacy redirect deploy/security/use-symmetric-encryption.md → deploy/security/symmetric-encryption/use-symmetric-encryption.md has no target page in 7.1.0; sent to /deploy-and-operate/secure/encryption/symmetric-encryption/"
+    },
+    {
+      "kind": "redirect",
+      "file": null,
+      "message": "legacy redirect references/extend/provisioning/extend-scim2-user-schemas.md → references/extend/user-mgt/provisioning/extend-scim2-user-schemas.md has no target page in 7.1.0; sent to /reference/extend/"
+    },
+    {
+      "kind": "redirect",
+      "file": null,
+      "message": "legacy redirect guides/authorization/xacml-engine.md → guides/authorization/fine-grained-authorization/rule-based-provisioning.md has no target page in 7.1.0; sent to /guides/authorization/"
+    },
+    {
+      "kind": "redirect",
+      "file": null,
+      "message": "legacy redirect guides/authorization/fine-grained-auth-xacml.md → guides/authorization/fine-grained-authorization/rule-based-provisioning.md has no target page in 7.1.0; sent to /guides/authorization/"
+    },
+    {
+      "kind": "redirect",
+      "file": null,
+      "message": "legacy redirect guides/organization-management/onboard-sub-org-admins.md → guides/organization-management/onboard-org-admins.md has no target page in 7.1.0; sent to /guides/organization-management/"
+    },
+    {
+      "kind": "redirect",
+      "file": "fragments/contributing-connectors.md",
+      "message": "include that no page uses; its legacy URL goes to the Edition home"
+    },
+    {
+      "kind": "redirect",
+      "file": "includes/commit-pending.md",
+      "message": "include that no page uses; its legacy URL goes to the Edition home"
+    },
+    {
+      "kind": "redirect",
+      "file": "includes/connection-pool-behavior.md",
+      "message": "include that no page uses; its legacy URL goes to the Edition home"
+    },
+    {
+      "kind": "redirect",
+      "file": "includes/datasource-config.md",
+      "message": "include that no page uses; its legacy URL goes to the Edition home"
+    },
+    {
+      "kind": "redirect",
+      "file": "includes/db-advanced-config.md",
+      "message": "include that no page uses; its legacy URL goes to the Edition home"
+    },
+    {
+      "kind": "redirect",
+      "file": "includes/db-basic-config.md",
+      "message": "include that no page uses; its legacy URL goes to the Edition home"
+    },
+    {
+      "kind": "redirect",
+      "file": "includes/db-config-table.md",
+      "message": "include that no page uses; its legacy URL goes to the Edition home"
+    },
+    {
+      "kind": "redirect",
+      "file": "includes/driver-level-timeouts.md",
+      "message": "include that no page uses; its legacy URL goes to the Edition home"
+    },
+    {
+      "kind": "redirect",
+      "file": "includes/http-client-connections.md",
+      "message": "include that no page uses; its legacy URL goes to the Edition home"
+    },
+    {
+      "kind": "redirect",
+      "file": "includes/registry-repositories.md",
+      "message": "include that no page uses; its legacy URL goes to the Edition home"
+    },
+    {
+      "kind": "redirect",
+      "file": "includes/rollback-pending.md",
+      "message": "include that no page uses; its legacy URL goes to the Edition home"
+    },
+    {
+      "kind": "override",
+      "file": "guides/authorization/user-impersonation/index.md",
+      "message": "accepted link {{base_path}}/guides/organization-management/shared-user-impersonation is no longer broken or no longer there; remove the entry or limit it with editions:"
+    },
+    {
+      "kind": "override",
+      "file": "guides/users/migrate-users/migrate-users.md",
+      "message": "accepted link {{base_path}}/guides/users/manage-users/#onboard-multiple-users/ is no longer broken or no longer there; remove the entry or limit it with editions:"
+    },
+    {
+      "kind": "override",
+      "file": "guides/users/onboard-users.md",
+      "message": "accepted link {{base_path}}/guides/users/user-stores/configure-a-user-store/ is no longer broken or no longer there; remove the entry or limit it with editions:"
+    },
+    {
+      "kind": "override",
+      "file": "quick-starts/expressjs.md",
+      "message": "accepted link {{base_path}}/guides/users/manage-users/#onboard-single-user is no longer broken or no longer there; remove the entry or limit it with editions:"
+    },
+    {
+      "kind": "override",
+      "file": "references/conditional-auth/api-reference.md",
+      "message": "accepted link {{base_path}}/guides/user-accounts/account-login/configure-login-identifiers/ is no longer broken or no longer there; remove the entry or limit it with editions:"
+    },
+    {
+      "kind": "override",
+      "file": "references/tutorials/send-notification-external-schedular.md",
+      "message": "accepted link {{base_path}}/guides/users/manage-users/#onboard-single-user is no longer broken or no longer there; remove the entry or limit it with editions:"
     }
   ]
 }

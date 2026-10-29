@@ -4,6 +4,7 @@ description: User impersonation lets you perform actions and access resources us
 type: how-to
 sidebar_label: Via business application (advanced)
 sidebar_position: 3
+editions: cloud
 ---
 
 import Tabs from '@theme/Tabs';
@@ -65,7 +66,7 @@ To do so,
 
     4. Click **Create**.
 
-        <Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/authorization/impersonation/role-creation.png").default} alt="Role-Creation" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/authorization/impersonation/role-creation.png").default} alt="Role-Creation" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+        <img src={require("../../../../assets/cloud/img/guides/authorization/impersonation/role-creation.png").default} alt="Role-Creation" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 ### Step 1.3: Assign the role to the impersonator
 
@@ -107,7 +108,7 @@ The subject token contains information about the impersonated user and used when
 
 6. Click **Update** to save the changes.
 
-<Variants><Edition only="cloud"><img src={require("../../../../assets/cloud/img/guides/authorization/impersonation/subject-token-config.png").default} alt="Subject-Token-Config" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/self-hosted/img/guides/authorization/impersonation/subject-token-config.png").default} alt="Subject-Token-Config" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+<img src={require("../../../../assets/cloud/img/guides/authorization/impersonation/subject-token-config.png").default} alt="Subject-Token-Config" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 ## Step 3: Get tokens for user impersonation
 
@@ -123,10 +124,6 @@ The following diagram outlines the detailed steps involved in user impersonation
 ### Get a subject token
 
 A subject token refers to a JSON Web Token (JWT) containing details about both the impersonated user and the impersonator. To get a subject token, the client needs to start an authorization request using the following query parameters.
-
-<Variants>
-
-<Edition only="cloud">
 
 <Tabs groupId="tabs">
 <TabItem value="request-format" label="Request Format">
@@ -158,45 +155,6 @@ https://api.asgardeo.io/t/bifrost/oauth2/authorize?
 
 </TabItem>
 </Tabs>
-
-</Edition>
-
-<Edition only="self-hosted">
-
-<Tabs groupId="tabs">
-<TabItem value="request-format" label="Request Format">
-
-```bash
-https://localhost:9443/oauth2/authorize?
-  client_id={clientID}
-  &redirect_uri={redirect_uri}
-  &state={sample_state}
-  &scope=internal_user_impersonate {other_Required_Scopes}
-  &response_type={response_type}
-  &requested_subject={userid_of_the_end_user}
-  &nonce={nonce}
-```
-
-</TabItem>
-<TabItem value="example" label="Example">
-
-```bash
-https://localhost:9443/oauth2/authorize?
-  client_id=jVcW4oLn1Jjb2T94H4gtPV9z5Y0a
-  &redirect_uri=https://oauth.pstmn.io/v1/callback
-  &state=sample_state
-  &scope=internal_user_impersonate openid internal_org_user_mgt_view
-  &response_type=id_token subject_token
-  &requested_subject=32bc4697-ed0f-4546-8387-dcd6403e7caa
-  &nonce=2131232
-```
-
-</TabItem>
-</Tabs>
-
-</Edition>
-
-</Variants>
 
 The subject token request contains the following parameters:
 
@@ -241,10 +199,6 @@ https://oauth.pstmn.io/v1/callback
 
 The decoded subject token looks as follows:
 
-<Variants>
-
-<Edition only="cloud">
-
 ```json
 {
   "sub": "32bc4697-ed0f-4546-8387-dcd6403e7caa",
@@ -263,41 +217,11 @@ The decoded subject token looks as follows:
 }
 ```
 
-</Edition>
-
-<Edition only="self-hosted">
-
-```json
-{
-  "sub": "32bc4697-ed0f-4546-8387-dcd6403e7caa",
-  "aud": "jVcW4oLn1Jjb2T94H4gtPV9z5Y0a",
-  "nbf": 1718694997,
-  "azp": "jVcW4oLn1Jjb2T94H4gtPV9z5Y0a",
-  "scope": "internal_login internal_user_mgt_list internal_user_mgt_view",
-  "iss": "https://localhost:9443/oauth2/token",
-  "may_act": {
-    "sub": "2d931c9d-876e-46c0-9aba-f34501879dfc"
-  },
-  "exp": 1718712997,
-  "iat": 1718694997,
-  "jti": "66dff3b0-2828-4bc0-8a27-84aa9bd3ebdb",
-  "client_id": "jVcW4oLn1Jjb2T94H4gtPV9z5Y0a"
-}
-```
-
-</Edition>
-
-</Variants>
-
 The subject token also includes the `may_act` property, which indicates that the user identified in `may_act.sub` is allowed to impersonate the user identified in `sub`.
 
 ### Get an impersonated access token
 
 After receiving a subject token, exchange it for an access token that carries the permissions of the impersonated user.
-
-<Variants>
-
-<Edition only="cloud">
 
 <Tabs groupId="tabs">
 <TabItem value="request-format" label="Request Format">
@@ -332,47 +256,6 @@ curl --location 'https://api.asgardeo.io/t/bifrost/oauth2/token' \
 </TabItem>
 </Tabs>
 
-</Edition>
-
-<Edition only="self-hosted">
-
-<Tabs groupId="tabs">
-<TabItem value="request-format" label="Request Format">
-
-```bash
-curl --location 'https://localhost:9443/oauth2/token' \
---header 'Content-Type: application/x-www-form-urlencoded' \
---header 'Authorization: Basic <base64 Encoded (clientId:clientSecret)>' \
---data-urlencode 'subject_token={subject_token}' \
---data-urlencode 'subject_token_type=urn:ietf:params:oauth:token-type:jwt' \
---data-urlencode 'requested_token_type=urn:ietf:params:oauth:token-type:access_token' \
---data-urlencode 'grant_type=urn:ietf:params:oauth:grant-type:token-exchange' \
---data-urlencode 'actor_token={id_token}' \
---data-urlencode 'actor_token_type=urn:ietf:params:oauth:token-type:id_token'
-```
-
-</TabItem>
-<TabItem value="example" label="Example">
-
-```bash
-curl --location 'https://localhost:9443/oauth2/token' \
---header 'Content-Type: application/x-www-form-urlencoded' \
---header 'Authorization: Basic QVVhZkoyeWpXM2dUR3JZaWZCTlF1MTBXRWtNYToybWN1blJ1T1Y5WFQ3QXpzRDEyVmY3cGhOVWJRUmdlT0NtZW5Wa0xKQTR3YQ==' \
---data-urlencode 'subject_token=eyJ4NXQiOiJDN3Q1elQ4UUhXcWJBZ3ZJ9HVXWTN4UnlwcE0iLCJraWQiOiJaR0UyTXpjeE1XWXpORGhtTVRoak1HSmlOamhpTmpNMFlqWXhNakJtTUdZeFl6ZzBabU0zWldJd1pHRmxZakk1TTJZelpHTmtaalkxWXpBeE5qZzNNUV9SUzI1NiIsInR5cCI6Imp3dCIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIxYmI0NmMyOC0zN2U4LTQxN2UtYWI5NS0wMzAzYTYzM2ZlZTIiLCJhdWQiOiJBVWFmSjJ5alczZ1RHcllpZkJOUXUxMFdFa01hIiwibmJmIjoxNzI4ODc5NTQ3LCJhenAiOiJBVWFmSjJ5alczZ1RHcllpZkJOUXUxMFdFa01hIiwic2NvcGUiOiJpbnRlcm5hbF9vcmdfYXBwbGljYXRpb25fbWd0X3ZpZXcgb3BlbmlkIiwiaXNzIjoiaHR0cHM6XC9cL2FwaS5hc2dhcmRlby5pb1wvdFwvaGltZXNoZGV2aW5kYVwvb2F1dGgyXC90b2tlbiIsIm1heV9hY3QiOnsic3ViIjoiNTllNmNlZWEtOGU2Ni00MTkyLWJlMDktMzQwYmIwMmQ1N2MxIn0sImV4cCI6MTcyODg3OTcyNywiaWF0IjoxNzI4ODc5NTQ3LCJqdGkiOiIzYjIzNDViOS1jN2Y4LTQ4MjUtYWYyNC1lNDRjYjk3Y2U5NWEiLCJjbGllbnRfaWQiOiJBVWFmSjJ5alczZ1RHcllpZkJOUXUxMFdFa01hIn0.UmhvpiqrgbgJ8MSXNkzyUMbw5c2BG5oWv9HpBDrZwig2HkM-FpceFlGi4tnl45LGAxDeVE2NJBAII3Q6ccMK0pk9DM2piX0m7gtxtfNy9XQURMad39JOY1GTy8p9uJY0wYWrYXYCc3nyF83kwu4y3xHABYd1JNjcZgLW_B5M1XUUk05cOOyJLOvjaMAkl8DlohD9mAY4-C2UyaxsG8ftfth4mMJZeg3MJOW150cye9TAil0SACO6DIv3Tik7Wt_zyghSueBKQiOqgLEXZdphIT-7TWYASiJigTX0n_PKBF67qOo9tD5FIDEh5fQquXYAjPP9LHJYeK_C6dkh9jiX7w' \
---data-urlencode 'subject_token_type=urn:ietf:params:oauth:token-type:jwt' \
---data-urlencode 'requested_token_type=urn:ietf:params:oauth:token-type:access_token' \
---data-urlencode 'grant_type=urn:ietf:params:oauth:grant-type:token-exchange' \
---data-urlencode 'actor_token=eyJ4NXQiOiJDN3Q1elQ4UUhXcWJBZ3ZJOGVXWTN4UnlwcE0iLCJraWQiOiJaR0UyTXpjeE1XWXpORGhtTVRoak1HSmlOamhpTmpNMFlqWXhNakJtTUdZeFl6ZzBabU0zWldJd1pHRmxZakk1TTJZelpHTmtaalkxWXpBeE5qZzNNUV9SUzI1NiIsImFsZyI6IlJTMjU2In0.eyJpc2siOiIzMWJmYjE4YWQ2Yzc1YmFjYWJmMmIzMDRmMmYyYmI2YTdlODY1Y2FiYTU2OGRkNDNiM2U3YzI3OGVlYzNjNzY3Iiwic3ViIjoiNTllNmNlZWEtOGU2Ni00MTkyLWJlMDktMzQwYmIwMmQ1N2MxIiwiYW1yIjpbIkJhc2ljQXV0aGVudGljYXRvciJdLCJpc3MiOiJodHRwczpcL1wvYXBpLmFzZ2FyZGVvLmlvXC90XC9oaW1lc2hkZXZpbmRhXC9vYXV0aDJcL3Rva2VuIiwibm9uY2UiOiIyMTIzNDUyMTMiLCJzaWQiOiI3ZWQwOTU1Mi1hZDQ0LTQ2NjYtOTJmMy0yYWM0MmJhZWNlYzQiLCJhdWQiOiJBVWFmSjJ5alczZ1RHcllpZkJOUXUxMFdFa01hIiwidXNlcl9vcmciOiJkZTljNWYxNC0xMGI2LTQ5OWEtOTkzZC04OWZjMzYyYmIyNDAiLCJzX2hhc2giOiJFLUlmSmNrWHNsdUwzRUpFcUttUlpnIiwiYXpwIjoiQVVhZkoyeWpXM2dUR3JZaWZCTlF1MTBXRWtNYSIsIm9yZ19pZCI6ImRlOWM1ZjE0LTEwYjYtNDk5YS05OTNkLTg5ZmMzNjJiYjI0MCIsImV4cCI6MTcyODg4MzE0Nywib3JnX25hbWUiOiJoaW1lc2hkZXZpbmRhIiwiaWF0IjoxNzI4ODc5NTQ3LCJqdGkiOiJkZmI2ODkxYS05MzMyLTQ0OGYtOGQ5ZC1hNDdjOGE3ZTE2OTAifQ.ODTLpicbOfjTEdi7QPOgVew9dxTcL5OR5x8REoujgKcE-mMXvt5wnX_dVp1q_jTWg7yoECJ9dw_KIqqrOOsAc09oGTmMJkqdCd5VoVLSbJ703hvXZU4DUtpjqulzWuuTACsT-eWNQ6IuGo1dP_34r3BucjxAmwCzMQJ_ngTIG213nnF4p5vFRBGxEdX1KkZL9X4Iogw1oweyPVuBAN_3FGOGErBCnRWhL1VNcTkuubcMzD2JafIxaD62Knwcv9x8lmQz__mVyCADhTTuXQ6r7EGk6GCebeL6tE5WFxfKrIDZJeLyoI4BSNK73L9q-iWAmk1OCIHu_RlubrYxMXxc3g' \
---data-urlencode 'actor_token_type=urn:ietf:params:oauth:token-type:id_token'
-```
-
-</TabItem>
-</Tabs>
-
-</Edition>
-
-</Variants>
-
 The response looks like the following:
 
 ```json
@@ -386,10 +269,6 @@ The response looks like the following:
 ```
 
 The decoded access token looks as follows:
-
-<Variants>
-
-<Edition only="cloud">
 
 ```json
 {
@@ -411,35 +290,6 @@ The decoded access token looks as follows:
   "jti": "0728d517-7968-474f-bd7d-12537ccbe436"
 }
 ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-```json
-{
-  "sub": "32bc4697-ed0f-4546-8387-dcd6403e7caa",
-  "aut": "APPLICATION_USER",
-  "iss": "https://localhost:9443/oauth2/token",
-  "client_id": "jVcW4oLn1Jjb2T94H4gtPV9z5Y0a",
-  "aud": "jVcW4oLn1Jjb2T94H4gtPV9z5Y0a",
-  "nbf": 1718695052,
-  "act": {
-    "sub": "2d931c9d-876e-46c0-9aba-f34501879dfc"
-  },
-  "azp": "jVcW4oLn1Jjb2T94H4gtPV9z5Y0a",
-  "org_id": "10084a8d-113f-4211-a0d5-efe36b082211",
-  "scope": "internal_login internal_org_user_mgt_list internal_org_user_mgt_view",
-  "exp": 1718698652,
-  "org_name": "bifrost",
-  "iat": 1718695052,
-  "jti": "0728d517-7968-474f-bd7d-12537ccbe436"
-}
-```
-
-</Edition>
-
-</Variants>
 
 - Apart from the generic claims, the impersonated access token has the `act` property which clients can use to detect impersonation. In the given example, the `sub` property holds the value of `32bc4697-ed0f-4546-8387-dcd6403e7caa`, the user ID of the impersonated user.
 

@@ -1,8 +1,8 @@
 ---
 title: Email templates
-description: WSO2 Identity Platform organizations use several email templates to send email notifications to users.  # generated from the first paragraph; a writer should improve it
+description: WSO2 Identity Server organizations use several email templates to send email notifications to users.  # generated from the first paragraph; a writer should improve it
 type: reference
-sidebar_position: 14
+sidebar_position: 1
 ---
 
 {edition.productName} organizations use several email templates to send email notifications to users.
@@ -37,6 +37,10 @@ The following is a comprehensive list of email templates that are available in {
 Some of the email templates below should contain URLs to redirect the user for certain actions. Learn how to generate these URLs in the [URLs in email templates](#urls-in-email-templates) section.
 :::
 
+<Variants>
+
+<Edition only="cloud">
+
 | Template ID | Description |
 | --- | --- |
 | LiteUserEmailConfirmation<br /><br /> ResendLiteUserEmailConfirmation | These emails are generated when you create an account in {edition.productName}. |
@@ -62,6 +66,40 @@ Some of the email templates below should contain URLs to redirect the user for c
 | AskPassword<br /><br /> resendAskPassword<br /><br /> | These emails are generated when a user is asked to create a password for the newly created account. |
 | OrchestratedResendAskPassword | This email is generated when the organization administrator reinitiates the request for the user to set up their password, as part of an orchestrated flow. |
 | selfSignUpNotify<br /><br /> selfSignUpSuccess<br /><br /> | These emails are generated when a user uses self sign-up to register in your organization. |
+
+</Edition>
+
+<Edition only="self-hosted">
+
+| Template ID | Description |
+| --- | --- |
+| LiteUserEmailConfirmation<br /><br /> ResendLiteUserEmailConfirmation | These emails are generated when you create an account in {edition.productName}. |
+| EmailConfirm<br /><br /> AccountConfirmation<br /><br /> ResendAccountConfirmation | These emails are sent when a user creates an account in your {edition.productName} organization. The email will prompt the user to confirm their account/email |
+| VerifyEmailOnUpdate | This email is generated when the user changes the email associated with the account. |
+| AccountIdRecovery | This email is generated when a user requests an account ID recovery. |
+| PasswordReset<br /><br /> resendPasswordReset<br /><br /> AdminForcedPasswordReset<br /><br /> resendAdminForcedPasswordReset<br /><br /> | These emails involve password resets. Depending on whether the user or the administrator initiates the password reset, separate emails are generated. |
+| initiateRecovery | This email is generated when a user initiates a password reset using security questions. |
+| passwordResetSuccess | This email is generated when a user successfully resets the password. |
+| AdminForcedPasswordResetWithOTP<br /><br /> resendAdminForcedPasswordResetWithOTP | These emails are generated when a user initiates password reset using OTP. The email template can display the OTP using the \{\{ confirmation-code \}\} literal. |
+| TemporaryPassword | This email is generated when a user is offered a temporary password by the administrator. The email template can display the temporary using the \{\{ temporary-password \}\} literal. |
+| AccountLockAdmin<br /><br /> AccountUnlockAdmin<br /><br /> AccountEnable<br /><br /> AccountDisable<br /><br /> | These emails are generated when a user account is enabled or disabled. |
+| AccountLockFailedAttempt | This email is generated when a user account gets locked due to a specified number of failed login attempts. The email template can display the lock duration using the \{\{ lock-duration \}\} literal. |
+| AccountUnlockTimeBased | This email is generated when a user account is unlocked automatically once the lock duration exceeds. |
+| UnseenDeviceLogin | This email is generated when the logs in to using an unrecognized device. The email template can display the time of login using the \{\{ login-time \}\} literal. |
+| idleAccountReminder | This email is generated when there is no activity in the user account for a specified amount of time. |
+| TOTP | This email is generated when the user is given a TOTP to log in. The email template can display the token using the \{\{ token \}\} literal |
+| OneTimePassword | This email is generated when a user is given a new password to log in. The email template can display the password using the \{\{ otp-password \}\} literal |
+| EmailOTP<br /><br /> ResendEmailOTP | These emails are generated when a user is given a one-time password to sign in to an application. The email templates can display the password using the \{\{ OTPCode \}\} literal. |
+| magicLink | This email is generated when a user logs in with a magic link. The application name and the expiry time of the link can be accessed by the literals \{\{ application-name \}\}, and \{\{ expiry-time \}\} respectively. |
+| magicLinkSignUp | This email is generated when a user signs up and has to verify the account using a magic link. |
+| magicLinkPasswordRecovery | This email is generated when a user initiates a password recovery and has to verify the account using a magic link before resetting the password. |
+| AskPassword<br /><br /> resendAskPassword<br /><br /> | These emails are generated when a user is asked to create a password for the newly created account. |
+| OrchestratedResendAskPassword | This email is generated when the organization administrator reinitiates the request for the user to set up their password, as part of an orchestrated flow. |
+| selfSignUpNotify<br /><br /> selfSignUpSuccess<br /><br /> | These emails are generated when a user uses self sign-up to register in your organization. |
+
+</Edition>
+
+</Variants>
 
 ## URLs in email templates
 

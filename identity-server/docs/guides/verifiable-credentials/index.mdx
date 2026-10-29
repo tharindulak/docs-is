@@ -4,6 +4,7 @@ description: Verifiable Credentials (VCs) are tamper-evident digital credentials
 type: how-to
 sidebar_label: Overview
 sidebar_position: 1
+editions: cloud
 ---
 
 Verifiable Credentials (VCs) are tamper-evident digital credentials that allow anyone to verify information about a subject (such as a user) without contacting the credential issuer directly. {edition.productName} supports issuing verifiable credentials to digital wallets using the [**OpenID for Verifiable Credential Issuance (OID4VCI)**](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html) standard, and can also act as a verifier that authenticates or registers users based on credentials they present using the [**OpenID for Verifiable Presentations (OID4VP)**](https://openid.net/specs/openid-4-verifiable-presentations-1_0.html) standard.
@@ -35,7 +36,7 @@ The verifiable credentials model involves three parties:
 - **Holder** — The user who receives the credential in their digital wallet and presents it when needed.
 - **Verifier** — The party that checks the credential's authenticity and reads its claims.
 
-<img src={require("../../../assets/img/guides/verifiable-credentials/vc-trust-triangle.png").default} alt="Verifiable credentials trust triangle showing the Issuer, Holder, and Verifier roles" width="600" style={{display: "block", margin: "0 auto"}} />
+<img src={require("../../../assets/cloud/img/guides/verifiable-credentials/vc-trust-triangle.png").default} alt="Verifiable credentials trust triangle showing the Issuer, Holder, and Verifier roles" width="600" style={{display: "block", margin: "0 auto"}} />
 
 {edition.productName} uses the OID4VCI protocol to issue credentials to any conformant digital wallet. The wallet receives a credential offer, the user authenticates, and {edition.productName} delivers a cryptographically signed credential. {edition.productName} also uses the OID4VP protocol to request and verify credentials from a digital wallet, allowing users to authenticate or register using credentials they already hold.
 
@@ -45,20 +46,6 @@ Use the guides in this section to issue verifiable credentials from {edition.pro
 
 - [Issue Verifiable Credentials to a Digital Wallet](./issue-vc.mdx) — Step-by-step guide to configure {edition.productName} and issue a verifiable credential to any OID4VCI-compatible digital wallet.
 
-<Variants>
-
-<Edition only="cloud">
-
 - [OpenID for verifiable credential issuance (OID4VCI)](../../reference/iam-concepts/oid4vci.mdx) — Understand how OID4VCI works, the supported credential formats, key endpoints, and cryptographic binding.
 
-</Edition>
-
-<Edition only="self-hosted">
-
-- [OpenID for verifiable credential issuance (OID4VCI)](../../reference/iam-concepts/oid4vci.mdx) — Understand how OID4VCI works, the supported credential formats, key endpoints, and cryptographic binding.
-
-</Edition>
-
-</Variants>
-
-- <Edition selfHostedFrom="next">[Verify credentials from a Digital Wallet](./verify-vc.mdx)</Edition> — Step-by-step guide to configure {edition.productName} as a verifier and authenticate or register users with credentials presented from an OID4VP-compatible digital wallet that supports the `dc+sd-jwt` credential format.
+- [Verify credentials from a Digital Wallet](./verify-vc.mdx) — Step-by-step guide to configure {edition.productName} as a verifier and authenticate or register users with credentials presented from an OID4VP-compatible digital wallet that supports the `dc+sd-jwt` credential format.

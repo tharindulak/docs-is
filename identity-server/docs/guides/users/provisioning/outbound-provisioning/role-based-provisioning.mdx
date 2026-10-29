@@ -1,0 +1,34 @@
+---
+title: Configure role-based outbound provisioning
+description: This guide explains how you can automatically provision users to an external system based on the role assigned to the user.  # generated from the first paragraph; a writer should improve it
+type: how-to
+sidebar_label: Role-based provisioning
+sidebar_position: 3
+editions: self-hosted
+---
+
+This guide explains how you can automatically provision users to an external system based on the role assigned to the user. When role-based outbound provisioning is enabled, users assigned to the specified roles will be provisioned to the external system. When a user is removed from the role, the user is deprovisioned from the external system.
+
+Follow the steps given below to configure role-based provisioning in {edition.productName}.
+
+## Prerequisites
+
+Before you begin, ensure you have [set up outbound provisioning](../../outbound-provisioning/setup-outbound-provisioning.mdx) at the organization level.
+
+## Enable role-based provisioning
+
+1. On the {edition.productName} Console, go to **Connections**.
+
+2. Select the connection in which you configured the outbound connector and navigate to its **Outbound Provisioning** tab.
+
+3. Under **Outbound Provisioning Roles**, select a role from the dropdown and click the **add** icon. You can add multiple roles by repeating this step.
+
+    <img src={require("../../../../../assets/self-hosted/img/guides/outbound-provisioning/role-based-provisioning.png").default} alt="role-based provisioning" width="700" style={{border: "0.3px solid lightgrey"}} />
+
+4. Click **Update** to save the changes.
+
+## Try it out
+
+1. On the {edition.productName} Console, [create a user](../../users/manage-users.mdx#onboard-single-user).
+2. [Assign the created user to a role](../../manage-roles.mdx#assign-users-to-a-role) that you specified for outbound provisioning. The user will be provisioned to the external system automatically.
+3. Remove the user from the role. The user will be deprovisioned from the external system automatically.
