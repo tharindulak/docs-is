@@ -3,6 +3,7 @@ title: Register multiple devices for push notifications
 description: This document explains how to register multiple push devices in WSO2 Identity Platform.  # generated from the first paragraph; a writer should improve it
 type: tutorial
 sidebar_position: 15
+editions: cloud
 ---
 
 This document explains how to register multiple push devices in {edition.productName}. Multiple device support lets a user keep several devices enrolled at the same time for push notification-based use cases — instead of being limited to a single device.
@@ -30,22 +31,9 @@ Multiple device support affects two distinct scenarios:
 
 4. In **Maximum number of push devices**, enter the number of devices a user can register. The value must be at least 2.
 
-    <Variants><Edition only="cloud"><img src={require("../../../assets/img/guides/mfa/push/push-device-management-settings.png").default} alt="Device management settings of the Push Notification connection in WSO2 Identity Platform" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../assets/img/guides/mfa/push/push-device-management-settings.png").default} alt="Device management settings of the Push Notification connection in WSO2 Identity Server" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+    <img src={require("../../../assets/cloud/img/guides/mfa/push/push-device-management-settings.png").default} alt="Device management settings of the Push Notification connection in WSO2 Identity Platform" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 5. Click **Update**.
-
-<Edition only="self-hosted">
-
-:::note
-The `max_device_limit_per_user` server configuration limits the maximum value you can set here (default: `10`). To change the upper bound, add the following to the `<IS_HOME>/repository/conf/deployment.toml` file and restart the server:
-
-```toml
-[push_device_management]
-max_device_limit_per_user = 10
-```
-:::
-
-</Edition>
 
 | Field | Description |
 | --- | --- |
@@ -78,7 +66,7 @@ To register a device through the My Account portal:
 
     The new device appears in the **Push Authenticator** section along with the devices that are already registered.
 
-    <Variants><Edition only="cloud"><img src={require("../../../assets/img/guides/mfa/push/push-multiple-devices-registered-myaccount.png").default} alt="Multiple push devices registered for a user in WSO2 Identity Platform" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../assets/img/guides/mfa/push/push-multiple-devices-registered-myaccount.png").default} alt="Multiple push devices registered for a user in WSO2 Identity Server" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+    <img src={require("../../../assets/cloud/img/guides/mfa/push/push-multiple-devices-registered-myaccount.png").default} alt="Multiple push devices registered for a user in WSO2 Identity Platform" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 :::note
 The device limit is enforced by the server, not by the portal. If you build your own registration experience, a registration request beyond the limit is rejected with an error, so handle that response in your application. To register another device, the user must first remove one of the existing devices.
@@ -106,13 +94,13 @@ When this option is enabled, anyone who gets past the earlier authentication ste
 
 5. Select **Allow progressive enrollment for multiple devices**.
 
-    <Variants><Edition only="cloud"><img src={require("../../../assets/img/guides/mfa/push/push-multiple-device-progressive-enrollment.png").default} alt="Enable progressive enrollment for multiple devices in WSO2 Identity Platform" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../assets/img/guides/mfa/push/push-multiple-device-progressive-enrollment.png").default} alt="Enable progressive enrollment for multiple devices in WSO2 Identity Server" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+    <img src={require("../../../assets/cloud/img/guides/mfa/push/push-multiple-device-progressive-enrollment.png").default} alt="Enable progressive enrollment for multiple devices in WSO2 Identity Platform" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 6. Click **Update**.
 
 Once enabled, a user who already has a registered device sees a **Register a new device** button on the push notification page during sign-in. The button takes the user to the QR code page to register a new device. To return to the pending authentication request without registering, click on the **Cancel Registration** button.
 
-<Variants><Edition only="cloud"><img src={require("../../../assets/cloud/img/guides/mfa/push/push-auth-wait-page-register-new-device.png").default} alt="Register a new device from the push notification page in WSO2 Identity Platform" width="400" style={{border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../assets/self-hosted/img/guides/mfa/push/push-auth-wait-page-register-new-device.png").default} alt="Register a new device from the push notification page in WSO2 Identity Server" width="400" style={{border: "0.3px solid lightgrey"}} /></Edition></Variants>
+<img src={require("../../../assets/cloud/img/guides/mfa/push/push-auth-wait-page-register-new-device.png").default} alt="Register a new device from the push notification page in WSO2 Identity Platform" width="400" style={{border: "0.3px solid lightgrey"}} />
 
 :::note
 **Allow progressive enrollment for multiple devices** is available only when both **Enable push notification device progressive enrollment** and **Allow users to register multiple devices** are enabled. Turning off either option also turns off this setting.
@@ -135,7 +123,7 @@ Because users can now keep more than one device, it is useful to tell them whene
     - **Notify via email** - sends an email to the user. This is the default channel.
     - **Notify via push notification** - sends a push notification to the devices the user has already registered.
 
-    <Variants><Edition only="cloud"><img src={require("../../../assets/img/guides/mfa/push/push-device-registration-notification-channels.png").default} alt="Device registration notification channels in WSO2 Identity Platform" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../assets/img/guides/mfa/push/push-device-registration-notification-channels.png").default} alt="Device registration notification channels in WSO2 Identity Server" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+    <img src={require("../../../assets/cloud/img/guides/mfa/push/push-device-registration-notification-channels.png").default} alt="Device registration notification channels in WSO2 Identity Platform" width="700" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 5. Click **Update**.
 

@@ -3,7 +3,7 @@ title: Multi-valued attributes for user contact information
 description: Multi-valued attributes can store more than one value.  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_label: Configure multi-valued contact attributes
-sidebar_position: 7
+sidebar_position: 8
 ---
 
 Multi-valued attributes can store more than one value. {edition.productName} uses multi-valued attributes to associate multiple email addresses and mobile numbers with their profiles. For users with multiple values, they may also select a primary email address and a primary mobile number.
@@ -27,13 +27,26 @@ If the remote user store does not support the required schemas for these attribu
 
 <Edition only="self-hosted">
 
-If the secondary user store does not support the required schemas for these attributes, you can configure {edition.productName} to store the attribute values in the identity store instead. See [Select storage location for selected attributes](./user-attributes/configure-attributes.mdx#select-storage-location-for-selected-attributes) for instructions.
+For non-JDBC secondary user stores, you must ensure proper mapping of these attributes in the user store. If mapping is not feasible, you can disable support for these attributes in that user store by following the steps below.
+
+   1. On the {edition.productName} Console, navigate to **User Attributes and Stores** > **Attributes**.
+   2. Under **Manage Attributes**, click **Attributes** to view the list of all attributes.
+   3. Click **Edit** for the attribute you wish to modify.
+   4. Go to the **Attribute Mappings** tab.
+   5. Find the corresponding user store and uncheck the **Enable for this user store** checkbox.
+   6. Click **Update** to save the changes
+
+   <img src={require("../../../../assets/self-hosted/img/guides/organization/attributes/enable-for-user-store.png").default} alt="Enable for user store" width="500" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 </Edition>
 
 </Variants>
 
 ## Enable/Disable multiple emails and mobile numbers feature
+
+<Variants>
+
+<Edition only="cloud">
 
 To enable or disable the multiple email addresses or mobile numbers feature, enable or disable the corresponding attribute in the relevant profile.
 
@@ -42,3 +55,20 @@ To enable or disable the multiple email addresses or mobile numbers feature, ena
 3. Click **Edit** next to the corresponding attribute.
 4. Disable the **Display** checkbox from the profiles (Administrator Console, End-User Profile).
 5. Click **Update** to save the changes.
+
+</Edition>
+
+<Edition only="self-hosted">
+
+To manually enable or disable this feature, **you must update all related attributes** by following these steps:
+
+1. On the {edition.productName} Console, navigate to **User Attributes and Stores** > **Attributes**.
+2. Under **Manage Attributes**, click **Attributes** to view the list of all attributes.
+3. Click **Edit** next to the corresponding attribute.
+4. Enable or disable the **Display** checkbox across all profiles (Administrator Console, End-User Profile, and Self-Registration).
+5. Click **Update** to save the changes.
+
+</Edition>
+
+</Variants>
+

@@ -2,8 +2,8 @@
 title: Create an application in an organization
 description: Organization administrators can create and mange applications directly within their organizations.  # generated from the first paragraph; a writer should improve it
 type: how-to
-sidebar_label: Create applications
-sidebar_position: 1
+sidebar_label: Create organization applications
+sidebar_position: 2
 ---
 
 import Tabs from '@theme/Tabs';
@@ -12,6 +12,10 @@ import TabItem from '@theme/TabItem';
 Organization administrators can create and mange applications directly within their organizations. These applications can access and consume the organization’s API resources. To create an application, it must meet the following conditions:
 
 - Use OAuth2.
+
+<Variants>
+
+<Edition only="cloud">
 
 - Use only the following grant types: authorization code, client credentials, password, and refresh token.
 
@@ -34,11 +38,11 @@ To create an application,
 
 2. In the organization, go to **Applications**.
 
-    <Variants><Edition only="cloud"><img src={require("../../../../../assets/cloud/img/guides/applications/organization-applications/organization-application-create.png").default} alt="Organization Application Create" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../../assets/self-hosted/img/guides/applications/organization-applications/organization-application-create.png").default} alt="Organization Application Create" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+    <img src={require("../../../../../assets/cloud/img/guides/applications/organization-applications/organization-application-create.png").default} alt="Organization Application Create" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 3. Click **Add Application** and use either the **Standard-Based Application** or **M2M Application** template to create your application.
 
-<Variants><Edition only="cloud"><img src={require("../../../../../assets/cloud/img/guides/applications/organization-applications/organization-application-templates.png").default} alt="Organization Application Templates" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../../assets/self-hosted/img/guides/applications/organization-applications/organization-application-templates.png").default} alt="Organization Application Templates" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+<img src={require("../../../../../assets/cloud/img/guides/applications/organization-applications/organization-application-templates.png").default} alt="Organization Application Templates" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 </TabItem>
 <TabItem value="using-the-api" label="Using the API">
@@ -52,9 +56,29 @@ To create an application,
 </TabItem>
 </Tabs>
 
+</Edition>
+
+<Edition only="self-hosted">
+
+- Use only the following grant types: client credentials, password and refresh token.
+
+To create an application,
+
+1. Get a bearer token with the `internal_org_application_mgt_create` scope. Learn more about [accessing organization APIs](../../../../reference/apis/organization-apis/authentication.mdx).
+
+2. Use the [Application management REST API](../../../../reference/apis/organization-application-mgt/index.mdx#op-createApplication) to create an application in an organization.
+
+</Edition>
+
+</Variants>
+
 ## Edit an application
 
 You can find the created applications in the **Application** section of your organization's Console. You can use the Console to make the following changes to these applications.
+
+<Variants>
+
+<Edition only="cloud">
 
 - Protocol level configurations
 - User attributes related configurations
@@ -62,5 +86,18 @@ You can find the created applications in the **Application** section of your org
 - API Authorization for organization application
 - Role management for organization application
 - Advanced configurations
+
+</Edition>
+
+<Edition only="self-hosted">
+
+- Protocol level configurations
+- User attributes related configurations
+- API Authorization for organization application
+- Role management for organization application
+
+</Edition>
+
+</Variants>
 
 <Variants><Edition only="cloud"><img src={require("../../../../../assets/cloud/img/guides/applications/organization-applications/organization-application-edit.png").default} alt="Organization Application Edit" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../../assets/self-hosted/img/guides/applications/organization-applications/organization-application-edit.png").default} alt="Organization Application Edit" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>

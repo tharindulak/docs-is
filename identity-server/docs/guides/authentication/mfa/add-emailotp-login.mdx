@@ -36,12 +36,14 @@ You can use Email OTP for multi-factor authentication only if a previous authent
 
 To update the default Email OTP settings:
 
-<Edition selfHostedFrom="next">
+<Variants>
+
+<Edition only="cloud">
 
 1. On the {edition.productName} Console, go to **Connections** and select **Email OTP**.
 2. Update the following parameters in the **Settings** tab:
 
-    <Variants><Edition only="cloud"><img src={require("../../../../assets/img/guides/mfa/emailotp/setup-email-otp-v2.png").default} alt="Setup email OTP in WSO2 Identity Platform" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/img/guides/mfa/emailotp/setup-email-otp-v2.png").default} alt="Setup email OTP in WSO2 Identity Server" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+    <img src={require("../../../../assets/cloud/img/guides/mfa/emailotp/setup-email-otp-v2.png").default} alt="Setup email OTP in WSO2 Identity Platform" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
     | Field | Description |
     | --- | --- |
@@ -53,6 +55,23 @@ To update the default Email OTP settings:
     | Notify users on OTP delivery failure | If enabled, users are notified when the email OTP fails to send due to a connectivity or provider error. If disabled, the failure occurs silently and users are still prompted to enter the OTP without any error indication. Note that actual delivery failures (e.g., the email not reaching the recipient's inbox) may not be captured, depending on the provider used. This is disabled by default. |
 
 </Edition>
+
+<Edition only="self-hosted">
+
+1. On the {edition.productName} Console, go to **Connections** and select **Email OTP**.
+2. Update the following parameters in the **Settings** tab:
+
+    <img src={require("../../../../assets/self-hosted/img/guides/mfa/emailotp/setup-email-otp.png").default} alt="Setup email OTP in WSO2 Identity Server" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    | Field | Description |
+    | --- | --- |
+    | Email OTP expiry time | Specifies the expiry time of the OTP. The generated OTP will not be valid after this expiry time. |
+    | Use alphanumeric characters for OTP | Specifies whether to use alphanumeric characters in the OTP. If not selected, the generated OTP contains only digits (0-9). |
+    | Email OTP length | Specifies the number of characters allowed in the OTP. |
+
+</Edition>
+
+</Variants>
 
 3. Once you update the Email OTP settings, click **Update**.
 

@@ -41,8 +41,6 @@ Never send access tokens as URL query parameters in GET requests. Tokens in URLs
     }
     ```
 
-<Variants>
-
 <Edition only="cloud">
 
 :::note
@@ -53,52 +51,22 @@ You can change this to a JSON array format (e.g., `"scope": ["openid", "profile"
 If you still require this configuration, it can be applied at two levels:
 
 - **Application level**: Set the `enableJwtScopeAsArray` property in the application's `accessToken` configuration via the [Application Management API](../../apis/application-management/index.mdx). This overrides the organization-level setting for the specific application.
+
+- **Organization level**: Set the `enableJwtScopeAsArray` property via the following API. This applies to all applications in the organization unless overridden at the application level.
+
+    Get an access token with the `internal_config_update` scope and use it to execute the following cURL:
+
+    ```bash
+    curl --location --request PATCH 'https://api.asgardeo.io/t/<organization_name>/api/server/v1/configs/authentication/inbound/oauth2' \
+    --header 'Content-Type: application/json' \
+    --header 'Authorization: Bearer <access_token>' \
+    --data '{
+        "enableJwtScopeAsArray": true
+    }'
+    ```
 :::
 
 </Edition>
-
-<Edition only="self-hosted">
-
-:::note
-By default, the `scope` claim in JWT access tokens uses a space-separated string format (e.g., `"scope": "openid profile email"`). This format complies with the **JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens ([RFC 9068](https://www.rfc-editor.org/rfc/rfc9068.html))**.
-
-You can change this to a JSON array format (e.g., `"scope": ["openid", "profile", "email"]`), but this is **not recommended** as it deviates from the standard specification.
-
-If you still require this configuration, it can be applied at two levels:
-
-- **Application level**: Set the `enableJwtScopeAsArray` property in the application's `accessToken` configuration via the [Application Management API](../../apis/application-rest-api/index.mdx). This overrides the organization-level setting for the specific application.
-:::
-
-</Edition>
-
-</Variants>
-
-    <Variants>
-
-    <Edition only="self-hosted">
-
-    - **Organization level**: Use the [Server Configuration API](../../apis/configs-rest-api/index.mdx#op-updateOAuth2InboundAuthConfig) to set the `enableJwtScopeAsArray` property. This applies to all applications in the organization unless overridden at the application level.
-
-    </Edition>
-
-    <Edition only="cloud">
-
-    - **Organization level**: Set the `enableJwtScopeAsArray` property via the following API. This applies to all applications in the organization unless overridden at the application level.
-
-        Get an access token with the `internal_config_update` scope and use it to execute the following cURL:
-
-        ```bash
-        curl --location --request PATCH 'https://api.asgardeo.io/t/<organization_name>/api/server/v1/configs/authentication/inbound/oauth2' \
-        --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer <access_token>' \
-        --data '{
-            "enableJwtScopeAsArray": true
-        }'
-        ```
-
-    </Edition>
-
-    </Variants>
 
 ## How access tokens are validated
 

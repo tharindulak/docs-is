@@ -2,12 +2,15 @@
 title: Organization discovery
 description: B2B applications need seamless login experiences.  # generated from the first paragraph; a writer should improve it
 type: how-to
-sidebar_label: Discover organizations during login
 sidebar_position: 1
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+
+<Variants>
+
+<Edition only="cloud">
 
 B2B applications need seamless login experiences. {edition.productName} supports **organization discovery** to identify users' organizations and route them to the correct login page.
 
@@ -17,7 +20,23 @@ This guide explains the organization discovery flow, the available discovery typ
 This guide covers organization discovery under the **enhanced organization authentication** model. If your application uses the legacy federation-based approach, see [Organization login - legacy approach](../organization-login/legacy-approach.mdx) for the discovery mechanisms specific to that model.
 :::
 
+</Edition>
+
+<Edition only="self-hosted">
+
+B2B applications need seamless login experiences. {edition.productName} supports **organization discovery** to route users directly to their organizational login pages.
+
+This guide explains available discovery types and shows how to integrate them into your applications.
+
+</Edition>
+
+</Variants>
+
 ---
+
+<Variants>
+
+<Edition only="cloud">
 
 ## Organization discovery page
 
@@ -25,13 +44,19 @@ After the user clicks **Sign in with SSO**, they are redirected to the organizat
 
 By default, users are prompted to enter the **organization handle** — a human-readable, unique identifier for the organization.
 
-<img src={require("../../../../../assets/img/guides/organization/organization-login/discovery-page-org-handle.png").default} alt="Organization discovery page - org handle" width="400" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../../../assets/cloud/img/guides/organization/organization-login/discovery-page-org-handle.png").default} alt="Organization discovery page - org handle" width="400" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 ### Available discovery types
 
 {edition.productName} supports the following discovery types:
 
+</Edition>
+
 <Edition only="self-hosted">
+
+## Available discovery methods
+
+{edition.productName} supports the below organization discovery methods:
 
 | Discovery Type                    | Use Case                                                  |
 |-----------------------------------|-----------------------------------------------------------|
@@ -43,9 +68,311 @@ By default, users are prompted to enter the **organization handle** — a human-
 
 </Edition>
 
+</Variants>
+
 ---
 
 <Edition only="self-hosted">
+
+## How organization discovery works
+
+Organization discovery routes users directly to their organization's login page. This bypasses the **"Sign in with Single Sign-On (SSO)"** selection screen.
+
+Use one of these two methods:
+
+- **Direct routing with query parameters**: Add the `fidp=OrganizationSSO` parameter along with the *organization discovery parameters* to your authentication requests. This routes users directly to their organization login page.
+
+- **Conditional authentication script**: Use a conditional authentication script to automatically select the SSO authenticator based on organization parameters.
+
+</Edition>
+
+---
+
+<Variants>
+
+<Edition only="cloud">
+
+## Directly access the organization
+
+To route users directly to their organization's login page without showing the discovery page, include an organization discovery parameter in the initial authentication request. {edition.productName} resolves the organization from the parameter and routes the user to that organization's login page automatically.
+
+<Tabs groupId="tabs">
+<TabItem value="organization-handle" label="Organization Handle">
+
+Add `orgHandle=<organization_handle>` to the authentication request.
+
+<Tabs groupId="tabs">
+<TabItem value="oidc" label="OIDC">
+
+```bash
+https://{edition.hostName}/t/<root_organization_name>/oauth2/authorize?
+client_id=<client_id>
+&redirect_uri=<redirect_url>
+&scope=<scopes>
+&response_type=code
+&orgHandle=<organization_handle>
+```
+
+</TabItem>
+<TabItem value="saml" label="SAML">
+
+```bash
+https://{edition.hostName}/t/<root_organization_name>/samlsso?
+spEntityID=<app_entity_id>
+&orgHandle=<organization_handle>
+```
+
+</TabItem>
+</Tabs>
+
+**Example**: For an organization with handle `"abc.com"`, add `orgHandle=abc.com` to the request.
+
+</TabItem>
+<TabItem value="organization-name" label="Organization Name">
+
+Add `org=<organization_name>` to the authentication request.
+
+<Tabs groupId="tabs">
+<TabItem value="oidc" label="OIDC">
+
+```bash
+https://{edition.hostName}/t/<root_organization_name>/oauth2/authorize?
+client_id=<client_id>
+&redirect_uri=<redirect_url>
+&scope=<scopes>
+&response_type=code
+&org=<organization_name>
+```
+
+</TabItem>
+<TabItem value="saml" label="SAML">
+
+```bash
+https://{edition.hostName}/t/<root_organization_name>/samlsso?
+spEntityID=<app_entity_id>
+&org=<organization_name>
+```
+
+</TabItem>
+</Tabs>
+
+**Example**: For an organization named `"ABC Builders"`, add `org=ABC+Builders` to the request.
+
+</TabItem>
+<TabItem value="organization-id" label="Organization ID">
+
+Add `orgId=<organization_id>` to the authentication request.
+
+<Tabs groupId="tabs">
+<TabItem value="oidc" label="OIDC">
+
+```bash
+https://{edition.hostName}/t/<root_organization_name>/oauth2/authorize?
+client_id=<client_id>
+&redirect_uri=<redirect_url>
+&scope=<scopes>
+&response_type=code
+&orgId=<organization_id>
+```
+
+</TabItem>
+<TabItem value="saml" label="SAML">
+
+```bash
+https://{edition.hostName}/t/<root_organization_name>/samlsso?
+spEntityID=<app_entity_id>
+&orgId=<organization_id>
+```
+
+</TabItem>
+</Tabs>
+
+</TabItem>
+<TabItem value="email-domain" label="Email Domain">
+
+Add `login_hint=<user_email>` to the authentication request. {edition.productName} extracts the domain and matches it to a configured organization.
+
+<Tabs groupId="tabs">
+<TabItem value="oidc" label="OIDC">
+
+```bash
+https://{edition.hostName}/t/<root_organization_name>/oauth2/authorize?
+client_id=<client_id>
+&redirect_uri=<redirect_url>
+&scope=<scopes>
+&response_type=code
+&login_hint=<user_email>
+```
+
+</TabItem>
+<TabItem value="saml" label="SAML">
+
+```bash
+https://{edition.hostName}/t/<root_organization_name>/samlsso?
+spEntityID=<app_entity_id>
+&login_hint=<user_email>
+```
+
+</TabItem>
+</Tabs>
+
+See [Email domain-based discovery](#email-domain-based-discovery) for configuration details.
+
+</TabItem>
+</Tabs>
+
+</Edition>
+
+<Edition only="self-hosted">
+
+## Organization handle-based discovery
+
+Use the organization's handle to route users to their login page. Organization handle provides a human-readable, unique identifier that users can remember better than organization IDs.
+
+Add the `orgHandle` parameter with the organization handle to your authentication request.
+
+<Tabs groupId="tabs">
+<TabItem value="oidc" label="OIDC">
+
+```bash
+https://{edition.hostName}/oauth2/authorize?
+client_id=<client_id>
+&redirect_uri=<redirect_url>
+&scope=<scopes>
+&response_type=code
+&orgHandle=<organization_handle>
+&fidp=OrganizationSSO
+```
+
+</TabItem>
+<TabItem value="saml" label="SAML">
+
+```bash
+https://{edition.hostName}/samlsso?
+spEntityID=<app_entity_id>
+&orgHandle=<organization_handle>
+&fidp=OrganizationSSO
+```
+
+</TabItem>
+</Tabs>
+
+**Example**: For an organization with handle `"abc.com"`, add `orgHandle=abc.com` to the request.
+
+</Edition>
+
+</Variants>
+
+---
+
+<Edition only="self-hosted">
+
+## Organization name-based discovery
+
+Use the organization's name to route users to their login page.
+
+Add the `org` parameter with the organization name to your authentication request.
+
+<Tabs groupId="tabs">
+<TabItem value="oidc" label="OIDC">
+
+```bash
+https://{edition.hostName}/oauth2/authorize?
+client_id=<client_id>
+&redirect_uri=<redirect_url>
+&scope=<scopes>
+&response_type=code
+&org=<organization_name>
+&fidp=OrganizationSSO
+```
+
+</TabItem>
+<TabItem value="saml" label="SAML">
+
+```bash
+https://{edition.hostName}/samlsso?
+spEntityID=<app_entity_id>
+&org=<organization_name>
+&fidp=OrganizationSSO
+```
+
+</TabItem>
+</Tabs>
+
+**Example**: For an organization named `"ABC Builders"`, add `org=ABC+Builders` to the request.
+
+---
+
+## Organization identifier-based discovery
+
+Use the organization's unique ID to route users to their login page.
+
+Add the `orgId` parameter with the organization ID to your authentication request.
+
+<Tabs groupId="tabs">
+<TabItem value="oidc" label="OIDC">
+
+```bash
+https://{edition.hostName}/oauth2/authorize?
+client_id=<client_id>
+&redirect_uri=<redirect_url>
+&scope=<scopes>
+&response_type=code
+&orgId=<organization_id>
+&fidp=OrganizationSSO
+```
+
+</TabItem>
+<TabItem value="saml" label="SAML">
+
+```bash
+https://{edition.hostName}/samlsso?
+spEntityID=<app_entity_id>
+&orgId=<organization_id>
+&fidp=OrganizationSSO
+```
+
+</TabItem>
+</Tabs>
+---
+
+## Alternative: Use conditional authentication
+
+Instead of using the `fidp=OrganizationSSO` parameter, you can use a conditional authentication script to automatically route users.
+
+Add this script to your application's authentication flow:
+
+```javascript
+var onLoginRequest = function(context) {
+    executeStep(1, {
+        authenticationOptions: [{
+            idp: (context.request.params.orgId && !context.steps[1].idp) ? "SSO" : context.steps[1].idp
+        }]
+    }, {
+        onSuccess: function(context) {
+            Log.info("User successfully completed initial authentication with IDP: " + context.steps[1].idp);
+        }
+    });
+};
+```
+
+**How this works**: The script checks for the `orgId` parameter and automatically selects the SSO authenticator.
+
+**For organization handle**: Change the script to check for the `orgHandle` parameter instead:
+
+```javascript
+var onLoginRequest = function(context) {
+    executeStep(1, {
+        authenticationOptions: [{
+            idp: (context.request.params.orgHandle && !context.steps[1].idp) ? "SSO" : context.steps[1].idp
+        }]
+    }, {
+        onSuccess: function(context) {
+            Log.info("User successfully completed initial authentication with IDP: " + context.steps[1].idp);
+        }
+    });
+};
+```
 
 ## Configure default parameter for organization discovery
 
@@ -80,29 +407,26 @@ curl --location --request PUT 'https://localhost:9443/api/server/v1/organization
             "key": "defaultParam",
             "value": "orgHandle"
         },
-        {
-            "key": "<another_property_key>",
-            "value": "<another_property_value>"
-        }
+        < other available key value properties >
     ]
 }'
 ```
 
 **Note**: By default, the system uses `"orgHandle"` for better user experience with human-readable identifiers. You can change it to `"orgName"` if organization names are easier for users to remember.
 
-### User experience impact
+### User experience impact of organization discovery configuration
 
-Configure `default_param` to control what users enter during Single Sign-On (SSO).
+Configure `default_param` to control what users enter during Single Sign-On (SSO)
 
 **When `default_param = "orgHandle"`** (recommended):
 
-Users select **Sign In With Single Sign-On (SSO)** to sign in. They get redirected to the default SSO option. Users should provide the **organization handle**.
+Users select **Sign In With Single Sign-On (SSO)** to log in. They get redirected to the default SSO option. Users should provide the **organization handle**.
 
 When you enable email domain discovery, the UI shows the default prompt option as follows:
 
 <img src={require("../../../../../assets/self-hosted/img/guides/organization/manage-organizations/email-input-for-sso-login-with-handle.png").default} alt="Email input for Single Sign-On (SSO) login" width="400" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
-**When `default_param = "orgName"`**:
+**When `default_param = "orgName"`** (legacy behavior):
 
 Users provide the **organization name** instead.
 
@@ -110,277 +434,9 @@ When you enable email domain discovery, the UI shows the default prompt option a
 
 <img src={require("../../../../../assets/self-hosted/img/guides/organization/manage-organizations/email-input-for-sso-login.png").default} alt="Email input for Single Sign-On (SSO) login" width="400" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
-</Edition>
-
 ---
 
-## Directly access the organization
-
-To route users directly to their organization's login page without showing the discovery page, include an organization discovery parameter in the initial authentication request. {edition.productName} resolves the organization from the parameter and routes the user to that organization's login page automatically.
-
-<Variants>
-
-<Edition only="cloud">
-
-<Tabs groupId="tabs">
-<TabItem value="organization-handle" label="Organization Handle">
-
-Add `orgHandle=<organization_handle>` to the authentication request.
-
-<Tabs groupId="tabs">
-<TabItem value="oidc" label="OIDC">
-
-```bash
-https://{edition.hostName}/t/<root_organization_name>/oauth2/authorize?
-client_id=<client_id>
-&redirect_uri=<redirect_url>
-&scope=<scopes>
-&response_type=code
-&orgHandle=<organization_handle>
-```
-
-</TabItem>
-<TabItem value="saml" label="SAML">
-
-```bash
-https://{edition.hostName}/t/<root_organization_name>/samlsso?
-spEntityID=<app_entity_id>
-&orgHandle=<organization_handle>
-```
-
-</TabItem>
-</Tabs>
-
-**Example**: For an organization with handle `"abc.com"`, add `orgHandle=abc.com` to the request.
-
-</TabItem>
-<TabItem value="organization-name" label="Organization Name">
-
-Add `org=<organization_name>` to the authentication request.
-
-<Tabs groupId="tabs">
-<TabItem value="oidc" label="OIDC">
-
-```bash
-https://{edition.hostName}/t/<root_organization_name>/oauth2/authorize?
-client_id=<client_id>
-&redirect_uri=<redirect_url>
-&scope=<scopes>
-&response_type=code
-&org=<organization_name>
-```
-
-</TabItem>
-<TabItem value="saml" label="SAML">
-
-```bash
-https://{edition.hostName}/t/<root_organization_name>/samlsso?
-spEntityID=<app_entity_id>
-&org=<organization_name>
-```
-
-</TabItem>
-</Tabs>
-
-**Example**: For an organization named `"ABC Builders"`, add `org=ABC+Builders` to the request.
-
-</TabItem>
-<TabItem value="organization-id" label="Organization ID">
-
-Add `orgId=<organization_id>` to the authentication request.
-
-<Tabs groupId="tabs">
-<TabItem value="oidc" label="OIDC">
-
-```bash
-https://{edition.hostName}/t/<root_organization_name>/oauth2/authorize?
-client_id=<client_id>
-&redirect_uri=<redirect_url>
-&scope=<scopes>
-&response_type=code
-&orgId=<organization_id>
-```
-
-</TabItem>
-<TabItem value="saml" label="SAML">
-
-```bash
-https://{edition.hostName}/t/<root_organization_name>/samlsso?
-spEntityID=<app_entity_id>
-&orgId=<organization_id>
-```
-
-</TabItem>
-</Tabs>
-
-</TabItem>
-<TabItem value="email-domain" label="Email Domain">
-
-Add `login_hint=<user_email>` to the authentication request. {edition.productName} extracts the domain and matches it to a configured organization.
-
-<Tabs groupId="tabs">
-<TabItem value="oidc" label="OIDC">
-
-```bash
-https://{edition.hostName}/t/<root_organization_name>/oauth2/authorize?
-client_id=<client_id>
-&redirect_uri=<redirect_url>
-&scope=<scopes>
-&response_type=code
-&login_hint=<user_email>
-```
-
-</TabItem>
-<TabItem value="saml" label="SAML">
-
-```bash
-https://{edition.hostName}/t/<root_organization_name>/samlsso?
-spEntityID=<app_entity_id>
-&login_hint=<user_email>
-```
-
-</TabItem>
-</Tabs>
-
-See [Email domain-based discovery](#email-domain-based-discovery) for configuration details.
-
-</TabItem>
-</Tabs>
-
 </Edition>
-
-<Edition only="self-hosted">
-
-<Tabs groupId="tabs">
-<TabItem value="organization-handle" label="Organization Handle">
-
-Add `orgHandle=<organization_handle>` to the authentication request.
-
-<Tabs groupId="tabs">
-<TabItem value="oidc" label="OIDC">
-
-```bash
-https://{edition.hostName}/oauth2/authorize?
-client_id=<client_id>
-&redirect_uri=<redirect_url>
-&scope=<scopes>
-&response_type=code
-&orgHandle=<organization_handle>
-```
-
-</TabItem>
-<TabItem value="saml" label="SAML">
-
-```bash
-https://{edition.hostName}/samlsso?
-spEntityID=<app_entity_id>
-&orgHandle=<organization_handle>
-```
-
-</TabItem>
-</Tabs>
-
-**Example**: For an organization with handle `"abc.com"`, add `orgHandle=abc.com` to the request.
-
-</TabItem>
-<TabItem value="organization-name" label="Organization Name">
-
-Add `org=<organization_name>` to the authentication request.
-
-<Tabs groupId="tabs">
-<TabItem value="oidc" label="OIDC">
-
-```bash
-https://{edition.hostName}/oauth2/authorize?
-client_id=<client_id>
-&redirect_uri=<redirect_url>
-&scope=<scopes>
-&response_type=code
-&org=<organization_name>
-```
-
-</TabItem>
-<TabItem value="saml" label="SAML">
-
-```bash
-https://{edition.hostName}/samlsso?
-spEntityID=<app_entity_id>
-&org=<organization_name>
-```
-
-</TabItem>
-</Tabs>
-
-**Example**: For an organization named `"ABC Builders"`, add `org=ABC+Builders` to the request.
-
-</TabItem>
-<TabItem value="organization-id" label="Organization ID">
-
-Add `orgId=<organization_id>` to the authentication request.
-
-<Tabs groupId="tabs">
-<TabItem value="oidc" label="OIDC">
-
-```bash
-https://{edition.hostName}/oauth2/authorize?
-client_id=<client_id>
-&redirect_uri=<redirect_url>
-&scope=<scopes>
-&response_type=code
-&orgId=<organization_id>
-```
-
-</TabItem>
-<TabItem value="saml" label="SAML">
-
-```bash
-https://{edition.hostName}/samlsso?
-spEntityID=<app_entity_id>
-&orgId=<organization_id>
-```
-
-</TabItem>
-</Tabs>
-
-</TabItem>
-<TabItem value="email-domain" label="Email Domain">
-
-Add `login_hint=<user_email>` to the authentication request. {edition.productName} extracts the domain and matches it to a configured organization.
-
-<Tabs groupId="tabs">
-<TabItem value="oidc" label="OIDC">
-
-```bash
-https://{edition.hostName}/oauth2/authorize?
-client_id=<client_id>
-&redirect_uri=<redirect_url>
-&scope=<scopes>
-&response_type=code
-&login_hint=<user_email>
-```
-
-</TabItem>
-<TabItem value="saml" label="SAML">
-
-```bash
-https://{edition.hostName}/samlsso?
-spEntityID=<app_entity_id>
-&login_hint=<user_email>
-```
-
-</TabItem>
-</Tabs>
-
-See [Email domain-based discovery](#email-domain-based-discovery) for configuration details.
-
-</TabItem>
-</Tabs>
-
-</Edition>
-
-</Variants>
-
----
 
 ## Email domain-based discovery
 

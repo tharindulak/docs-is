@@ -1,6 +1,6 @@
 ---
 title: Setup webhooks
-description: This guide provides a step-by-step approach to setting up webhooks in WSO2 Identity Platform to integrate external systems.  # generated from the first paragraph; a writer should improve it
+description: This guide provides a step-by-step approach to setting up webhooks in WSO2 Identity Server to integrate external systems.  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_position: 2
 ---
@@ -326,8 +326,12 @@ Here's how to test different event types:
 - **Credential events**: Update the password of an existing user.  
 - **User account management events**: Perform actions such as updating a user's profile or changing their account status (for example enabling or disabling a user).
 
+<Edition only="cloud">
+
 - **Consent events**: Approve a consent purpose during registration or login, or revoke a consent purpose as a user or administrator.
 - **Consent purpose events**: Add a new version to an existing consent purpose as an administrator.
+
+</Edition>
 
 Observe the requests received by your webhook endpoint to confirm that it successfully receives and processes the event notifications as expected.
 

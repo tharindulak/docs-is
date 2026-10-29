@@ -3,7 +3,7 @@ title: Flow extension configuration
 description: This guide walks you through registering an external service as a flow extension, creating the attributes it returns, configuring attribute access, and…  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_position: 2
-selfHostedFrom: next
+editions: cloud
 ---
 
 This guide walks you through registering an external service as a flow extension, creating the attributes it returns, configuring attribute access, and adding the extension to a flow.
@@ -52,7 +52,7 @@ To register your external service as a flow extension:
 7. (Optional) Under **Encryption Certificate**, upload a certificate to encrypt field values exchanged with the extension endpoint. {edition.productName} uses this certificate to encrypt the values it sends to your endpoint. To learn how encryption works, see [configure field encryption](#step-4-configure-field-encryption).
 
 <video autoPlay="" loop="" muted="" playsInline="" width="auto" style={{display: "block", margin: "0", maxWidth: "100%", border: "0.3px solid lightgrey"}}>
-<source src={require("../../../../assets/img/guides/flows/flow-extension-encryption-certificate.mp4").default} type="video/mp4" />
+<source src={require("../../../../assets/cloud/img/guides/flows/flow-extension-encryption-certificate.mp4").default} type="video/mp4" />
 </video>
 
 ### Step 2 – Create the attributes returned by your endpoint {#step-2-create-the-attributes-returned-by-your-endpoint}
@@ -81,7 +81,7 @@ Once the extension and its attributes exist, configure which attributes {edition
 
 4. Click **Update** to save the configuration.
 
-<img src={require("../../../../assets/img/guides/flows/flow-extension-configure.gif").default} alt="Configure a flow extension" width="auto" style={{display: "block", margin: "0"}} />
+<img src={require("../../../../assets/cloud/img/guides/flows/flow-extension-configure.gif").default} alt="Configure a flow extension" width="auto" style={{display: "block", margin: "0"}} />
 
 The flow extension is now ready to be added to a flow.
 
@@ -94,14 +94,6 @@ Most attributes accept both **Read** and **Write**. The following are the except
 | Attributes marked with a **Read-Only** badge | Read | {edition.productName} owns these values, so their **Write** control is disabled. |
 | Username | Read and Write | Applied in the **Self Registration** flow only. In **Password Recovery** and **Invited User Registration**, {edition.productName} omits the username from the request and ignores any change your endpoint returns. |
 | Identity attributes | Read and Write | {edition.productName} maintains these itself, so writing one can cause unexpected behavior. |
-
-<Edition only="self-hosted">
-
-:::note
-The read-only attributes are set by the `actions.types.flow_extension.non_modifiable_paths` property. See [Flow extension action](../../../reference/configuration-catalog.mdx) in the configuration catalog.
-:::
-
-</Edition>
 
 ### Step 4 – Configure field encryption {#step-4-configure-field-encryption}
 
@@ -125,7 +117,7 @@ To mark a field as encrypted:
 
 Fields marked as encrypted show a lock icon on their **Read** and **Write** indicators.
 
-<img src={require("../../../../assets/img/guides/flows/flow-extension-encryption-toggles.png").default} alt="Configure field encryption" width="auto" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../../assets/cloud/img/guides/flows/flow-extension-encryption-toggles.png").default} alt="Configure field encryption" width="auto" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 :::note
 If you remove a field's **Read** or **Write** access, its corresponding encryption setting clears automatically.
@@ -147,7 +139,7 @@ Add the extension to the Self Registration flow so that {edition.productName} in
 
 4. Click **Save Draft** to save all changes, then turn the toggle on the top right corner of the Flow Builder **ON** to publish the flow.
 
-<img src={require("../../../../assets/img/guides/flows/flow-extension-add-to-flow.gif").default} alt="Add a flow extension to the flow" width="auto" style={{display: "block", margin: "0"}} />
+<img src={require("../../../../assets/cloud/img/guides/flows/flow-extension-add-to-flow.gif").default} alt="Add a flow extension to the flow" width="auto" style={{display: "block", margin: "0"}} />
 
 New users who self-register now pass through the flow extension, and the values returned by your endpoint are written to their account before the account is created.
 
@@ -167,7 +159,7 @@ You can add, replace, or remove the encryption certificate of an existing flow e
 4. Click **Update** to save the changes.
 
 {/* TODO: capture image - Settings tab showing the configured Encryption Certificate with the Clear action */}
-<img src={require("../../../../assets/img/guides/flows/flow-extension-encryption-settings.png").default} alt="Manage the encryption certificate" width="auto" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../../assets/cloud/img/guides/flows/flow-extension-encryption-settings.png").default} alt="Manage the encryption certificate" width="auto" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 :::note
 For security reasons, {edition.productName} never displays a certificate after you upload it. The Console only indicates whether a certificate is configured.

@@ -4,6 +4,7 @@ description: WSO2 Identity Platform supports issuing verifiable credentials to d
 type: reference
 sidebar_label: OpenID for verifiable credential issuance (OID4VCI)
 sidebar_position: 8
+editions: cloud
 ---
 
 {edition.productName} supports issuing verifiable credentials to digital wallets using the OID4VCI protocol. This page explains the key concepts, supported flows, credential formats, and endpoints.
@@ -32,7 +33,7 @@ This three-party trust model — **issuer, holder, verifier** — is the foundat
 
 {edition.productName} supports the **authorization code flow** for credential issuance. In this flow, the user authenticates interactively before receiving a credential.
 
-<img src={require("../../../assets/img/guides/verifiable-credentials/oid4vci-flow.png").default} alt="OID4VCI authorization code flow sequence diagram" width="750" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../assets/cloud/img/guides/verifiable-credentials/oid4vci-flow.png").default} alt="OID4VCI authorization code flow sequence diagram" width="750" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 1. **Credential offer** — {edition.productName} generates a credential offer delivered as a QR code or deep link. The wallet scans or follows it to begin the issuance flow.
 2. **GET /.well-known/openid-credential-issuer** — The wallet fetches credential issuer metadata (typically from `/oid4vci/.well-known/openid-credential-issuer`) to discover supported credentials and endpoint URLs.

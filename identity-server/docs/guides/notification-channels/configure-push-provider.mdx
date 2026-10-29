@@ -1,6 +1,6 @@
 ---
 title: Configure push provider
-description: To use push notification-based authentication, you need to configure at least one push notification provider in WSO2 Identity Platform.  # generated from the first paragraph; a writer should improve it
+description: To use push notification-based authentication, you need to configure at least one push notification provider in WSO2 Identity Server.  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_position: 3
 ---
@@ -10,16 +10,6 @@ sidebar_position: 3
 <Edition only="cloud">
 
 To use push notification-based authentication, you need to configure at least one push notification provider in {edition.productName}. WSO2 Identity Platform supports **Firebase Cloud Messaging (FCM)** as a push notification provider.
-
-</Edition>
-
-<Edition only="self-hosted">
-
-To use push notification-based authentication, you need to configure at least one push notification provider in {edition.productName}. WSO2 Identity Server supports **Firebase Cloud Messaging (FCM)** and **Amazon Simple Notification Service (SNS)** as push notification providers.
-
-</Edition>
-
-</Variants>
 
 :::note
 You can configure **multiple providers** and keep them active at the same time. During enrollment, the device will send the preferred push provider in the registration request. Once successfully registered, {edition.productName} will send push notifications via the device's registered push provider.
@@ -31,6 +21,16 @@ The following list shows the platforms that each provider supports.
 
 - **FCM**: Android, iOS (APNs), and web.
 - **Amazon SNS**: Android, iOS (APNs), Amazon Fire OS (ADM), Baidu Cloud Push, Windows Phone (MPNS), and Windows (WNS).
+
+</Edition>
+
+<Edition only="self-hosted">
+
+To use push notification-based authentication, you need to configure at least one push notification provider in {edition.productName}. WSO2 Identity Server supports **Firebase Cloud Messaging (FCM)** as a push notification provider.
+
+</Edition>
+
+</Variants>
 
 ## Configure the push provider
 
@@ -56,6 +56,8 @@ The following list shows the platforms that each provider supports.
 Firebase Cloud Messaging can send push notifications to iOS devices through Apple Push Notification Service (APNs). However, you need to configure APNs separately to send push notifications to iOS devices. For more information, [refer to the Firebase documentation](https://firebase.google.com/docs/cloud-messaging/ios/client).
 :::
 
+<Edition only="cloud">
+
 ### Configure Amazon Simple Notification Service (SNS)
 
 1. In the AWS Management Console, create a platform application for each platform you plan to support (for example, FCM or APNs). For instructions, see [Mobile push notifications](https://docs.aws.amazon.com/sns/latest/dg/sns-mobile-application-as-subscriber.html) in the AWS documentation.
@@ -74,7 +76,7 @@ Firebase Cloud Messaging can send push notifications to iOS devices through Appl
 
 3. Select the **Amazon SNS** tab on the Push Providers page.
 
-      <img src={require("../../../assets/img/guides/mfa/push/push-provider-configure-sns.png").default} alt="Configure Amazon SNS" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+      <img src={require("../../../assets/cloud/img/guides/mfa/push/push-provider-configure-sns.png").default} alt="Configure Amazon SNS" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 4. Enter the **AWS Access Key ID**, **AWS Secret Access Key**, and **AWS Region** of the IAM user you created.
 
@@ -85,7 +87,7 @@ Firebase Cloud Messaging can send push notifications to iOS devices through Appl
     3. Click **+ Add**.
     4. Repeat for each platform.
 
-      <img src={require("../../../assets/img/guides/mfa/push/push-provider-configure-sns-platforms.png").default} alt="Configure Amazon SNS Platform ARNs" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+      <img src={require("../../../assets/cloud/img/guides/mfa/push/push-provider-configure-sns-platforms.png").default} alt="Configure Amazon SNS Platform ARNs" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 6. Click **Update** to save your changes.
 
@@ -104,7 +106,7 @@ To set a provider as the default:
 
 2. Enable the **Default** toggle.
 
-      <img src={require("../../../assets/img/guides/mfa/push/push-default-toggle.png").default} alt="Configure Default Push Provider" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+      <img src={require("../../../assets/cloud/img/guides/mfa/push/push-default-toggle.png").default} alt="Configure Default Push Provider" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 :::warning[Important]
 Amazon SNS requires additional metadata, such as the `platform` field, in the registration request. For more information, see [Build your own push authenticator app](../../reference/tutorials/build-your-own-push-authenticator-app.mdx). Therefore, even if Amazon SNS is configured as the default provider, the registration payload must still include the required metadata.
@@ -113,3 +115,6 @@ Amazon SNS requires additional metadata, such as the `platform` field, in the re
 :::note
 If you configure **only one provider** and do not explicitly set a default provider, {edition.productName} uses that provider for legacy registration payloads. In that case, {edition.productName} registers the device with the configured provider. However, we recommend that you still mark the provider as the default if you need legacy payload support.
 :::
+
+</Edition>
+

@@ -4,6 +4,7 @@ description: The pre-issue ID token action in WSO2 Identity Platform lets you ex
 type: how-to
 sidebar_label: Pre issue ID token action
 sidebar_position: 3
+editions: cloud
 ---
 
 import Tabs from '@theme/Tabs';
@@ -25,6 +26,7 @@ When your external service modifies the ID token, {edition.productName} applies 
 :::note
 Currently, this action applies only at the root organization level.
 In the token flow, it supports the grant types of `authorization code`, `password`, `refresh token`, `organization switch`, and `device code`.
+
 In the OIDC hybrid flow, it supports the response types of `code id_token token`, and `code id_token`.
 :::
 
@@ -562,13 +564,11 @@ In the OIDC hybrid flow, both `FAILED` and `ERROR` responses from your external 
 
 Configure the authentication scheme when registering the action in {edition.productName}. The following screenshot shows the Authentication configuration panel where you can select the authentication scheme and provide credentials (for example, `username` and `password` for Basic authentication).
 
-<Variants><Edition only="cloud">![pre-issue-id-token-action-authentication](../../../../../assets/cloud/img/guides/actions/pre-issue-id-token-action-authentication-in-ui.png)</Edition><Edition only="self-hosted">![pre-issue-id-token-action-authentication](../../../../../assets/self-hosted/img/guides/actions/pre-issue-id-token-action-authentication-in-ui.png)</Edition></Variants>
+![pre-issue-id-token-action-authentication](../../../../../assets/cloud/img/guides/actions/pre-issue-id-token-action-authentication-in-ui.png)
 
 - **Basic**: HTTP Basic authentication.
 - **Bearer**: OAuth 2.0 Bearer token in the `Authorization` header.
 - **API Key**: API key in a header; you can define the header name (for example, `X-API-Key`).
-
-<Edition selfHostedFrom="next">
 
 - **OAuth 2.0 Client Credentials**: {edition.productName} retrieves an access token from the configured token endpoint using the OAuth 2.0 client credentials grant and uses it as a bearer token when invoking the action endpoint.
 - **OAuth 2.0 Password Grant**: {edition.productName} retrieves an access token from the configured token endpoint using the OAuth 2.0 resource owner password credentials grant and uses it as a bearer token when invoking the action endpoint.
@@ -576,8 +576,6 @@ Configure the authentication scheme when registering the action in {edition.prod
 :::warning
 If you use the same {edition.productName} organization as the authorization server, you must exclude the application used to get the access token in action authorization from this **Pre-Issue ID Token** action (and the **Pre-Issue Access Token** action) by configuring a rule. Otherwise, ID token and access token issuance will break.
 :::
-
-</Edition>
 
 ## Conditional invocation of pre-issue id token action
 
@@ -595,7 +593,7 @@ Each rule field supports the following operators:
 
 You can combine conditions using logical **AND** and **OR** operators. The system uses `AND` to combine conditions in the same group and uses `OR` to combine separate groups. This approach gives you precise control over when to invoke the pre-issue id token action.
 
-<Variants><Edition only="cloud">![pre-issue-id-token-action-execution-rule](../../../../../assets/cloud/img/guides/actions/pre-issue-id-token-action-execution-rule-in-ui.png)</Edition><Edition only="self-hosted">![pre-issue-id-token-action-execution-rule](../../../../../assets/self-hosted/img/guides/actions/pre-issue-id-token-action-execution-rule-in-ui.png)</Edition></Variants>
+![pre-issue-id-token-action-execution-rule](../../../../../assets/cloud/img/guides/actions/pre-issue-id-token-action-execution-rule-in-ui.png)
 
 The example above shows an execution rule with two groups: one where the application equals **TestApp**, and another where the grant type equals **authorization code**. The action runs when the runtime meets either condition. You can add more conditions within a group using **+ And**, or add another group using **+ Or**.
 

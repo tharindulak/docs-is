@@ -1,6 +1,6 @@
 ---
 title: OIDC settings for apps
-description: OpenID Connect protocol related settings are under the Protocol section of the application registered in WSO2 Identity Platform.  # generated from the first paragraph; a writer should improve it
+description: OpenID Connect protocol related settings are under the Protocol section of the application registered in WSO2 Identity Server.  # generated from the first paragraph; a writer should improve it
 type: reference
 sidebar_label: OIDC configurations
 sidebar_position: 2
@@ -25,90 +25,7 @@ The following are the minimum configurations that are required for OIDC applicat
 
 When your application is registered in {edition.productName}, a client ID is generated as the identifier of the application. If your application is not a public client, a client secret is generated in addition to the client ID as shown below.
 
-<Variants>
-
-<Edition only="cloud">
-
-<Edition only="cloud"><img src={require("../../../assets/cloud/img/guides/applications/get-client-id-and-secret.png").default} alt="Get client ID and secret of webapp" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition>
-
-</Edition>
-
-<Edition only="self-hosted" selfHostedFrom="next">
-
-<img src={require("../../../assets/self-hosted/img/guides/applications/client-secret-latest.png").default} alt="Get client ID and secret of webapp" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
-
-#### Rotate client secrets gracefully
-
-To prevent application downtime during a secret update, {edition.productName} allows an application to hold multiple active client secrets at the same time. This enables a seamless migration: you can generate a new secret, update your connecting applications to use it, and delete the old secret once the transition is complete.
-
-By default, an application can hold up to **2** client secrets at a time. Once the limit is reached, delete an existing secret to create a new one.
-
-<details>
-<summary>Configure the client secret limit</summary>
-
-The maximum number of client secrets an application can hold is controlled by the following configuration in the `<IS_HOME>/repository/conf/deployment.toml` file.
-
-```toml
-[oauth.multiple_client_secrets]
-max_secret_count = 2
-```
-
-If you set `max_secret_count` to `1`, applications are restricted to a single client secret and graceful rotation does not apply. The Console then:
-
-- Replaces the rotation controls with a single **Regenerate** button under **Client secret**.
-- Removes the **Revoke all & generate a new client secret** option from the **Danger Zone**.
-
-<img src={require("../../../assets/self-hosted/img/guides/applications/get-client-id-and-secret.png").default} alt="Regenerate the client secret" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
-
-Clicking **Regenerate** in this mode immediately replaces the existing client secret and revokes the tokens issued with it. Authentication flows fail until you update your application with the new client secret.
-
-</details>
-
-To rotate the client secret of your application,
-
-1. Go to the **Protocol** tab of your application and, under **Client secret**, click **Generate New Secret**.
-
-2. Select an **Expiration** for the new secret. You can choose one of the preset durations (**30**, **60**, **90**, or **180 days**), enter a custom number of days with **Custom**, or select **Never expires**.
-
-    :::warning
-    Choose carefully. You cannot change a client secret's expiry time after it's generated.
-    :::
-
-    <img src={require("../../../assets/self-hosted/img/guides/applications/generate-client-secret.png").default} alt="Generate a new client secret" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
-
-3. Click **Generate**. The new secret becomes the application's latest client secret. The previous secret remains active and is moved under **View Previous Client Secret**.
-
-4. Update your client applications and services to use the newly generated secret. Both secrets remain valid during this transition.
-
-5. Once all clients are successfully using the new secret, click **View Previous Client Secret**, click the delete icon next to the old secret, and confirm the action.
-
-    <img src={require("../../../assets/self-hosted/img/guides/applications/client-secrets-delete.png").default} alt="View and delete previous client secrets" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
-
-    :::warning
-    Having more than one active secret increases security risks. Delete the old secret as soon as you have verified that your applications have successfully migrated to the new one.
-
-    *Note: Deleting a secret only invalidates that specific secret. Active tokens are not revoked, and the application's latest client secret cannot be deleted.*
-    :::
-
-If an active secret is nearing expiry, a warning banner appears on the application in the Console. Rotate the secret before authentication fails.
-
-#### Revoke all client secrets
-
-To force an immediate rotation, for example if a secret is compromised, go to the **Danger Zone** of the **Protocol** tab. Click **Revoke All** under **Revoke all & generate a new client secret**.
-
-<img src={require("../../../assets/self-hosted/img/guides/applications/client-secrets-danger-zone.png").default} alt="Revoke all client secrets" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
-
-:::warning
-This action is irreversible. All existing client secrets and their associated tokens are permanently revoked, and a single new client secret is generated. Authentication flows fail until your applications are updated with the new secret.
-:::
-
-#### Manage client secrets using APIs
-
-You can programmatically manage client secrets using the `/applications/{applicationId}/inbound-protocols/oidc/secrets` endpoints of the [Application Management API](../apis/application-rest-api/index.mdx). For applications in sub organizations, use the corresponding endpoints of the [Application Management API - Organization APIs](../apis/organization-application-mgt/index.mdx).
-
-</Edition>
-
-</Variants>
+<Variants><Edition only="cloud"><img src={require("../../../assets/cloud/img/guides/applications/get-client-id-and-secret.png").default} alt="Get client ID and secret of webapp" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../assets/self-hosted/img/guides/applications/get-client-id-and-secret.png").default} alt="Get client ID and secret of webapp" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
 
 ### Allowed grant types
 
@@ -294,7 +211,11 @@ Learn more about [Pushed Authorization Requests](../iam-concepts/pushed-authoriz
 
 OAuth 2.0 authorization requests can either include the authorization parameters in URL query strings or in a request object. A request object is typically a JSON Web Token (JWT) which encapsulates the authorization parameters. It can be signed and encrypted to respectively ensure data integrity and data confidentiality.
 
+<Edition only="cloud">
+
 - **Enable signature validation** - Select this to accept only signed request objects. {edition.productName} will reject unsigned request objects when you enable this option.
+
+</Edition>
 
 - Under **Request object signing algorithm**, select a supported algorithm with which the request object will be signed.
 
@@ -503,6 +424,8 @@ By default, whenever the refresh token is exchanged for a new access token, {edi
 
 If you select the **Renew refresh token** option, each time the refresh token is exchanged for a new access token, {edition.productName} invalidates the existing refresh token and issues a new refresh token.
 
+<Edition only="cloud">
+
 #### Extend expiry time of renewed refresh token
 
 :::note
@@ -511,9 +434,13 @@ This option is only applicable when **Renew refresh token** is enabled.
 
 When you set this configuration to `false`, renewed refresh tokens carry the remaining validity period of the original refresh token.
 
+</Edition>
+
 #### Refresh token expiry time
 
 This option specifies the validity period of a refresh token in seconds. The default value is 86400 seconds.
+
+<Edition only="cloud">
 
 #### Graceful refresh token rotation
 
@@ -523,7 +450,7 @@ This option is only applicable when **Renew refresh token** is enabled.
 
 Enabling **Graceful refresh token rotation** lets the previous refresh token stay usable for a short grace window after rotation. The client can then recover from missed token deliveries without interrupting the user session.
 
-<img src={require("../../../assets/img/guides/authorization/access-token/graceful-refresh-token-rotation.png").default} alt="Graceful-Refresh-Token-Rotation" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../assets/cloud/img/guides/authorization/access-token/graceful-refresh-token-rotation.png").default} alt="Graceful-Refresh-Token-Rotation" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 :::note
 Learn about the [graceful refresh token rotation runtime rules](../iam-concepts/tokens/refresh-tokens.mdx#graceful-refresh-token-rotation) including replay behavior and error responses.
@@ -533,41 +460,15 @@ Learn about the [graceful refresh token rotation runtime rules](../iam-concepts/
 
 The number of seconds the previous refresh token remains usable after rotation. This period cannot extend beyond the refresh token's absolute expiry time set by **Refresh token expiry time**.
 
-<Edition only="cloud">
-
 The maximum allowed validity period on WSO2 Identity Platform is **60 seconds**.
-
-</Edition>
 
 #### Graceful refresh token reuse limit
 
 The maximum number of times the previous refresh token may be replayed inside the grace window. Once this limit is reached, further replay attempts are rejected.
 
-<Variants>
-
-<Edition only="cloud">
-
 The maximum allowed reuse limit on WSO2 Identity Platform is **5**.
 
 </Edition>
-
-<Edition only="self-hosted">
-
-:::note
-Maximum allowed values for the validity period and reuse limit can be modified by setting the following in `deployment.toml`:
-
-```toml
-[oauth.graceful_refresh_token_rotation]
-maximum_validity_period = <seconds>
-maximum_reuse_limit = <count>
-```
-
-Application-level values cannot exceed these server maxima.
-:::
-
-</Edition>
-
-</Variants>
 
 ### Certificate
 Certificates play a critical role in validating signatures on signed requests from the application and encrypting the ID token sent to the application when [ID token encryption](#enable-encryption) is enabled. To add a certificate, you can either upload one or provide a JWKS endpoint.

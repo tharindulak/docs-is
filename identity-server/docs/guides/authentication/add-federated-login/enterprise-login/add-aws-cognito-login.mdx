@@ -4,6 +4,7 @@ description: You can connect an AWS Cognito user pool to your applications using
 type: how-to
 sidebar_label: Add AWS cognito login
 sidebar_position: 1
+editions: cloud
 ---
 
 import Tabs from '@theme/Tabs';
@@ -31,11 +32,11 @@ If you already have a user pool, skip to step 4 and create a new app client in t
 
 2. Go to **User pools** and click **Create user pool**.
 
-    <img src={require("../../../../../assets/img/guides/idp/aws-cognito/user-pool-initial-creation.png").default} alt="Create User pools" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+    <img src={require("../../../../../assets/cloud/img/guides/idp/aws-cognito/user-pool-initial-creation.png").default} alt="Create User pools" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 3. Under **Define your application**, select **Traditional web application** as the application type and enter a name for the application.
 
-    <img src={require("../../../../../assets/img/guides/idp/aws-cognito/user-pool-creation.png").default} alt="Create traditional application" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+    <img src={require("../../../../../assets/cloud/img/guides/idp/aws-cognito/user-pool-creation.png").default} alt="Create traditional application" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 4. Under **Configure options**, select the sign-in identifiers and the required sign-up attributes for your users. For example, select **Email** as the sign-in identifier.
 
@@ -53,7 +54,7 @@ If you already have a user pool, skip to step 4 and create a new app client in t
 
 2. Go to **Applications** > **App clients** and select the app client you created.
 
-    <img src={require("../../../../../assets/img/guides/idp/aws-cognito/view-apps.png").default} alt="View app" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+    <img src={require("../../../../../assets/cloud/img/guides/idp/aws-cognito/view-apps.png").default} alt="View app" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 3. Under **App client information**, copy **Client ID** and the **Client secret**.
 
@@ -87,7 +88,7 @@ When you create a **Traditional web application**, AWS Cognito configures the lo
     - Cognito domain: `https://<domain_prefix>.auth.<region>.amazoncognito.com`
     - Custom domain: `https://<your_custom_domain>`
 
-    <img src={require("../../../../../assets/img/guides/idp/aws-cognito/view-domain.png").default} alt="View domain" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+    <img src={require("../../../../../assets/cloud/img/guides/idp/aws-cognito/view-domain.png").default} alt="View domain" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 #### Endpoints
 
@@ -128,7 +129,7 @@ To try out the login flow, you need a user account in the AWS Cognito user pool.
 
 4. Click **Create user**.
 
-     <img src={require("../../../../../assets/img/guides/idp/aws-cognito/create-user.png").default} alt="Create user in Cognito" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+     <img src={require("../../../../../assets/cloud/img/guides/idp/aws-cognito/create-user.png").default} alt="Create user in Cognito" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 AWS Cognito creates the user with the **Force change password** status. The user must change the temporary password at the first login.
 
@@ -146,7 +147,7 @@ Now, let's register AWS Cognito as a connection in {edition.productName}.
 
 3. Enter a unique name for the identity provider, for example, `AWS Cognito`, select **OpenID Connect**, and click **Next**.
 
-    <Variants><Edition only="cloud"><img src={require("../../../../../assets/img/guides/idp/aws-cognito/create-connection.png").default} alt="Create OIDC IdP in WSO2 Identity Platform" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../../assets/img/guides/idp/aws-cognito/create-connection.png").default} alt="Create OIDC IdP in WSO2 Identity Server" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+    <img src={require("../../../../../assets/cloud/img/guides/idp/aws-cognito/create-connection.png").default} alt="Create OIDC IdP in WSO2 Identity Platform" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 4. Enter the following details of AWS Cognito and click **Next**:
 
@@ -157,7 +158,7 @@ Now, let's register AWS Cognito as a connection in {edition.productName}.
     | Authorization endpoint URL | `https://<cognito_domain>/oauth2/authorize` |
     | Token endpoint URL | `https://<cognito_domain>/oauth2/token` |
 
-    <Variants><Edition only="cloud"><img src={require("../../../../../assets/img/guides/idp/aws-cognito/create-connection-wizard2.png").default} alt="Add endpoints in WSO2 Identity Platform" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../../assets/img/guides/idp/aws-cognito/create-connection-wizard2.png").default} alt="Add endpoints in WSO2 Identity Server" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+    <img src={require("../../../../../assets/cloud/img/guides/idp/aws-cognito/create-connection-wizard2.png").default} alt="Add endpoints in WSO2 Identity Platform" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 5. Select **JWKS endpoint** as the mode of certificate configuration and enter the JWKS endpoint of the user pool.
 
@@ -197,10 +198,6 @@ To enable AWS Cognito login:
 
 2. Select your application, go to the **Login Flow** tab and add AWS Cognito login from your preferred editor:
 
-    <Variants>
-
-    <Edition only="cloud">
-
     <Tabs groupId="tabs">
     <TabItem value="classic-editor" label="Classic Editor">
 
@@ -221,28 +218,12 @@ To enable AWS Cognito login:
 
     2. Click on `+ Add Sign In Option` to add a new authenticator to the same step and select your AWS Cognito connection.
 
-        <img src={require("../../../../../assets/img/guides/idp/aws-cognito/add-aws-cognito-login-option.png").default} alt="Add AWS Cognito login in WSO2 Identity Platform using the Visual Editor" width="500" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+        <img src={require("../../../../../assets/cloud/img/guides/idp/aws-cognito/add-aws-cognito-login-option.png").default} alt="Add AWS Cognito login in WSO2 Identity Platform using the Visual Editor" width="500" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
     </TabItem>
     </Tabs>
 
     ---
-
-    </Edition>
-
-    <Edition only="self-hosted">
-
-    1. Click **Add Sign In Option** to add a new authenticator to the first step.
-
-    2. Select the AWS Cognito connection.
-
-    3. Click **Confirm** to add AWS Cognito login to the sign-in flow.
-
-        <img src={require("../../../../../assets/img/guides/idp/aws-cognito/add-aws-cognito-login-option.png").default} alt="Add AWS Cognito login in WSO2 Identity Server using the Visual Editor" width="500" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
-
-    </Edition>
-
-    </Variants>
 
     :::note[Recommendations]
     It is recommended to add your social and enterprise connections to the first authentication step as they are used for identifying the user.
@@ -260,7 +241,7 @@ Follow the steps given below.
 
 3. On the {edition.productName} login page, click **Sign in with AWS Cognito**.
 
-    <Variants><Edition only="cloud"><img src={require("../../../../../assets/cloud/img/guides/idp/aws-cognito/login-with-aws-cognito.png").default} alt="Login with AWS Cognito WSO2 Identity Platform" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../../assets/self-hosted/img/guides/idp/aws-cognito/login-with-aws-cognito.png").default} alt="Login with AWS Cognito WSO2 Identity Server" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+    <img src={require("../../../../../assets/cloud/img/guides/idp/aws-cognito/login-with-aws-cognito.png").default} alt="Login with AWS Cognito WSO2 Identity Platform" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
     :::note
     The label of the login button uses the name you gave the connection.
@@ -271,7 +252,7 @@ Follow the steps given below.
     :::note
        If you created the user with a temporary password, AWS Cognito prompts the user to set a new password at the first login.
 
-    <Variants><Edition only="cloud"><img src={require("../../../../../assets/img/guides/idp/aws-cognito/user-login-to-aws-cognito.png").default} alt="User login with WSO2 Identity Platform" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../../assets/img/guides/idp/aws-cognito/user-login-to-aws-cognito.png").default} alt="User login with WSO2 Identity Server" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+    <img src={require("../../../../../assets/cloud/img/guides/idp/aws-cognito/user-login-to-aws-cognito.png").default} alt="User login with WSO2 Identity Platform" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
     :::
 
 ## Configure user attributes

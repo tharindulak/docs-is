@@ -85,6 +85,10 @@ If you selected **Manual Configuration** in the previous step, follow the steps 
     | Identity provider Single Sign-On URL | This value specifies the single sign-on URL of the external IdP. This is where {edition.productName} will send its authentication requests. You need to get this value from the external IdP. |
     | Identity provider entity ID | This is the `saml2:Issuer` value specified in the SAML responses issued by the external IdP. You need to get this value from the external IdP. |
 
+<Variants>
+
+<Edition only="cloud">
+
 2. (Optional) Provide the mode of certificate configuration.
 
     :::note
@@ -113,6 +117,16 @@ If you selected **Manual Configuration** in the previous step, follow the steps 
 
         </details>
 
+</Edition>
+
+<Edition only="self-hosted">
+
+2. (Optional) Upload the public certificate of the identity provider.
+
+</Edition>
+
+</Variants>
+
 3. Click **Finish** to complete the registration.
 
 ### Use a SAML metadata file
@@ -135,6 +149,10 @@ A SAML IdP metadata file contains the following:
 2. Upload the IdP metadata file and click **Next**.
 
     <Variants><Edition only="cloud"><img src={require("../../../../../assets/cloud/img/guides/idp/saml-enterprise-idp/register-saml-idp-with-metafile.png").default} alt="Create SAML Enterprise IDP with Metadata file" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../../assets/self-hosted/img/guides/idp/saml-enterprise-idp/register-saml-idp-with-metafile.png").default} alt="Create SAML Enterprise IDP with Metadata file" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+
+<Variants>
+
+<Edition only="cloud">
 
 3. (Optional) Provide the mode of certificate configuration.
 
@@ -164,11 +182,23 @@ A SAML IdP metadata file contains the following:
 
         </details>
 
+</Edition>
+
+<Edition only="self-hosted">
+
+3. (Optional) Upload the public certificate of the identity provider.
+
+</Edition>
+
+</Variants>
+
 4. Click **Finish** to complete the registration.
 
 :::note
 Once the SAML identity provider is created, you can configure [additional SAML settings](../../../../reference/idp-settings/saml-settings-for-idp.mdx) from the **Settings** tab.
 :::
+
+<Edition only="cloud">
 
 ## Certificate validation with the SAML metadata endpoint
 
@@ -183,73 +213,11 @@ When you configure a SAML metadata endpoint, {edition.productName} fetches and c
 
 If neither `validUntil` nor `cacheDuration` is defined, a default maximum cache lifetime of 24 hours applies.
 
-<Edition only="self-hosted">
-
-You can change this default in `deployment.toml`:
-
-```toml
-[authentication.authenticator.saml.parameters]
-RemoteCertificateCacheMaxLifetime = "24h"
-```
-
-</Edition>
-
 ### Automatic certificate refresh for key rotation
 
 If signature validation fails, {edition.productName} automatically fetches fresh certificates from the metadata endpoint to support key rotation scenarios where the external IdP replaces its signing certificate.
 
 {edition.productName} applies a default 5-minute block period between consecutive refresh attempts to prevent excessive metadata refresh requests.
-
-<Edition only="self-hosted">
-
-You can configure this duration in `deployment.toml`:
-
-```toml
-[authentication.authenticator.saml.parameters]
-RemoteCertificateRefreshRetryBlockDuration = "5m"
-```
-
-### HTTP client configuration
-
-The following parameters configure the HTTP client that fetches the SAML metadata. The values shown are the defaults:
-
-```toml
-[authentication.authenticator.saml.parameters]
-RemoteCertificateClientConnectionTimeout = "1s"
-RemoteCertificateClientReadTimeout = "1s"
-RemoteCertificateClientConnectionRequestTimeout = "1s"
-RemoteCertificateClientConnectionPoolSize = "20"
-RemoteCertificateClientMaxConnectionPerRoute = "3"
-RemoteCertificateRetryCount = "0"
-RemoteCertificateClientResponseLimit = "512000"
-```
-
-| Parameter | Description |
-|---|---|
-| `RemoteCertificateClientConnectionTimeout` | Maximum time to wait to establish a connection to the metadata endpoint. |
-| `RemoteCertificateClientReadTimeout` | Maximum time to wait to read data after a connection is established. |
-| `RemoteCertificateClientConnectionRequestTimeout` | Maximum time to wait to obtain a connection from the connection pool. |
-| `RemoteCertificateClientConnectionPoolSize` | Total number of connections maintained in the pool. |
-| `RemoteCertificateClientMaxConnectionPerRoute` | Maximum connections maintained per route. |
-| `RemoteCertificateRetryCount` | Number of retry attempts on a failed metadata fetch. |
-| `RemoteCertificateClientResponseLimit` | Maximum response size in bytes accepted from the metadata endpoint. |
-
-### Metadata certificate cache configuration
-
-{edition.productName} caches the signing certificates fetched from the metadata endpoint. Configure the cache using the following settings in `deployment.toml`. The values shown are the defaults:
-
-```toml
-[cache.saml_cert_cache]
-enable = true
-timeout = 900
-capacity = 100
-```
-
-| Parameter | Description | Default |
-|---|---|---|
-| `enable` | Enables or disables the metadata certificate cache. | `true` |
-| `timeout` | Cache entry expiration time in seconds. | `900` (15 minutes) |
-| `capacity` | Maximum number of cache entries. | `100` |
 
 </Edition>
 

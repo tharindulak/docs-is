@@ -12,7 +12,7 @@ In today’s rapidly evolving AI-driven environments, effective management of AI
 
 This guide walks you through key processes involved in managing AI agents, including identity creation, credential issuance, role assignment, deployment, monitoring, and eventual deactivation or deletion. Following these best practices ensures your AI agents operate reliably within your organizational security policies and governance standards.
 
-<Edition selfHostedFrom="next">
+<Edition only="cloud">
 
 ## Understanding agent types
 
@@ -82,7 +82,9 @@ Registering an AI agent is the first step to bring an autonomous system into you
     - **Name**: A descriptive name for your AI agent for human-readable display purposes
     - **Description** (optional): Purpose and functionality of the agent
 
-<Edition selfHostedFrom="next">
+<Variants>
+
+<Edition only="cloud">
 
 4. If you want to allow users to log in to this agent, enable the **Allow users to log in to this agent** checkbox. This will configure OAuth/OIDC authentication for the agent.
 5. If you enabled the user login option, select the agent type:
@@ -95,9 +97,17 @@ Registering an AI agent is the first step to bring an autonomous system into you
 
 </Edition>
 
+<Edition only="self-hosted">
+
+4. Click **Create** to complete the registration.
+
+</Edition>
+
+</Variants>
+
 After successful registration, the agent receives a unique Agent ID that acts as its permanent identifier within the system. A secret credential is also issued at this point and is displayed only once. Be sure to store it securely for deployment.
 
-<Edition selfHostedFrom="next">
+<Edition only="cloud">
 
 For agents with user login enabled, an OAuth application is automatically created with the appropriate grant types configured:
 
@@ -109,12 +119,12 @@ The success screen will display the Agent ID, Agent Secret (masked), and for age
 <Tabs groupId="tabs">
 <TabItem value="agent-with-user-login" label="Agent with user login">
 
-<img src={require("../../../../assets/img/guides/agentic-ai/agent-registration-success-with-user-login.png").default} alt="Agent registration success with user login" width="600" style={{display: "block", margin: "0 auto"}} />
+<img src={require("../../../../assets/cloud/img/guides/agentic-ai/agent-registration-success-with-user-login.png").default} alt="Agent registration success with user login" width="600" style={{display: "block", margin: "0 auto"}} />
 
 </TabItem>
 <TabItem value="agent-without-user-login" label="Agent without user login">
 
-<img src={require("../../../../assets/img/guides/agentic-ai/agent-registration-success-without-user-login.png").default} alt="Agent registration success without user login" width="600" style={{display: "block", margin: "0 auto"}} />
+<img src={require("../../../../assets/cloud/img/guides/agentic-ai/agent-registration-success-without-user-login.png").default} alt="Agent registration success without user login" width="600" style={{display: "block", margin: "0 auto"}} />
 
 </TabItem>
 </Tabs>
@@ -148,7 +158,7 @@ Deactivation is a vital security control used to temporarily suspend an AI agent
     Deactivating an AI agent will immediately revoke all its active access tokens, rendering any existing sessions invalid. Furthermore, it prevents the agent from initiating any new authentication attempts, effectively halting its operations until it's reactivated.
     :::
 
-<Edition selfHostedFrom="next">
+<Edition only="cloud">
 
 ### Managing OAuth applications for agents with user login
 
@@ -173,11 +183,21 @@ To view and manage the OAuth application:
 
 ### Deleting an agent
 
-<Edition selfHostedFrom="next">
+<Variants>
+
+<Edition only="cloud">
 
 Deleting an AI agent permanently removes the agent and all associated data, including credentials and configurations. For agents with user login enabled, the automatically created OAuth application will also be removed. This action is irreversible and should only be performed when you are certain that the agent is no longer needed.
 
 </Edition>
+
+<Edition only="self-hosted">
+
+Deleting an AI agent permanently removes the agent and all associated data, including credentials and configurations. This action is irreversible and should only be performed when you are certain that the agent is no longer needed.
+
+</Edition>
+
+</Variants>
 
 1. On the {edition.productName} Console, go to **Agents**.
 2. Select your AI agent from the list.
@@ -185,7 +205,7 @@ Deleting an AI agent permanently removes the agent and all associated data, incl
 4. Click **Delete agent**.
 5. Confirm the deletion when prompted.
 
-    <Edition selfHostedFrom="next">
+    <Edition only="cloud">
 
     :::warning
     For agents with user login enabled, deleting the agent will also delete the associated OAuth application. Any users or services relying on this application for authentication will lose access immediately.

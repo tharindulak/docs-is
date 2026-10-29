@@ -1,6 +1,6 @@
 ---
 title: Authenticating AI Agents
-description: This guide walks you through how to authenticate AI agents into your applications secured by WSO2 Identity Platform.  # generated from the first paragraph; a writer should improve it
+description: This guide walks you through how to authenticate AI agents into your applications secured by WSO2 Identity Server.  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_label: Agent authentication
 sidebar_position: 5
@@ -262,17 +262,15 @@ As shown in the above sequence diagram, the flow proceeds as follows.
 9. **Successful Access**
    The request succeeds. The AI agent is now authorized to act on the user’s behalf and access the required resources.
 
+<Edition only="cloud">
+
 ### Using CIBA for on-behalf-of delegation
 
 For background agents that operate without direct user interaction, the [CIBA grant](../../authentication/configure-oidc-flows/grant-types/configure-ciba-grant.mdx) can be combined with OBO tokens to enable delegation. Instead of redirecting the user to a browser for consent, the agent initiates a backchannel authentication request with its `actor_token`, and the user approves the delegation asynchronously on a separate device via email, SMS, or an external notification channel.
 
-![Agent OBO via CIBA Flow Diagram](../../../../assets/img/guides/agentic-ai/ai-agent-obo-ciba-flow.png)
+![Agent OBO via CIBA Flow Diagram](../../../../assets/cloud/img/guides/agentic-ai/ai-agent-obo-ciba-flow.png)
 
 The flow proceeds as follows:
-
-<Variants>
-
-<Edition only="cloud">
 
 1. **Backchannel Authentication with Actor Token**
    The agent sends a backchannel authentication request to the `/oauth2/ciba` endpoint, including its `actor_token` alongside standard CIBA parameters.
@@ -289,35 +287,8 @@ The flow proceeds as follows:
 
     The `actor_token` is a JWT representing the AI agent’s identity, obtained through the agent’s own [authentication flow](#ai-agent-acting-on-its-own).
 
-</Edition>
-
-<Edition only="self-hosted">
-
-1. **Backchannel Authentication with Actor Token**
-   The agent sends a backchannel authentication request to the `/oauth2/ciba` endpoint, including its `actor_token` alongside standard CIBA parameters.
-
-    ```bash
-    curl -v -k -X POST https://localhost:9443/t/{root_organization_handle}/oauth2/ciba \
-    --header "Authorization: Basic <Base64Encoded(CLIENT_ID:CLIENT_SECRET)>" \
-    --header "Content-Type:application/x-www-form-urlencoded" \
-    --data-urlencode "scope=openid profile" \
-    --data-urlencode "login_hint=<username>" \
-    --data-urlencode "binding_message=Agent requesting access on your behalf" \
-    --data-urlencode "actor_token=<AGENT_ACTOR_TOKEN>"
-    ```
-
-    The `actor_token` is a JWT representing the AI agent’s identity, obtained through the agent’s own [authentication flow](#ai-agent-acting-on-its-own).
-
-</Edition>
-
-</Variants>
-
 2. **User Notification and Authentication**
    {edition.productName} validates the actor token and sends a notification to the user through the configured channel (email, SMS, or external). The user authenticates and provides consent on the separate device.
-
-<Variants>
-
-<Edition only="cloud">
 
 3. **Token Polling**
    The agent polls the token endpoint using the `auth_req_id` received in the CIBA response:
@@ -329,25 +300,6 @@ The flow proceeds as follows:
     --data-urlencode "grant_type=urn:openid:params:grant-type:ciba" \
     --data-urlencode "auth_req_id=<AUTH_REQ_ID>"
     ```
-
-</Edition>
-
-<Edition only="self-hosted">
-
-3. **Token Polling**
-   The agent polls the token endpoint using the `auth_req_id` received in the CIBA response:
-
-    ```bash
-    curl -v -k -X POST https://localhost:9443/t/{root_organization_handle}/oauth2/token \
-    --header "Authorization: Basic <Base64Encoded(CLIENT_ID:CLIENT_SECRET)>" \
-    --header "Content-Type:application/x-www-form-urlencoded" \
-    --data-urlencode "grant_type=urn:openid:params:grant-type:ciba" \
-    --data-urlencode "auth_req_id=<AUTH_REQ_ID>"
-    ```
-
-</Edition>
-
-</Variants>
 
 4. **Delegated Token Issuance**
    Once the user authenticates, the authorization server issues a delegated access token containing an `act` claim that identifies the agent:
@@ -368,7 +320,17 @@ The flow proceeds as follows:
 To use OBO tokens with CIBA, agent identities must be enabled in {edition.productName}, and the application must have the CIBA grant type enabled. Learn more about [registering background agents](./register-and-manage-agents.mdx#registering-an-ai-agent).
 :::
 
+</Edition>
+
 ### Using token exchange for on-behalf-of delegation
+
+<Edition only="self-hosted">
+
+:::note
+This feature is available from **update level 7.2.0.44** onwards. See the instructions on [updating WSO2 products](https://updates.docs.wso2.com/en/latest/).
+:::
+
+</Edition>
 
 When an agent receives a token issued for the user, the [token exchange grant](../../authentication/configure-oidc-flows/tokens-and-validation/configure-token-exchange.mdx) can add the agent as the acting party without any new user interaction. The agent presents its own `actor_token` alongside the user's token, and {edition.productName} issues a token that carries the user in `sub` and the agent in the `act` claim. Successive exchanges nest the `act` claim, so a chain of agents remains traceable in a single token.
 

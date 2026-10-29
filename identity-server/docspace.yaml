@@ -11,7 +11,7 @@ cloud:
   in: identity-platform
 owners:
   team: identity-platform-docs
-repo: tharindulak/docs-is
+repo: wso2/docs-identity-platform
 editLinks: false
 issues:
   repo: wso2/docs-is

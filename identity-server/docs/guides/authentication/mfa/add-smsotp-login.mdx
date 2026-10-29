@@ -3,7 +3,7 @@ title: Add MFA with SMS OTP
 description: SMS OTP (One-Time Password) is a security mechanism where a password is sent to the user's registered mobile number, which they must enter during the login…  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_label: Add SMS OTP
-sidebar_position: 4
+sidebar_position: 5
 ---
 
 import Tabs from '@theme/Tabs';
@@ -33,13 +33,25 @@ To update the default SMS OTP settings:
 1. On the {edition.productName} Console, go to **Connections** and select **SMS OTP**.
 2. Update the following parameters in the **Settings** tab:
 
-    <Edition selfHostedFrom="next">
+    <Variants>
 
-    <Variants><Edition only="cloud"><img src={require("../../../../assets/img/guides/mfa/smsotp/setup-sms-otp-v2.png").default} alt="Setup SMS OTP in WSO2 Identity Platform" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/img/guides/mfa/smsotp/setup-sms-otp-v2.png").default} alt="Setup SMS OTP in WSO2 Identity Server" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+    <Edition only="cloud">
+
+    <img src={require("../../../../assets/cloud/img/guides/mfa/smsotp/setup-sms-otp-v2.png").default} alt="Setup SMS OTP in WSO2 Identity Platform" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
     </Edition>
 
-    <Edition selfHostedFrom="next">
+    <Edition only="self-hosted">
+
+    <img src={require("../../../../assets/self-hosted/img/guides/mfa/smsotp/setup-sms-otp.png").default} alt="Setup SMS OTP in WSO2 Identity Server" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+    </Edition>
+
+    </Variants>
+
+    <Variants>
+
+    <Edition only="cloud">
 
     | Field | Description |
     | --- | --- |
@@ -51,6 +63,20 @@ To update the default SMS OTP settings:
     | `Notify users on OTP delivery failure` | If enabled, users are notified when the SMS OTP fails to send due to a connectivity or provider error. If disabled, the failure occurs silently and users are still prompted to enter the OTP without any error indication. Note that actual delivery failures (e.g., the SMS not reaching the recipient's device) may not be captured, depending on the provider used. This is disabled by default. |
 
     </Edition>
+
+    <Edition only="self-hosted">
+
+    | Field | Description |
+    | --- | --- |
+    | `SMS OTP expiry time` | Specifies the expiry time of the OTP. The generated OTP will not be valid after this expiry time. |
+    | `Use only numeric characters for OTP` | Specifies whether to use only numeric characters in the OTP. If this is selected, the generated OTP contains only digits (0-9). If this option is not selected, the OTP will contain alphanumeric characters. |
+    | `SMS OTP length` | Specifies the number of characters allowed in the OTP. |
+    | `Allowed OTP resend attempt count` | Specifies the number of allowed OTP resend attempts. |
+    | `Resend OTP block time` | Specifies the time duration to block OTP resend requests after reaching the maximum allowed resend attempts. |
+
+    </Edition>
+
+    </Variants>
 
 3. Once you update the SMS OTP settings, click **Update**.
 

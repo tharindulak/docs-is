@@ -50,7 +50,7 @@ For instructions on changing default ports, see [Change the default port offset]
 
 To have strong transport-level security, use **TLS 1.3** (recommended) or at minimum **TLS 1.2**, and disable SSL, TLS 1.0, and 1.1.
 
-A set of secure cipher suites is enabled by default. If you need to customize them, use the [Mozilla SSL Configuration Generator](https://ssl-config.mozilla.org/#server=tomcat&version=9.0.58&config=intermediate&guideline=5.6) to select a suitable list for your environment.
+Use the [Mozilla SSL Configuration Generator](https://ssl-config.mozilla.org/#server=tomcat&version=9.0.58&config=intermediate&guideline=5.6) to get an up-to-date list of recommended cipher suites for Tomcat.
 
 :::note
 When deciding on TLS protocol and ciphers, consider compatibility with existing client applications. Imposing maximum security might cause functional problems with older clients.

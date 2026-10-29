@@ -1,9 +1,9 @@
 ---
-title: Insecure token handling
+title: insecure-tokens
 description: When handling tokens such as the ID tokens and access tokens that we looked at in the previous section, there’s a risk of manipulation, such as replaying or…  # generated from the first paragraph; a writer should improve it
 type: how-to
 layout: complete-guide
-sidebar_position: 4
+unlisted: true
 ---
 
 When handling tokens such as the ID tokens and access tokens that we looked at in the previous section, there’s a risk of manipulation, such as replaying or tampering with a JWT token to elevate privileges or exploiting JWT invalidation. Due to this reason, it’s important to validate the ID token before using any information from it or storing it in the browser. Let’s look at how you can validate the ID token here because we use the ID token to establish the logged-in user context at the application level.

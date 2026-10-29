@@ -23,6 +23,8 @@ When **Renew refresh token** is enabled, {edition.productName} invalidates the c
 
 To configure rotation settings for your application, see [OIDC settings for apps](../../app-settings/oidc-settings-for-app.mdx#refresh-token).
 
+<Edition only="cloud">
+
 ## Graceful refresh token rotation
 
 When **Renew refresh token** is enabled, missing token delivery (for example, due to a dropped network connection) forces the client to re-authenticate. Enabling **Graceful refresh token rotation** lets the old refresh token stay usable for a short grace window after rotation, so the client can recover without re-authentication.
@@ -35,6 +37,8 @@ The following runtime rules apply during the grace window.
 - **Grace window expiry.** If the old refresh token is replayed after the validity period has elapsed, the request returns `400 invalid_grant`.
 
 To configure the graceful rotation validity period and reuse limit, see [OIDC settings for apps](../../app-settings/oidc-settings-for-app.mdx#graceful-refresh-token-rotation).
+
+</Edition>
 
 ## Token lifetime
 

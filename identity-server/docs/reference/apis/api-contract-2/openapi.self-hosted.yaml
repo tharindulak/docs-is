@@ -191,7 +191,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RequestParams'
-          description: Request parameters of the authentication request being processed together with the parameters of the original authorization request, limited to the parameter names listed as allowed parameters in the custom authenticator configuration. The field is omitted when no parameter matches. Parameters taken from the original authorization request are URL-encoded using form encoding rather than copied from the query string, and are sent as separate entries, so the same parameter name can appear more than once.
+          description: Request parameters of the authentication request being processed, limited to the parameter names listed as allowed parameters in the custom authenticator configuration. The field is omitted when no parameter matches. An authenticator that is the only option in the first authentication step receives the parameters of the original authorization request on its first invocation. When the step offers several login options, that invocation carries the parameters of the request that selected the authenticator. Later invocations receive the parameters of the request that returned the user from the external service.
       description: Details of the incoming authentication request.
       
     Tenant:

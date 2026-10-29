@@ -23,6 +23,10 @@ Use the following settings to change details and behavior of an attribute. To co
 The **Attribute** field specifies the unique identifier of the attribute. It always starts with `http://wso2.org/claims` and not editable.
 :::
 
+<Variants>
+
+<Edition only="cloud">
+
 <table>
   <tbody>
     <tr>
@@ -77,6 +81,65 @@ The **Attribute** field specifies the unique identifier of the attribute. It alw
     </tr>
   </tbody>
 </table>
+
+</Edition>
+
+<Edition only="self-hosted">
+
+<table>
+  <tbody>
+    <tr>
+      <td>**Attribute Display Name**</td>
+      <td>Update the display name of the attribute that will show in user profiles.</td>
+    </tr>
+    <tr>
+      <td>**Description**</td>
+      <td>Update the description for the attribute.</td>
+    </tr>
+    <tr>
+      <td>**Data Type**</td>
+      <td>Refers to the kind of value it holds. Refer to [reference](./attribute-configurations-reference.mdx) for more details.</td>
+    </tr>
+    <tr>
+      <td>**Allow multiple values for this attribute**</td>
+      <td>Specify whether to support multiple values for this attribute.</td>
+    </tr>
+    <tr>
+      <td>**Regular expression**</td>
+      <td>The attribute value will be validated against the regex pattern specified here.</td>
+    </tr>
+    <tr>
+      <td>**Select Source for Attribute Value of Shared Users**</td>
+      <td>
+
+        When a user's profile is shared across multiple organizations, the value of this attribute will be taken from the selected source.<br />
+
+        - **From Origin:** The attribute value is inherited from the original organization which manages the user's profile.
+        - **From Shared Profile:** The attribute value is taken from the shared user profile in the respective organization.
+        - **From First Found in Hierarchy:** The attribute value is retrieved from the first organization in the hierarchy that has assigned a non-null value to the attribute.
+
+        You can only configure this option for custom attributes.
+
+      </td>
+    </tr>
+    <tr>
+      <td>**Uniqueness Validation**</td>
+      <td>
+
+        Select one of the following scopes to validate attribute uniqueness:
+
+        - **None:** No validation is applied. Users can have duplicate values for the selected attribute.
+        - **Within User Store:** Users within the same user store can't have duplicate values for the selected attribute. However, users in other user stores may have duplicates.
+        - **Across User Stores:** Attribute values are unique across all user stores preventing duplicates throughout the organization.
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+</Edition>
+
+</Variants>
 
 ## Display settings
 
@@ -181,6 +244,15 @@ By default, {edition.productName} stores identity attributes internally in the u
 </Edition>
 
 ### Select storage location for selected attributes
+
+<Edition only="self-hosted">
+
+:::note
+The selective configuration of storage location for attributes is available in WSO2 IS 7.2.0 from update level 5 onwards.
+ See how to [Upgrade the WSO2 Identity Server](../../../../deploy-and-operate/upgrade-wso2-is.mdx).
+:::
+
+</Edition>
 
 {edition.productName}, by default, stores identity attributes internally and user attributes in the connected user stores. If you want to store and manage an identity attribute in your user stores or a user attribute in the identity store, you can do so by following the steps below.
 

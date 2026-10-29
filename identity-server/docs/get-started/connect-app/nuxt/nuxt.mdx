@@ -4,22 +4,11 @@ description: Welcome to the Nuxt quickstart guide!  # generated from the first p
 type: quick-start
 sidebar_label: Quickstart
 sidebar_position: 1
+editions: cloud
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-
-<Variants>
-
-<Edition only="cloud">
-
-</Edition>
-
-<Edition only="self-hosted">
-
-</Edition>
-
-</Variants>
 
 Welcome to the Nuxt quickstart guide! In this document, you will learn to build a Nuxt app, add user login, and display user profile information using {edition.productName}.
 
@@ -30,29 +19,11 @@ Welcome to the Nuxt quickstart guide! In this document, you will learn to build 
 - Sign into the {edition.productName} Console and navigate to **Applications > New Application**.
 - Select **Traditional Web Application** and complete the wizard by providing a suitable name, the **OpenID Connect** protocol, and an authorized redirect URL.
 
-<Variants>
-
-<Edition only="cloud">
-
 :::note[Example]
 **Name:** `asgardeo-nuxt`
 
 **Authorized redirect URL:** `http://localhost:3000/api/auth/callback`
 :::
-
-</Edition>
-
-<Edition only="self-hosted">
-
-:::note[Example]
-**Name:** `is-nuxt`
-
-**Authorized redirect URL:** `http://localhost:3000/api/auth/callback`
-:::
-
-</Edition>
-
-</Variants>
 
 Once you finish creating the application, note down the following values from its **Info** tab. You will need them to configure the WSO2 Identity Platform Nuxt SDK.
 
@@ -67,10 +38,6 @@ The authorized redirect URL is the address {edition.productName} sends the user 
 ## Create a Nuxt app
 
 Create your new Nuxt app.
-
-<Variants>
-
-<Edition only="cloud">
 
 <Tabs groupId="tabs">
 <TabItem value="npm" label="npm">
@@ -101,44 +68,6 @@ pnpm dev
 
 </TabItem>
 </Tabs>
-
-</Edition>
-
-<Edition only="self-hosted">
-
-<Tabs groupId="tabs">
-<TabItem value="npm" label="npm">
-
-```bash
-npm create nuxt@latest is-nuxt
-cd is-nuxt
-npm run dev
-```
-
-</TabItem>
-<TabItem value="yarn" label="yarn">
-
-```bash
-yarn create nuxt@latest is-nuxt
-cd is-nuxt
-yarn dev
-```
-
-</TabItem>
-<TabItem value="pnpm" label="pnpm">
-
-```bash
-pnpm create nuxt@latest is-nuxt
-cd is-nuxt
-pnpm dev
-```
-
-</TabItem>
-</Tabs>
-
-</Edition>
-
-</Variants>
 
 ## Install `@asgardeo/nuxt`
 
@@ -178,14 +107,6 @@ NUXT_PUBLIC_ASGARDEO_CLIENT_ID="<your-app-client-id>"
 NUXT_PUBLIC_ASGARDEO_AFTER_SIGN_OUT_URL="<after-sign-out-redirect-url>"
 ASGARDEO_CLIENT_SECRET="<your-app-client-secret>"
 ```
-
-<Edition only="self-hosted">
-
-:::note
-If you are running in a local development or testing environment using self-signed SSL certificates, the application may fail to connect to {edition.productName} due to TLS certificate validation errors. To bypass this check, add `NODE_TLS_REJECT_UNAUTHORIZED=0` to the `.env` file.
-:::
-
-</Edition>
 
 ## Register the WSO2 Identity Platform Nuxt module
 

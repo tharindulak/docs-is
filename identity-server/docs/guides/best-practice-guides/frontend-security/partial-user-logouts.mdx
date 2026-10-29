@@ -1,9 +1,9 @@
 ---
-title: Partial user logouts
+title: partial-user-logouts
 description: When a user logs out from a frontend application, it’s important to revoke the access token as soon as possible in addition to clearing the current user…  # generated from the first paragraph; a writer should improve it
 type: how-to
 layout: complete-guide
-sidebar_position: 8
+unlisted: true
 ---
 
 When a user logs out from a frontend application, it’s important to revoke the access token as soon as possible in addition to clearing the current user context at the frontend. The reason is that if the access token remains valid after logout, it could potentially be misused if intercepted, leading to unauthorized access. Additionally, the session identifier should not be reused after logout to prevent session hijacking, especially on shared devices.

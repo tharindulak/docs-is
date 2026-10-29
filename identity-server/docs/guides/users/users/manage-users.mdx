@@ -30,15 +30,15 @@ This guide walks you through how you can manage user accounts as an administrato
 
 To learn more about onboarding users, see [Onboard users](./onboard-users.mdx).
 
+<Variants>
+
+<Edition only="cloud">
+
 ## Filter users
 
 Administrators can filter users based on their account status from the {edition.productName} Console.
 
 To filter users by account status:
-
-<Variants>
-
-<Edition only="cloud">
 
 1. On the {edition.productName} Console, go to **User Management** > **Users**.
 2. Click the **Account Status** dropdown and select the relevant filter criteria:
@@ -58,18 +58,6 @@ A user can be assigned to different [groups](../manage-groups.mdx) in the organi
 </Edition>
 
 <Edition only="self-hosted">
-
-1. On the {edition.productName} Console, go to **User Management** > **Users**.
-2. Click the **Account Status** dropdown and select the relevant filter criteria:
-
-    - **Locked**: Filters users with locked accounts.
-    - **Disabled**: Filters users with deactivated accounts.
-    - **Pending password reset**: Filters users for whom the administrator has initiated a forced password reset, but the users haven't yet reset their passwords.
-    - **Pending initial password setup**: Filters users an administrator invited to set their own password during initial account creation but who haven't done so yet.
-    - **Pending email verification**: Filters users who haven't yet verified their primary email addresses.
-    - **Pending mobile verification**: Filters users who haven't yet verified their primary mobile numbers.
-
-        <img src={require("../../../../assets/img/guides/users/filter-users-by-account-status.png").default} alt="Filter users by account status" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 ## Assign groups
 
@@ -212,29 +200,13 @@ To update the user profile:
 
 4. Click **Update** to save.
 
-## Share user with organizations
-
-<Variants>
-
 <Edition only="cloud">
+
+## Share user with organizations
 
 An administrator can share a user with an organization or multiple organizations via the {edition.productName} Console.
 
-</Edition>
-
-<Edition only="self-hosted">
-
-An administrator can share a user with an organization (or multiple organizations) via the WSO2 Identity Server Console.
-
-</Edition>
-
-</Variants>
-
 To share a user with organizations:
-
-<Variants>
-
-<Edition only="cloud">
 
 1. On the {edition.productName} Console, go to **User Management** > **Users**.
 2. Find the user's account and click **Edit**.
@@ -244,35 +216,13 @@ To share a user with organizations:
     - **Do not share user with any organization**: The user will not be shared with any organizations.
     - **Share user with all organizations**: The user is shared with all current and future organizations. When the user is shared, administrators can also configure which roles should be assigned to the user in the shared organizations.
 
-        <img src={require("../../../../assets/img/guides/users/share-user-with-all-organizations.png").default} alt="Share user with all organizations" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+        <img src={require("../../../../assets/cloud/img/guides/users/share-user-with-all-organizations.png").default} alt="Share user with all organizations" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
     - **Share user with selected organizations**: The user is shared with a specific set of existing organizations, but not with future child organizations. Administrators can configure which roles should be assigned to the user in the shared organizations.
 
-</Edition>
-
-<Edition only="self-hosted">
-
-1. On the WSO2 Identity Server Console, go to **User Management** > **Users**.
-
-2. Find the user's account in the user list and click **Edit**.
-
-3. Navigate to the **Shared Access** tab.
-
-4. Select the appropriate sharing option.
-
-    - **Do not share user with any organization** - user will not be shared with any organizations.
-
-    - **Share user with all organizations** - user is shared with all current and future organizations. When the user is shared, administrators can also configure which roles should be assigned to the user in the shared organizations.
-
-       <img src={require("../../../../assets/img/guides/users/share-user-with-all-organizations.png").default} alt="Share user with all organizations" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
-
-    - **Share user with selected organizations** - user is shared with a specific set of existing organizations, but they are not shared with the future children organizations. Administrators can configure which roles should be assigned to the user in the shared organizations.
-
-</Edition>
-
-</Variants>
-
 5. Once selected and configured, click **Save**.
+
+</Edition>
 
 ## Resend invitation links and codes
 
@@ -531,11 +481,11 @@ To reset the password:
 
 3. Click **Reset Password**.
 
-### Using the API
-
 <Variants>
 
 <Edition only="cloud">
+
+### Using the API
 
 You can also use WSO2 Identity Platform's [SCIM API](../../../reference/apis/scim2/index.mdx) to initiate the admin initiated password recovery flow.
 
@@ -568,6 +518,8 @@ You can also use WSO2 Identity Platform's [SCIM API](../../../reference/apis/sci
 </Edition>
 
 <Edition only="self-hosted">
+
+**Using the API**
 
 You can also use WSO2 Identity Server's [SCIM API](../../../reference/apis/scim2-users-rest-apis/index.mdx#op-patchUser) to initiate the admin initiated password recovery flow.
 
@@ -789,6 +741,24 @@ To delete a user account:
 
 3. Select the checkbox to confirm your action.
 4. Click **Confirm**.
+
+## Filter users
+
+Administrators can filter users based on their account status from the {edition.productName} Console.
+
+To filter users by account status:
+
+1. On the {edition.productName} Console, go to **User Management** > **Users**.
+2. Click the **Account Status** dropdown and select the relevant filter criteria:
+
+    - **Locked**: Filters users with locked accounts.
+    - **Disabled**: Filters users with deactivated accounts.
+    - **Pending password reset**: Filters users for whom the administrator has initiated a forced password reset, but the users haven't yet reset their passwords.
+    - **Pending initial password setup**: Filters users an administrator invited to set their own password during initial account creation but who haven't done so yet.
+    - **Pending email verification**: Filters users who haven't yet verified their primary email addresses.
+    - **Pending mobile verification**: Filters users who haven't yet verified their primary mobile numbers.
+
+        <img src={require("../../../../assets/img/guides/users/filter-users-by-account-status.png").default} alt="Filter users by account status" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 </Edition>
 

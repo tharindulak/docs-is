@@ -76,7 +76,7 @@ The below recommendations can change based on the expected concurrency & perform
       </th>
       <td>
 
-        - WSO2 Identity Server requires JDK compliant with Java 21 or Java 25. This will run on most common platforms that **support Java 21 or Java 25**.
+        - WSO2 Identity Server requires JDK compliant with Java 11, Java 17 or Java 21. This will run on most common platforms that **support Java 11, Java 17 or Java 21.** .
 
         - All WSO2 Carbon-based products are generally compatible with most common DBMSs. The embedded H2 database is suitable for development and testing. For enterprise production environments we recommend an industry-standard RDBMS such as Oracle, PostgreSQL, MySQL, MS SQL, etc. .
 
@@ -152,8 +152,8 @@ These applications are mandatory and are required to run the binary distribution
       </td>
       <td>
 
-        - Oracle JDK 21
-        - OpenJDK 21
+        - Oracle JDK 11
+        - OpenJDK 11
 
       </td>
       <td>
@@ -274,13 +274,13 @@ Environment variables are global system variables accessible by all the processe
 :::
 
 1. In your home directory, open the BASHRC file (.bash_profile file on macOS) using a text editor such as vi, emacs, pico, or mcedit.
-2. Add the following lines at the bottom of the file (Replace `<JDK_INSTALLATION_PATH>` with the path of your JDK installation). directory where the JDK is installed.
+2. Assuming you have JDK 11.0.14 in your system, add the following two lines at the bottom of the file (Replace `/usr/java/jdk-11.0.14` with the path of your JDK installation). directory where the JDK is installed.
 
     <Tabs groupId="tabs">
     <TabItem value="linux" label="Linux">
 
     ```java
-    export JAVA_HOME=<JDK_INSTALLATION_PATH>
+    export JAVA_HOME=/usr/java/jdk-11.0.14
     export PATH=${JAVA_HOME}/bin:${PATH}
     ```
 
@@ -288,7 +288,7 @@ Environment variables are global system variables accessible by all the processe
     <TabItem value="macos" label="macOS">
 
     ```java
-    export JAVA_HOME=<JDK_INSTALLATION_PATH>/Contents/Home
+    export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-11.0.14/Contents/Home
     ```
 
     </TabItem>
@@ -355,7 +355,7 @@ Follow the instructions below to install the WSO2 Identity Server on Windows.
 
 #### Set up JAVA_HOME {#set-up-java_home_1}
 
-You must set your `JAVA_HOME` environment variable to point to the directory where the Java Development Kit (JDK) is installed on the computer. Typically, the JDK is installed in a directory under `C:/Program Files/Java`, such as `C:/Program Files/Java/temurin-21.jdk` . If you have multiple versions installed, choose the latest one, which you can find by sorting by date.
+You must set your `JAVA_HOME` environment variable to point to the directory where the Java Development Kit (JDK) is installed on the computer. Typically, the JDK is installed in a directory under `C:/Program Files/Java`, such as `C:/Program Files/Java/jdk-11.0.14` . If you have multiple versions installed, choose the latest one, which you can find by sorting by date.
 
 :::note
 Environment variables are global system variables accessible by all the
@@ -411,7 +411,7 @@ You can temporarily set the `JAVA_HOME` environment variable within a Windows co
     ---
     **Example**
     ```java
-    set JAVA_HOME=c:/Program Files/java/temurin-21.jdk
+    set JAVA_HOME=c:/Program Files/java/jdk-11.0.14
     ```
     :::
 
@@ -483,7 +483,7 @@ Extract the WSO2 product that you want to run as a Linux service and set the env
     # Default-Stop:
     # Short-Description: starts the wso2 identity server
     ### END INIT INFO
-    export JAVA_HOME="/usr/java/temurin-21.jdk"
+    export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
     export CARBON_HOME="/home/ubuntu/wso2is-{edition.version}"
 
     startcmd="${CARBON_HOME}""/bin/wso2server.sh start > /dev/null &"

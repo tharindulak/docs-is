@@ -53,7 +53,7 @@ the `openid` scope. By configuring it to false, you can stop issuing ID tokens.
 **Note:** You can not turn off the process of issuing ID tokens for the `authorization_code` grant type.
 
 By configuring the `<IsRefreshTokenAllowed>` property to `true` or `false` along with the above configuration, 
-you can turn on or turn off the process of issuing refresh tokens. By default, `IsRefreshTokenAllowed` is set to 
+you can turn on or turn on the process of issuing refresh tokens. By default, `IsRefreshTokenAllowed` is set to 
 `true`, and you can allow it to issue refresh tokens for all grant types. By configuring it to `false`, you can stop 
 issuing refresh tokens.  
 **Note:** By default, issuing ID token for `client_credentials` grant type is disabled as it is logically invalid.
@@ -817,7 +817,7 @@ The diagram below illustrates the device flow.
 
 The diagram below illustrates the CIBA flow.
 
-<Variants><Edition only="cloud">![How the CIBA grant works](../../../assets/cloud/img/references/grants/ciba-grant.png)</Edition><Edition only="self-hosted">![How the CIBA grant works](../../../assets/self-hosted/img/references/grants/ciba-grant.png)</Edition></Variants>
+<Variants><Edition only="cloud">![How the CIBA grant works](../../../assets/cloud/img/references/grants/ciba-grant.png)</Edition><Edition only="self-hosted"></Edition></Variants>
 
 <Variants>
 
@@ -887,7 +887,7 @@ The diagram below illustrates the CIBA flow.
     --data-urlencode "binding_message=<custom_message>"
     ```
 
-    To issue an [on-behalf-of (OBO) token](../../guides/agentic-ai/ai-agents/agent-authentication.mdx#using-ciba-for-on-behalf-of-delegation) for agent delegation, include the `actor_token` parameter:
+    To issue an [on-behalf-of (OBO) token](../../guides/agentic-ai/ai-agents/agent-authentication.mdx) for agent delegation, include the `actor_token` parameter:
 
     ```bash
     --data-urlencode "actor_token=<AGENT_ACTOR_TOKEN>"

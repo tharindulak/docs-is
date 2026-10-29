@@ -2,7 +2,7 @@
 title: Delegation
 description: Delegation lets an application get a token for a user while preserving the identity of the party that acts on the user's behalf.  # generated from the first paragraph; a writer should improve it
 type: how-to
-sidebar_position: 4
+sidebar_position: 5
 ---
 
 import Tabs from '@theme/Tabs';
@@ -11,6 +11,14 @@ import TabItem from '@theme/TabItem';
 Delegation lets an application get a token for a user while preserving the identity of the party that acts on the user's behalf. {edition.productName} implements delegation with the [token exchange grant](../authentication/configure-oidc-flows/tokens-and-validation/configure-token-exchange.mdx), as defined in the [OAuth 2.0 Token Exchange specification (RFC 8693)](https://datatracker.ietf.org/doc/html/rfc8693).
 
 The exchanged token identifies the user in the `sub` claim and the acting party in the `act` claim. When a delegated token is exchanged again, {edition.productName} nests the previous `act` claim under the new one, so a single token carries the full delegation chain.
+
+<Edition only="self-hosted">
+
+:::note
+This feature is available from **update level 7.2.0.44** onwards. See the instructions on [updating WSO2 products](https://updates.docs.wso2.com/en/latest/).
+:::
+
+</Edition>
 
 ## Request a delegated token
 
@@ -94,7 +102,12 @@ The request contains the following delegation parameters:
 :::note[Scopes of the delegated token]
 When {edition.productName} issues the subject token, it limits the scopes of the delegated token to the scopes granted to the subject token.
 
+<Edition only="cloud">
+
 To prevent {edition.productName} from issuing scopes when a trusted token issuer issues the subject token, see [Restrict scope issuance for federated tokens](../authentication/configure-oidc-flows/tokens-and-validation/configure-token-exchange.mdx#restrict-scope-issuance-for-federated-tokens).
+
+</Edition>
+
 :::
 
 ## The act claim

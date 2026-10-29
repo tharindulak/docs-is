@@ -26,20 +26,40 @@ The workflows support the following types of operations:
 In the workflow creation page, you can select multiple operations if approval steps are common for those operations.
 :::
 
+<Edition only="cloud">
+
 By default, approval workflows trigger for all configured operations. You can optionally define rules to control when an approval workflow engages. This allows dynamic approval enforcement based on business requirements such as user attributes, roles, or user store domains.
 
 To learn more on how to configure rules, see [Approval workflow rules](./workflow-rules.mdx).
 
+</Edition>
+
 ### Configure workflow steps
+
+<Variants>
+
+<Edition only="cloud">
 
 The next step in creating a workflow is to configure its steps. You can add multiple steps to a workflow, and each step can have multiple approvers. Approvers can belong to a configured role or be defined as individual users.
 
-<img src={require("../../../assets/img/guides/workflows/workflow-steps-configuration.png").default} alt="Workflow steps configuration" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+</Edition>
+
+<Edition only="self-hosted">
+
+The final step in creating a workflow is to configure its steps. You can add multiple steps to a workflow, and each step can have multiple approvers. Approvers can belong to a configured role or be defined as individual users.
+
+</Edition>
+
+</Variants>
+
+<Variants><Edition only="cloud"><img src={require("../../../assets/cloud/img/guides/workflows/workflow-steps-configuration.png").default} alt="Workflow steps configuration" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../assets/self-hosted/img/guides/workflows/workflow-steps-configuration.png").default} alt="Workflow steps configuration" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
 
 :::note
 If you assign admin user in the first step of approval and if admin creates a user, still workflow will be triggered.
 Other participants in the first step will also receive the approval request.
 :::
+
+<Edition only="cloud">
 
 ### Configure notifications
 
@@ -47,19 +67,21 @@ After configuring the approval steps, you can set up notifications to keep appro
 
 The following notification channels are available:
 
-<img src={require("../../../assets/img/guides/workflows/workflow-notification-configuration.png").default} alt="Notification configuration" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+<img src={require("../../../assets/cloud/img/guides/workflows/workflow-notification-configuration.png").default} alt="Notification configuration" width="600" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 - **Approver Notifications**: Notify the approvers assigned to review the request when a new approval task is ready. Select **Email**, **SMS**, or both.
 
     When enabled, approvers receive a notification with the request details and a link to review and take action.
 
-    <img src={require("../../../assets/img/guides/workflows/workflow-notification-approver-email.png").default} alt="Approver notification email" width="500" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+    <img src={require("../../../assets/cloud/img/guides/workflows/workflow-notification-approver-email.png").default} alt="Approver notification email" width="500" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 - **Notify Initiator on Completion**: Notify the user who initiated the request once the workflow reaches a final decision. Select **Email**, **SMS**, or both.
 
     When enabled, the initiator receives a notification with the outcome of the approval request.
 
-    <img src={require("../../../assets/img/guides/workflows/workflow-notification-initiator-email.png").default} alt="Initiator notification email" width="500" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+    <img src={require("../../../assets/cloud/img/guides/workflows/workflow-notification-initiator-email.png").default} alt="Initiator notification email" width="500" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
+
+</Edition>
 
 Once you have configured the steps, you can save the workflow. The workflow will now be available for use in the system.
 

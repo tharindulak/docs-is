@@ -439,51 +439,16 @@ To try out user login,
 6. Log in to the Guardio business app by selecting `Sign In With Single Sign-On (SSO)`.
 
     :::note
-
-    <Variants>
-
-    <Edition only="self-hosted">
-
-    You can route users directly to their organization's login page by passing the user's email as a `login_hint` on the initial authentication request. {edition.productName} resolves the organization from the email domain and skips the SSO selection prompt.
-
-    Sample requests:
-
-    <Tabs groupId="tabs">
-    <TabItem value="oidc" label="OIDC">
-
-    ```bash
-    https://{edition.hostName}/oauth2/authorize?
-    client_id=<client_id>
-    &redirect_uri=<redirect_url>
-    &scope=<scopes>
-    &response_type=code
-    &login_hint=<user_email>
-    &orgDiscoveryType=emailDomain
-    ```
-
-    </TabItem>
-    <TabItem value="saml" label="SAML">
-
-    ```bash
-    https://{edition.hostName}/samlsso?
-    spEntityID=<app_entity_id>
-    &login_hint=<user_email>
-    &orgDiscoveryType=emailDomain
-    ```
-
-    </TabItem>
-    </Tabs>
-
-    </Edition>
-
-    <Edition only="cloud">
-
     You can bypass the `Sign In With SSO` page and go directly to your organization's login page by adding the following query parameters in the login request.
 
     - `login_hint`: The email address of the user that will be used to resolve the domain.
     - `fidp`: If you have additional B2C login options configured for the application, you can set this parameter to `OrganizationSSO` to direct users straight to the organization login page.
 
     Sample requests:
+
+    <Variants>
+
+    <Edition only="cloud">
 
     <Tabs groupId="tabs">
     <TabItem value="oidc" label="OIDC">
@@ -513,6 +478,36 @@ To try out user login,
 
     </Edition>
 
+    <Edition only="self-hosted">
+
+    <Tabs groupId="tabs">
+    <TabItem value="oidc" label="OIDC">
+
+    ```bash
+    https://{edition.hostName}/oauth2/authorize?
+    client_id=<client_id>
+    &redirect_uri=<redirect_url>
+    &scope=<scopes>
+    &response_type=code
+    &login_hint=<user_email>
+    &fidp=OrganizationSSO
+    ```
+
+    </TabItem>
+    <TabItem value="saml" label="SAML">
+
+    ```bash
+    https://{edition.hostName}/samlsso?
+    spEntityID=<app_entity_id>
+    &login_hint=<user_email>
+    &fidp=OrganizationSSO
+    ```
+
+    </TabItem>
+    </Tabs>
+
+    </Edition>
+
     </Variants>
 
     :::
@@ -528,10 +523,6 @@ To try out user login,
 <Edition only="self-hosted">
 
 ### Self-registration
-
-:::warning[Not supported with enhanced organization authentication]
-Email domain-based self-registration is not supported for applications using the **enhanced organization authentication** model.
-:::
 
 To try out self-registration,
 

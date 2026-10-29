@@ -101,6 +101,10 @@ Follow the steps given below to enable **TOTP** as the second factor in the logi
 
 TOTP enrollment during the first login is enabled by default for all applications.
 
+<Variants>
+
+<Edition only="cloud">
+
 {edition.productName} provides two ways to control this enrollment behavior:
 
 - **Organization-level configuration**: Define a default policy that applies across all applications in the organization.
@@ -121,13 +125,25 @@ To configure TOTP enrollment for all applications in your organization:
     - **Enabled (default)**: Prompt users who haven't configured TOTP to enroll during login for all applications, unless overridden by [**Conditional Authentication**](#configure-at-application-level).
     - **Disabled**: {edition.productName} won't prompt users to enroll in TOTP during login for any application in the organization.
 
-    <Variants><Edition only="cloud"><img src={require("../../../../assets/img/guides/mfa/totp/totp-org-level-config.png").default} alt="TOTP organization level configuration in WSO2 Identity Platform" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition><Edition only="self-hosted"><img src={require("../../../../assets/img/guides/mfa/totp/totp-org-level-config.png").default} alt="TOTP organization level configuration in WSO2 Identity Server" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} /></Edition></Variants>
+    <img src={require("../../../../assets/cloud/img/guides/mfa/totp/totp-org-level-config.png").default} alt="TOTP organization level configuration in WSO2 Identity Platform" style={{display: "block", margin: "0", border: "0.3px solid lightgrey"}} />
 
 4. Click **Update** to save your changes.
 
 ### Configure at application level
 
 To override the organization-level setting for a specific application:
+
+</Edition>
+
+<Edition only="self-hosted">
+
+Administrators of an organization can configure their business applications to disable TOTP enrollment during the login flow of the users.
+
+To disable TOTP enrollment during login:
+
+</Edition>
+
+</Variants>
 
 1. On the {edition.productName} Console, [enable TOTP](#enable-totp-for-an-app)  for a selected application.
 2. Turn on **Conditional Authentication** by switching the toggle.
@@ -167,6 +183,29 @@ To override the organization-level setting for a specific application:
     :::
 
 4. Click **Update** to save your changes.
+
+<Edition only="self-hosted">
+
+## Display the secret key during enrollment
+
+By default, {edition.productName} only shows the QR code during TOTP enrollment. You can configure {edition.productName} to also display the TOTP secret key alongside the QR code, allowing users to manually enter it into their authenticator app if QR code scanning is not possible.
+
+To enable the secret key display, add the following configuration to the `<IS_HOME>/repository/conf/deployment.toml` file.
+
+```toml
+[authentication.authenticator.totp.parameters]
+showSecretKeyInEnrollment = true
+```
+
+:::note
+This configuration is available from update level **7.2.0.27** onwards.
+:::
+
+When enabled, users will see the secret key alongside the QR code during TOTP enrollment:
+
+<img src={require("../../../../assets/self-hosted/img/guides/mfa/totp/scan-qr-code-with-secret-key.png").default} alt="QR code with secret key for TOTP authenticator in WSO2 Identity Server" width="300" style={{border: "0.3px solid lightgrey"}} />
+
+</Edition>
 
 ## Try it out
 

@@ -1,15 +1,16 @@
 openapi: 3.0.0
 info:
   description: |
-    This API is deprecated. Use the [User Credential Management REST API v2](../end-user-credential-management-v2-rest-api/) instead.
-
-    The Credential Management REST API provides a comprehensive interface to list and delete
+    The Credential Management REST API provides a comprehensive interface to list and delete 
     credentials enrolled by end-users within the WSO2 Identity Server. The administrators who are assigned with privileges to list and delete
-    users (with scopes internal_user_mgt_view and internal_user_mgt_delete) are able to perform these operations. This API currently supports passkey and push
-    authentication credentials.
+    users (with scopes internal_user_credential_mgt_view and internal_user_credential_mgt_delete) are able to perform these operations.
+    
+    <b>Note</b>: This API is available only in WSO2 Identity Server 7.2.0, beginning with update level 5 
+    (Updates 2.0 model). To update your server, see the instructions on 
+    <a hreaf="https://updates.docs.wso2.com/en/latest/updates/overview/" target="_blank">updating WSO2 products</a>
 
   version: '1.0'
-  title: User Credential Management Rest API (Deprecated)
+  title: WSO2 Identity Server - User Credential Management Rest API
 
 security:
   - OAuth2: []
@@ -27,8 +28,8 @@ paths:
   /users/{user-id}/credentials:
     get:
       summary: List end-user enrolled credentials
-      description: "Retrieves a list of all user-enrolled credentials.
-        \n\n <b>Scope (Permission) required:</b> ``internal_user_mgt_view``\n\n"
+      description: "Retrieves a list of all user-enrolled credentials. This API currently supports passkey and push 
+        authentication credentials. \n\n <b>Scope (Permission) required:</b> ``internal_user_credential_mgt_view``\n\n"
       operationId: getUserCredentialsById
       tags:
         - List User Credentials
@@ -97,8 +98,7 @@ paths:
   /users/{user-id}/credentials/{type}/{credential-id}:
     delete:
       summary: Delete a user-enrolled credential.
-      description: "Deletes a specific enrolled credential for a user.
-              \n\n <b>Scope (Permission) required:</b> ``internal_user_mgt_delete``\n\n"
+      description: "Deletes a specific enrolled credential for a user. \n\n <b>Scope (Permission) required:</b> ``internal_user_credential_mgt_delete``\n\n"
       operationId: deleteUserCredentialById
       tags:
         - Delete User Credential
@@ -161,8 +161,8 @@ components:
           authorizationUrl: 'https://localhost:9443/oauth2/authorize'
           tokenUrl: 'https://localhost:9443/oauth2/token'
           scopes:
-            read: internal_user_mgt_view
-            delete: internal_user_mgt_delete
+            read: internal_user_credential_mgt_view
+            delete: internal_user_credential_mgt_delete
   schemas:
     Credential:
       type: object

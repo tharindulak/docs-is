@@ -4,6 +4,7 @@ description: Use conditional authentication to control how many times a user can
 type: how-to
 sidebar_label: OTP retry and resend limits
 sidebar_position: 4
+editions: cloud
 ---
 
 Use conditional authentication to control how many times a user can resend an OTP or fail OTP verification during a single login attempt.
@@ -94,14 +95,6 @@ If you omit these parameters, the OTP step uses its default behavior with no app
 ## API-based flow error responses
 
 When you use app-native authentication, reaching either limit returns an error response.
-
-<Edition only="self-hosted">
-
-:::note
-See the [App-native error codes](../../../../reference/troubleshoot/app-native-error-codes.mdx) catalog for the full list of error codes.
-:::
-
-</Edition>
 
 ### Retry limit exceeded
 

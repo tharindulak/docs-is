@@ -3,12 +3,16 @@ title: Configure outbound provisioning with SCIM2
 description: This guide explains how you can configure a System for Cross-domain Identity Management (SCIM) 2.0 (SCIM2) outbound connector for provisioning users from…  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_label: SCIM2
-sidebar_position: 1
+sidebar_position: 3
 ---
 
 This guide explains how you can configure a System for Cross-domain Identity Management (SCIM) 2.0 (SCIM2) outbound connector for provisioning users from {edition.productName} to an external system that supports the SCIM2 protocol.
 
 ## Configure the SCIM2 outbound connector
+
+<Variants>
+
+<Edition only="cloud">
 
 [Set up outbound provisioning](../setup-outbound-provisioning.mdx) and enter the following details to configure the SCIM2 outbound connector.
 
@@ -70,3 +74,23 @@ This guide explains how you can configure a System for Cross-domain Identity Man
     </tr>
   </tbody>
 </table>
+
+</Edition>
+
+<Edition only="self-hosted">
+
+Create an [organization-level](../setup-outbound-provisioning.mdx) outbound provisioning connection and enter the following details to configure the SCIM2 outbound connector.
+
+| Property | Description |
+| --- | --- |
+| Username | Username used in the SCIM2 application. |
+| Password | Password used in the SCIM2 application. |
+| User Endpoint | The SCIM2 user endpoint of the application.<br /> e.g. for {edition.productName} it is `https://localhost:9443/scim2/Users` |
+| Group Endpoint | The SCIM2 group endpoint of the application.<br /> e.g. for {edition.productName} it is `https://localhost:9443/scim2/Groups` |
+| User Store Domain | The user store to which users will be provisioned. |
+| Enable Password Provisioning | When selected, the user's password is included in the SCIM2 provisioning request. If the password is available at the time of provisioning (e.g., during user creation), it is sent as-is. If it is not available (e.g., when provisioning is triggered by group assignment for an existing user whose password is already hashed), a randomly generated value is sent instead. If not selected, you can set a **Default Password** to be assigned to the provisioned user account in the external system. |
+
+</Edition>
+
+</Variants>
+

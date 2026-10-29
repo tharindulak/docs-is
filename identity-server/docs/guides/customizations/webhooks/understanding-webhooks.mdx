@@ -1,6 +1,6 @@
 ---
 title: Understanding webhooks
-description: Webhooks enable your applications to receive instant notifications from WSO2 Identity Platform, allowing you to respond immediately to important…  # generated from the first paragraph; a writer should improve it
+description: Webhooks enable your applications to receive instant notifications from WSO2 Identity Server, allowing you to respond immediately to important…  # generated from the first paragraph; a writer should improve it
 type: how-to
 sidebar_position: 1
 ---
@@ -47,6 +47,8 @@ When an identity-related event (for example user registration, login success, pr
       - User profile updates
       - User account status changes (lock/unlock, enable/disable, delete)
 
+<Edition only="cloud">
+
 - **Role management events**
       - Role created
       - Role metadata updated
@@ -60,5 +62,7 @@ When an identity-related event (for example user registration, login success, pr
       - Consent revoked
 - **Consent purpose events**
       - Purpose version added
+
+</Edition>
 
 Each webhook event payload includes structured details compliant with the [Security Event Token (SET) specification (RFC 8417)](https://datatracker.ietf.org/doc/html/rfc8417), containing issuer information, timestamp, unique identifiers, user and organization context, and event-specific metadata.

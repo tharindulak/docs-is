@@ -56,6 +56,10 @@ If you are not using either Twilio or Vonage as the SMS provider, you can config
 
 To configure a custom SMS provider, in the  **SMS Provider** section click the **Custom** tab and fill the required fields.
 
+<Variants>
+
+<Edition only="cloud">
+
 | Name | Description | Example |
 | --- | --- | --- |
 | SMS Provider URL | URL of the SMS gateway where the payload should be published. | `https://api.example.com/api/v1` |
@@ -64,6 +68,22 @@ To configure a custom SMS provider, in the  **SMS Provider** section click the *
 | Payload Template | How the payload template should be. <br />Placeholders: <br />`\{\{body\}\}` - Generated body of the SMS. (Example - This can be the OTP). <br />`\{\{mobile\}\}` - Number that this sms should be sent to. | Example JSON payload template: <br />`{“content”: \{\{body\}\},“to”: \{\{mobile\}\}}`<br /><br />(`\{\{mobile\}\}` and `\{\{body\}\}` will be replaced with the corresponding values at the runtime.) |
 | Headers | Custom static headers need to be passed. If multiple headers need to be passed, they should be comma separated. (Optional) | `x-csrf: true, x-abc: some-value` |
 | Authentication | Authentication settings for the custom SMS provider. Select the preferred authentication scheme and enter the required authentication properties. | Authentication Scheme `Basic` with username and password. |
+
+</Edition>
+
+<Edition only="self-hosted">
+
+| Name | Description | Example |
+| --- | --- | --- |
+| SMS Provider URL | URL of the SMS gateway where the payload should be published. | `https://api.example.com/api/v1` |
+| Content Type | Content type of the payload. Possible values are `JSON` or `FORM` (Optional). | `JSON` |
+| HTTP Method | HTTP method that should be used when publishing the payload to the provider URL. Possible values: `PUT`, `POST` (Optional). | `POST` |
+| Payload Template | How the payload template should be. <br />Placeholders: <br />`\{\{body\}\}` - Generated body of the SMS. (Example - This can be the OTP). <br />`\{\{mobile\}\}` - Number that this sms should be sent to. | Example JSON payload template: <br />`{“content”: \{\{body\}\},“to”: \{\{mobile\}\}}`<br /><br />(`\{\{mobile\}\}` and `\{\{body\}\}` will be replaced with the corresponding values at the runtime.) |
+| Headers | Custom static headers need to be passed. If multiple headers need to be passed, they should be comma separated. (Optional) | `x-csrf: true, x-abc: some-value` |
+
+</Edition>
+
+</Variants>
 
 <Edition only="self-hosted">
 

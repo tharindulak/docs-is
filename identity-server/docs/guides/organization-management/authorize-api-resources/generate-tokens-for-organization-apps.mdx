@@ -10,13 +10,11 @@ import TabItem from '@theme/TabItem';
 
 After you authorize applications to API resources and assign users to the appropriate roles, you can generate tokens to access the protected resources. Organization applications support the following OAuth 2.0 grant types to generate tokens and issue scopes.
 
+<Edition only="cloud">
+
 ## Authorization code grant
 
 Use the following steps to generate an authorization code and exchange it for an access token.
-
-<Variants>
-
-<Edition only="cloud">
 
 <Tabs groupId="tabs">
 <TabItem value="request-format" label="Request format">
@@ -43,44 +41,7 @@ https://api.asgardeo.io/t/{root-organization-name}/o/7e98b86f-63c7-41a1-8c56-c90
 </TabItem>
 </Tabs>
 
-</Edition>
-
-<Edition only="self-hosted">
-
-<Tabs groupId="tabs">
-<TabItem value="request-format" label="Request format">
-
-```bash
-https://localhost:9443/t/carbon.super/o/<ORG_ID>/oauth2/authorize
-?response_type=code
-&redirect_uri=<APPLICATION_REDIRECT_URI>
-&client_id=<APPLICATION_CLIENT_ID>
-&scope=<REQUIRED_SCOPE/S>
-```
-
-</TabItem>
-<TabItem value="sample-request" label="Sample request">
-
-```bash
-https://localhost:9443/t/carbon.super/o/7e98b86f-63c7-41a1-8c56-c909a21a2615/oauth2/authorize
-?response_type=code
-&redirect_uri=https://bestcarmart.com/login
-&client_id=sample_application_client_id
-&scope=openid internal_org_user_mgt_list read_stores
-```
-
-</TabItem>
-</Tabs>
-
-</Edition>
-
-</Variants>
-
 After executing the authorization request, {edition.productName} prompts the user to sign in to the corresponding organization. After the user successfully signs in, the redirect URL of the application receives an authorization code. The application can exchange the authorization code for a token using the token endpoint.
-
-<Variants>
-
-<Edition only="cloud">
 
 <Tabs groupId="tabs">
 <TabItem value="request-format" label="Request format">
@@ -103,40 +64,6 @@ https://api.asgardeo.io/t/{root-organization-name}/o/7e98b86f-63c7-41a1-8c56-c90
 ```
 
 </TabItem>
-</Tabs>
-
-</Edition>
-
-<Edition only="self-hosted">
-
-<Tabs groupId="tabs">
-<TabItem value="request-format" label="Request format">
-
-```bash
-curl --user <OAUTH_CLIENT_KEY>:<OAUTH_CLIENT_SECRET> -k 
--d "grant_type=authorization_code&code=<AUTHORIZATION_CODE>&redirect_uri=<APPLICATION_REDIRECT_URI>" 
--H "Content-Type: application/x-www-form-urlencoded" 
-https://localhost:9443/t/carbon.super/o/<ORG_ID>/oauth2/token
-```
-
-</TabItem>
-<TabItem value="sample-request" label="Sample request">
-
-```bash
-curl --user 7wYeybBGCVfLxPmS0z66WNMffyMa:WYfwHUsbsEvwtqmDLuaxF_VCQJwa -k 
--d "grant_type=authorization_code&code=111c6b23-e395-4263-8792-87dc5db3c8a9&redirect_uri=https://bestcarmart.com/login" 
--H "Content-Type: application/x-www-form-urlencoded" 
-https://localhost:9443/t/carbon.super/o/7e98b86f-63c7-41a1-8c56-c909a21a2615/oauth2/token
-```
-
-</TabItem>
-</Tabs>
-
-</Edition>
-
-</Variants>
-
-<Tabs groupId="tabs">
 <TabItem value="sample-response" label="Sample response">
 
 ```text
@@ -157,6 +84,8 @@ https://localhost:9443/t/carbon.super/o/7e98b86f-63c7-41a1-8c56-c909a21a2615/oau
 
 - The `scope` parameter returns only the scopes authorized to both the application and the user who requests authorization.
 :::
+
+</Edition>
 
 ## Password grant
 
@@ -200,7 +129,7 @@ https://api.asgardeo.io/t/{root-organization-name}/o/7e98b86f-63c7-41a1-8c56-c90
 curl --user <OAUTH_CLIENT_KEY>:<OAUTH_CLIENT_SECRET> -k 
 -d "grant_type=password&username=<USERNAME>&password=<PASSWORD>" 
 -H "Content-Type: application/x-www-form-urlencoded" 
-https://localhost:9443/t/carbon.super/o/<ORG_ID>/oauth2/token
+{{ root_org_url }}/o/<ORG_ID>/oauth2/token
 ```
 
 </TabItem>
@@ -210,7 +139,7 @@ https://localhost:9443/t/carbon.super/o/<ORG_ID>/oauth2/token
 curl --user 7wYeybBGCVfLxPmS0z66WNMffyMa:WYfwHUsbsEvwtqmDLuaxF_VCQJwa -k 
 -d "grant_type=password&username=Charlie&password=jG9A5KrX" 
 -H "Content-Type: application/x-www-form-urlencoded" 
-https://localhost:9443/t/carbon.super/o/7e98b86f-63c7-41a1-8c56-c909a21a2615/oauth2/token
+{{ root_org_url }}/o/7e98b86f-63c7-41a1-8c56-c909a21a2615/oauth2/token
 ```
 
 </TabItem>
@@ -268,40 +197,6 @@ https://api.asgardeo.io/t/{root-organization-name}/o/12d1c4d2-2bb1-443b-aa4a-68f
 ```
 
 </TabItem>
-</Tabs>
-
-</Edition>
-
-<Edition only="self-hosted">
-
-<Tabs groupId="tabs">
-<TabItem value="request-format" label="Request format">
-
-```bash
-curl --user <OAUTH_CLIENT_KEY>:<OAUTH_CLIENT_SECRET> -k 
--d "grant_type=client_credentials" 
--H "Content-Type: application/x-www-form-urlencoded" 
-https://localhost:9443/t/carbon.super/o/<ORG_ID>/oauth2/token
-```
-
-</TabItem>
-<TabItem value="sample-request" label="Sample request">
-
-```bash
-curl --user fhErtAT2YF_M0Ek3AAYHLI8L25oa:JirxvtfoecnrS8vBjM7ygOtSIXuCS_uK_9WEC7d1zPEa -k 
--d "grant_type=client_credentials" 
--H "Content-Type: application/x-www-form-urlencoded" 
-https://localhost:9443/t/carbon.super/o/12d1c4d2-2bb1-443b-aa4a-68f98a40d7c6/oauth2/token
-```
-
-</TabItem>
-</Tabs>
-
-</Edition>
-
-</Variants>
-
-<Tabs groupId="tabs">
 <TabItem value="sample-response" label="Sample response">
 
 ```text
@@ -318,10 +213,6 @@ https://localhost:9443/t/carbon.super/o/12d1c4d2-2bb1-443b-aa4a-68f98a40d7c6/oau
 ## Token exchange grant
 
 Use the following request to exchange a subject token for an access token.
-
-<Variants>
-
-<Edition only="cloud">
 
 <Tabs groupId="tabs">
 <TabItem value="request-format" label="Request format">
@@ -363,13 +254,9 @@ https://api.asgardeo.io/t/{root-organization-name}/o/12d1c4d2-2bb1-443b-aa4a-68f
 
 ```bash
 curl --user <OAUTH_CLIENT_KEY>:<OAUTH_CLIENT_SECRET> -k 
--d "grant_type=urn:ietf:params:oauth:grant-type:token-exchange"
--d "requested_token_type=urn:ietf:params:oauth:token-type:access_token"
--d "subject_token_type=urn:ietf:params:oauth:token-type:jwt"
--d "subject_token=<subject_token>"
--d "scope=<desired scopes>"
--H "Content-Type: application/x-www-form-urlencoded"
-https://localhost:9443/t/carbon.super/o/<ORG_ID>/oauth2/token
+-d "grant_type=client_credentials" 
+-H "Content-Type: application/x-www-form-urlencoded" 
+{{ root_org_url }}/o/<ORG_ID>/oauth2/token
 ```
 
 </TabItem>
@@ -377,13 +264,9 @@ https://localhost:9443/t/carbon.super/o/<ORG_ID>/oauth2/token
 
 ```bash
 curl --user fhErtAT2YF_M0Ek3AAYHLI8L25oa:JirxvtfoecnrS8vBjM7ygOtSIXuCS_uK_9WEC7d1zPEa -k 
--d "grant_type=urn:ietf:params:oauth:grant-type:token-exchange"
--d "requested_token_type=urn:ietf:params:oauth:token-type:access_token"
--d "subject_token_type=urn:ietf:params:oauth:token-type:jwt"
--d "subject_token=<subject_token>"
--d "scope=openid internal_org_user_mgt_list read_stores"
+-d "grant_type=client_credentials" 
 -H "Content-Type: application/x-www-form-urlencoded" 
-https://localhost:9443/t/carbon.super/o/12d1c4d2-2bb1-443b-aa4a-68f98a40d7c6/oauth2/token
+{{ root_org_url }}/o/12d1c4d2-2bb1-443b-aa4a-68f98a40d7c6/oauth2/token
 ```
 
 </TabItem>
@@ -453,7 +336,7 @@ https://api.asgardeo.io/t/{root-organization-name}/o/12d1c4d2-2bb1-443b-aa4a-68f
 curl --user <OAUTH_CLIENT_KEY>:<OAUTH_CLIENT_SECRET> -k 
 -d "token=<SUB_ORG_APP_TOKEN>" 
 -H "Content-Type: application/x-www-form-urlencoded" 
-https://localhost:9443/t/carbon.super/o/<ORG_ID>/oauth2/introspect
+{{ root_org_url }}/o/<ORG_ID>/oauth2/introspect
 ```
 
 </TabItem>
@@ -463,7 +346,7 @@ https://localhost:9443/t/carbon.super/o/<ORG_ID>/oauth2/introspect
 curl --user fhErtAT2YF_M0Ek3AAYHLI8L25oa:JirxvtfoecnrS8vBjM7ygOtSIXuCS_uK_9WEC7d1zPEa -k 
 -d "token=ef757efc-6ec3-3e12-83f6-cb2849d67f7b" 
 -H "Content-Type: application/x-www-form-urlencoded" 
-https://localhost:9443/t/carbon.super/o/12d1c4d2-2bb1-443b-aa4a-68f98a40d7c6/oauth2/introspect
+{{ root_org_url }}/o/12d1c4d2-2bb1-443b-aa4a-68f98a40d7c6/oauth2/introspect
 ```
 
 </TabItem>
@@ -536,7 +419,7 @@ https://api.asgardeo.io/t/{root-organization-name}/o/12d1c4d2-2bb1-443b-aa4a-68f
 curl --user <OAUTH_CLIENT_KEY>:<OAUTH_CLIENT_SECRET> -k 
 -d "token=<SUB_ORG_APP_TOKEN>&token_type_hint=<TOKEN_TYPE>" 
 -H "Content-Type: application/x-www-form-urlencoded" 
-https://localhost:9443/t/carbon.super/o/<ORG_ID>/oauth2/revoke
+{{ root_org_url }}/o/<ORG_ID>/oauth2/revoke
 ```
 
 </TabItem>
@@ -546,7 +429,7 @@ https://localhost:9443/t/carbon.super/o/<ORG_ID>/oauth2/revoke
 curl --user fhErtAT2YF_M0Ek3AAYHLI8L25oa:JirxvtfoecnrS8vBjM7ygOtSIXuCS_uK_9WEC7d1zPEa -k 
 -d "token=ef757efc-6ec3-3e12-83f6-cb2849d67f7b&token_type_hint=access_token" 
 -H "Content-Type: application/x-www-form-urlencoded" 
-https://localhost:9443/t/carbon.super/o/12d1c4d2-2bb1-443b-aa4a-68f98a40d7c6/oauth2/revoke
+{{ root_org_url }}/o/12d1c4d2-2bb1-443b-aa4a-68f98a40d7c6/oauth2/revoke
 ```
 
 </TabItem>

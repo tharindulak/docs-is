@@ -6,8 +6,6 @@ schemaVersion: 1
 categories:
   - id: fraud-detection
     label: Fraud detection
-  - id: identity-verification
-    label: Identity verification
   - id: authentication
     label: Authentication
 items:
@@ -20,15 +18,6 @@ items:
         url: https://store.wso2.com/connector/identity-fraud-detection-sift
     category: fraud-detection
     logo: assets/self-hosted/img/logo/sift-logo.svg
-  - id: onfido
-    name: Onfido
-    description: Provides identity verification so you know exactly who logs in.
-    href: ./onfido/overview.mdx
-    links:
-      - label: Connector store
-        url: https://store.wso2.com/connector/identity-verification-onfido
-    category: identity-verification
-    logo: assets/self-hosted/img/logo/onfido-logo.svg
   - id: iproov-authenticator
     name: iProov Authenticator
     description: Allow users to use biometrics for authentication.
@@ -119,12 +108,3 @@ items:
         url: https://store.wso2.com/connector/identity-outbound-auth-naver
     category: authentication
     logo: assets/self-hosted/img/logo/naver-logo.png
-  - id: password-reset-enforcer
-    name: Password Reset Enforcer
-    description: Enforces password reset upon expiration as part of the application's authentication flow.
-    href: ./password-reset-enforcer/overview.mdx
-    links:
-      - label: Connector store
-        url: https://store.wso2.com/connector/identity-outbound-auth-passwordPolicy
-    category: authentication
-    logo: assets/self-hosted/img/logo/password-reset-enforcer-logo.svg

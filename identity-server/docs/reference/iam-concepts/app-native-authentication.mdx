@@ -2,7 +2,7 @@
 title: App-native authentication
 description: Applications usually depend on external web browsers for login.  # generated from the first paragraph; a writer should improve it
 type: reference
-sidebar_position: 6
+sidebar_position: 7
 ---
 
 import Tabs from '@theme/Tabs';
@@ -2635,6 +2635,296 @@ The application goes through the following steps to complete app-native authenti
     </TabItem>
     </Tabs>
 
+### Scenario 8: Device authorization flow
+
+The application goes through the following steps to complete app-native authentication using the device authorization flow.
+
+- **Step 1**: Get the required codes.
+
+    The app initiates a login request to the device authorization endpoint.
+
+    :::note
+    The response contains the `user_code` and `device_code` required for the client device.
+    :::
+
+    <Tabs groupId="tabs">
+    <TabItem value="request-device-authorize" label="Request (`/device_authorize`)">
+
+    ```bash
+    curl --location 'https://api.asgardeo.io/t/{organization_name}/oauth2/device_authorize/'
+    --header 'Accept: application/json'
+    --header 'Content-Type: application/x-www-form-urlencoded'
+    --data-urlencode 'client_id=XWRkRNkJDeTiR5MwHdXROGiJka'
+    --data-urlencode 'scope=openid profile'
+    ```
+
+    </TabItem>
+    <TabItem value="response-device-authorize" label="Response (`/device_authorize`)">
+
+    ```json
+    {
+        "user_code": "s2DqSNK",
+        "device_code": "d3fe0db1-2334-48fa-b7d9-821ecfad10d5",
+        "interval": 5,
+        "verification_uri": "https://api.asgardeo.io/t/{organization_name}/oauth2/authenticationendpoint/device.do",
+        "verification_uri_complete": "https://api.asgardeo.io/t/{organization_name}/oauth2/authenticationendpoint/device.do?user_code=s2DqSNK",
+        "expires_in": 600
+    }
+    ```
+
+    </TabItem>
+    </Tabs>
+
+- **Step 2**: Authorize the client device.
+
+    The app on the client device calls the device endpoint with the `user_code` to initiate authentication.
+
+    :::note
+    Set `response_mode=direct` to initiate app-native authentication.
+    :::
+
+    <Tabs groupId="tabs">
+    <TabItem value="request-device" label="Request (`/device`)">
+
+    ```bash
+    curl --location 'https://api.asgardeo.io/t/{organization_name}/oauth2/device/'
+    --header 'Accept: application/json'
+    --header 'Content-Type: application/x-www-form-urlencoded'
+    --data-urlencode 'user_code=s2DqSNK'
+    --data-urlencode 'response_mode=direct'
+    ```
+
+    </TabItem>
+    <TabItem value="response-device" label="Response (`/device`)">
+
+    ```json
+    {
+        "flowId": "95339089-72d1-4825-80fe-ab7864f4943b",
+        "flowStatus": "INCOMPLETE",
+        "flowType": "AUTHENTICATION",
+        "nextStep": {
+            "stepType": "AUTHENTICATOR_PROMPT",
+            "authenticators": [
+                {
+                    "authenticatorId": "QmFzaWNBdXRoZW50aWNhdG9yOkxPQ0FM",
+                    "authenticator": "Username & Password",
+                    "idp": "LOCAL",
+                    "metadata": {
+                        "i18nKey": "authenticator.basic",
+                        "promptType": "USER_PROMPT",
+                        "params": [
+                            {
+                                "param": "username",
+                                "type": "STRING",
+                                "order": 0,
+                                "i18nKey": "username.param",
+                                "displayName": "Username",
+                                "confidential": false
+                            },
+                            {
+                                "param": "password",
+                                "type": "STRING",
+                                "order": 1,
+                                "i18nKey": "password.param",
+                                "displayName": "Password",
+                                "confidential": true
+                            }
+                        ]
+                    },
+                    "requiredParams": [
+                        "username",
+                        "password"
+                    ]
+                }
+            ]
+        },
+        "links": [
+                {
+            "name": "authentication",
+            "href": "https://api.asgardeo.io/t/{organization_name}/oauth2/authn/",
+            "method": "POST"
+            }
+        ]
+    }
+    ```
+
+    </TabItem>
+    </Tabs>
+
+- **Step 3**: Carry the `flowId` received in the above response and request the `/authn` endpoint for username & password authentication.
+
+    <Tabs groupId="tabs">
+    <TabItem value="request-authn" label="Request (`/authn`)">
+
+    ```bash
+    curl --location 'https://api.asgardeo.io/t/{organization_name}/oauth2/authn/'
+    --header 'Content-Type: application/json'
+    --data '{
+        "flowId": "95339089-72d1-4825-80fe-ab7864f4943b",
+        "selectedAuthenticator": {
+            "authenticatorId": "QmFzaWNBdXRoZW50aWNhdG9yOkxPQ0FM",
+            "params": {
+                "username": "username",
+                "password": "password"
+            }
+        }
+    }'
+    ```
+
+    </TabItem>
+    <TabItem value="response-authn" label="Response (`/authn`)">
+
+    ```json
+    {
+        "flowStatus": "SUCCESS_COMPLETED",
+        "authData": {
+            "app_name": "Mobile App"
+        }
+    }
+    ```
+
+    </TabItem>
+    </Tabs>
+
+- **Step 4**: Once the user completes authentication, the app on the client device polls the token endpoint with the `device_code` to obtain the access token.
+
+    <Tabs groupId="tabs">
+    <TabItem value="request-token" label="Request (`/token`)">
+
+    ```bash
+    curl --location 'https://api.asgardeo.io/t/{organization_name}/oauth2/token/'
+    --header 'Content-Type: application/x-www-form-urlencoded'
+    --data-urlencode 'grant_type=urn:ietf:params:oauth:grant-type:device_code'
+    --data-urlencode 'device_code=d3fe0db1-2334-48fa-b7d9-821ecfad10d5'
+    --data-urlencode 'client_id=XWRkRNkJDeTiR5MwHdXROGiJka'
+    ```
+
+    </TabItem>
+    <TabItem value="response-token" label="Response (`/token`)">
+
+    ```json
+    {
+        "access_token": "74d610ab-7f4a-3b11-90e8-279d76644fc7",
+        "refresh_token": "fdb58069-ecc7-3803-9b8b-6f2ed85eff19",
+        "token_type": "Bearer",
+        "expires_in": 3600
+    }
+    ```
+
+    </TabItem>
+    </Tabs>
+
+### Scenario 9: User logs in with service based custom authentication
+
+:::note
+Learn more about [custom authentication](../../guides/customizations/service-extensions/in-flow-extensions/custom-authentication.mdx)
+:::
+
+The application goes through the following steps to complete app-native authentication for a user logging in with service based custom authentication.
+
+- **Step 1**: Initiate the request with the `/authorize` endpoint.
+
+    :::note
+    The response contains information on the first authentication step (the only step for this flow).
+    :::
+
+    <Tabs groupId="tabs">
+    <TabItem value="request-authorize" label="Request (`/authorize`)">
+
+    ```bash
+    curl --location 'https://api.asgardeo.io/t/{organization_name}/oauth2/authorize/'
+    --header 'Accept: application/json'
+    --header 'Content-Type: application/x-www-form-urlencoded'
+    --data-urlencode 'client_id=XWRkRNkJDeTiR5MwHdXROGiJka'
+    --data-urlencode 'response_type=code'
+    --data-urlencode 'redirect_uri=https://example.com/home'
+    --data-urlencode 'scope=openid profile'
+    --data-urlencode 'response_mode=direct'
+    ```
+
+    </TabItem>
+    <TabItem value="response-authorize" label="Response (`/authorize`)">
+
+    ```json
+    {
+      "flowId": "162b7547-e057-4c84-9237-1c7e69bdc122",
+      "flowStatus": "INCOMPLETE",
+      "flowType": "AUTHENTICATION",
+      "nextStep": {
+        "stepType": "AUTHENTICATOR_PROMPT",
+        "authenticators": [
+          {
+            "authenticatorId": "Y3VzdG9tLWFiY19hdXRoZW50aWNhdG9y",
+            "authenticator": "custom-abc_authenticator",
+            "idp": "ABC Authenticator",
+            "metadata": {
+                "i18nKey": "AbstractAuthenticatorAdapter",
+                "promptType": "INTERNAL_PROMPT",
+                "additionalData": {
+                    "endpointUrl": "https://externalservice/authentication/userinput",
+                    "state": "ec159061-2a93-415d-8786-652d4f344241"
+                }
+            }
+          }
+        ]
+      },
+      "links": [
+        {
+          "name": "authentication",
+          "href": "https://api.asgardeo.io/t/{organization_name}/oauth2/authn/",
+          "method": "POST"
+        }
+      ]
+    }
+    ```
+
+    </TabItem>
+    </Tabs>
+- **Step 2**: The application should interact with the external service, and authenticate the user.  After it's complete, proceed with the next /authn request as outlined in the subsequent step.
+
+    :::warning[Important]
+    Service-based custom authentication is categorized under the `INTERNAL_PROMPT` prompt type authenticator, which requires the application to explicitly trigger the authentication option for the user. The application is responsible for handling and processing the data received and invoking the external authenticator accordingly.
+    :::
+
+- **Step 3**: Carry the same `flowId` and request the `/authn` endpoint for custom authentication.
+
+    :::note
+    The application is not required to return the state or parameters with the /authn request.
+    :::
+
+    <Tabs groupId="tabs">
+    <TabItem value="request-2-authn" label="Request 2 (`/authn`)">
+
+    ```bash
+    curl --location 'https://api.asgardeo.io/t/{organization_name}/oauth2/authn/'
+    --header 'Content-Type: application/json'
+    --data '{
+      "flowId": "162b7547-e057-4c84-9237-1c7e69bdc122",
+      "selectedAuthenticator": {
+        "authenticatorId": "Y3VzdG9tLWFiY19hdXRoZW50aWNhdG9y"
+      }
+    }'
+    ```
+
+    </TabItem>
+    <TabItem value="response-2-authn" label="Response 2 (`/authn`)">
+
+    ```json
+    {
+      "flowStatus": "SUCCESS_COMPLETED",
+      "authData": {
+      "code": "5f1b2c2a-1436-35a5-b8e4-942277313287"
+      }
+    }
+    ```
+
+    </TabItem>
+    </Tabs>
+
+    :::note
+    As this is the only step configured for the application, the `/authn` endpoint returns an authorization code, upon successful authentication.
+    :::
+
 </Edition>
 
 <Edition only="self-hosted">
@@ -2869,596 +3159,3 @@ The application goes through the following steps to complete app-native authenti
 </Edition>
 
 </Variants>
-
-### Scenario 8: Device authorization flow
-
-The application goes through the following steps to complete app-native authentication using the device authorization flow.
-
-<Variants>
-
-<Edition only="cloud">
-
-- **Step 1**: Get the required codes.
-
-    The app initiates a login request to the device authorization endpoint.
-
-    :::note
-    The response contains the `user_code` and `device_code` required for the client device.
-    :::
-
-    <Tabs groupId="tabs">
-    <TabItem value="request-device-authorize" label="Request (`/device_authorize`)">
-
-    ```bash
-    curl --location 'https://api.asgardeo.io/t/{organization_name}/oauth2/device_authorize/'
-    --header 'Accept: application/json'
-    --header 'Content-Type: application/x-www-form-urlencoded'
-    --data-urlencode 'client_id=XWRkRNkJDeTiR5MwHdXROGiJka'
-    --data-urlencode 'scope=openid profile'
-    ```
-
-    </TabItem>
-    <TabItem value="response-device-authorize" label="Response (`/device_authorize`)">
-
-    ```json
-    {
-        "user_code": "s2DqSNK",
-        "device_code": "d3fe0db1-2334-48fa-b7d9-821ecfad10d5",
-        "interval": 5,
-        "verification_uri": "https://api.asgardeo.io/t/{organization_name}/oauth2/authenticationendpoint/device.do",
-        "verification_uri_complete": "https://api.asgardeo.io/t/{organization_name}/oauth2/authenticationendpoint/device.do?user_code=s2DqSNK",
-        "expires_in": 600
-    }
-    ```
-
-    </TabItem>
-    </Tabs>
-
-- **Step 2**: Authorize the client device.
-
-    The app on the client device calls the device endpoint with the `user_code` to initiate authentication.
-
-    :::note
-    Set `response_mode=direct` to initiate app-native authentication.
-    :::
-
-    <Tabs groupId="tabs">
-    <TabItem value="request-device" label="Request (`/device`)">
-
-    ```bash
-    curl --location 'https://api.asgardeo.io/t/{organization_name}/oauth2/device/'
-    --header 'Accept: application/json'
-    --header 'Content-Type: application/x-www-form-urlencoded'
-    --data-urlencode 'user_code=s2DqSNK'
-    --data-urlencode 'response_mode=direct'
-    ```
-
-    </TabItem>
-    <TabItem value="response-device" label="Response (`/device`)">
-
-    ```json
-    {
-        "flowId": "95339089-72d1-4825-80fe-ab7864f4943b",
-        "flowStatus": "INCOMPLETE",
-        "flowType": "AUTHENTICATION",
-        "nextStep": {
-            "stepType": "AUTHENTICATOR_PROMPT",
-            "authenticators": [
-                {
-                    "authenticatorId": "QmFzaWNBdXRoZW50aWNhdG9yOkxPQ0FM",
-                    "authenticator": "Username & Password",
-                    "idp": "LOCAL",
-                    "metadata": {
-                        "i18nKey": "authenticator.basic",
-                        "promptType": "USER_PROMPT",
-                        "params": [
-                            {
-                                "param": "username",
-                                "type": "STRING",
-                                "order": 0,
-                                "i18nKey": "username.param",
-                                "displayName": "Username",
-                                "confidential": false
-                            },
-                            {
-                                "param": "password",
-                                "type": "STRING",
-                                "order": 1,
-                                "i18nKey": "password.param",
-                                "displayName": "Password",
-                                "confidential": true
-                            }
-                        ]
-                    },
-                    "requiredParams": [
-                        "username",
-                        "password"
-                    ]
-                }
-            ]
-        },
-        "links": [
-                {
-            "name": "authentication",
-            "href": "https://api.asgardeo.io/t/{organization_name}/oauth2/authn/",
-            "method": "POST"
-            }
-        ]
-    }
-    ```
-
-    </TabItem>
-    </Tabs>
-
-- **Step 3**: Carry the `flowId` received in the above response and request the `/authn` endpoint for username & password authentication.
-
-    <Tabs groupId="tabs">
-    <TabItem value="request-authn" label="Request (`/authn`)">
-
-    ```bash
-    curl --location 'https://api.asgardeo.io/t/{organization_name}/oauth2/authn/'
-    --header 'Content-Type: application/json'
-    --data '{
-        "flowId": "95339089-72d1-4825-80fe-ab7864f4943b",
-        "selectedAuthenticator": {
-            "authenticatorId": "QmFzaWNBdXRoZW50aWNhdG9yOkxPQ0FM",
-            "params": {
-                "username": "username",
-                "password": "password"
-            }
-        }
-    }'
-    ```
-
-    </TabItem>
-    <TabItem value="response-authn" label="Response (`/authn`)">
-
-    ```json
-    {
-        "flowStatus": "SUCCESS_COMPLETED",
-        "authData": {
-            "app_name": "Mobile App"
-        }
-    }
-    ```
-
-    </TabItem>
-    </Tabs>
-
-- **Step 4**: Once the user completes authentication, the app on the client device polls the token endpoint with the `device_code` to obtain the access token.
-
-    <Tabs groupId="tabs">
-    <TabItem value="request-token" label="Request (`/token`)">
-
-    ```bash
-    curl --location 'https://api.asgardeo.io/t/{organization_name}/oauth2/token/'
-    --header 'Content-Type: application/x-www-form-urlencoded'
-    --data-urlencode 'grant_type=urn:ietf:params:oauth:grant-type:device_code'
-    --data-urlencode 'device_code=d3fe0db1-2334-48fa-b7d9-821ecfad10d5'
-    --data-urlencode 'client_id=XWRkRNkJDeTiR5MwHdXROGiJka'
-    ```
-
-    </TabItem>
-    <TabItem value="response-token" label="Response (`/token`)">
-
-    ```json
-    {
-        "access_token": "74d610ab-7f4a-3b11-90e8-279d76644fc7",
-        "refresh_token": "fdb58069-ecc7-3803-9b8b-6f2ed85eff19",
-        "token_type": "Bearer",
-        "expires_in": 3600
-    }
-    ```
-
-    </TabItem>
-    </Tabs>
-
-</Edition>
-
-<Edition only="self-hosted">
-
-- **Step 1**: Get the required codes.
-
-    The app initiates a login request to the device authorization endpoint.
-
-    :::note
-    The response contains the `user_code` and `device_code` required for the client device.
-    :::
-
-    <Tabs groupId="tabs">
-    <TabItem value="request-device-authorize" label="Request (`/device_authorize`)">
-
-    ```bash
-    curl --location 'https://localhost:9443/oauth2/device_authorize/'
-    --header 'Accept: application/json'
-    --header 'Content-Type: application/x-www-form-urlencoded'
-    --data-urlencode 'client_id=XWRkRNkJDeTiR5MwHdXROGiJka'
-    --data-urlencode 'scope=openid profile'
-    ```
-
-    </TabItem>
-    <TabItem value="response-device-authorize" label="Response (`/device_authorize`)">
-
-    ```json
-    {
-        "user_code": "s2DqSNK",
-        "device_code": "d3fe0db1-2334-48fa-b7d9-821ecfad10d5",
-        "interval": 5,
-        "verification_uri": "https://localhost:9443/oauth2/authenticationendpoint/device.do",
-        "verification_uri_complete": "https://localhost:9443/oauth2/authenticationendpoint/device.do?user_code=s2DqSNK",
-        "expires_in": 600
-    }
-    ```
-
-    </TabItem>
-    </Tabs>
-
-- **Step 2**: Authorize the client device.
-
-    The app on the client device calls the device endpoint with the `user_code` to initiate authentication.
-
-    :::note
-    Set `response_mode=direct` to initiate app-native authentication.
-    :::
-
-    <Tabs groupId="tabs">
-    <TabItem value="request-device" label="Request (`/device`)">
-
-    ```bash
-    curl --location 'https://localhost:9443/oauth2/device/'
-    --header 'Accept: application/json'
-    --header 'Content-Type: application/x-www-form-urlencoded'
-    --data-urlencode 'user_code=s2DqSNK'
-    --data-urlencode 'response_mode=direct'
-    ```
-
-    </TabItem>
-    <TabItem value="response-device" label="Response (`/device`)">
-
-    ```json
-    {
-        "flowId": "95339089-72d1-4825-80fe-ab7864f4943b",
-        "flowStatus": "INCOMPLETE",
-        "flowType": "AUTHENTICATION",
-        "nextStep": {
-            "stepType": "AUTHENTICATOR_PROMPT",
-            "authenticators": [
-                {
-                    "authenticatorId": "QmFzaWNBdXRoZW50aWNhdG9yOkxPQ0FM",
-                    "authenticator": "Username & Password",
-                    "idp": "LOCAL",
-                    "metadata": {
-                        "i18nKey": "authenticator.basic",
-                        "promptType": "USER_PROMPT",
-                        "params": [
-                            {
-                                "param": "username",
-                                "type": "STRING",
-                                "order": 0,
-                                "i18nKey": "username.param",
-                                "displayName": "Username",
-                                "confidential": false
-                            },
-                            {
-                                "param": "password",
-                                "type": "STRING",
-                                "order": 1,
-                                "i18nKey": "password.param",
-                                "displayName": "Password",
-                                "confidential": true
-                            }
-                        ]
-                    },
-                    "requiredParams": [
-                        "username",
-                        "password"
-                    ]
-                }
-            ]
-        },
-        "links": [
-                {
-            "name": "authentication",
-            "href": "https://localhost:9443/oauth2/authn/",
-            "method": "POST"
-            }
-        ]
-    }
-    ```
-
-    </TabItem>
-    </Tabs>
-
-- **Step 3**: Carry the `flowId` received in the above response and request the `/authn` endpoint for username & password authentication.
-
-    <Tabs groupId="tabs">
-    <TabItem value="request-authn" label="Request (`/authn`)">
-
-    ```bash
-    curl --location 'https://localhost:9443/oauth2/authn/'
-    --header 'Content-Type: application/json'
-    --data '{
-        "flowId": "95339089-72d1-4825-80fe-ab7864f4943b",
-        "selectedAuthenticator": {
-            "authenticatorId": "QmFzaWNBdXRoZW50aWNhdG9yOkxPQ0FM",
-            "params": {
-                "username": "username",
-                "password": "password"
-            }
-        }
-    }'
-    ```
-
-    </TabItem>
-    <TabItem value="response-authn" label="Response (`/authn`)">
-
-    ```json
-    {
-        "flowStatus": "SUCCESS_COMPLETED",
-        "authData": {
-            "app_name": "Mobile App"
-        }
-    }
-    ```
-
-    </TabItem>
-    </Tabs>
-
-- **Step 4**: Once the user completes authentication, the app on the client device polls the token endpoint with the `device_code` to obtain the access token.
-
-    <Tabs groupId="tabs">
-    <TabItem value="request-token" label="Request (`/token`)">
-
-    ```bash
-    curl --location 'https://localhost:9443/oauth2/token/'
-    --header 'Content-Type: application/x-www-form-urlencoded'
-    --data-urlencode 'grant_type=urn:ietf:params:oauth:grant-type:device_code'
-    --data-urlencode 'device_code=d3fe0db1-2334-48fa-b7d9-821ecfad10d5'
-    --data-urlencode 'client_id=XWRkRNkJDeTiR5MwHdXROGiJka'
-    ```
-
-    </TabItem>
-    <TabItem value="response-token" label="Response (`/token`)">
-
-    ```json
-    {
-        "access_token": "74d610ab-7f4a-3b11-90e8-279d76644fc7",
-        "refresh_token": "fdb58069-ecc7-3803-9b8b-6f2ed85eff19",
-        "token_type": "Bearer",
-        "expires_in": 3600
-    }
-    ```
-
-    </TabItem>
-    </Tabs>
-
-</Edition>
-
-</Variants>
-
-### Scenario 9: User logs in with service based custom authentication
-
-:::note
-Learn more about [custom authentication](../../guides/customizations/service-extensions/in-flow-extensions/custom-authentication.mdx)
-:::
-
-The application goes through the following steps to complete app-native authentication for a user logging in with service based custom authentication.
-
-<Variants>
-
-<Edition only="cloud">
-
-- **Step 1**: Initiate the request with the `/authorize` endpoint.
-
-    :::note
-    The response contains information on the first authentication step (the only step for this flow).
-    :::
-
-    <Tabs groupId="tabs">
-    <TabItem value="request-authorize" label="Request (`/authorize`)">
-
-    ```bash
-    curl --location 'https://api.asgardeo.io/t/{organization_name}/oauth2/authorize/'
-    --header 'Accept: application/json'
-    --header 'Content-Type: application/x-www-form-urlencoded'
-    --data-urlencode 'client_id=XWRkRNkJDeTiR5MwHdXROGiJka'
-    --data-urlencode 'response_type=code'
-    --data-urlencode 'redirect_uri=https://example.com/home'
-    --data-urlencode 'scope=openid profile'
-    --data-urlencode 'response_mode=direct'
-    ```
-
-    </TabItem>
-    <TabItem value="response-authorize" label="Response (`/authorize`)">
-
-    ```json
-    {
-      "flowId": "162b7547-e057-4c84-9237-1c7e69bdc122",
-      "flowStatus": "INCOMPLETE",
-      "flowType": "AUTHENTICATION",
-      "nextStep": {
-        "stepType": "AUTHENTICATOR_PROMPT",
-        "authenticators": [
-          {
-            "authenticatorId": "Y3VzdG9tLWFiY19hdXRoZW50aWNhdG9y",
-            "authenticator": "custom-abc_authenticator",
-            "idp": "ABC Authenticator",
-            "metadata": {
-                "i18nKey": "AbstractAuthenticatorAdapter",
-                "promptType": "INTERNAL_PROMPT",
-                "additionalData": {
-                    "endpointUrl": "https://externalservice/authentication/userinput",
-                    "state": "ec159061-2a93-415d-8786-652d4f344241"
-                }
-            }
-          }
-        ]
-      },
-      "links": [
-        {
-          "name": "authentication",
-          "href": "https://api.asgardeo.io/t/{organization_name}/oauth2/authn/",
-          "method": "POST"
-        }
-      ]
-    }
-    ```
-
-    </TabItem>
-    </Tabs>
-- **Step 2**: The application should interact with the external service, and authenticate the user.  After it's complete, proceed with the next /authn request as outlined in the subsequent step.
-
-    :::warning[Important]
-    Service-based custom authentication is categorized under the `INTERNAL_PROMPT` prompt type authenticator, which requires the application to explicitly trigger the authentication option for the user. The application is responsible for handling and processing the data received and invoking the external authenticator accordingly.
-    :::
-
-- **Step 3**: Carry the same `flowId` and request the `/authn` endpoint for custom authentication.
-
-    :::note
-    The application is not required to return the state or parameters with the /authn request.
-    :::
-
-    <Tabs groupId="tabs">
-    <TabItem value="request-2-authn" label="Request 2 (`/authn`)">
-
-    ```bash
-    curl --location 'https://api.asgardeo.io/t/{organization_name}/oauth2/authn/'
-    --header 'Content-Type: application/json'
-    --data '{
-      "flowId": "162b7547-e057-4c84-9237-1c7e69bdc122",
-      "selectedAuthenticator": {
-        "authenticatorId": "Y3VzdG9tLWFiY19hdXRoZW50aWNhdG9y"
-      }
-    }'
-    ```
-
-    </TabItem>
-    <TabItem value="response-2-authn" label="Response 2 (`/authn`)">
-
-    ```json
-    {
-      "flowStatus": "SUCCESS_COMPLETED",
-      "authData": {
-      "code": "5f1b2c2a-1436-35a5-b8e4-942277313287"
-      }
-    }
-    ```
-
-    </TabItem>
-    </Tabs>
-
-    :::note
-    As this is the only step configured for the application, the `/authn` endpoint returns an authorization code, upon successful authentication.
-    :::
-
-</Edition>
-
-<Edition only="self-hosted">
-
-- **Step 1**: Initiate the request with the `/authorize` endpoint.
-
-    :::note
-    The response contains information on the first authentication step (the only step for this flow).
-    :::
-
-    <Tabs groupId="tabs">
-    <TabItem value="request-authorize" label="Request (`/authorize`)">
-
-    ```bash
-    curl --location 'https://localhost:9443/oauth2/authorize/'
-    --header 'Accept: application/json'
-    --header 'Content-Type: application/x-www-form-urlencoded'
-    --data-urlencode 'client_id=XWRkRNkJDeTiR5MwHdXROGiJka'
-    --data-urlencode 'response_type=code'
-    --data-urlencode 'redirect_uri=https://example.com/home'
-    --data-urlencode 'scope=openid profile'
-    --data-urlencode 'response_mode=direct'
-    ```
-
-    </TabItem>
-    <TabItem value="response-authorize" label="Response (`/authorize`)">
-
-    ```json
-    {
-      "flowId": "162b7547-e057-4c84-9237-1c7e69bdc122",
-      "flowStatus": "INCOMPLETE",
-      "flowType": "AUTHENTICATION",
-      "nextStep": {
-        "stepType": "AUTHENTICATOR_PROMPT",
-        "authenticators": [
-          {
-            "authenticatorId": "Y3VzdG9tLWFiY19hdXRoZW50aWNhdG9y",
-            "authenticator": "custom-abc_authenticator",
-            "idp": "ABC Authenticator",
-            "metadata": {
-                "i18nKey": "AbstractAuthenticatorAdapter",
-                "promptType": "INTERNAL_PROMPT",
-                "additionalData": {
-                    "endpointUrl": "https://externalservice/authentication/userinput",
-                    "state": "ec159061-2a93-415d-8786-652d4f344241"
-                }
-            }
-          }
-        ]
-      },
-      "links": [
-        {
-          "name": "authentication",
-          "href": "https://localhost:9443/oauth2/authn/",
-          "method": "POST"
-        }
-      ]
-    }
-    ```
-
-    </TabItem>
-    </Tabs>
-- **Step 2**: The application should interact with the external service, and authenticate the user.  After it's complete, proceed with the next /authn request as outlined in the subsequent step.
-
-    :::warning[Important]
-    Service-based custom authentication is categorized under the `INTERNAL_PROMPT` prompt type authenticator, which requires the application to explicitly trigger the authentication option for the user. The application is responsible for handling and processing the data received and invoking the external authenticator accordingly.
-    :::
-
-- **Step 3**: Carry the same `flowId` and request the `/authn` endpoint for custom authentication.
-
-    :::note
-    The application is not required to return the state or parameters with the /authn request.
-    :::
-
-    <Tabs groupId="tabs">
-    <TabItem value="request-2-authn" label="Request 2 (`/authn`)">
-
-    ```bash
-    curl --location 'https://localhost:9443/oauth2/authn/'
-    --header 'Content-Type: application/json'
-    --data '{
-      "flowId": "162b7547-e057-4c84-9237-1c7e69bdc122",
-      "selectedAuthenticator": {
-        "authenticatorId": "Y3VzdG9tLWFiY19hdXRoZW50aWNhdG9y"
-      }
-    }'
-    ```
-
-    </TabItem>
-    <TabItem value="response-2-authn" label="Response 2 (`/authn`)">
-
-    ```json
-    {
-      "flowStatus": "SUCCESS_COMPLETED",
-      "authData": {
-      "code": "5f1b2c2a-1436-35a5-b8e4-942277313287"
-      }
-    }
-    ```
-
-    </TabItem>
-    </Tabs>
-
-    :::note
-    As this is the only step configured for the application, the `/authn` endpoint returns an authorization code, upon successful authentication.
-    :::
-
-</Edition>
-
-</Variants>
-

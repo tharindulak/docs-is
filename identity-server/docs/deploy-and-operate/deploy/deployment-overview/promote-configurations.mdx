@@ -222,7 +222,7 @@ Follow the steps below to learn how you can configure IAM-CTL.
         "CLIENT_ID" : "bsjhjlb64crOL58bKV3UQmwA9QQa",
         "CLIENT_SECRET" : "TC45TBkLaZ6kFxqZuSmhOgelSG2ZBvFYKFlUFmfhKlYa",
         "TENANT_DOMAIN" : "carbon.super",
-        "SERVER_VERSION" : "7.3"
+        "SERVER_VERSION" : "7.2"
     }
     ```
 
@@ -328,7 +328,7 @@ Open the **serverConfig.json** file and provide the details of the application s
     "CLIENT_ID" : "bsjhjlb64crOL58bKV3UQmwA9QQa",
     "CLIENT_SECRET" : "TC45TBkLaZ6kFxqZuSmhOgelSG2ZBvFYKFlUFmfhKlYa",
     "TENANT_DOMAIN" : "carbon.super",
-    "SERVER_VERSION" : "7.3",
+    "SERVER_VERSION" : "7.2",
     "ORGANIZATION": "b833d7de-264c-4c4e-8d52-61f9c57e84ca"
 }
 ```
@@ -426,15 +426,30 @@ When propagating applications, do not exclude roles. Excluding roles will preven
 
 Group-based password expiry rules of the password expiry connector are not exported by IAM-CTL. As a result, these rules will be removed from the connector on import, when **`ALLOW_DELETE`** is enabled.
 
-### Identity providers
-
-Outbound provisioning groups of outbound provisioning connectors are not exported by IAM-CTL. As a result, these groups will be removed from the identity provider on import.
-
 ### Organizations
 
 When referencing organizations in tool configurations such as **`EXCLUDE`** or keyword mappings, use the organization handle as the resource name.
 
 When IAM-CTL creates organizations using the management application credentials, no user is assigned as the creator. As a result, no user has access to the newly created organization after creation. You can [manually assign an organization admin](../../../guides/organization-management/delegate-administration/onboard-org-admins/self-service-approach.mdx#maintain-admins-within-the-organization) after IAM-CTL creates the organization.
+
+To assign a creator at import time, configure **`CREATOR_ID`** and **`CREATOR_USERNAME`** under `ORGANIZATIONS` in `toolConfig.json`.
+
+<Tabs groupId="tabs">
+<TabItem value="toolconfig-json" label="toolConfig.json">
+
+```json
+{
+    "ORGANIZATIONS": {
+        "CREATOR_ID": "<user-id>",
+        "CREATOR_USERNAME": "<username>"
+    }
+}
+```
+
+</TabItem>
+</Tabs>
+
+When both values are set, IAM-CTL assigns the specified user as the organization creator on import. IAM-CTL strips these attributes on export and does not store them in the exported files, as they are environment-specific and not portable.
 
 ### Branding
 
